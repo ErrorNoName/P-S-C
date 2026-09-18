@@ -72,6 +72,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
 <meta property="og:title" content="{full_title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="{asset(depth, 'favicon.svg')}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">

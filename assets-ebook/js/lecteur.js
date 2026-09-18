@@ -259,11 +259,12 @@
       });
       txt = cleanRaw(txt);
       if (txt.replace(/\s/g, "").length < 40) {
-        el.badge.textContent = "Scan sans texte";
+        el.badge.textContent = "Page image";
         el.badge.className = "pane-badge warn";
         el.text.innerHTML =
-          '<p class="ocr-note">Cette page est une <strong>image scannée</strong> : elle ne contient pas de couche texte. ' +
-          'Lance la reconnaissance optique (OCR) pour en extraire le texte français, puis le moderniser ou le traduire.</p>';
+          '<p class="ocr-note">Cette page ne contient pas de couche texte : c\'est une <strong>image</strong> ' +
+          '(planche gravée, page de titre, tableau, ou page restée blanche). ' +
+          'Lance la reconnaissance optique pour en extraire le texte français, puis le moderniser ou le traduire.</p>';
         el.ocrBtn.disabled = false;
         el.ocrBtn.classList.add("primary");
         state.rawText = "";

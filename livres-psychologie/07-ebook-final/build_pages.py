@@ -131,7 +131,7 @@ def render_bibliotheque():
         read_label = "📖 Lire dans le site" if is_pdf else "🌐 Lire le texte en ligne"
         dl = (f'<a class="book-link" style="background:var(--card);color:var(--gris);border:1px solid var(--border);margin-top:0.5rem" '
               f'href="../06-pdf-domaine-public/{b["path"]}" target="_blank" rel="noopener">📥 Télécharger le fichier</a>') if is_pdf else ""
-        texte_badge = "Texte extractible" if b.get("texte") else "Scan (OCR intégré)"
+        texte_badge = "Texte extractible" if b.get("texte") else "Reconnaissance optique requise"
         cards_html += f"""<div class="book-card">
           <div class="book-cover" style="background:var(--{b['color']})">{b['icon']}</div>
           <div class="book-body">
@@ -211,12 +211,14 @@ def render_lecteur():
 <div class="reader-shell" id="reader-root">
   <div class="reader-help">
     <strong>Mode d'emploi.</strong> Choisis un ouvrage, tourne les pages avec les flèches ← → du clavier ou les
-    boutons, et ouvre le volet texte pour lire la transcription à côté de l'image. Si le livre est un
-    <em>scan sans couche texte</em> (Taine, Durkheim, Lombroso), clique sur <strong>Reconnaître le texte</strong> :
-    une reconnaissance optique française s'exécute directement dans ton navigateur, sans envoyer le fichier nulle
-    part. <strong>Moderniser le français</strong> réécrit les formes du XIXe siècle (« étoit » → « était »,
-    « enfans » → « enfants ») et surligne le vocabulaire ancien : survole un mot surligné pour voir son
-    équivalent actuel. La page lue est mémorisée : tu reprends là où tu t'es arrêté.
+    boutons, et ouvre le volet texte pour lire la transcription à côté de l'image. Les dix ouvrages proposés ici
+    possèdent une couche texte, extraite instantanément. Quand une page est une <em>pure image</em> — planche
+    illustrée, page de titre gravée, tableau — le volet le signale et propose
+    <strong>Reconnaître le texte</strong> : une reconnaissance optique française s'exécute alors directement dans
+    ton navigateur, sans que le fichier quitte ton appareil. <strong>Moderniser le français</strong> réécrit les
+    formes du XIXe siècle (« étoit » → « était », « enfans » → « enfants ») et surligne le vocabulaire ancien :
+    survole un mot surligné pour voir son équivalent actuel. La page lue est mémorisée : tu reprends là où tu
+    t'es arrêté.
   </div>
 
   <div class="reader-bar">

@@ -349,11 +349,15 @@
     }
   }
 
-  document.addEventListener("keydown", function (e) {
+  // Phase de capture : Chrome réserve Ctrl+K pour sa barre d'adresse, il faut
+  // intercepter l'événement avant qu'il ne remonte jusqu'au navigateur.
+  window.addEventListener("keydown", function (e) {
     var openNow = overlay && overlay.classList.contains("open");
 
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+    var isK = e.key === "k" || e.key === "K" || e.code === "KeyK";
+    if ((e.ctrlKey || e.metaKey) && isK && !e.altKey) {
       e.preventDefault();
+      e.stopPropagation();
       openNow ? close() : open();
       return;
     }
@@ -372,7 +376,7 @@
       var node = resultsEl.querySelectorAll(".search-hit")[selIdx];
       if (node && node.href) { e.preventDefault(); window.location.href = node.href; }
     }
-  });
+  }, true);
 
   document.addEventListener("click", function (e) {
     var trigger = e.target.closest("[data-search-open]");
