@@ -10,6 +10,10 @@ from content import (
     THEORIES, CAS, DEBATS, METHODES_NOTIONS, LEXIQUE_EN, PRATIQUES, METIERS,
 )
 from data_laboratoire import EXPERIENCES_LAB
+from data_courants import COURANTS
+from data_mythes import MYTHES
+from data_faq import FAQ
+from data_autoeval import EVALUATIONS
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 EB = "livres-psychologie/07-ebook-final/"
@@ -25,6 +29,11 @@ RACCOURCIS = [
 ]
 
 NOUVEAUTES = [
+    ("🏛️", f"{len(COURANTS)} grands courants", "Pourquoi chaque école est née contre la précédente"),
+    ("🧹", f"{len(MYTHES)} idées reçues démontées", "Les 10 % du cerveau, les styles d'apprentissage, l'effet Mozart…"),
+    ("❓", f"{len(FAQ)} questions fréquentes", "Des réponses qui disent aussi ce qu'on ignore encore"),
+    ("🤝", "Aide et ressources", "Numéros d'urgence, parcours de soin, remboursement, où consulter"),
+    ("📋", f"{len(EVALUATIONS)} auto-évaluations", "Comprendre la psychométrie en la pratiquant sur soi"),
     ("🧩", f"{len(THEORIES)} théories et modèles", "L'idée, le mécanisme, les usages et les limites"),
     ("🗃️", f"{len(CAS)} cas cliniques historiques", "Phineas Gage, H.M., Genie, Anna O., les jumeaux séparés…"),
     ("⚖️", f"{len(DEBATS)} débats argumentés", "Inné/acquis, psychanalyse, écrans, libre arbitre, QI…"),
@@ -33,12 +42,25 @@ NOUVEAUTES = [
     ("💼", f"{len(METIERS)} métiers et parcours d'études", "Clinicien, neuropsychologue, ergonome, UX, psychiatre…"),
     ("🧪", f"Laboratoire : {len(EXPERIENCES_LAB)} expériences jouables", "Stroop, empan, temps de réaction, Müller-Lyer, ancrage"),
     ("🔁", "Révision espacée", "Un algorithme te représente chaque notion au bon moment"),
-    ("🌍", f"Lexique anglais-français ({len(LEXIQUE_EN)} termes)", "Pour lire les articles scientifiques sans contresens"),
-    ("🗂️", "Fiches imprimables et plan du site", f"{len(CATEGORIES)} fiches recto et un index A-Z complet"),
 ]
 
 # (href, classe couleur, icône, titre, description, compteur)
 OUTILS_V3 = [
+    ("references/courants.html", "or", "🏛️", "Les grands courants",
+     "L'histoire de la discipline lue comme une conversation : chaque école naît d'une objection faite "
+     "à la précédente.", f"{len(COURANTS)} écoles"),
+    ("references/mythes.html", "rose", "🧹", "Idées reçues et neuromythes",
+     "Ce que disent réellement les données, d'où vient la croyance, et la part de vérité qu'elle déforme "
+     "presque toujours.", f"{len(MYTHES)} idées"),
+    ("faq.html", "vert", "❓", "Questions fréquentes",
+     "Les questions que tout le monde se pose, avec des réponses qui précisent aussi ce qu'on ignore "
+     "encore.", f"{len(FAQ)} réponses"),
+    ("auto-evaluations.html", "gris", "📋", "Auto-évaluations",
+     "Cinq questionnaires écrits pour le site, qui font comprendre de l'intérieur comment se construit "
+     "une mesure en psychologie.", f"{len(EVALUATIONS)} questionnaires"),
+    ("aide.html", "rose", "🤝", "Aide et ressources",
+     "Où s'adresser quand on ne va pas bien : urgences, lignes d'écoute, parcours de soin, "
+     "remboursement, ressources en accès libre.", "France · Belgique · Suisse · Canada"),
     ("references/theories.html", "", "🧩", "Théories et modèles",
      "Le cœur conceptuel de la discipline : ce que chaque modèle affirme, comment il fonctionne, "
      "à quoi il sert et là où il échoue.", f"{len(THEORIES)} fiches"),
@@ -147,7 +169,8 @@ def render_home():
     n_questions = sum(len(q["questions"]) for q in QUIZZES)
     n_refs = len(EXPERIENCES) + len(AUTEURS) + len(TROUBLES) + len(BIAIS) + len(TESTS) + len(CHRONOLOGIE_TRIEE)
     n_savoirs = (len(THEORIES) + len(CAS) + len(DEBATS) + len(METHODES_NOTIONS)
-                 + len(LEXIQUE_EN) + len(PRATIQUES) + len(METIERS))
+                 + len(LEXIQUE_EN) + len(PRATIQUES) + len(METIERS)
+                 + len(COURANTS) + len(MYTHES) + len(FAQ))
     n_fiches = n_refs + n_savoirs + len(DICTIONNAIRE) + n_sections
 
     raccourcis = "".join(
@@ -214,6 +237,9 @@ def render_home():
     <div class="stat-cell"><div class="val">{n_sections}</div><div class="lbl">chapitres rédigés</div></div>
     <div class="stat-cell"><div class="val">{len(DICTIONNAIRE)}</div><div class="lbl">notions au dictionnaire</div></div>
     <div class="stat-cell"><div class="val">{len(THEORIES)}</div><div class="lbl">théories et modèles</div></div>
+    <div class="stat-cell"><div class="val">{len(COURANTS)}</div><div class="lbl">courants de pensée</div></div>
+    <div class="stat-cell"><div class="val">{len(MYTHES)}</div><div class="lbl">idées reçues démontées</div></div>
+    <div class="stat-cell"><div class="val">{len(FAQ)}</div><div class="lbl">questions fréquentes</div></div>
     <div class="stat-cell"><div class="val">{len(EXPERIENCES)}</div><div class="lbl">expériences détaillées</div></div>
     <div class="stat-cell"><div class="val">{len(AUTEURS)}</div><div class="lbl">grandes figures</div></div>
     <div class="stat-cell"><div class="val">{len(TROUBLES)}</div><div class="lbl">troubles expliqués</div></div>
@@ -265,11 +291,11 @@ def render_home():
 <div class="section" style="padding-top:0">
   <div class="section-head">
     <p class="section-eyebrow">{n_savoirs} fiches supplémentaires</p>
-    <h2 class="section-title">Les douze salles de la bibliothèque</h2>
-    <p class="section-desc">Au-delà des catégories, le site contient douze espaces spécialisés : la théorie
-    et les cas qui l'ont construite, les controverses non tranchées, la méthode scientifique elle-même, les
-    applications quotidiennes, les métiers, un laboratoire jouable, un système de révision et de quoi
-    imprimer ou naviguer autrement.</p>
+    <h2 class="section-title">Les {len(OUTILS_V3)} salles de la bibliothèque</h2>
+    <p class="section-desc">Au-delà des catégories, le site ouvre des espaces spécialisés : les écoles de
+    pensée et les cas qui les ont construites, les idées reçues démontées, les controverses non tranchées,
+    la méthode scientifique elle-même, les applications quotidiennes, les métiers, un laboratoire jouable,
+    des auto-évaluations, un système de révision, et de quoi trouver de l'aide quand on en a besoin.</p>
   </div>
   <div class="hub-grid">{_outils_cards()}</div>
 </div>
@@ -378,6 +404,7 @@ def render_home():
   <div class="cta-row">
     <a class="btn btn-primary" href="{EB}revision.html">🔁 Lancer une session de révision</a>
     <a class="btn btn-secondary" href="{EB}laboratoire.html">🧪 Entrer dans le laboratoire</a>
+    <a class="btn btn-secondary" href="{EB}auto-evaluations.html">📋 Les auto-évaluations</a>
     <a class="btn btn-secondary" href="{EB}apprendre.html">📚 Le guide des méthodes</a>
   </div>
 </div>
