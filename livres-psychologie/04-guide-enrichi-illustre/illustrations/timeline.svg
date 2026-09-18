@@ -1,0 +1,38 @@
+<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" class="diagram">
+  <rect width="400" height="200" rx="12" fill="#2D3748"/>
+  <text x="200" y="25" fill="white" text-anchor="middle" font-size="14" font-weight="bold">Frise chronologique</text>
+  <circle cx="30" cy="150" r="8" fill="#6B46C1"/>
+  <text x="30" y="130" text-anchor="middle" fill="#E9D8FD" font-size="9">1879</text>
+  <text x="30" y="175" text-anchor="middle" fill="white" font-size="8">Wundt</text>
+  <line x1="38" y1="150" x2="72" y2="150" stroke="#553C9A" stroke-width="2"/>
+  <circle cx="80" cy="150" r="8" fill="#6B46C1"/>
+  <text x="80" y="130" text-anchor="middle" fill="#E9D8FD" font-size="9">1890</text>
+  <text x="80" y="175" text-anchor="middle" fill="white" font-size="8">James</text>
+  <line x1="88" y1="150" x2="122" y2="150" stroke="#553C9A" stroke-width="2"/>
+  <circle cx="130" cy="150" r="8" fill="#6B46C1"/>
+  <text x="130" y="130" text-anchor="middle" fill="#E9D8FD" font-size="9">1900</text>
+  <text x="130" y="175" text-anchor="middle" fill="white" font-size="8">Freud</text>
+  <line x1="138" y1="150" x2="172" y2="150" stroke="#553C9A" stroke-width="2"/>
+  <circle cx="180" cy="150" r="8" fill="#6B46C1"/>
+  <text x="180" y="130" text-anchor="middle" fill="#E9D8FD" font-size="9">1913</text>
+  <text x="180" y="175" text-anchor="middle" fill="white" font-size="8">Watson</text>
+  <line x1="188" y1="150" x2="222" y2="150" stroke="#553C9A" stroke-width="2"/>
+  <circle cx="230" cy="150" r="8" fill="#6B46C1"/>
+  <text x="230" y="130" text-anchor="middle" fill="#E9D8FD" font-size="9">1920</text>
+  <text x="230" y="175" text-anchor="middle" fill="white" font-size="8">Piaget</text>
+  <line x1="238" y1="150" x2="272" y2="150" stroke="#553C9A" stroke-width="2"/>
+  <circle cx="280" cy="150" r="8" fill="#6B46C1"/>
+  <text x="280" y="130" text-anchor="middle" fill="#E9D8FD" font-size="9">1950</text>
+  <text x="280" y="175" text-anchor="middle" fill="white" font-size="8">Rogers</text>
+  <line x1="288" y1="150" x2="322" y2="150" stroke="#553C9A" stroke-width="2"/>
+  <circle cx="330" cy="150" r="8" fill="#6B46C1"/>
+  <text x="330" y="130" text-anchor="middle" fill="#E9D8FD" font-size="9">1960</text>
+  <text x="330" y="175" text-anchor="middle" fill="white" font-size="8">Milgram</text>
+  <line x1="338" y1="150" x2="372" y2="150" stroke="#553C9A" stroke-width="2"/>
+  <circle cx="380" cy="150" r="8" fill="#6B46C1"/>
+  <text x="380" y="130" text-anchor="middle" fill="#E9D8FD" font-size="9">1970</text>
+  <text x="380" y="175" text-anchor="middle" fill="white" font-size="8">Beck</text>
+  <circle cx="430" cy="150" r="8" fill="#6B46C1"/>
+  <text x="430" y="130" text-anchor="middle" fill="#E9D8FD" font-size="9">1998</text>
+  <text x="430" y="175" text-anchor="middle" fill="white" font-size="8">Seligman</text>
+</svg>
