@@ -7,6 +7,10 @@ profondeurs existent : 0 pour les pages posées dans `07-ebook-final/`,
 1 pour celles rangées dans `categories/`, `quiz/` ou `references/`.
 """
 
+import html
+import re
+import unicodedata
+
 # Éléments de la barre de navigation : (libellé, chemin relatif à 07-ebook-final/)
 NAV_ITEMS = [
     ("Accueil", "@root:index.html"),
@@ -17,6 +21,7 @@ NAV_ITEMS = [
     ("Bibliothèque", "bibliotheque.html"),
     ("Quiz", "quiz/index.html"),
     ("Apprendre", "apprendre.html"),
+    ("Aide", "aide.html"),
 ]
 
 # Chemins relatifs à 07-ebook-final/ vers les ressources partagées du dépôt.
@@ -81,6 +86,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
 <link rel="stylesheet" href="{asset(depth, 'css/style.css')}">
 <link rel="stylesheet" href="{asset(depth, 'css/v2.css')}">
 <link rel="stylesheet" href="{asset(depth, 'css/v3.css')}">
+<link rel="stylesheet" href="{asset(depth, 'css/v4.css')}">
 {extra_head}
 </head>
 <body data-root="{repo_root(depth)}"{(' ' + body_attrs) if body_attrs else ''}>
@@ -114,6 +120,10 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a href="{ebook(depth, 'fiches/index.html')}">Fiches de révision</a>
     <a href="{ebook(depth, 'parcours.html')}">Parcours</a>
     <a href="{ebook(depth, 'apprendre.html')}">Apprendre</a>
+    <a href="{ebook(depth, 'references/courants.html')}">Grands courants</a>
+    <a href="{ebook(depth, 'references/mythes.html')}">Idées reçues</a>
+    <a href="{ebook(depth, 'faq.html')}">Questions fréquentes</a>
+    <a href="{ebook(depth, 'aide.html')}">Aide &amp; ressources</a>
     <a href="{ebook(depth, 'plan.html')}">Plan du site</a>
     <a href="{ebook(depth, 'credits.html')}">Crédits &amp; sources</a>
   </div>
@@ -155,18 +165,14 @@ def page_header(depth, breadcrumb, icon, color, title, subtitle, chips=()):
 
 
 def slugify(text):
-    import unicodedata
-    import re
     txt = unicodedata.normalize("NFD", text)
     txt = "".join(c for c in txt if unicodedata.category(c) != "Mn")
     txt = re.sub(r"[^a-zA-Z0-9]+", "-", txt).strip("-").lower()
     return txt[:60] or "section"
 
 
-def strip_html(html):
+def strip_html(source):
     """Retire les balises pour produire un texte indexable ou un résumé."""
-    import re
-    import html as html_mod
-    txt = re.sub(r"<[^>]+>", " ", html or "")
-    txt = html_mod.unescape(txt)
+    txt = re.sub(r"<[^>]+>", " ", source or "")
+    txt = html.unescape(txt)
     return re.sub(r"\s+", " ", txt).strip()

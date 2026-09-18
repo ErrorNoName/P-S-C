@@ -18,6 +18,10 @@
     experience: "Expérience",
     auteur: "Auteur",
     theorie: "Théorie",
+    courant: "Courant",
+    mythe: "Idée reçue",
+    faq: "Question fréquente",
+    aide: "Aide",
     trouble: "Trouble",
     biais: "Biais",
     test: "Test",
@@ -35,7 +39,8 @@
 
   var KIND_ICON = {
     categorie: "📂", section: "📄", notion: "📖", experience: "🔬", auteur: "👤",
-    theorie: "🧩", trouble: "🩺", biais: "🌀", test: "📊", cas: "🗃️", debat: "⚖️",
+    theorie: "🧩", courant: "🏛️", trouble: "🩺", biais: "🌀", test: "📊", cas: "🗃️", debat: "⚖️",
+    mythe: "🧹", faq: "❓", aide: "🤝",
     pratique: "🧰", metier: "💼", labo: "🧪", anglais: "🌍",
     date: "🗓️", livre: "📕", quiz: "🎮", page: "🧭",
   };
@@ -48,6 +53,9 @@
     ["experience", "Expériences"],
     ["auteur", "Auteurs"],
     ["theorie", "Théories"],
+    ["courant", "Courants"],
+    ["mythe", "Idées reçues"],
+    ["faq", "Questions"],
     ["trouble", "Troubles"],
     ["biais", "Biais"],
     ["test", "Tests"],

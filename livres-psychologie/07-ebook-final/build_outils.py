@@ -6,6 +6,7 @@ révision espacée, fiches de révision imprimables, plan du site et index A-Z.
 import json
 import os
 import re
+import unicodedata
 
 from shell import page_shell, page_header, slugify, strip_html
 from content import (
@@ -14,6 +15,9 @@ from content import (
     THEORIES, CAS, DEBATS, METHODES_NOTIONS, LEXIQUE_EN, PRATIQUES, METIERS,
 )
 from data_laboratoire import EXPERIENCES_LAB
+from data_courants import COURANTS
+from data_mythes import MYTHES
+from data_faq import FAQ
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 
@@ -494,6 +498,12 @@ def _az_entries():
         entries.append((nom, "references/cas.html#" + cid, "Cas"))
     for did, titre, *_ in DEBATS:
         entries.append((titre, "references/debats.html#" + did, "Débat"))
+    for cid, nom, *_ in COURANTS:
+        entries.append((nom, "references/courants.html#" + cid, "Courant"))
+    for mid, affirmation, *_ in MYTHES:
+        entries.append((affirmation.strip("«» "), "references/mythes.html#" + mid, "Idée reçue"))
+    for fid, question, *_ in FAQ:
+        entries.append((question, "faq.html#" + fid, "Question"))
     for pid, titre, *_ in PRATIQUES:
         entries.append((titre, "pratique.html#" + pid, "Fiche pratique"))
     for mid, nom, *_ in METIERS:
@@ -513,7 +523,6 @@ def _az_entries():
 
 
 def _sort_key(text):
-    import unicodedata
     txt = unicodedata.normalize("NFD", text.lower())
     return "".join(c for c in txt if unicodedata.category(c) != "Mn")
 
@@ -546,6 +555,8 @@ def render_plan():
             ("Psychologie pratique", "pratique.html"),
             ("Lexique anglais-français", "lexique.html"),
             ("Métiers et études", "metiers.html"),
+            ("Questions fréquentes", "faq.html"),
+            ("Aide et ressources", "aide.html"),
         ]),
         ("Base de références", [
             ("Hub des références", "references/index.html"),
@@ -554,6 +565,8 @@ def render_plan():
             ("Théories et modèles", "references/theories.html"),
             ("Cas cliniques", "references/cas.html"),
             ("Débats et controverses", "references/debats.html"),
+            ("Les grands courants", "references/courants.html"),
+            ("Idées reçues et neuromythes", "references/mythes.html"),
             ("Répertoire des troubles", "references/troubles.html"),
             ("Biais cognitifs", "references/biais.html"),
             ("Tests et instruments", "references/tests.html"),

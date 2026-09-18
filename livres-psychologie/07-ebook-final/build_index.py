@@ -19,6 +19,10 @@ from content import (
     LEXIQUE_EN, PRATIQUES, METIERS,
 )
 from data_laboratoire import EXPERIENCES_LAB
+from data_courants import COURANTS
+from data_mythes import MYTHES
+from data_faq import FAQ
+from data_aide import PARCOURS_SOIN
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 EBOOK = "livres-psychologie/07-ebook-final/"
@@ -56,6 +60,10 @@ def build_index():
         ("Laboratoire d'expériences", f"{len(EXPERIENCES_LAB)} expériences classiques jouables directement dans le navigateur.", EBOOK + "laboratoire.html", "laboratoire experience interactive stroop test jouer"),
         ("Révision espacée", "Réviser toutes les notions du site en cartes replanifiées automatiquement.", EBOOK + "revision.html", "revision flashcards espacee memorisation anki"),
         ("Fiches de révision imprimables", f"Les {len(CATEGORIES)} domaines condensés en fiches prêtes à imprimer.", EBOOK + "fiches/index.html", "fiches revision imprimer resume synthese"),
+        ("Les grands courants", f"{len(COURANTS)} écoles de pensée : postulat, méthode, apports, critiques et héritage.", EBOOK + "references/courants.html", "courant ecole behaviorisme gestalt psychanalyse cognitivisme humanisme structuralisme"),
+        ("Idées reçues et neuromythes", f"{len(MYTHES)} affirmations très répandues passées au crible des données.", EBOOK + "references/mythes.html", "mythe idee recue faux neuromythe croyance 10% cerveau styles apprentissage"),
+        ("Questions fréquentes", f"{len(FAQ)} questions sur la psychologie, le cerveau, l'apprentissage et la santé mentale.", EBOOK + "faq.html", "faq questions reponses frequentes"),
+        ("Aide et ressources", "Numéros d'urgence et d'écoute, parcours de soin, remboursement, ressources libres.", EBOOK + "aide.html", "aide urgence 3114 ecoute consulter psychologue psychiatre cmp remboursement"),
         ("Plan du site et index A-Z", "Toutes les pages et l'index alphabétique général de Psyclopédia.", EBOOK + "plan.html", "plan sommaire index alphabetique sitemap"),
         ("Crédits et sources", "Origine et licence de chaque illustration et de chaque ouvrage utilisé.", EBOOK + "credits.html", "credits sources licences attribution domaine public"),
     ]
@@ -182,6 +190,40 @@ def build_index():
             f"experience interactive jouable {duree} {strip_html(explication)[:200]}",
         ))
 
+    # -- Repères v4 ---------------------------------------------------------
+    for cid, nom, periode, figures, postulat, methode, apport, critique, heritage in COURANTS:
+        entries.append(_entry(
+            nom, f"{periode} · {figures} — {strip_html(postulat)[:160]}", "courant",
+            EBOOK + "references/courants.html#" + cid,
+            f"{strip_html(apport)[:180]} {strip_html(critique)[:150]} {strip_html(heritage)[:120]} ecole courant",
+        ))
+
+    for mid, affirmation, famille, verdict, savoir, origine, nuance in MYTHES:
+        entries.append(_entry(
+            affirmation, f"{famille} — {strip_html(savoir)[:170]}", "mythe",
+            EBOOK + "references/mythes.html#" + mid,
+            f"idee recue neuromythe {verdict} {strip_html(origine)[:150]} {strip_html(nuance)[:150]}",
+        ))
+
+    for fid, question, famille, reponse in FAQ:
+        entries.append(_entry(
+            question, _summary(reponse), "faq", EBOOK + "faq.html#" + fid,
+            f"question frequente {famille} {strip_html(reponse)[:250]}",
+        ))
+
+    for pid, titre, contenu in PARCOURS_SOIN:
+        entries.append(_entry(
+            titre, _summary(contenu), "aide", EBOOK + "aide.html#" + pid,
+            "aide ressources soin consultation psychologue psychiatre orientation",
+        ))
+
+    entries.append(_entry(
+        "Aide, orientation et ressources",
+        "Numéros d'urgence et d'écoute, parcours de soin, remboursement et ressources en accès libre.",
+        "aide", EBOOK + "aide.html",
+        "urgence 3114 suicide 15 112 3919 119 ecoute soutien psychologue consultation CMP remboursement",
+    ))
+
     # -- Livres -------------------------------------------------------------
     for book in BOOKS:
         is_pdf = book["path"].endswith(".pdf")
@@ -203,9 +245,9 @@ def build_index():
 
     # L'ordre des types pilote le regroupement visuel dans la modale.
     kind_order = {"categorie": 0, "notion": 1, "section": 2, "experience": 3, "auteur": 4,
-                  "theorie": 5, "trouble": 6, "biais": 7, "test": 8, "cas": 9, "debat": 10,
-                  "pratique": 11, "metier": 12, "labo": 13, "anglais": 14, "date": 15,
-                  "livre": 16, "quiz": 17, "page": 18}
+                  "theorie": 5, "courant": 6, "trouble": 7, "biais": 8, "test": 9, "cas": 10,
+                  "debat": 11, "mythe": 12, "faq": 13, "pratique": 14, "aide": 15, "metier": 16,
+                  "labo": 17, "anglais": 18, "date": 19, "livre": 20, "quiz": 21, "page": 22}
     entries.sort(key=lambda e: kind_order.get(e["k"], 99))
     return entries
 

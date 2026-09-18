@@ -15,6 +15,7 @@ import build_pages
 import build_outils
 import build_references
 import build_savoirs
+import build_savoirs2
 import build_sitemap
 from build_index import write_index
 from content import (
@@ -23,6 +24,9 @@ from content import (
     PRATIQUES, METIERS,
 )
 from data_laboratoire import EXPERIENCES_LAB
+from data_courants import COURANTS
+from data_mythes import MYTHES
+from data_faq import FAQ
 
 
 def main():
@@ -33,6 +37,7 @@ def main():
 
     build_references.render_all()
     build_savoirs.render_all()
+    build_savoirs2.render_all()
     n_cards, cards_kb, n_index = build_outils.render_all()
     build_pages.render_all()
     build_home.render_home()
@@ -52,6 +57,8 @@ def main():
     print(f"   • Savoirs : {len(THEORIES)} théories, {len(CAS)} cas cliniques, {len(DEBATS)} débats, "
           f"{len(METHODES_NOTIONS)} notions de méthode, {len(LEXIQUE_EN)} termes bilingues, "
           f"{len(PRATIQUES)} fiches pratiques, {len(METIERS)} métiers")
+    print(f"   • Repères : {len(COURANTS)} courants, {len(MYTHES)} idées reçues, {len(FAQ)} questions fréquentes, "
+          f"aide et ressources")
     print(f"   • {len(QUIZZES)} quiz, {n_questions} questions")
     print(f"   • {len(BOOKS)} ouvrages ({n_pdf} lisibles dans le lecteur intégré)")
     print(f"   • Outils : {len(EXPERIENCES_LAB)} expériences jouables, {n_cards} cartes de révision "

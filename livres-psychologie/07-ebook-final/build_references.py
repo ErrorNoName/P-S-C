@@ -9,6 +9,8 @@ from content import (
     CHRONOLOGIE_TRIEE, PERIODES, periode_of, CATEGORY_TITLE,
     THEORIES, CAS, DEBATS,
 )
+from data_courants import COURANTS
+from data_mythes import MYTHES
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(BASE, "references")
@@ -63,6 +65,10 @@ def render_hub():
          "Les histoires singulières — Phineas Gage, H.M., Genie — qui ont bouleversé la théorie."),
         ("debats.html", "⚖️", "gris", "Débats et controverses", len(DEBATS),
          "Les deux camps présentés au meilleur de leurs arguments, puis l'état réel des données."),
+        ("courants.html", "🏛️", "or", "Les grands courants", len(COURANTS),
+         "Quatorze écoles de pensée, et surtout les raisons pour lesquelles chacune est née contre la précédente."),
+        ("mythes.html", "🧹", "rose", "Idées reçues et neuromythes", len(MYTHES),
+         "Ce que disent réellement les données, d'où vient la croyance, et la part de vérité qu'elle déforme."),
     ]
     grid = "".join(
         f'<a class="hub-card {color}" href="{href}"><span class="hub-ico">{ico}</span>'
