@@ -7,18 +7,15 @@ révision et méthodes d'apprentissage — hébergé et accessible directement v
 
 ## 🚀 Accéder au site
 
-➡️ **[Ouvrir Psyclopédia](https://errornoname.github.io/P-S-C/)** *(une fois GitHub Pages activé, voir ci-dessous)*
+➡️ **[Ouvrir Psyclopédia](https://errornoname.github.io/P-S-C/)** — déjà en ligne, mis à jour automatiquement à chaque push sur `main`.
 
 Ou en local : ouvre simplement [`index.html`](index.html) dans ton navigateur.
 
-## 🔧 Activer GitHub Pages (une seule fois)
+## 🔧 Déploiement GitHub Pages
 
-Ce dépôt contient un workflow GitHub Actions (`.github/workflows/pages.yml`) qui déploie automatiquement le site à
-chaque push sur `main`. Il ne reste qu'à activer la source une fois, dans le repo GitHub :
-
-1. **Settings** → **Pages**
-2. Sous **Build and deployment**, choisir **Source : GitHub Actions**
-3. Le site se déploie automatiquement au prochain push (ou déclenche manuellement l'action *Déployer Psyclopédia sur GitHub Pages*)
+GitHub Pages est déjà activé sur ce dépôt (déploiement automatique depuis `main`, racine `/`). Un workflow
+GitHub Actions (`.github/workflows/pages.yml`) redéploie également le site à chaque push, en complément. Aucune
+action manuelle n'est nécessaire : tout push sur `main` met le site à jour en 1 à 2 minutes.
 
 ## 📚 Contenu
 
