@@ -15,8 +15,10 @@ from shell import slugify, strip_html
 from content import (
     CATEGORIES, DICTIONNAIRE, QUIZZES, BOOKS, PDF_BOOKS,
     EXPERIENCES, AUTEURS, TROUBLES, BIAIS, TESTS, CHRONOLOGIE_TRIEE,
-    CATEGORY_TITLE,
+    CATEGORY_TITLE, THEORIES, CAS, DEBATS, METHODES_CHAPITRES, METHODES_NOTIONS,
+    LEXIQUE_EN, PRATIQUES, METIERS,
 )
+from data_laboratoire import EXPERIENCES_LAB
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 EBOOK = "livres-psychologie/07-ebook-final/"
@@ -47,6 +49,15 @@ def build_index():
         ("Parcours guidés", "Six itinéraires d'apprentissage selon ton objectif.", EBOOK + "parcours.html", "parcours itineraire programme debutant"),
         ("Apprendre efficacement", "Techniques de mémorisation validées par la science cognitive et plan de révision sur 30 jours.", EBOOK + "apprendre.html", "methode memorisation revision vark pomodoro"),
         ("Chronologie de la psychologie", "Les dates clés de la discipline, de l'Antiquité à aujourd'hui.", EBOOK + "references/chronologie.html", "histoire frise dates"),
+        ("Méthodes et statistiques", "Plans de recherche, valeur p, taille d'effet, réplication, éthique et lecture critique d'un article.", EBOOK + "methodes.html", "methodologie statistiques p-value experience protocole esprit critique"),
+        ("Psychologie pratique", f"{len(PRATIQUES)} fiches concrètes : sommeil, stress, apprentissage, relations, travail, décision.", EBOOK + "pratique.html", "pratique quotidien conseils protocole appliquee"),
+        ("Lexique anglais-français", f"{len(LEXIQUE_EN)} termes traduits et les faux amis de la psychologie.", EBOOK + "lexique.html", "anglais traduction vocabulaire faux amis english"),
+        ("Métiers et études", f"{len(METIERS)} métiers, le parcours licence-master et les titres protégés.", EBOOK + "metiers.html", "metier orientation etudes psychologue formation carriere"),
+        ("Laboratoire d'expériences", f"{len(EXPERIENCES_LAB)} expériences classiques jouables directement dans le navigateur.", EBOOK + "laboratoire.html", "laboratoire experience interactive stroop test jouer"),
+        ("Révision espacée", "Réviser toutes les notions du site en cartes replanifiées automatiquement.", EBOOK + "revision.html", "revision flashcards espacee memorisation anki"),
+        ("Fiches de révision imprimables", f"Les {len(CATEGORIES)} domaines condensés en fiches prêtes à imprimer.", EBOOK + "fiches/index.html", "fiches revision imprimer resume synthese"),
+        ("Plan du site et index A-Z", "Toutes les pages et l'index alphabétique général de Psyclopédia.", EBOOK + "plan.html", "plan sommaire index alphabetique sitemap"),
+        ("Crédits et sources", "Origine et licence de chaque illustration et de chaque ouvrage utilisé.", EBOOK + "credits.html", "credits sources licences attribution domaine public"),
     ]
     for title, desc, url, kw in static_pages:
         entries.append(_entry(title, desc, "page", url, kw))
@@ -119,6 +130,58 @@ def build_index():
             categorie,
         ))
 
+    # -- Savoirs v3 ---------------------------------------------------------
+    for tid, nom, auteur, annee, domaine, idee, mecanisme, application, limite in THEORIES:
+        entries.append(_entry(
+            nom, f"{auteur}, {annee} — {idee}", "theorie",
+            EBOOK + "references/theories.html#" + tid,
+            f"{domaine} {strip_html(mecanisme)[:200]} {strip_html(application)[:150]} {strip_html(limite)[:120]}",
+        ))
+
+    for cid, nom, periode, domaine, resume, histoire, apport, aujourdhui in CAS:
+        entries.append(_entry(
+            nom, f"{periode} · {domaine} — {resume}", "cas",
+            EBOOK + "references/cas.html#" + cid,
+            f"{strip_html(histoire)[:220]} {strip_html(apport)[:180]} {strip_html(aujourdhui)[:120]}",
+        ))
+
+    for did, titre, famille, question, pa_t, pa, pb_t, pb, etat in DEBATS:
+        entries.append(_entry(
+            titre, question, "debat",
+            EBOOK + "references/debats.html#" + did,
+            f"{famille} {pa_t} {pb_t} {strip_html(pa)[:150]} {strip_html(pb)[:150]} {strip_html(etat)[:150]}",
+        ))
+
+    for anc, titre, html in METHODES_CHAPITRES:
+        entries.append(_entry(titre, _summary(html), "section", EBOOK + "methodes.html#" + anc,
+                              "methodologie statistiques recherche"))
+
+    for nid, nom, famille, definition, exemple, piege in METHODES_NOTIONS:
+        entries.append(_entry(nom, definition, "notion", EBOOK + "methodes.html#notions",
+                              f"{famille} methodologie {exemple} {piege}"))
+
+    for en, fr, domaine, note in LEXIQUE_EN:
+        entries.append(_entry(f"{en} → {fr}", f"{domaine} — {strip_html(note)}", "anglais",
+                              EBOOK + "lexique.html", f"traduction anglais {en} {fr}"))
+
+    for pid, titre, famille, situation, recherche, etapes, piege in PRATIQUES:
+        entries.append(_entry(
+            titre, situation, "pratique", EBOOK + "pratique.html#" + pid,
+            f"{famille} {strip_html(recherche)[:180]} {' '.join(strip_html(e) for e in etapes)[:220]}",
+        ))
+
+    for mid, nom, famille, mission, formation, quotidien, ou, savoir in METIERS:
+        entries.append(_entry(
+            nom, f"{famille} — {mission}", "metier", EBOOK + "metiers.html#" + mid,
+            f"{formation} {quotidien} {ou} orientation etudes",
+        ))
+
+    for lid, titre, icone, couleur, duree, accroche, consigne, explication, _liens in EXPERIENCES_LAB:
+        entries.append(_entry(
+            titre, accroche, "labo", EBOOK + f"laboratoire/{lid}.html",
+            f"experience interactive jouable {duree} {strip_html(explication)[:200]}",
+        ))
+
     # -- Livres -------------------------------------------------------------
     for book in BOOKS:
         is_pdf = book["path"].endswith(".pdf")
@@ -140,7 +203,9 @@ def build_index():
 
     # L'ordre des types pilote le regroupement visuel dans la modale.
     kind_order = {"categorie": 0, "notion": 1, "section": 2, "experience": 3, "auteur": 4,
-                  "trouble": 5, "biais": 6, "test": 7, "date": 8, "livre": 9, "quiz": 10, "page": 11}
+                  "theorie": 5, "trouble": 6, "biais": 7, "test": 8, "cas": 9, "debat": 10,
+                  "pratique": 11, "metier": 12, "labo": 13, "anglais": 14, "date": 15,
+                  "livre": 16, "quiz": 17, "page": 18}
     entries.sort(key=lambda e: kind_order.get(e["k"], 99))
     return entries
 

@@ -12,6 +12,8 @@ NAV_ITEMS = [
     ("Accueil", "@root:index.html"),
     ("Catégories", "index.html"),
     ("Références", "references/index.html"),
+    ("Méthodes", "methodes.html"),
+    ("Pratique", "pratique.html"),
     ("Bibliothèque", "bibliotheque.html"),
     ("Quiz", "quiz/index.html"),
     ("Apprendre", "apprendre.html"),
@@ -78,6 +80,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{asset(depth, 'css/style.css')}">
 <link rel="stylesheet" href="{asset(depth, 'css/v2.css')}">
+<link rel="stylesheet" href="{asset(depth, 'css/v3.css')}">
 {extra_head}
 </head>
 <body data-root="{repo_root(depth)}"{(' ' + body_attrs) if body_attrs else ''}>
@@ -101,9 +104,17 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a href="{ebook(depth, 'dictionnaire.html')}">Dictionnaire</a>
     <a href="{ebook(depth, 'bibliotheque.html')}">Bibliothèque</a>
     <a href="{ebook(depth, 'lecteur.html')}">Lecteur en ligne</a>
+    <a href="{ebook(depth, 'methodes.html')}">Méthodes</a>
+    <a href="{ebook(depth, 'pratique.html')}">Psychologie pratique</a>
+    <a href="{ebook(depth, 'lexique.html')}">Lexique anglais</a>
+    <a href="{ebook(depth, 'metiers.html')}">Métiers &amp; études</a>
     <a href="{ebook(depth, 'quiz/index.html')}">Quiz</a>
+    <a href="{ebook(depth, 'laboratoire.html')}">Laboratoire</a>
+    <a href="{ebook(depth, 'revision.html')}">Révision espacée</a>
+    <a href="{ebook(depth, 'fiches/index.html')}">Fiches de révision</a>
     <a href="{ebook(depth, 'parcours.html')}">Parcours</a>
     <a href="{ebook(depth, 'apprendre.html')}">Apprendre</a>
+    <a href="{ebook(depth, 'plan.html')}">Plan du site</a>
     <a href="{ebook(depth, 'credits.html')}">Crédits &amp; sources</a>
   </div>
   <p>Psyclopédia — encyclopédie pédagogique libre de la psychologie, entièrement en français.

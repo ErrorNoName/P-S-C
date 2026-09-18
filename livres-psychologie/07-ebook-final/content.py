@@ -18,6 +18,13 @@ from data_auteurs import AUTEURS
 from data_troubles import TROUBLES
 from data_biais import BIAIS
 from data_tests import TESTS, CHRONOLOGIE
+from data_theories import THEORIES
+from data_cas import CAS
+from data_debats import DEBATS
+from data_methodes import CHAPITRES as METHODES_CHAPITRES, NOTIONS as METHODES_NOTIONS
+from data_bilingue import LEXIQUE_EN, FAUX_AMIS
+from data_pratique import PRATIQUES
+from data_metiers import METIERS, PARCOURS_ETUDES
 
 # --------------------------------------------------------------------------
 # Catégories : fusion + enrichissement

@@ -7,6 +7,7 @@ from shell import page_shell, page_header, slugify, strip_html
 from content import (
     EXPERIENCES, AUTEURS, TROUBLES, BIAIS, TESTS,
     CHRONOLOGIE_TRIEE, PERIODES, periode_of, CATEGORY_TITLE,
+    THEORIES, CAS, DEBATS,
 )
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -56,6 +57,12 @@ def render_hub():
          "Ce que mesure chaque test, comment il se passe, comment l'interpréter et ses limites."),
         ("chronologie.html", "🗓️", "or", "Chronologie de la discipline", len(CHRONOLOGIE_TRIEE),
          "Des humeurs d'Hippocrate aux neurosciences computationnelles, en six grandes périodes."),
+        ("theories.html", "🧩", "vert", "Théories et modèles", len(THEORIES),
+         "L'idée centrale, le mécanisme, les usages et les limites des grands modèles de la discipline."),
+        ("cas.html", "🗃️", "rose", "Cas cliniques célèbres", len(CAS),
+         "Les histoires singulières — Phineas Gage, H.M., Genie — qui ont bouleversé la théorie."),
+        ("debats.html", "⚖️", "gris", "Débats et controverses", len(DEBATS),
+         "Les deux camps présentés au meilleur de leurs arguments, puis l'état réel des données."),
     ]
     grid = "".join(
         f'<a class="hub-card {color}" href="{href}"><span class="hub-ico">{ico}</span>'

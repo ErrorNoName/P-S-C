@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Méthodes et statistiques — Psyclopédia</title>
+<meta name="description" content="Cours complet de méthodologie et de statistiques en psychologie : plans de recherche, valeur p, taille d'effet, réplication, éthique et lecture critique d'un article.">
+<meta property="og:title" content="Méthodes et statistiques — Psyclopédia">
+<meta property="og:description" content="Cours complet de méthodologie et de statistiques en psychologie : plans de recherche, valeur p, taille d'effet, réplication, éthique et lecture critique d'un article.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="../../assets-ebook/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets-ebook/css/style.css">
+<link rel="stylesheet" href="../../assets-ebook/css/v2.css">
+<link rel="stylesheet" href="../../assets-ebook/css/v3.css">
+
+</head>
+<body data-root="../../">
+<div class="topbar">
+  <nav class="nav-pill">
+    <a class="brand" href="../../index.html"><span class="brand-mark"></span>Psyclopédia</a>
+    <ul class="nav-links"><a href="../../index.html">Accueil</a><a href="index.html">Catégories</a><a href="references/index.html">Références</a><a href="methodes.html" class="active">Méthodes</a><a href="pratique.html">Pratique</a><a href="bibliotheque.html">Bibliothèque</a><a href="quiz/index.html">Quiz</a><a href="apprendre.html">Apprendre</a></ul>
+    <div class="nav-side">
+      <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
+        <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<div class="page-header">
+  <p class="breadcrumb"><a href="../../index.html">Accueil</a> → Méthodes</p>
+  <div class="page-hero">
+    <div class="page-hero-icon" style="background:var(--vert-light)">🔬</div>
+    <div>
+      <h1>Méthodes, statistiques et esprit critique</h1>
+      <p class="subtitle">Le cours qui permet de lire n'importe quelle étude — et de repérer ce qui cloche</p>
+    </div>
+  </div>
+  <div class="meta-row"><span class="meta-chip">📖 12 chapitres</span><span class="meta-chip">🗂️ 50 notions</span><span class="meta-chip">🧪 Applicable partout</span></div>
+</div>
+<div class="wrap with-toc">
+  <aside class="toc-side"><h4>Sommaire</h4><a href="#pourquoi">Pourquoi la psychologie a besoin d'une méthode</a><a href="#hypothese">De la question à l'hypothèse testable</a><a href="#plans">Les grands types de plans de recherche</a><a href="#validite">Les quatre validités</a><a href="#biais-recherche">Les biais qui menacent une étude</a><a href="#stats-descriptives">Décrire des données sans se tromper</a><a href="#p-value">La valeur p : ce qu'elle dit et ce qu'elle ne dit pas</a><a href="#taille-effet">Taille d'effet et intervalles de confiance</a><a href="#meta">Revues systématiques et méta-analyses</a><a href="#reforme">La réforme en cours : science ouverte</a><a href="#ethique">L'éthique de la recherche</a><a href="#lire-article">Lire un article scientifique en dix minutes</a><a href="#notions">Fiches de référence</a></aside>
+  <div class="content" style="max-width:none">
+    <p>C'est le chapitre le plus utile du site, et de loin celui qui se transfère le mieux hors de la
+    psychologie. Savoir lire une étude protège contre les titres trompeurs, les vendeurs de méthodes miracle
+    et — plus difficile — contre ses propres certitudes.</p>
+    
+<h2 id="pourquoi">Pourquoi la psychologie a besoin d'une méthode</h2>
+
+<p>L'intuition est une excellente génératrice d'hypothèses et une très mauvaise juge. Presque toutes les
+affirmations « de bon sens » sur le comportement humain ont un contraire tout aussi plausible : « qui se
+ressemble s'assemble » et « les opposés s'attirent », « loin des yeux loin du cœur » et « l'absence attise
+le désir ». Les deux ne peuvent pas être vraies en même temps dans les mêmes conditions, et seule une mesure
+peut trancher.</p>
+
+<p>Le problème est aggravé par le fait que nous sommes des observateurs biaisés de notre propre espèce. Nous
+remarquons les cas qui confirment ce que nous pensons, nous oublions les autres, nous reconstruisons nos
+souvenirs, et nous avons une propension irrésistible à voir des causes là où il n'y a que des coïncidences.
+Une méthode n'est rien d'autre qu'un ensemble de garde-fous contre ces tendances — y compris, et surtout,
+celles du chercheur lui-même.</p>
+
+<p>D'où une règle qui structure tout ce chapitre : <strong>en science, la question n'est jamais « est-ce que
+c'est vrai ? » mais « quelle est la qualité de la preuve, et de quelle taille est l'effet ? »</strong>.
+Apprendre à répondre à ces deux questions, c'est acquérir la compétence la plus transférable de toute la
+psychologie.</p>
+
+<h2 id="hypothese">De la question à l'hypothèse testable</h2>
+
+<p>Une hypothèse scientifique doit être <strong>falsifiable</strong> : il faut pouvoir décrire à l'avance
+un résultat qui la contredirait. « L'inconscient influence nos actes » n'est pas testable tel quel ; « les
+participants amorcés avec des mots liés à la vieillesse marcheront plus lentement dans le couloir » l'est,
+et a d'ailleurs été testé — puis infirmé.</p>
+
+<p>Le passage de la question au protocole repose sur l'<strong>opérationnalisation</strong> : traduire un
+concept abstrait en quelque chose de mesurable. « Le stress » devient un taux de cortisol salivaire, un score
+à une échelle validée, une variabilité cardiaque, ou un temps passé à ruminer. Aucune de ces mesures n'est
+« le » stress ; chacune en capture une facette, avec ses angles morts. C'est pourquoi la convergence de
+plusieurs mesures indépendantes vaut infiniment mieux qu'une seule, même très précise.</p>
+
+<div class="note-box"><strong>Le réflexe à acquérir.</strong> Devant tout résultat, demandez-vous d'abord :
+<em>comment ont-ils mesuré ça, exactement ?</em> Beaucoup de désaccords apparents entre études se dissolvent
+dès qu'on regarde la mesure : deux équipes ne parlaient simplement pas de la même chose.</div>
+
+<h2 id="plans">Les grands types de plans de recherche</h2>
+
+<p>Chaque type de plan répond à une question différente et souffre de limites propres. Les confondre est la
+source la plus fréquente d'erreurs d'interprétation dans la presse.</p>
+
+<p><strong>L'étude descriptive</strong> (observation, enquête, étude de cas) répond à « que se passe-t-il ? ».
+Elle est irremplaçable pour explorer un phénomène nouveau et pour générer des hypothèses, mais elle ne permet
+aucune conclusion causale.</p>
+
+<p><strong>L'étude corrélationnelle</strong> répond à « ces deux variables varient-elles ensemble ? ». Elle
+permet de prédire, jamais d'expliquer. Trois interprétations restent toujours ouvertes : A cause B, B cause A,
+ou une troisième variable C cause les deux. La consommation de glaces et les noyades varient ensemble ; la
+variable cachée s'appelle l'été.</p>
+
+<p><strong>L'expérience</strong> répond à « est-ce que A cause B ? ». Elle suppose trois ingrédients : le
+chercheur <em>manipule</em> la variable indépendante, il <em>répartit au hasard</em> les participants entre
+les conditions, et il <em>contrôle</em> le reste. La randomisation est la pièce maîtresse : elle égalise en
+moyenne les groupes sur tout ce qu'on n'a pas mesuré, y compris ce à quoi on n'a pas pensé.</p>
+
+<p><strong>L'étude longitudinale</strong> suit les mêmes personnes dans le temps, ce qui permet d'établir
+l'ordre temporel des événements. Elle coûte cher et souffre de l'attrition : ceux qui abandonnent l'étude ne
+sont jamais un échantillon au hasard de ceux qui restent.</p>
+
+<p><strong>L'étude transversale</strong> compare des groupes d'âges différents au même moment. Rapide, mais
+elle confond l'effet de l'âge avec l'effet de génération : un septuagénaire de 2026 n'a pas eu la même
+scolarité ni la même alimentation qu'un trentenaire, et la différence observée n'est pas forcément due au
+vieillissement.</p>
+
+<h2 id="validite">Les quatre validités</h2>
+
+<p>Juger une étude, c'est examiner quatre choses distinctes que l'on confond souvent.</p>
+
+<p><strong>La validité interne</strong> : la variation observée est-elle bien due à ce que l'on a manipulé ?
+Elle est menacée par tout ce qui diffère entre les groupes hormis le traitement — biais de sélection,
+événements extérieurs, maturation des participants, effets de l'ordre de passation, attentes de
+l'expérimentateur.</p>
+
+<p><strong>La validité externe</strong> : le résultat se généralise-t-il à d'autres personnes, d'autres lieux,
+d'autres époques ? Un effet observé sur 40 étudiants en psychologie un mardi après-midi n'est pas
+automatiquement une propriété de l'espèce humaine.</p>
+
+<p><strong>La validité de construit</strong> : mesure-t-on vraiment ce que l'on croit mesurer ? Un
+questionnaire de « bonheur » qui corrèle à 0,9 avec un questionnaire de « non-dépression » mesure peut-être
+simplement l'humeur du moment.</p>
+
+<p><strong>La validité de conclusion statistique</strong> : les chiffres autorisent-ils la conclusion tirée ?
+C'est ici que se logent les échantillons trop petits, les tests multiples non corrigés et les effets minuscules
+présentés comme des découvertes.</p>
+
+<h2 id="biais-recherche">Les biais qui menacent une étude</h2>
+
+<p>Le <strong>biais de sélection</strong> apparaît quand les participants ne représentent pas la population
+visée. Les enquêtes en ligne sur le bonheur atteignent surtout des gens qui ont du temps, une connexion et
+l'envie de répondre.</p>
+
+<p>L'<strong>effet Hawthorne</strong> : le simple fait d'être observé modifie le comportement. D'où les
+conditions contrôles où l'on observe aussi ceux qui ne reçoivent rien.</p>
+
+<p>Les <strong>caractéristiques de demande</strong> : les participants devinent l'hypothèse et, par
+coopération ou par défi, la confirment ou la contredisent. On y répond par des protocoles en aveugle et des
+mesures indirectes.</p>
+
+<p>L'<strong>effet Rosenthal</strong> (ou effet Pygmalion) : les attentes de l'expérimentateur influencent le
+résultat, par des micro-signaux involontaires. C'est la raison d'être du <strong>double aveugle</strong> : ni
+le participant ni l'expérimentateur en contact avec lui ne savent qui reçoit quoi.</p>
+
+<p>La <strong>régression vers la moyenne</strong> : les valeurs extrêmes tendent à se rapprocher de la moyenne
+lors d'une seconde mesure, indépendamment de toute intervention. C'est le mécanisme statistique qui fait
+croire à l'efficacité d'innombrables traitements administrés au pire moment d'une maladie fluctuante.</p>
+
+<p>Enfin le <strong>placebo</strong>, qui n'est pas « rien » : l'attente d'amélioration produit des effets
+physiologiques mesurables, particulièrement sur la douleur, la fatigue et l'humeur. Une intervention n'est
+jugée efficace que si elle fait mieux qu'un placebo crédible, pas mieux que rien.</p>
+
+<h2 id="stats-descriptives">Décrire des données sans se tromper</h2>
+
+<p>La <strong>moyenne</strong> est sensible aux valeurs extrêmes ; la <strong>médiane</strong> ne l'est pas.
+Pour des revenus, des temps de réaction ou des durées d'hospitalisation — toutes distributions asymétriques —
+la médiane décrit bien mieux « le cas typique ». Quand un article ne donne que la moyenne d'une variable
+asymétrique, il faut se méfier.</p>
+
+<p>L'<strong>écart-type</strong> dit à quel point les valeurs s'écartent de la moyenne. Deux groupes de même
+moyenne peuvent être radicalement différents : l'un homogène, l'autre polarisé. Une moyenne sans dispersion
+est une information incomplète.</p>
+
+<p>La <strong>distribution normale</strong> (la « courbe en cloche ») décrit bien la taille ou les scores de
+QI, mal les revenus ou le nombre d'amis. Beaucoup de tests statistiques la supposent ; utiliser ces tests sur
+des données très asymétriques produit des conclusions douteuses.</p>
+
+<p>Enfin, un <strong>graphique</strong> ment facilement : un axe des ordonnées tronqué transforme une
+différence de 2 % en falaise spectaculaire. Le premier réflexe devant un graphique est de regarder l'échelle.</p>
+
+<h2 id="p-value">La valeur p : ce qu'elle dit et ce qu'elle ne dit pas</h2>
+
+<p>La valeur p est la probabilité d'observer un résultat au moins aussi extrême que celui obtenu <em>si
+l'hypothèse nulle était vraie</em>, c'est-à-dire s'il n'y avait aucun effet dans la population. Le seuil
+conventionnel de 0,05 a été choisi par Ronald Fisher par commodité, sans justification théorique.</p>
+
+<p>Ce que p <strong>n'est pas</strong> : ce n'est pas la probabilité que l'hypothèse soit vraie ; ce n'est pas
+la probabilité que le résultat se réplique ; et un p de 0,001 ne signifie pas que l'effet est trois fois plus
+important qu'un p de 0,003. La valeur p mélange la taille de l'effet et la taille de l'échantillon : avec
+100 000 participants, une différence totalement négligeable devient « significative ».</p>
+
+<p>D'où la distinction cardinale entre <strong>significativité statistique</strong> (l'effet n'est probablement
+pas dû au seul hasard) et <strong>signification pratique</strong> (l'effet est assez grand pour compter). Un
+médicament qui réduit la douleur de 0,3 point sur 100 peut être hautement significatif et parfaitement
+inutile.</p>
+
+<div class="warn-box"><strong>Le p-hacking.</strong> Tester vingt hypothèses au seuil de 5 %, c'est s'attendre
+à un « résultat significatif » purement dû au hasard, en moyenne, à chaque étude. Ajouter des participants
+jusqu'à ce que p passe sous 0,05, écarter des valeurs gênantes, essayer plusieurs mesures et ne publier que la
+plus flatteuse : ces pratiques, longtemps considérées comme anodines, sont la première cause de la crise de la
+réplication.</div>
+
+<h2 id="taille-effet">Taille d'effet et intervalles de confiance</h2>
+
+<p>La <strong>taille d'effet</strong> répond à la seule question qui compte vraiment : de combien ? Le
+<em>d</em> de Cohen exprime la différence entre deux moyennes en unités d'écart-type. Repères usuels : 0,2
+petit, 0,5 moyen, 0,8 grand — à relativiser selon le domaine, car un petit effet appliqué à des millions de
+personnes peut avoir une immense portée en santé publique.</p>
+
+<p>Le coefficient de corrélation <em>r</em> varie de −1 à +1. En psychologie, la plupart des corrélations
+robustes se situent entre 0,10 et 0,30. Son carré indique la part de variance partagée : un r de 0,30, souvent
+présenté comme un lien fort, n'explique que 9 % de la variance.</p>
+
+<p>L'<strong>intervalle de confiance à 95 %</strong> est plus informatif que la valeur p : il donne une plage
+de valeurs plausibles pour l'effet. Un intervalle très large signale un résultat imprécis, même s'il est
+« significatif ». C'est l'un des meilleurs indices de la solidité réelle d'une étude.</p>
+
+<p>La <strong>puissance statistique</strong> est la probabilité de détecter un effet qui existe réellement.
+Elle dépend de la taille d'effet attendue et du nombre de participants. Une étude sous-puissante ne se contente
+pas de rater des effets : quand elle en trouve un, celui-ci est presque nécessairement surestimé.</p>
+
+<h2 id="meta">Revues systématiques et méta-analyses</h2>
+
+<p>Une étude isolée ne prouve à peu près rien. La <strong>revue systématique</strong> recense de façon
+exhaustive et pré-spécifiée toutes les études sur une question ; la <strong>méta-analyse</strong> combine
+statistiquement leurs résultats pour estimer un effet global et sa variabilité.</p>
+
+<p>C'est le sommet de la hiérarchie des preuves — à condition de se méfier de deux pièges. Le
+<strong>biais de publication</strong> : les résultats nuls sont bien moins souvent publiés, ce qui gonfle
+artificiellement l'effet moyen. On le détecte par des graphiques en entonnoir (<em>funnel plots</em>)
+asymétriques. Et le principe <em>garbage in, garbage out</em> : agréger cinquante études mal conduites ne
+produit pas une vérité, seulement une erreur avec une décimale de plus.</p>
+
+<p>Pour naviguer, retenez l'ordre approximatif de solidité : témoignage personnel &lt; étude de cas &lt; étude
+corrélationnelle &lt; essai contrôlé randomisé &lt; réplication indépendante &lt; méta-analyse d'essais
+préenregistrés.</p>
+
+<h2 id="reforme">La réforme en cours : science ouverte</h2>
+
+<p>Depuis 2011, la psychologie a entrepris une réforme méthodologique d'une ampleur inédite, et elle est
+devenue de ce fait une discipline pilote pour les autres sciences.</p>
+
+<p>Le <strong>préenregistrement</strong> consiste à déposer publiquement ses hypothèses, son plan d'analyse et
+sa taille d'échantillon avant de collecter les données. Il empêche de transformer après coup une exploration
+en confirmation. Les <strong>Registered Reports</strong> vont plus loin : la revue accepte l'article sur la
+base du protocole, avant de connaître les résultats — ce qui supprime mécaniquement le biais de publication.</p>
+
+<p>Le <strong>partage des données et du code</strong> permet la vérification indépendante. Les
+<strong>réplications multi-laboratoires</strong> (projets Many Labs, ManyBabies) testent le même protocole dans
+des dizaines d'équipes et de pays simultanément.</p>
+
+<div class="note-box"><strong>Ce qu'il faut en retenir.</strong> Qu'un tiers seulement des résultats classiques
+se réplique n'est pas un scandale à cacher : c'est une discipline qui a mesuré ses propres erreurs et publié le
+résultat. Aucune science n'avait osé le faire à cette échelle. Lire aujourd'hui un article préenregistré,
+multi-sites, avec données ouvertes, c'est lire une preuve d'une qualité sans commune mesure avec la littérature
+des années 1980.</div>
+
+<h2 id="ethique">L'éthique de la recherche</h2>
+
+<p>Les principes actuels sont nés des abus : expérimentations nazies, étude de Tuskegee où l'on a laissé des
+hommes noirs américains non traités pour observer l'évolution de la syphilis pendant quarante ans, protocoles
+de psychologie sociale infligeant une détresse réelle.</p>
+
+<p>Quatre exigences structurent aujourd'hui toute recherche sur l'humain. Le <strong>consentement libre et
+éclairé</strong> : comprendre ce à quoi on participe et pouvoir se retirer à tout moment sans justification.
+La <strong>balance bénéfice-risque</strong>, évaluée par un comité indépendant. La
+<strong>confidentialité</strong> et la protection des données. Enfin le <strong>débriefing</strong> lorsqu'une
+tromperie a été nécessaire : le participant doit repartir en sachant la vérité et sans dommage.</p>
+
+<p>La protection est renforcée pour les personnes vulnérables — mineurs, personnes sous protection juridique,
+détenus, patients en situation de dépendance à l'égard du soignant qui les recrute. En France, ces recherches
+relèvent de comités de protection des personnes et du cadre du RGPD.</p>
+
+<h2 id="lire-article">Lire un article scientifique en dix minutes</h2>
+
+<p>Un article de recherche suit presque toujours la même structure (le format IMRaD). Voici l'ordre de lecture
+le plus efficace, qui n'est pas l'ordre du texte.</p>
+
+<ol>
+<li><strong>Le résumé</strong>, pour savoir de quoi il s'agit — sans jamais s'y fier pour conclure.</li>
+<li><strong>La méthode</strong> d'abord : qui sont les participants, combien, comment ont-ils été recrutés et
+répartis, comment les variables ont-elles été mesurées ? Un protocole faible invalide des résultats brillants ;
+l'inverse n'est pas vrai.</li>
+<li><strong>Les résultats</strong> : cherchez les tailles d'effet et les intervalles de confiance, pas
+seulement les astérisques. Regardez les échelles des graphiques.</li>
+<li><strong>La discussion</strong> en dernier, en gardant en tête que c'est la partie la plus interprétative,
+donc la plus susceptible de dépasser ce que les données autorisent.</li>
+</ol>
+
+<p>Trois questions closent la lecture : l'échantillon permet-il de généraliser à qui l'on prétend ? le plan
+autorise-t-il une conclusion causale ? l'effet est-il assez grand pour compter en pratique ? Si l'une des trois
+réponses est « non », le titre du communiqué de presse est probablement trompeur.</p>
+
+<div class="note-box"><strong>Des ressources gratuites et sérieuses.</strong> PubMed et Google Scholar pour la
+recherche bibliographique, les archives ouvertes HAL et PsyArXiv pour les versions accessibles librement,
+Cochrane et Campbell Collaboration pour les synthèses d'efficacité. Et systématiquement : remonter du
+communiqué de presse à l'article original, car c'est presque toujours entre les deux que la nuance disparaît.</div>
+
+
+    <h2 id="notions">Fiches de référence</h2>
+    <p>Les 50 notions ci-dessous se consultent à la demande. Chacune donne la définition,
+    un exemple concret et le piège classique associé.</p>
+    
+<div class="ref-toolbar" data-ref-filter>
+  <input type="search" placeholder="Filtrer par notion, famille…" aria-label="Filtrer la liste">
+  <span class="ref-count">50 notions</span>
+</div>
+<div class="search-filters" data-ref-filter style="padding:0 0 1.2rem;border:none"><button class="search-filter active" data-famille="all">Toutes</button><button class="search-filter" data-famille="Esprit critique">Esprit critique</button><button class="search-filter" data-famille="Inférence">Inférence</button><button class="search-filter" data-famille="Intégrité scientifique">Intégrité scientifique</button><button class="search-filter" data-famille="Mesure">Mesure</button><button class="search-filter" data-famille="Plan de recherche">Plan de recherche</button><button class="search-filter" data-famille="Preuve">Preuve</button><button class="search-filter" data-famille="Statistiques descriptives">Statistiques descriptives</button><button class="search-filter" data-famille="Éthique">Éthique</button></div>
+    <div class="ref-card or" data-ref-id="variable-independante" data-famille="Plan de recherche" data-search="Variable indépendante Plan de recherche Ce que l'expérimentateur manipule délibérément pour observer son effet.">
+          <div class="ref-card-head">
+            <span class="ref-n">01</span>
+            <div class="ref-h"><h3>Variable indépendante</h3><p class="ref-sub">Plan de recherche</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Ce que l'expérimentateur manipule délibérément pour observer son effet.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Dans une étude sur le sommeil et la mémoire, la durée de sommeil imposée (4 h ou 8 h) est la variable indépendante.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Si elle n'est pas manipulée mais seulement observée (les gens qui dorment peu), l'étude est corrélationnelle : on ne peut plus parler de cause.</p></div>
+            <div class="ref-tags"><span>Plan de recherche</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="variable-dependante" data-famille="Plan de recherche" data-search="Variable dépendante Plan de recherche Ce que l'on mesure pour voir si la manipulation a produit un effet.">
+          <div class="ref-card-head">
+            <span class="ref-n">02</span>
+            <div class="ref-h"><h3>Variable dépendante</h3><p class="ref-sub">Plan de recherche</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Ce que l'on mesure pour voir si la manipulation a produit un effet.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Le nombre de mots correctement rappelés le lendemain matin.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Choisir sa variable dépendante après avoir vu les données, parmi plusieurs mesurées, est une forme de p-hacking.</p></div>
+            <div class="ref-tags"><span>Plan de recherche</span></div>
+          </div>
+        </div><div class="ref-card gris" data-ref-id="variable-confondue" data-famille="Plan de recherche" data-search="Variable confondue Plan de recherche Une troisième variable qui varie en même temps que la variable indépendante et qui pourrait expliquer le résultat.">
+          <div class="ref-card-head">
+            <span class="ref-n">03</span>
+            <div class="ref-h"><h3>Variable confondue</h3><p class="ref-sub">Plan de recherche</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Une troisième variable qui varie en même temps que la variable indépendante et qui pourrait expliquer le résultat.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Comparer un cours du matin et un cours du soir : l'heure, la fatigue, mais aussi le type d'étudiants inscrits diffèrent.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>C'est la menace numéro un sur la validité interne, et la raison d'être de la randomisation.</p></div>
+            <div class="ref-tags"><span>Plan de recherche</span></div>
+          </div>
+        </div><div class="ref-card vert" data-ref-id="randomisation" data-famille="Plan de recherche" data-search="Répartition aléatoire Plan de recherche Attribuer les participants aux conditions par tirage au sort, afin d'égaliser en moyenne tout ce qui n'est pas manipulé.">
+          <div class="ref-card-head">
+            <span class="ref-n">04</span>
+            <div class="ref-h"><h3>Répartition aléatoire</h3><p class="ref-sub">Plan de recherche</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Attribuer les participants aux conditions par tirage au sort, afin d'égaliser en moyenne tout ce qui n'est pas manipulé.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Un logiciel assigne chaque nouveau participant au groupe thérapie ou au groupe liste d'attente.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Ne pas confondre avec l'échantillonnage aléatoire, qui concerne le recrutement dans la population et sert la validité externe.</p></div>
+            <div class="ref-tags"><span>Plan de recherche</span></div>
+          </div>
+        </div><div class="ref-card or" data-ref-id="double-aveugle" data-famille="Plan de recherche" data-search="Double aveugle Plan de recherche Ni le participant ni l'expérimentateur en contact avec lui ne savent quelle condition est administrée.">
+          <div class="ref-card-head">
+            <span class="ref-n">05</span>
+            <div class="ref-h"><h3>Double aveugle</h3><p class="ref-sub">Plan de recherche</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Ni le participant ni l'expérimentateur en contact avec lui ne savent quelle condition est administrée.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Dans un essai médicamenteux, les gélules sont identiques et codées par un tiers.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Presque impossible en psychothérapie : le thérapeute sait toujours ce qu'il fait. D'où l'importance d'évaluateurs indépendants et aveugles.</p></div>
+            <div class="ref-tags"><span>Plan de recherche</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="groupe-controle" data-famille="Plan de recherche" data-search="Groupe contrôle Plan de recherche Groupe qui ne reçoit pas l'intervention testée, et auquel on compare le groupe expérimental.">
+          <div class="ref-card-head">
+            <span class="ref-n">06</span>
+            <div class="ref-h"><h3>Groupe contrôle</h3><p class="ref-sub">Plan de recherche</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Groupe qui ne reçoit pas l'intervention testée, et auquel on compare le groupe expérimental.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Liste d'attente, traitement habituel, ou placebo actif selon les questions posées.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Une liste d'attente surestime souvent l'effet du traitement, car elle ne contrôle ni l'attention reçue ni l'attente de guérison.</p></div>
+            <div class="ref-tags"><span>Plan de recherche</span></div>
+          </div>
+        </div><div class="ref-card gris" data-ref-id="plan-intra" data-famille="Plan de recherche" data-search="Plan intra-sujets Plan de recherche Chaque participant passe toutes les conditions et sert donc de témoin à lui-même.">
+          <div class="ref-card-head">
+            <span class="ref-n">07</span>
+            <div class="ref-h"><h3>Plan intra-sujets</h3><p class="ref-sub">Plan de recherche</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Chaque participant passe toutes les conditions et sert donc de témoin à lui-même.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Tester les mêmes personnes sous caféine et sous placebo, à une semaine d'intervalle.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Introduit des effets d'ordre (fatigue, apprentissage) qu'il faut neutraliser par contrebalancement.</p></div>
+            <div class="ref-tags"><span>Plan de recherche</span></div>
+          </div>
+        </div><div class="ref-card vert" data-ref-id="plan-inter" data-famille="Plan de recherche" data-search="Plan inter-sujets Plan de recherche Chaque participant ne passe qu'une seule condition ; les groupes sont comparés entre eux.">
+          <div class="ref-card-head">
+            <span class="ref-n">08</span>
+            <div class="ref-h"><h3>Plan inter-sujets</h3><p class="ref-sub">Plan de recherche</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Chaque participant ne passe qu'une seule condition ; les groupes sont comparés entre eux.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Un groupe apprend par relecture, l'autre par auto-test.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Demande plus de participants, car la variabilité entre personnes s'ajoute au bruit de mesure.</p></div>
+            <div class="ref-tags"><span>Plan de recherche</span></div>
+          </div>
+        </div><div class="ref-card or" data-ref-id="etude-cas" data-famille="Plan de recherche" data-search="Étude de cas Plan de recherche Analyse approfondie d'une seule personne ou d'un seul groupe, souvent exceptionnel.">
+          <div class="ref-card-head">
+            <span class="ref-n">09</span>
+            <div class="ref-h"><h3>Étude de cas</h3><p class="ref-sub">Plan de recherche</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Analyse approfondie d'une seule personne ou d'un seul groupe, souvent exceptionnel.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Le patient H.M. a plus appris à la science sur la mémoire que des milliers d'étudiants.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Impossible à généraliser statistiquement : elle génère des hypothèses, elle ne les teste pas.</p></div>
+            <div class="ref-tags"><span>Plan de recherche</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="longitudinal" data-famille="Plan de recherche" data-search="Étude longitudinale Plan de recherche Suivi des mêmes participants sur une longue durée.">
+          <div class="ref-card-head">
+            <span class="ref-n">10</span>
+            <div class="ref-h"><h3>Étude longitudinale</h3><p class="ref-sub">Plan de recherche</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Suivi des mêmes participants sur une longue durée.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>L'étude de Dunedin suit plus de mille personnes nées en 1972 depuis leur naissance.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>L'attrition sélective : ceux qui abandonnent diffèrent systématiquement de ceux qui restent.</p></div>
+            <div class="ref-tags"><span>Plan de recherche</span></div>
+          </div>
+        </div><div class="ref-card gris" data-ref-id="transversal" data-famille="Plan de recherche" data-search="Étude transversale Plan de recherche Comparaison, au même moment, de groupes d'âges ou de catégories différents.">
+          <div class="ref-card-head">
+            <span class="ref-n">11</span>
+            <div class="ref-h"><h3>Étude transversale</h3><p class="ref-sub">Plan de recherche</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Comparaison, au même moment, de groupes d'âges ou de catégories différents.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Comparer la mémoire de personnes de 20, 40 et 70 ans un même mois.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Confond l'effet de l'âge avec l'effet de génération (effet de cohorte).</p></div>
+            <div class="ref-tags"><span>Plan de recherche</span></div>
+          </div>
+        </div><div class="ref-card vert" data-ref-id="echantillon-representatif" data-famille="Mesure" data-search="Échantillon représentatif Mesure Échantillon dont la composition reflète celle de la population visée sur les variables pertinentes.">
+          <div class="ref-card-head">
+            <span class="ref-n">12</span>
+            <div class="ref-h"><h3>Échantillon représentatif</h3><p class="ref-sub">Mesure</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Échantillon dont la composition reflète celle de la population visée sur les variables pertinentes.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Un sondage national stratifié par âge, sexe, région et catégorie socioprofessionnelle.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>La plupart des études de psychologie utilisent des échantillons de convenance, principalement étudiants.</p></div>
+            <div class="ref-tags"><span>Mesure</span></div>
+          </div>
+        </div><div class="ref-card or" data-ref-id="weird-notion" data-famille="Mesure" data-search="Échantillons WEIRD Mesure Acronyme désignant les populations occidentales, éduquées, industrialisées, riches et démocratiques, largement surreprésentées.">
+          <div class="ref-card-head">
+            <span class="ref-n">13</span>
+            <div class="ref-h"><h3>Échantillons WEIRD</h3><p class="ref-sub">Mesure</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Acronyme désignant les populations occidentales, éduquées, industrialisées, riches et démocratiques, largement surreprésentées.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Environ 90 % des participants publiés proviennent de pays représentant moins de 15 % de l'humanité.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Ces populations sont souvent atypiques, pas moyennes : généraliser à « l'humain » est rarement justifié.</p></div>
+            <div class="ref-tags"><span>Mesure</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="fidelite" data-famille="Mesure" data-search="Fidélité Mesure Constance d'une mesure : elle donne le même résultat dans des conditions comparables.">
+          <div class="ref-card-head">
+            <span class="ref-n">14</span>
+            <div class="ref-h"><h3>Fidélité</h3><p class="ref-sub">Mesure</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Constance d'une mesure : elle donne le même résultat dans des conditions comparables.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Un test repassé à quinze jours d'intervalle donne des scores très proches (fidélité test-retest).</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Une mesure peut être parfaitement fidèle et totalement invalide : une balance déréglée pèse toujours 3 kg de trop, avec constance.</p></div>
+            <div class="ref-tags"><span>Mesure</span></div>
+          </div>
+        </div><div class="ref-card gris" data-ref-id="validite-mesure" data-famille="Mesure" data-search="Validité d'une mesure Mesure Degré auquel un instrument mesure effectivement ce qu'il prétend mesurer.">
+          <div class="ref-card-head">
+            <span class="ref-n">15</span>
+            <div class="ref-h"><h3>Validité d'une mesure</h3><p class="ref-sub">Mesure</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Degré auquel un instrument mesure effectivement ce qu'il prétend mesurer.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Une échelle d'anxiété qui prédit l'évitement réel de situations sociales possède une validité prédictive.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>La validité apparente (« ça a l'air de mesurer l'anxiété ») ne vaut rien sans validation empirique.</p></div>
+            <div class="ref-tags"><span>Mesure</span></div>
+          </div>
+        </div><div class="ref-card vert" data-ref-id="alpha-cronbach" data-famille="Mesure" data-search="Alpha de Cronbach Mesure Indice de cohérence interne d'un questionnaire : ses items mesurent-ils la même chose ?">
+          <div class="ref-card-head">
+            <span class="ref-n">16</span>
+            <div class="ref-h"><h3>Alpha de Cronbach</h3><p class="ref-sub">Mesure</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Indice de cohérence interne d'un questionnaire : ses items mesurent-ils la même chose ?</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Un alpha de 0,85 sur une échelle de dix items est généralement jugé satisfaisant.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Un alpha très élevé (&gt; 0,95) peut signaler que les items sont redondants, pas que l'échelle est excellente.</p></div>
+            <div class="ref-tags"><span>Mesure</span></div>
+          </div>
+        </div><div class="ref-card or" data-ref-id="etalonnage" data-famille="Mesure" data-search="Étalonnage Mesure Normes de référence établies sur un large échantillon, permettant de situer un score individuel.">
+          <div class="ref-card-head">
+            <span class="ref-n">17</span>
+            <div class="ref-h"><h3>Étalonnage</h3><p class="ref-sub">Mesure</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Normes de référence établies sur un large échantillon, permettant de situer un score individuel.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Un QI de 115 signifie « au-dessus de 84 % des personnes du même âge », pas « 115 unités d'intelligence ».</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Un étalonnage vieilli fausse tout : l'effet Flynn impose de réétalonner les tests régulièrement.</p></div>
+            <div class="ref-tags"><span>Mesure</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="auto-declaration" data-famille="Mesure" data-search="Mesure auto-déclarative Mesure Donnée fournie par la personne elle-même via questionnaire ou entretien.">
+          <div class="ref-card-head">
+            <span class="ref-n">18</span>
+            <div class="ref-h"><h3>Mesure auto-déclarative</h3><p class="ref-sub">Mesure</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Donnée fournie par la personne elle-même via questionnaire ou entretien.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Échelles de bien-être, de stress perçu, de satisfaction au travail.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Sensible à la désirabilité sociale, à l'humeur du moment et à la mauvaise introspection : on estime très mal ses propres causes.</p></div>
+            <div class="ref-tags"><span>Mesure</span></div>
+          </div>
+        </div><div class="ref-card gris" data-ref-id="desirabilite" data-famille="Mesure" data-search="Désirabilité sociale Mesure Tendance à se présenter sous un jour favorable dans ses réponses.">
+          <div class="ref-card-head">
+            <span class="ref-n">19</span>
+            <div class="ref-h"><h3>Désirabilité sociale</h3><p class="ref-sub">Mesure</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Tendance à se présenter sous un jour favorable dans ses réponses.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Sous-déclaration de la consommation d'alcool, surdéclaration du vote et du sport pratiqué.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Se réduit par l'anonymat, les mesures indirectes ou des items de contrôle, jamais totalement.</p></div>
+            <div class="ref-tags"><span>Mesure</span></div>
+          </div>
+        </div><div class="ref-card vert" data-ref-id="moyenne" data-famille="Statistiques descriptives" data-search="Moyenne Statistiques descriptives Somme des valeurs divisée par leur nombre.">
+          <div class="ref-card-head">
+            <span class="ref-n">20</span>
+            <div class="ref-h"><h3>Moyenne</h3><p class="ref-sub">Statistiques descriptives</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Somme des valeurs divisée par leur nombre.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>La moyenne des temps de réaction d'un participant sur cent essais.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Très sensible aux valeurs extrêmes ; trompeuse sur les distributions asymétriques comme les revenus.</p></div>
+            <div class="ref-tags"><span>Statistiques descriptives</span></div>
+          </div>
+        </div><div class="ref-card or" data-ref-id="mediane" data-famille="Statistiques descriptives" data-search="Médiane Statistiques descriptives Valeur qui sépare l'échantillon en deux moitiés égales.">
+          <div class="ref-card-head">
+            <span class="ref-n">21</span>
+            <div class="ref-h"><h3>Médiane</h3><p class="ref-sub">Statistiques descriptives</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Valeur qui sépare l'échantillon en deux moitiés égales.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Le revenu médian décrit bien mieux la situation typique que le revenu moyen.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Moins efficace que la moyenne pour les tests statistiques classiques sur données bien distribuées.</p></div>
+            <div class="ref-tags"><span>Statistiques descriptives</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="ecart-type" data-famille="Statistiques descriptives" data-search="Écart-type Statistiques descriptives Mesure de la dispersion des valeurs autour de la moyenne.">
+          <div class="ref-card-head">
+            <span class="ref-n">22</span>
+            <div class="ref-h"><h3>Écart-type</h3><p class="ref-sub">Statistiques descriptives</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Mesure de la dispersion des valeurs autour de la moyenne.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Deux classes ont 12/20 de moyenne : l'une avec un écart-type de 1, l'autre de 6. Ce ne sont pas les mêmes classes.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Une moyenne publiée sans dispersion doit toujours éveiller la méfiance.</p></div>
+            <div class="ref-tags"><span>Statistiques descriptives</span></div>
+          </div>
+        </div><div class="ref-card gris" data-ref-id="distribution-normale" data-famille="Statistiques descriptives" data-search="Distribution normale Statistiques descriptives Distribution symétrique en cloche, où 68 % des valeurs tombent à un écart-type de la moyenne.">
+          <div class="ref-card-head">
+            <span class="ref-n">23</span>
+            <div class="ref-h"><h3>Distribution normale</h3><p class="ref-sub">Statistiques descriptives</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Distribution symétrique en cloche, où 68 % des valeurs tombent à un écart-type de la moyenne.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Taille adulte, scores de QI par construction, erreurs de mesure.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Beaucoup de variables psychologiques ne la suivent pas (temps de réaction, symptômes, revenus).</p></div>
+            <div class="ref-tags"><span>Statistiques descriptives</span></div>
+          </div>
+        </div><div class="ref-card vert" data-ref-id="hypothese-nulle" data-famille="Inférence" data-search="Hypothèse nulle Inférence Hypothèse de départ selon laquelle il n'existe aucun effet dans la population.">
+          <div class="ref-card-head">
+            <span class="ref-n">24</span>
+            <div class="ref-h"><h3>Hypothèse nulle</h3><p class="ref-sub">Inférence</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Hypothèse de départ selon laquelle il n'existe aucun effet dans la population.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>« La méditation ne modifie pas le niveau d'anxiété. »</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>On ne « prouve » jamais l'hypothèse nulle : ne pas trouver d'effet n'équivaut pas à démontrer son absence.</p></div>
+            <div class="ref-tags"><span>Inférence</span></div>
+          </div>
+        </div><div class="ref-card or" data-ref-id="valeur-p" data-famille="Inférence" data-search="Valeur p Inférence Probabilité d'obtenir un résultat au moins aussi extrême si l'hypothèse nulle était vraie.">
+          <div class="ref-card-head">
+            <span class="ref-n">25</span>
+            <div class="ref-h"><h3>Valeur p</h3><p class="ref-sub">Inférence</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Probabilité d'obtenir un résultat au moins aussi extrême si l'hypothèse nulle était vraie.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>p = 0,03 : un tel écart surviendrait 3 fois sur 100 en l'absence de tout effet réel.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Ce n'est ni la probabilité que l'hypothèse soit vraie, ni la probabilité de réplication, ni une mesure de l'importance de l'effet.</p></div>
+            <div class="ref-tags"><span>Inférence</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="erreur-type-i" data-famille="Inférence" data-search="Erreur de type I Inférence Conclure à un effet qui n'existe pas (faux positif).">
+          <div class="ref-card-head">
+            <span class="ref-n">26</span>
+            <div class="ref-h"><h3>Erreur de type I</h3><p class="ref-sub">Inférence</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Conclure à un effet qui n'existe pas (faux positif).</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Annoncer qu'un programme améliore les notes alors qu'il ne change rien.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Sa probabilité augmente mécaniquement avec le nombre de tests effectués sur les mêmes données.</p></div>
+            <div class="ref-tags"><span>Inférence</span></div>
+          </div>
+        </div><div class="ref-card gris" data-ref-id="erreur-type-ii" data-famille="Inférence" data-search="Erreur de type II Inférence Ne pas détecter un effet qui existe réellement (faux négatif).">
+          <div class="ref-card-head">
+            <span class="ref-n">27</span>
+            <div class="ref-h"><h3>Erreur de type II</h3><p class="ref-sub">Inférence</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Ne pas détecter un effet qui existe réellement (faux négatif).</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Une étude sur 20 participants qui conclut à l'inefficacité d'une thérapie pourtant utile.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Presque toujours due à une puissance statistique insuffisante — donc à un échantillon trop petit.</p></div>
+            <div class="ref-tags"><span>Inférence</span></div>
+          </div>
+        </div><div class="ref-card vert" data-ref-id="puissance" data-famille="Inférence" data-search="Puissance statistique Inférence Probabilité de détecter un effet réel s'il existe ; on vise conventionnellement 80 %.">
+          <div class="ref-card-head">
+            <span class="ref-n">28</span>
+            <div class="ref-h"><h3>Puissance statistique</h3><p class="ref-sub">Inférence</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Probabilité de détecter un effet réel s'il existe ; on vise conventionnellement 80 %.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Détecter un effet moyen (d = 0,5) entre deux groupes demande environ 64 participants par groupe.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Une étude sous-puissante qui trouve un effet le surestime nécessairement : c'est l'effet « winner's curse ».</p></div>
+            <div class="ref-tags"><span>Inférence</span></div>
+          </div>
+        </div><div class="ref-card or" data-ref-id="taille-effet-notion" data-famille="Inférence" data-search="Taille d'effet Inférence Mesure de l'ampleur d'un phénomène, indépendante de la taille de l'échantillon.">
+          <div class="ref-card-head">
+            <span class="ref-n">29</span>
+            <div class="ref-h"><h3>Taille d'effet</h3><p class="ref-sub">Inférence</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Mesure de l'ampleur d'un phénomène, indépendante de la taille de l'échantillon.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>d de Cohen pour une différence de moyennes, r pour une association, odds ratio pour un risque.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>C'est l'information la plus importante d'un article, et souvent la plus discrètement présentée.</p></div>
+            <div class="ref-tags"><span>Inférence</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="intervalle-confiance" data-famille="Inférence" data-search="Intervalle de confiance Inférence Plage de valeurs plausibles pour l'effet réel, généralement à 95 %.">
+          <div class="ref-card-head">
+            <span class="ref-n">30</span>
+            <div class="ref-h"><h3>Intervalle de confiance</h3><p class="ref-sub">Inférence</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Plage de valeurs plausibles pour l'effet réel, généralement à 95 %.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Un effet estimé à d = 0,45 [0,10 ; 0,80] est positif mais très imprécis.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Un intervalle qui contient zéro correspond à un résultat non significatif — mais l'intervalle dit bien plus que ce verdict binaire.</p></div>
+            <div class="ref-tags"><span>Inférence</span></div>
+          </div>
+        </div><div class="ref-card gris" data-ref-id="correlation" data-famille="Inférence" data-search="Corrélation Inférence Mesure du degré de variation conjointe de deux variables, entre −1 et +1.">
+          <div class="ref-card-head">
+            <span class="ref-n">31</span>
+            <div class="ref-h"><h3>Corrélation</h3><p class="ref-sub">Inférence</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Mesure du degré de variation conjointe de deux variables, entre −1 et +1.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>r = 0,25 entre temps d'écran et sommeil insuffisant chez l'adolescent.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Une corrélation n'établit jamais la causalité, et son carré (ici 6 % de variance) refroidit souvent l'enthousiasme.</p></div>
+            <div class="ref-tags"><span>Inférence</span></div>
+          </div>
+        </div><div class="ref-card vert" data-ref-id="causalite" data-famille="Inférence" data-search="Inférence causale Inférence Conclusion selon laquelle une variable produit un changement dans une autre.">
+          <div class="ref-card-head">
+            <span class="ref-n">32</span>
+            <div class="ref-h"><h3>Inférence causale</h3><p class="ref-sub">Inférence</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Conclusion selon laquelle une variable produit un changement dans une autre.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Elle exige la manipulation, la randomisation et le contrôle des variables confondues.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Les verbes des titres de presse (« améliore », « provoque ») précèdent régulièrement toute preuve causale.</p></div>
+            <div class="ref-tags"><span>Inférence</span></div>
+          </div>
+        </div><div class="ref-card or" data-ref-id="regression-moyenne" data-famille="Inférence" data-search="Régression vers la moyenne Inférence Tendance des valeurs extrêmes à se rapprocher de la moyenne lors d'une seconde mesure.">
+          <div class="ref-card-head">
+            <span class="ref-n">33</span>
+            <div class="ref-h"><h3>Régression vers la moyenne</h3><p class="ref-sub">Inférence</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Tendance des valeurs extrêmes à se rapprocher de la moyenne lors d'une seconde mesure.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Les personnes recrutées au pic de leur douleur vont statistiquement mieux ensuite, quoi qu'on leur donne.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Explique à elle seule l'apparente efficacité d'innombrables remèdes pris au plus mal.</p></div>
+            <div class="ref-tags"><span>Inférence</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="p-hacking-notion" data-famille="Intégrité scientifique" data-search="p-hacking Intégrité scientifique Ensemble de choix d'analyse, faits après avoir vu les données, qui font passer un résultat sous le seuil de significativité.">
+          <div class="ref-card-head">
+            <span class="ref-n">34</span>
+            <div class="ref-h"><h3>p-hacking</h3><p class="ref-sub">Intégrité scientifique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Ensemble de choix d'analyse, faits après avoir vu les données, qui font passer un résultat sous le seuil de significativité.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Ajouter des participants jusqu'à obtenir p &lt; 0,05, tester plusieurs variables et ne rapporter que la bonne.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Rarement malhonnête au sens intentionnel : c'est une accumulation de décisions qui semblent raisonnables une par une.</p></div>
+            <div class="ref-tags"><span>Intégrité scientifique</span></div>
+          </div>
+        </div><div class="ref-card gris" data-ref-id="harking" data-famille="Intégrité scientifique" data-search="HARKing Intégrité scientifique Formuler l'hypothèse après avoir connu les résultats, puis la présenter comme prévue à l'avance.">
+          <div class="ref-card-head">
+            <span class="ref-n">35</span>
+            <div class="ref-h"><h3>HARKing</h3><p class="ref-sub">Intégrité scientifique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Formuler l'hypothèse après avoir connu les résultats, puis la présenter comme prévue à l'avance.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Une étude exploratoire sur vingt variables, publiée comme un test confirmatoire d'une seule.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Transforme une exploration légitime en fausse confirmation, et gonfle le taux de faux positifs de la littérature.</p></div>
+            <div class="ref-tags"><span>Intégrité scientifique</span></div>
+          </div>
+        </div><div class="ref-card vert" data-ref-id="biais-publication" data-famille="Intégrité scientifique" data-search="Biais de publication Intégrité scientifique Tendance des revues et des auteurs à publier surtout les résultats positifs et spectaculaires.">
+          <div class="ref-card-head">
+            <span class="ref-n">36</span>
+            <div class="ref-h"><h3>Biais de publication</h3><p class="ref-sub">Intégrité scientifique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Tendance des revues et des auteurs à publier surtout les résultats positifs et spectaculaires.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Les études ne trouvant aucun effet finissent dans le « tiroir des manuscrits ».</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Fausse toutes les méta-analyses vers le haut : l'effet moyen publié est systématiquement surestimé.</p></div>
+            <div class="ref-tags"><span>Intégrité scientifique</span></div>
+          </div>
+        </div><div class="ref-card or" data-ref-id="preenregistrement" data-famille="Intégrité scientifique" data-search="Préenregistrement Intégrité scientifique Dépôt public des hypothèses et du plan d'analyse avant la collecte des données.">
+          <div class="ref-card-head">
+            <span class="ref-n">37</span>
+            <div class="ref-h"><h3>Préenregistrement</h3><p class="ref-sub">Intégrité scientifique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Dépôt public des hypothèses et du plan d'analyse avant la collecte des données.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Plateformes comme l'Open Science Framework ou AsPredicted.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>N'améliore pas la qualité d'un protocole médiocre : il empêche seulement de réécrire l'histoire après coup.</p></div>
+            <div class="ref-tags"><span>Intégrité scientifique</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="registered-report" data-famille="Intégrité scientifique" data-search="Registered Report Intégrité scientifique Format éditorial où l'article est accepté sur la base du protocole, avant que les résultats soient connus.">
+          <div class="ref-card-head">
+            <span class="ref-n">38</span>
+            <div class="ref-h"><h3>Registered Report</h3><p class="ref-sub">Intégrité scientifique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Format éditorial où l'article est accepté sur la base du protocole, avant que les résultats soient connus.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Plus d'une centaine de revues le proposent aujourd'hui.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Supprime le biais de publication à la source, mais allonge sensiblement les délais.</p></div>
+            <div class="ref-tags"><span>Intégrité scientifique</span></div>
+          </div>
+        </div><div class="ref-card gris" data-ref-id="replication" data-famille="Intégrité scientifique" data-search="Réplication Intégrité scientifique Refaire une étude pour vérifier si le résultat tient. Directe (même protocole) ou conceptuelle (autre opérationnalisation).">
+          <div class="ref-card-head">
+            <span class="ref-n">39</span>
+            <div class="ref-h"><h3>Réplication</h3><p class="ref-sub">Intégrité scientifique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Refaire une étude pour vérifier si le résultat tient. Directe (même protocole) ou conceptuelle (autre opérationnalisation).</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Les projets Many Labs testent un même protocole dans des dizaines de laboratoires.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Une réplication conceptuelle qui échoue est ambiguë : on ne sait pas si l'effet est faux ou si le protocole diffère trop.</p></div>
+            <div class="ref-tags"><span>Intégrité scientifique</span></div>
+          </div>
+        </div><div class="ref-card vert" data-ref-id="science-ouverte" data-famille="Intégrité scientifique" data-search="Science ouverte Intégrité scientifique Mise à disposition publique des données, du code, des matériels et des publications.">
+          <div class="ref-card-head">
+            <span class="ref-n">40</span>
+            <div class="ref-h"><h3>Science ouverte</h3><p class="ref-sub">Intégrité scientifique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Mise à disposition publique des données, du code, des matériels et des publications.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Archives ouvertes HAL et PsyArXiv, dépôts de données sur l'Open Science Framework.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Partager des données sur l'humain suppose une anonymisation soignée et un cadre juridique respecté (RGPD).</p></div>
+            <div class="ref-tags"><span>Intégrité scientifique</span></div>
+          </div>
+        </div><div class="ref-card or" data-ref-id="consentement" data-famille="Éthique" data-search="Consentement libre et éclairé Éthique Accord donné après information complète, sans contrainte, et révocable à tout moment.">
+          <div class="ref-card-head">
+            <span class="ref-n">41</span>
+            <div class="ref-h"><h3>Consentement libre et éclairé</h3><p class="ref-sub">Éthique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Accord donné après information complète, sans contrainte, et révocable à tout moment.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Formulaire détaillant les objectifs, la durée, les risques, le traitement des données et le droit de retrait.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Le consentement est fragilisé quand le chercheur détient un pouvoir sur le participant (enseignant, médecin, employeur).</p></div>
+            <div class="ref-tags"><span>Éthique</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="debriefing" data-famille="Éthique" data-search="Débriefing Éthique Information complète donnée après coup lorsqu'une tromperie était nécessaire au protocole.">
+          <div class="ref-card-head">
+            <span class="ref-n">42</span>
+            <div class="ref-h"><h3>Débriefing</h3><p class="ref-sub">Éthique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Information complète donnée après coup lorsqu'une tromperie était nécessaire au protocole.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Expliquer aux participants d'une étude sur le conformisme que les autres étaient des complices.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Ne répare pas tout : Milgram a été critiqué précisément parce que le débriefing ne suffisait pas à effacer le vécu.</p></div>
+            <div class="ref-tags"><span>Éthique</span></div>
+          </div>
+        </div><div class="ref-card gris" data-ref-id="comite-ethique" data-famille="Éthique" data-search="Comité d'éthique Éthique Instance indépendante qui évalue le rapport bénéfice-risque d'un protocole avant son lancement.">
+          <div class="ref-card-head">
+            <span class="ref-n">43</span>
+            <div class="ref-h"><h3>Comité d'éthique</h3><p class="ref-sub">Éthique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Instance indépendante qui évalue le rapport bénéfice-risque d'un protocole avant son lancement.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>En France, comités de protection des personnes pour les recherches interventionnelles.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Son avis ne dispense pas le chercheur de sa responsabilité propre, ni de la vigilance en cours d'étude.</p></div>
+            <div class="ref-tags"><span>Éthique</span></div>
+          </div>
+        </div><div class="ref-card vert" data-ref-id="anonymisation" data-famille="Éthique" data-search="Anonymisation et RGPD Éthique Traitement des données garantissant qu'une personne ne puisse pas être réidentifiée.">
+          <div class="ref-card-head">
+            <span class="ref-n">44</span>
+            <div class="ref-h"><h3>Anonymisation et RGPD</h3><p class="ref-sub">Éthique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Traitement des données garantissant qu'une personne ne puisse pas être réidentifiée.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Suppression des identifiants directs, agrégation des données rares, conservation limitée dans le temps.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>La pseudonymisation n'est pas l'anonymisation : tant qu'une table de correspondance existe, le RGPD s'applique pleinement.</p></div>
+            <div class="ref-tags"><span>Éthique</span></div>
+          </div>
+        </div><div class="ref-card or" data-ref-id="essai-randomise" data-famille="Preuve" data-search="Essai contrôlé randomisé Preuve Plan de référence pour évaluer une intervention : participants tirés au sort entre traitement et contrôle.">
+          <div class="ref-card-head">
+            <span class="ref-n">45</span>
+            <div class="ref-h"><h3>Essai contrôlé randomisé</h3><p class="ref-sub">Preuve</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Plan de référence pour évaluer une intervention : participants tirés au sort entre traitement et contrôle.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Comparer une thérapie cognitivo-comportementale à une liste d'attente et à un traitement habituel.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Fort en validité interne, souvent faible en validité externe : les patients inclus ressemblent peu à ceux des consultations réelles.</p></div>
+            <div class="ref-tags"><span>Preuve</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="meta-analyse-notion" data-famille="Preuve" data-search="Méta-analyse Preuve Synthèse statistique de plusieurs études portant sur la même question.">
+          <div class="ref-card-head">
+            <span class="ref-n">46</span>
+            <div class="ref-h"><h3>Méta-analyse</h3><p class="ref-sub">Preuve</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Synthèse statistique de plusieurs études portant sur la même question.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Estimer l'effet global de la pratique de récupération sur la mémorisation à long terme.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Sa qualité ne dépasse jamais celle des études incluses, et elle reste vulnérable au biais de publication.</p></div>
+            <div class="ref-tags"><span>Preuve</span></div>
+          </div>
+        </div><div class="ref-card gris" data-ref-id="niveaux-preuve" data-famille="Preuve" data-search="Hiérarchie des preuves Preuve Classement des sources selon leur capacité à établir une conclusion causale fiable.">
+          <div class="ref-card-head">
+            <span class="ref-n">47</span>
+            <div class="ref-h"><h3>Hiérarchie des preuves</h3><p class="ref-sub">Preuve</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Classement des sources selon leur capacité à établir une conclusion causale fiable.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>Témoignage &lt; cas clinique &lt; corrélation &lt; essai randomisé &lt; réplication &lt; méta-analyse d'essais préenregistrés.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Une hiérarchie n'est pas un couperet : un essai randomisé mal conduit vaut moins qu'une étude observationnelle exemplaire.</p></div>
+            <div class="ref-tags"><span>Preuve</span></div>
+          </div>
+        </div><div class="ref-card vert" data-ref-id="neuromythe" data-famille="Esprit critique" data-search="Neuromythe Esprit critique Croyance fausse sur le cerveau, largement répandue y compris chez les enseignants.">
+          <div class="ref-card-head">
+            <span class="ref-n">48</span>
+            <div class="ref-h"><h3>Neuromythe</h3><p class="ref-sub">Esprit critique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Croyance fausse sur le cerveau, largement répandue y compris chez les enseignants.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>« On n'utilise que 10 % de notre cerveau », « cerveau gauche rationnel contre cerveau droit créatif », « styles d'apprentissage ».</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Leur résistance vient de leur utilité narrative : ils expliquent simplement, ils rassurent, et ils se vendent bien.</p></div>
+            <div class="ref-tags"><span>Esprit critique</span></div>
+          </div>
+        </div><div class="ref-card or" data-ref-id="effet-barnum" data-famille="Esprit critique" data-search="Effet Barnum Esprit critique Tendance à accepter comme personnellement pertinente une description vague valable pour presque tout le monde.">
+          <div class="ref-card-head">
+            <span class="ref-n">49</span>
+            <div class="ref-h"><h3>Effet Barnum</h3><p class="ref-sub">Esprit critique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Tendance à accepter comme personnellement pertinente une description vague valable pour presque tout le monde.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>« Vous êtes sociable mais vous avez besoin de moments de solitude. » Horoscopes, tests de personnalité non validés.</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>C'est la raison pour laquelle un test qui « tombe juste » n'est pas pour autant un test valide.</p></div>
+            <div class="ref-tags"><span>Esprit critique</span></div>
+          </div>
+        </div><div class="ref-card rose" data-ref-id="temoignage" data-famille="Esprit critique" data-search="Argument du témoignage Esprit critique Se fonder sur des cas individuels marquants plutôt que sur des données agrégées.">
+          <div class="ref-card-head">
+            <span class="ref-n">50</span>
+            <div class="ref-h"><h3>Argument du témoignage</h3><p class="ref-sub">Esprit critique</p></div>
+            <span class="ref-chev">▾</span>
+          </div>
+          <div class="ref-card-body">
+            <div class="ref-field"><h5>Définition</h5><p>Se fonder sur des cas individuels marquants plutôt que sur des données agrégées.</p></div>
+            <div class="ref-field"><h5>Exemple</h5><p>« Ma cousine a guéri grâce à cette méthode. »</p></div>
+            <div class="ref-field"><h5>Le piège</h5><p>Un témoignage ne contient aucune information sur ce qui serait arrivé sans l'intervention : il manque toujours le groupe contrôle.</p></div>
+            <div class="ref-tags"><span>Esprit critique</span></div>
+          </div>
+        </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="references/debats.html">⚖️ Voir les débats en cours</a>
+      <a class="btn btn-secondary" href="references/biais.html">🌀 Les biais de raisonnement</a>
+      <a class="btn btn-secondary" href="categories/01-fondamentaux.html">📘 Fiche Fondamentaux</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="../../index.html">Accueil</a>
+    <a href="index.html">Catégories</a>
+    <a href="references/index.html">Références</a>
+    <a href="dictionnaire.html">Dictionnaire</a>
+    <a href="bibliotheque.html">Bibliothèque</a>
+    <a href="lecteur.html">Lecteur en ligne</a>
+    <a href="methodes.html">Méthodes</a>
+    <a href="pratique.html">Psychologie pratique</a>
+    <a href="lexique.html">Lexique anglais</a>
+    <a href="metiers.html">Métiers &amp; études</a>
+    <a href="quiz/index.html">Quiz</a>
+    <a href="laboratoire.html">Laboratoire</a>
+    <a href="revision.html">Révision espacée</a>
+    <a href="fiches/index.html">Fiches de révision</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="apprendre.html">Apprendre</a>
+    <a href="plan.html">Plan du site</a>
+    <a href="credits.html">Crédits &amp; sources</a>
+  </div>
+  <p>Psyclopédia — encyclopédie pédagogique libre de la psychologie, entièrement en français.
+  Textes de synthèse rédigés pour ce guide ; ouvrages du domaine public hébergés dans
+  <code>06-pdf-domaine-public/</code> avec mention de leur source (Gallica, Internet Archive,
+  Project Gutenberg, Les Classiques des sciences sociales, Darwin Online).
+  Illustrations : Wikimedia Commons (domaine public).</p>
+  <p style="margin-top:0.75rem;font-size:0.78rem">⚠️ Contenu pédagogique de vulgarisation : il ne remplace
+  ni un diagnostic, ni un avis médical, ni un suivi psychologique professionnel.</p>
+</footer>
+<script src="../../assets-ebook/js/app.js"></script>
+<script src="../../assets-ebook/js/ui-v2.js"></script>
+<script src="../../assets-ebook/js/search.js"></script>
+
+</body>
+</html>
