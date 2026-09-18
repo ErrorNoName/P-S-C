@@ -578,6 +578,7 @@ def render_plan():
             ("Fiches de révision", "fiches/index.html"),
             ("Fiche complète du programme", "fiches/tout.html"),
             ("Laboratoire d'expériences", "laboratoire.html"),
+            ("Auto-évaluations", "auto-evaluations.html"),
             ("Parcours guidés", "parcours.html"),
             ("Apprendre efficacement", "apprendre.html"),
         ]),

@@ -9,6 +9,7 @@ d'apprentissage, puis l'index de recherche.
     python3 build_ebook.py
 """
 
+import build_autoeval
 import build_categories
 import build_home
 import build_pages
@@ -38,6 +39,7 @@ def main():
     build_references.render_all()
     build_savoirs.render_all()
     build_savoirs2.render_all()
+    n_evals, n_eval_items = build_autoeval.render_all()
     n_cards, cards_kb, n_index = build_outils.render_all()
     build_pages.render_all()
     build_home.render_home()
@@ -59,6 +61,7 @@ def main():
           f"{len(PRATIQUES)} fiches pratiques, {len(METIERS)} métiers")
     print(f"   • Repères : {len(COURANTS)} courants, {len(MYTHES)} idées reçues, {len(FAQ)} questions fréquentes, "
           f"aide et ressources")
+    print(f"   • Auto-évaluations : {n_evals} questionnaires, {n_eval_items} affirmations")
     print(f"   • {len(QUIZZES)} quiz, {n_questions} questions")
     print(f"   • {len(BOOKS)} ouvrages ({n_pdf} lisibles dans le lecteur intégré)")
     print(f"   • Outils : {len(EXPERIENCES_LAB)} expériences jouables, {n_cards} cartes de révision "

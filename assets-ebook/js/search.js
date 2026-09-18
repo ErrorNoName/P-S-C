@@ -22,6 +22,7 @@
     mythe: "Idée reçue",
     faq: "Question fréquente",
     aide: "Aide",
+    eval: "Auto-évaluation",
     trouble: "Trouble",
     biais: "Biais",
     test: "Test",
@@ -40,7 +41,7 @@
   var KIND_ICON = {
     categorie: "📂", section: "📄", notion: "📖", experience: "🔬", auteur: "👤",
     theorie: "🧩", courant: "🏛️", trouble: "🩺", biais: "🌀", test: "📊", cas: "🗃️", debat: "⚖️",
-    mythe: "🧹", faq: "❓", aide: "🤝",
+    mythe: "🧹", faq: "❓", aide: "🤝", eval: "📋",
     pratique: "🧰", metier: "💼", labo: "🧪", anglais: "🌍",
     date: "🗓️", livre: "📕", quiz: "🎮", page: "🧭",
   };

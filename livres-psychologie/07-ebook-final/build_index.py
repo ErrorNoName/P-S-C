@@ -23,6 +23,7 @@ from data_courants import COURANTS
 from data_mythes import MYTHES
 from data_faq import FAQ
 from data_aide import PARCOURS_SOIN
+from data_autoeval import EVALUATIONS
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 EBOOK = "livres-psychologie/07-ebook-final/"
@@ -63,6 +64,7 @@ def build_index():
         ("Les grands courants", f"{len(COURANTS)} écoles de pensée : postulat, méthode, apports, critiques et héritage.", EBOOK + "references/courants.html", "courant ecole behaviorisme gestalt psychanalyse cognitivisme humanisme structuralisme"),
         ("Idées reçues et neuromythes", f"{len(MYTHES)} affirmations très répandues passées au crible des données.", EBOOK + "references/mythes.html", "mythe idee recue faux neuromythe croyance 10% cerveau styles apprentissage"),
         ("Questions fréquentes", f"{len(FAQ)} questions sur la psychologie, le cerveau, l'apprentissage et la santé mentale.", EBOOK + "faq.html", "faq questions reponses frequentes"),
+        ("Auto-évaluations pédagogiques", f"{len(EVALUATIONS)} questionnaires pour comprendre la psychométrie de l'intérieur, sans valeur diagnostique.", EBOOK + "auto-evaluations.html", "test questionnaire auto evaluation personnalite big five chronotype"),
         ("Aide et ressources", "Numéros d'urgence et d'écoute, parcours de soin, remboursement, ressources libres.", EBOOK + "aide.html", "aide urgence 3114 ecoute consulter psychologue psychiatre cmp remboursement"),
         ("Plan du site et index A-Z", "Toutes les pages et l'index alphabétique général de Psyclopédia.", EBOOK + "plan.html", "plan sommaire index alphabetique sitemap"),
         ("Crédits et sources", "Origine et licence de chaque illustration et de chaque ouvrage utilisé.", EBOOK + "credits.html", "credits sources licences attribution domaine public"),
@@ -217,6 +219,14 @@ def build_index():
             "aide ressources soin consultation psychologue psychiatre orientation",
         ))
 
+    for ev in EVALUATIONS:
+        entries.append(_entry(
+            ev["titre"], ev["accroche"], "eval",
+            EBOOK + f"auto-evaluations/{ev['id']}.html",
+            f"questionnaire auto-evaluation {ev['duree']} "
+            + " ".join(d[1] for d in ev["dimensions"]),
+        ))
+
     entries.append(_entry(
         "Aide, orientation et ressources",
         "Numéros d'urgence et d'écoute, parcours de soin, remboursement et ressources en accès libre.",
@@ -247,7 +257,7 @@ def build_index():
     kind_order = {"categorie": 0, "notion": 1, "section": 2, "experience": 3, "auteur": 4,
                   "theorie": 5, "courant": 6, "trouble": 7, "biais": 8, "test": 9, "cas": 10,
                   "debat": 11, "mythe": 12, "faq": 13, "pratique": 14, "aide": 15, "metier": 16,
-                  "labo": 17, "anglais": 18, "date": 19, "livre": 20, "quiz": 21, "page": 22}
+                  "labo": 17, "eval": 18, "anglais": 19, "date": 20, "livre": 21, "quiz": 22, "page": 23}
     entries.sort(key=lambda e: kind_order.get(e["k"], 99))
     return entries
 

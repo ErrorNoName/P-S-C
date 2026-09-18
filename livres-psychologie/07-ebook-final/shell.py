@@ -123,6 +123,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a href="{ebook(depth, 'references/courants.html')}">Grands courants</a>
     <a href="{ebook(depth, 'references/mythes.html')}">Idées reçues</a>
     <a href="{ebook(depth, 'faq.html')}">Questions fréquentes</a>
+    <a href="{ebook(depth, 'auto-evaluations.html')}">Auto-évaluations</a>
     <a href="{ebook(depth, 'aide.html')}">Aide &amp; ressources</a>
     <a href="{ebook(depth, 'plan.html')}">Plan du site</a>
     <a href="{ebook(depth, 'credits.html')}">Crédits &amp; sources</a>
