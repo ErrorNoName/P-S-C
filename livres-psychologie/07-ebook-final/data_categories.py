@@ -115,7 +115,7 @@ CATEGORIES = [
         "figures": ["portrait-wundt.jpg:Wilhelm Wundt", "portrait-ribot.jpg:Théodule Ribot",
                     "portrait-binet.jpg:Alfred Binet", "portrait-janet.jpg:Pierre Janet",
                     "portrait-freud.jpg:Sigmund Freud", "portrait-pavlov.jpg:Ivan Pavlov",
-                    "portrait-skinner.jpg:B.F. Skinner"],
+                    "portrait-thorndike.jpg:Edward Thorndike"],
         "pdfs": [
             {"title": "De l'intelligence", "author": "Hippolyte Taine (1870)", "path": f"{PDF}/histoire-psychologie/taine-de-lintelligence-1870.pdf",
              "desc": "Une somme philosophique et psychologique majeure du XIXe siècle sur la connaissance et l'intelligence humaine (512 pages)."},
@@ -305,7 +305,7 @@ CATEGORIES = [
              "persiste toute la vie. Si certaines fonctions (vitesse de traitement) déclinent avec l'âge, d'autres "
              "(vocabulaire, sagesse pratique, régulation émotionnelle) continuent souvent de progresser.</p>"),
         ],
-        "figures": ["portrait-piaget.png:Jean Piaget"],
+        "figures": ["portrait-piaget.jpg:Jean Piaget"],
         "pdfs": [],
         "fun_fact": "Un nourrisson de quelques minutes préfère déjà regarder un visage humain schématique plutôt qu'un motif aléatoire de complexité équivalente — preuve d'une prédisposition sociale innée.",
         "flashcards": [
@@ -810,7 +810,7 @@ CATEGORIES = [
              "<p>Ces techniques sont détaillées et mises en pratique sur la page "
              "<a href='../apprendre.html'>Comment apprendre efficacement</a> de ce guide.</p>"),
         ],
-        "figures": ["portrait-pavlov.jpg:Ivan Pavlov", "portrait-skinner.jpg:B.F. Skinner", "portrait-le-bon.jpg:Gustave Le Bon"],
+        "figures": ["portrait-pavlov.jpg:Ivan Pavlov", "portrait-thorndike.jpg:Edward Thorndike", "portrait-le-bon.jpg:Gustave Le Bon"],
         "pdfs": [
             {"title": "Psychologie de l'éducation", "author": "Gustave Le Bon", "path": f"{PDF}/psychologie-generale/le-bon-psychologie-education.html",
              "desc": "Un plaidoyer historique pour une pédagogie active — à lire avec un regard critique sur son époque."},

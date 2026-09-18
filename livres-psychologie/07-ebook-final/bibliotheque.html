@@ -4,31 +4,51 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bibliothèque PDF — Psyclopédia</title>
-<meta name="description" content="Psyclopédia : l'encyclopédie vivante et illustrée de la psychologie, en français, avec quiz et fiches de révision.">
+<meta name="description" content="Bibliothèque de psychologie : 13 ouvrages du domaine public en français, lisibles directement en ligne.">
+<meta property="og:title" content="Bibliothèque PDF — Psyclopédia">
+<meta property="og:description" content="Bibliothèque de psychologie : 13 ouvrages du domaine public en français, lisibles directement en ligne.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets-ebook/css/style.css">
+<link rel="stylesheet" href="../../assets-ebook/css/v2.css">
 
 </head>
-<body>
+<body data-root="../../">
 <div class="topbar">
   <nav class="nav-pill">
     <a class="brand" href="../../index.html"><span class="brand-mark"></span>Psyclopédia</a>
-    <ul class="nav-links"><a href="../../index.html" class="">Accueil</a><a href="index.html" class="">Catégories</a><a href="quiz/index.html" class="">Quiz</a><a href="apprendre.html" class="">Apprendre</a><a href="bibliotheque.html" class="active">Bibliothèque</a></ul>
+    <ul class="nav-links"><a href="../../index.html">Accueil</a><a href="index.html">Catégories</a><a href="references/index.html">Références</a><a href="bibliotheque.html" class="active">Bibliothèque</a><a href="quiz/index.html">Quiz</a><a href="apprendre.html">Apprendre</a></ul>
     <div class="nav-side">
-      <span class="nav-badge">🔥 Apprentissage actif</span>
+      <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
+        <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      </button>
     </div>
   </nav>
 </div>
 
+<div class="page-header">
+  <p class="breadcrumb"><a href="../../index.html">Accueil</a> → Bibliothèque</p>
+  <div class="page-hero">
+    <div class="page-hero-icon" style="background:var(--or-light)">📚</div>
+    <div>
+      <h1>Bibliothèque des livres complets</h1>
+      <p class="subtitle">13 ouvrages du domaine public, intégralement lisibles dans le site</p>
+    </div>
+  </div>
+  <div class="meta-row"><span class="meta-chip">📕 13 ouvrages</span><span class="meta-chip">🔎 Lecture en ligne</span><span class="meta-chip">🔤 OCR et modernisation du français</span></div>
+</div>
 <div class="section">
-  <div class="section-head">
-    <p class="section-eyebrow">13 ouvrages complets, domaine public</p>
-    <h1 class="section-title">📚 Bibliothèque des livres complets</h1>
-    <p class="section-desc">Tous ces ouvrages sont dans le domaine public (auteurs décédés depuis plus de 70 ans ou
-    droits explicitement libérés) et proviennent de bibliothèques numériques reconnues : Internet Archive, Gallica
-    (BnF), Project Gutenberg, Les Classiques des sciences sociales (UQAM) et Darwin Online. Ils sont hébergés
-    directement dans ce dépôt pour un accès garanti et pérenne.</p>
+  <div class="reader-help">
+    <strong>Nouveau : tout se lit dans le site.</strong> Plus besoin de télécharger quoi que ce soit. Le
+    <a href="lecteur.html">lecteur intégré</a> affiche chaque page, extrait le texte, modernise le français du
+    XIXe siècle et lance une reconnaissance optique (OCR) en français sur les ouvrages qui ne sont que des images
+    scannées. Tu peux aussi faire traduire la page affichée dans une autre langue.
+  </div>
+  <div class="cta-row" style="margin-top:0;margin-bottom:2rem">
+    <a class="btn btn-primary" href="lecteur.html">📖 Ouvrir le lecteur</a>
+    <button class="btn btn-secondary" data-search-open="">🔍 Chercher un livre ou un auteur</button>
   </div>
   <div class="grid-2"><div class="book-card">
           <div class="book-cover" style="background:var(--vert)">🧩</div>
@@ -36,8 +56,9 @@
             <h3>Précis de psychologie</h3>
             <p class="author">William James · 1909</p>
             <p class="desc">Le texte fondateur du fonctionnalisme, traduit en français : perception, habitude, conscience, émotion.</p>
-            <div class="book-meta"><span>≈ 500 p.</span><span>Fondamentaux</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/psychologie-generale/james-precis-de-psychologie-1909.pdf" target="_blank" rel="noopener">📥 Télécharger le PDF</a>
+            <div class="book-meta"><span>≈ 500 p.</span><span>Fondamentaux</span><span>Texte extractible</span><span>Domaine public</span></div>
+            <a class="book-link" href="lecteur.html?livre=../06-pdf-domaine-public/psychologie-generale/james-precis-de-psychologie-1909.pdf">📖 Lire dans le site</a>
+            <a class="book-link" style="background:var(--card);color:var(--gris);border:1px solid var(--border);margin-top:0.5rem" href="../06-pdf-domaine-public/psychologie-generale/james-precis-de-psychologie-1909.pdf" target="_blank" rel="noopener">📥 Télécharger le fichier</a>
           </div>
         </div><div class="book-card">
           <div class="book-cover" style="background:var(--gris)">📜</div>
@@ -45,8 +66,9 @@
             <h3>De l'intelligence</h3>
             <p class="author">Hippolyte Taine · 1870</p>
             <p class="desc">Une somme philosophique majeure du XIXe siècle sur la connaissance et l'intelligence humaine.</p>
-            <div class="book-meta"><span>512 p.</span><span>Histoire</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/histoire-psychologie/taine-de-lintelligence-1870.pdf" target="_blank" rel="noopener">📥 Télécharger le PDF</a>
+            <div class="book-meta"><span>512 p.</span><span>Histoire</span><span>Scan (OCR intégré)</span><span>Domaine public</span></div>
+            <a class="book-link" href="lecteur.html?livre=../06-pdf-domaine-public/histoire-psychologie/taine-de-lintelligence-1870.pdf">📖 Lire dans le site</a>
+            <a class="book-link" style="background:var(--card);color:var(--gris);border:1px solid var(--border);margin-top:0.5rem" href="../06-pdf-domaine-public/histoire-psychologie/taine-de-lintelligence-1870.pdf" target="_blank" rel="noopener">📥 Télécharger le fichier</a>
           </div>
         </div><div class="book-card">
           <div class="book-cover" style="background:var(--vert)">💭</div>
@@ -54,8 +76,9 @@
             <h3>La Suggestibilité</h3>
             <p class="author">Alfred Binet · 1900</p>
             <p class="desc">L'étude pionnière sur l'influence et la suggestion, aux racines de la psychologie cognitive moderne.</p>
-            <div class="book-meta"><span>≈ 200 p.</span><span>Cognitive</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/psychologie-generale/binet-suggestibilite.html" target="_blank" rel="noopener">🌐 Lire en ligne</a>
+            <div class="book-meta"><span>≈ 200 p.</span><span>Cognitive</span><span>Texte extractible</span><span>Domaine public</span></div>
+            <a class="book-link" href="../06-pdf-domaine-public/psychologie-generale/binet-suggestibilite.html">🌐 Lire le texte en ligne</a>
+            
           </div>
         </div><div class="book-card">
           <div class="book-cover" style="background:var(--or)">👥</div>
@@ -63,8 +86,9 @@
             <h3>Psychologie des foules</h3>
             <p class="author">Gustave Le Bon · 1895</p>
             <p class="desc">L'ouvrage fondateur sur la psychologie collective et l'influence de masse.</p>
-            <div class="book-meta"><span>204 p.</span><span>Sociale</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/psychologie-sociale/le-bon-psychologie-des-foules-1895-complet.pdf" target="_blank" rel="noopener">📥 Télécharger le PDF</a>
+            <div class="book-meta"><span>204 p.</span><span>Sociale</span><span>Texte extractible</span><span>Domaine public</span></div>
+            <a class="book-link" href="lecteur.html?livre=../06-pdf-domaine-public/psychologie-sociale/le-bon-psychologie-des-foules-1895-complet.pdf">📖 Lire dans le site</a>
+            <a class="book-link" style="background:var(--card);color:var(--gris);border:1px solid var(--border);margin-top:0.5rem" href="../06-pdf-domaine-public/psychologie-sociale/le-bon-psychologie-des-foules-1895-complet.pdf" target="_blank" rel="noopener">📥 Télécharger le fichier</a>
           </div>
         </div><div class="book-card">
           <div class="book-cover" style="background:var(--or)">👥</div>
@@ -72,8 +96,9 @@
             <h3>Le Suicide : étude de sociologie</h3>
             <p class="author">Émile Durkheim · 1897</p>
             <p class="desc">L'étude classique démontrant l'influence des structures sociales sur les comportements individuels.</p>
-            <div class="book-meta"><span>≈ 460 p.</span><span>Sociale</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/psychologie-sociale/durkheim-le-suicide-1897.pdf" target="_blank" rel="noopener">📥 Télécharger le PDF</a>
+            <div class="book-meta"><span>≈ 460 p.</span><span>Sociale</span><span>Scan (OCR intégré)</span><span>Domaine public</span></div>
+            <a class="book-link" href="lecteur.html?livre=../06-pdf-domaine-public/psychologie-sociale/durkheim-le-suicide-1897.pdf">📖 Lire dans le site</a>
+            <a class="book-link" style="background:var(--card);color:var(--gris);border:1px solid var(--border);margin-top:0.5rem" href="../06-pdf-domaine-public/psychologie-sociale/durkheim-le-suicide-1897.pdf" target="_blank" rel="noopener">📥 Télécharger le fichier</a>
           </div>
         </div><div class="book-card">
           <div class="book-cover" style="background:var(--rose)">🎭</div>
@@ -81,8 +106,9 @@
             <h3>Les maladies de la volonté</h3>
             <p class="author">Théodule Ribot · 1883</p>
             <p class="desc">L'étude pionnière sur les troubles de la volonté, aux racines de la psychologie de la personnalité.</p>
-            <div class="book-meta"><span>≈ 170 p.</span><span>Personnalité</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/psychopathologie/ribot-maladies-volonte-1883.pdf" target="_blank" rel="noopener">📥 Télécharger le PDF</a>
+            <div class="book-meta"><span>≈ 170 p.</span><span>Personnalité</span><span>Texte extractible</span><span>Domaine public</span></div>
+            <a class="book-link" href="lecteur.html?livre=../06-pdf-domaine-public/psychopathologie/ribot-maladies-volonte-1883.pdf">📖 Lire dans le site</a>
+            <a class="book-link" style="background:var(--card);color:var(--gris);border:1px solid var(--border);margin-top:0.5rem" href="../06-pdf-domaine-public/psychopathologie/ribot-maladies-volonte-1883.pdf" target="_blank" rel="noopener">📥 Télécharger le fichier</a>
           </div>
         </div><div class="book-card">
           <div class="book-cover" style="background:var(--rose)">🩺</div>
@@ -90,8 +116,9 @@
             <h3>Les maladies de la mémoire</h3>
             <p class="author">Théodule Ribot · 1898</p>
             <p class="desc">L'étude fondatrice sur les troubles de la mémoire et la célèbre « loi de régression ».</p>
-            <div class="book-meta"><span>188 p.</span><span>Psychopathologie</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/psychopathologie/ribot-maladies-memoire-1898.pdf" target="_blank" rel="noopener">📥 Télécharger le PDF</a>
+            <div class="book-meta"><span>188 p.</span><span>Psychopathologie</span><span>Texte extractible</span><span>Domaine public</span></div>
+            <a class="book-link" href="lecteur.html?livre=../06-pdf-domaine-public/psychopathologie/ribot-maladies-memoire-1898.pdf">📖 Lire dans le site</a>
+            <a class="book-link" style="background:var(--card);color:var(--gris);border:1px solid var(--border);margin-top:0.5rem" href="../06-pdf-domaine-public/psychopathologie/ribot-maladies-memoire-1898.pdf" target="_blank" rel="noopener">📥 Télécharger le fichier</a>
           </div>
         </div><div class="book-card">
           <div class="book-cover" style="background:var(--rose)">🩺</div>
@@ -99,8 +126,9 @@
             <h3>Les névroses</h3>
             <p class="author">Pierre Janet · 1909</p>
             <p class="desc">Référence historique majeure sur l'hystérie, l'automatisme psychologique et les troubles dissociatifs.</p>
-            <div class="book-meta"><span>397 p.</span><span>Psychopathologie</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/psychopathologie/janet-les-nevroses-1909.pdf" target="_blank" rel="noopener">📥 Télécharger le PDF</a>
+            <div class="book-meta"><span>397 p.</span><span>Psychopathologie</span><span>Texte extractible</span><span>Domaine public</span></div>
+            <a class="book-link" href="lecteur.html?livre=../06-pdf-domaine-public/psychopathologie/janet-les-nevroses-1909.pdf">📖 Lire dans le site</a>
+            <a class="book-link" style="background:var(--card);color:var(--gris);border:1px solid var(--border);margin-top:0.5rem" href="../06-pdf-domaine-public/psychopathologie/janet-les-nevroses-1909.pdf" target="_blank" rel="noopener">📥 Télécharger le fichier</a>
           </div>
         </div><div class="book-card">
           <div class="book-cover" style="background:var(--vert)">🧠</div>
@@ -108,8 +136,9 @@
             <h3>Leçons sur les maladies du système nerveux</h3>
             <p class="author">Jean-Martin Charcot · 1884</p>
             <p class="desc">L'œuvre fondatrice de la neurologie clinique moderne, observée à la Salpêtrière.</p>
-            <div class="book-meta"><span>568 p.</span><span>Neurosciences</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/psychopathologie/charcot-lecons-systeme-nerveux-1884.pdf" target="_blank" rel="noopener">📥 Télécharger le PDF</a>
+            <div class="book-meta"><span>568 p.</span><span>Neurosciences</span><span>Texte extractible</span><span>Domaine public</span></div>
+            <a class="book-link" href="lecteur.html?livre=../06-pdf-domaine-public/psychopathologie/charcot-lecons-systeme-nerveux-1884.pdf">📖 Lire dans le site</a>
+            <a class="book-link" style="background:var(--card);color:var(--gris);border:1px solid var(--border);margin-top:0.5rem" href="../06-pdf-domaine-public/psychopathologie/charcot-lecons-systeme-nerveux-1884.pdf" target="_blank" rel="noopener">📥 Télécharger le fichier</a>
           </div>
         </div><div class="book-card">
           <div class="book-cover" style="background:var(--or)">🛋️</div>
@@ -117,8 +146,9 @@
             <h3>L'interprétation des rêves</h3>
             <p class="author">Sigmund Freud · 1900</p>
             <p class="desc">Le texte fondateur de la psychanalyse, en intégralité (format HTML).</p>
-            <div class="book-meta"><span>≈ 500 p.</span><span>Thérapies</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/psychologie-clinique/freud-interpretation-reves-1900.html" target="_blank" rel="noopener">🌐 Lire en ligne</a>
+            <div class="book-meta"><span>≈ 500 p.</span><span>Thérapies</span><span>Texte extractible</span><span>Domaine public</span></div>
+            <a class="book-link" href="../06-pdf-domaine-public/psychologie-clinique/freud-interpretation-reves-1900.html">🌐 Lire le texte en ligne</a>
+            
           </div>
         </div><div class="book-card">
           <div class="book-cover" style="background:var(--vert)">🎓</div>
@@ -126,8 +156,9 @@
             <h3>Psychologie de l'éducation</h3>
             <p class="author">Gustave Le Bon · ≈ 1910</p>
             <p class="desc">Un plaidoyer historique pour une pédagogie active, à lire avec regard critique.</p>
-            <div class="book-meta"><span>≈ 300 p.</span><span>Éducation</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/psychologie-generale/le-bon-psychologie-education.html" target="_blank" rel="noopener">🌐 Lire en ligne</a>
+            <div class="book-meta"><span>≈ 300 p.</span><span>Éducation</span><span>Texte extractible</span><span>Domaine public</span></div>
+            <a class="book-link" href="../06-pdf-domaine-public/psychologie-generale/le-bon-psychologie-education.html">🌐 Lire le texte en ligne</a>
+            
           </div>
         </div><div class="book-card">
           <div class="book-cover" style="background:var(--gris)">⚖️</div>
@@ -135,8 +166,9 @@
             <h3>L'homme criminel</h3>
             <p class="author">Cesare Lombroso · 1887</p>
             <p class="desc">Document historique sur la naissance (controversée) de la criminologie — à lire avec recul critique.</p>
-            <div class="book-meta"><span>682 p.</span><span>Légale</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/psychologie-legale/lombroso-homme-criminel-1887.pdf" target="_blank" rel="noopener">📥 Télécharger le PDF</a>
+            <div class="book-meta"><span>682 p.</span><span>Légale</span><span>Scan (OCR intégré)</span><span>Domaine public</span></div>
+            <a class="book-link" href="lecteur.html?livre=../06-pdf-domaine-public/psychologie-legale/lombroso-homme-criminel-1887.pdf">📖 Lire dans le site</a>
+            <a class="book-link" style="background:var(--card);color:var(--gris);border:1px solid var(--border);margin-top:0.5rem" href="../06-pdf-domaine-public/psychologie-legale/lombroso-homme-criminel-1887.pdf" target="_blank" rel="noopener">📥 Télécharger le fichier</a>
           </div>
         </div><div class="book-card">
           <div class="book-cover" style="background:var(--or)">🐾</div>
@@ -144,16 +176,24 @@
             <h3>L'expression des émotions chez l'homme et les animaux</h3>
             <p class="author">Charles Darwin · 1877 (trad.)</p>
             <p class="desc">L'ouvrage fondateur, richement illustré, sur les racines évolutives de nos émotions.</p>
-            <div class="book-meta"><span>≈ 400 p.</span><span>Comparée / Émotions</span><span>Domaine public</span></div>
-            <a class="book-link" href="../06-pdf-domaine-public/psychologie-comparative/darwin-expression-emotions-1877.pdf" target="_blank" rel="noopener">📥 Télécharger le PDF</a>
+            <div class="book-meta"><span>≈ 400 p.</span><span>Comparée / Émotions</span><span>Texte extractible</span><span>Domaine public</span></div>
+            <a class="book-link" href="lecteur.html?livre=../06-pdf-domaine-public/psychologie-comparative/darwin-expression-emotions-1877.pdf">📖 Lire dans le site</a>
+            <a class="book-link" style="background:var(--card);color:var(--gris);border:1px solid var(--border);margin-top:0.5rem" href="../06-pdf-domaine-public/psychologie-comparative/darwin-expression-emotions-1877.pdf" target="_blank" rel="noopener">📥 Télécharger le fichier</a>
           </div>
         </div></div>
 
-  <div class="fun-box" style="margin-top:2rem">
-    ℹ️ <strong>Note sur les sources et le droit d'auteur :</strong> tous ces textes ont été publiés avant 1928 (à
-    l'exception de traductions dont les traducteurs historiques sont eux-mêmes hors droits ou dont les éditions
-    numériques sont explicitement libres de diffusion). Les fiches pédagogiques de ce guide (catégories, quiz,
-    flashcards) sont des <strong>contenus originaux</strong> rédigés spécifiquement pour Psyclopédia.
+  <div class="note-box" style="margin-top:2rem">
+    <strong>Sources et droit d'auteur.</strong> Tous ces textes ont été publiés avant 1928, ou leurs éditions
+    numériques sont explicitement libres de diffusion. Ils proviennent d'Internet Archive, de Gallica (BnF), du
+    Project Gutenberg, des Classiques des sciences sociales (UQAM) et de Darwin Online, et sont hébergés
+    directement dans ce dépôt pour un accès pérenne. Les fiches pédagogiques de Psyclopédia (catégories,
+    références, quiz, flashcards) sont en revanche des <strong>contenus originaux</strong> rédigés pour ce guide.
+  </div>
+  <div class="warn-box">
+    <strong>Lire les textes anciens avec recul.</strong> Certains ouvrages ici présentés — en particulier
+    <em>L'homme criminel</em> de Lombroso — défendent des thèses aujourd'hui scientifiquement invalidées et
+    moralement condamnables. Ils sont proposés comme <strong>documents historiques</strong>, pour comprendre
+    comment une discipline se trompe, et non comme sources de connaissance actuelle.
   </div>
 </div>
 
@@ -161,15 +201,26 @@
   <div class="foot-links">
     <a href="../../index.html">Accueil</a>
     <a href="index.html">Catégories</a>
+    <a href="references/index.html">Références</a>
+    <a href="dictionnaire.html">Dictionnaire</a>
+    <a href="bibliotheque.html">Bibliothèque</a>
+    <a href="lecteur.html">Lecteur en ligne</a>
     <a href="quiz/index.html">Quiz</a>
-    <a href="bibliotheque.html">Bibliothèque PDF</a>
-    <a href="../../livres-psychologie/README.md">Code source &amp; sources</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="apprendre.html">Apprendre</a>
+    <a href="credits.html">Crédits &amp; sources</a>
   </div>
-  <p>Psyclopédia — Projet pédagogique open source. Textes originaux rédigés pour ce guide ; livres du domaine public
-  hébergés dans <code>06-pdf-domaine-public/</code> avec mention de leur source (Gallica, Internet Archive, Gutenberg, UQAM, Darwin Online).
+  <p>Psyclopédia — encyclopédie pédagogique libre de la psychologie, entièrement en français.
+  Textes de synthèse rédigés pour ce guide ; ouvrages du domaine public hébergés dans
+  <code>06-pdf-domaine-public/</code> avec mention de leur source (Gallica, Internet Archive,
+  Project Gutenberg, Les Classiques des sciences sociales, Darwin Online).
   Illustrations : Wikimedia Commons (domaine public).</p>
+  <p style="margin-top:0.75rem;font-size:0.78rem">⚠️ Contenu pédagogique de vulgarisation : il ne remplace
+  ni un diagnostic, ni un avis médical, ni un suivi psychologique professionnel.</p>
 </footer>
 <script src="../../assets-ebook/js/app.js"></script>
+<script src="../../assets-ebook/js/ui-v2.js"></script>
+<script src="../../assets-ebook/js/search.js"></script>
 
 </body>
 </html>

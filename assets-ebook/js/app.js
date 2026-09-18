@@ -3,7 +3,8 @@
    ========================================================================== */
 
 const STORAGE_KEY = "psyclopedia_progress_v1";
-const TOTAL_CATEGORIES = 17;
+const TOTAL_CATEGORIES = 26;
+const TOTAL_QUIZZES = 26;
 
 function loadProgress() {
   try {
@@ -134,6 +135,22 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (badge) {
       badge.style.display = "none";
     }
+  });
+
+  document.querySelectorAll("[data-quiz-total]").forEach((el) => {
+    el.textContent = TOTAL_QUIZZES;
+  });
+  document.querySelectorAll("[data-cat-total]").forEach((el) => {
+    el.textContent = TOTAL_CATEGORIES;
+  });
+
+  // Cocher les étapes déjà consultées dans les parcours guidés
+  document.querySelectorAll(".path-step[href]").forEach((step) => {
+    const href = step.getAttribute("href") || "";
+    const match = href.match(/categories\/([\w-]+)\.html/);
+    const quizMatch = href.match(/quiz\.html\?id=([\w-]+)/);
+    if (match && progress.visited[match[1]]) step.classList.add("done");
+    else if (quizMatch && progress.quizBest[quizMatch[1]]) step.classList.add("done");
   });
 
   // Reader-card action buttons (random category / continue)

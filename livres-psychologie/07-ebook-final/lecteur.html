@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecteur de livres — Psyclopédia</title>
+<meta name="description" content="Lecteur intégré : lire en ligne les livres de psychologie du domaine public, avec OCR français et modernisation du texte.">
+<meta property="og:title" content="Lecteur de livres — Psyclopédia">
+<meta property="og:description" content="Lecteur intégré : lire en ligne les livres de psychologie du domaine public, avec OCR français et modernisation du texte.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets-ebook/css/style.css">
+<link rel="stylesheet" href="../../assets-ebook/css/v2.css">
+
+</head>
+<body data-root="../../">
+<div class="topbar">
+  <nav class="nav-pill">
+    <a class="brand" href="../../index.html"><span class="brand-mark"></span>Psyclopédia</a>
+    <ul class="nav-links"><a href="../../index.html">Accueil</a><a href="index.html">Catégories</a><a href="references/index.html">Références</a><a href="bibliotheque.html" class="active">Bibliothèque</a><a href="quiz/index.html">Quiz</a><a href="apprendre.html">Apprendre</a></ul>
+    <div class="nav-side">
+      <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
+        <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<div class="page-header">
+  <p class="breadcrumb"><a href="../../index.html">Accueil</a> → <a href="bibliotheque.html">Bibliothèque</a> → Lecteur</p>
+  <div class="page-hero">
+    <div class="page-hero-icon" style="background:var(--vert-light)">📖</div>
+    <div>
+      <h1>Lecteur de livres intégré</h1>
+      <p class="subtitle">Lire les ouvrages originaux page par page, avec extraction du texte, OCR et traduction</p>
+    </div>
+  </div>
+  <div class="meta-row"><span class="meta-chip">📕 10 livres PDF</span><span class="meta-chip">🔤 OCR français</span><span class="meta-chip">✨ Français modernisé</span><span class="meta-chip">🌍 Traduction</span></div>
+</div>
+<div class="reader-shell" id="reader-root">
+  <div class="reader-help">
+    <strong>Mode d'emploi.</strong> Choisis un ouvrage, tourne les pages avec les flèches ← → du clavier ou les
+    boutons, et ouvre le volet texte pour lire la transcription à côté de l'image. Si le livre est un
+    <em>scan sans couche texte</em> (Taine, Durkheim, Lombroso), clique sur <strong>Reconnaître le texte</strong> :
+    une reconnaissance optique française s'exécute directement dans ton navigateur, sans envoyer le fichier nulle
+    part. <strong>Moderniser le français</strong> réécrit les formes du XIXe siècle (« étoit » → « était »,
+    « enfans » → « enfants ») et surligne le vocabulaire ancien : survole un mot surligné pour voir son
+    équivalent actuel. La page lue est mémorisée : tu reprends là où tu t'es arrêté.
+  </div>
+
+  <div class="reader-bar">
+    <select id="book-select" aria-label="Choisir un ouvrage"><option value="../06-pdf-domaine-public/psychologie-generale/james-precis-de-psychologie-1909.pdf">Précis de psychologie — William James (1909)</option><option value="../06-pdf-domaine-public/histoire-psychologie/taine-de-lintelligence-1870.pdf">De l'intelligence — Hippolyte Taine (1870)</option><option value="../06-pdf-domaine-public/psychologie-sociale/le-bon-psychologie-des-foules-1895-complet.pdf">Psychologie des foules — Gustave Le Bon (1895)</option><option value="../06-pdf-domaine-public/psychologie-sociale/durkheim-le-suicide-1897.pdf">Le Suicide : étude de sociologie — Émile Durkheim (1897)</option><option value="../06-pdf-domaine-public/psychopathologie/ribot-maladies-volonte-1883.pdf">Les maladies de la volonté — Théodule Ribot (1883)</option><option value="../06-pdf-domaine-public/psychopathologie/ribot-maladies-memoire-1898.pdf">Les maladies de la mémoire — Théodule Ribot (1898)</option><option value="../06-pdf-domaine-public/psychopathologie/janet-les-nevroses-1909.pdf">Les névroses — Pierre Janet (1909)</option><option value="../06-pdf-domaine-public/psychopathologie/charcot-lecons-systeme-nerveux-1884.pdf">Leçons sur les maladies du système nerveux — Jean-Martin Charcot (1884)</option><option value="../06-pdf-domaine-public/psychologie-legale/lombroso-homme-criminel-1887.pdf">L'homme criminel — Cesare Lombroso (1887)</option><option value="../06-pdf-domaine-public/psychologie-comparative/darwin-expression-emotions-1877.pdf">L'expression des émotions chez l'homme et les animaux — Charles Darwin (1877 (trad.))</option></select>
+    <span class="reader-sep"></span>
+    <button class="rbtn" id="btn-prev" disabled>←</button>
+    <input class="reader-page-input" id="page-input" type="number" min="1" value="1" disabled aria-label="Numéro de page">
+    <span class="ref-count" id="page-total">/ –</span>
+    <button class="rbtn" id="btn-next" disabled>→</button>
+    <span class="reader-sep"></span>
+    <button class="rbtn" id="btn-zoom-out" disabled>−</button>
+    <button class="rbtn" id="btn-zoom-in" disabled>+</button>
+    <span class="reader-sep"></span>
+    <button class="rbtn" id="btn-split" disabled>📖 Afficher le texte</button>
+    <button class="rbtn" id="btn-ocr" disabled>🔤 Reconnaître le texte</button>
+    <button class="rbtn active" id="btn-modern">✨ Français modernisé</button>
+    <span class="reader-sep"></span>
+    <select id="lang-select" aria-label="Langue de traduction" style="max-width:150px">
+      <option value="fr">Français (original)</option>
+      <option value="en">Anglais</option>
+      <option value="es">Espagnol</option>
+      <option value="de">Allemand</option>
+      <option value="it">Italien</option>
+      <option value="pt">Portugais</option>
+      <option value="ar">Arabe</option>
+    </select>
+    <button class="rbtn" id="btn-translate">🌍 Traduire</button>
+    <span class="reader-spacer"></span>
+    <a class="rbtn" id="btn-download" href="#" target="_blank" rel="noopener">📥 Fichier</a>
+  </div>
+
+  <div class="reader-status" id="reader-status">Sélectionne un ouvrage pour commencer.</div>
+  <div class="reader-status"><div class="reader-progress-track"><div class="reader-progress-fill" id="reader-prog-fill"></div></div></div>
+
+  <div class="reader-grid" id="reader-grid">
+    <div class="reader-canvas-wrap"><canvas id="pdf-canvas"></canvas></div>
+    <div class="reader-text-pane">
+      <h4>Texte de la page <span class="pane-badge" id="reader-badge">—</span></h4>
+      <div id="reader-text"><p class="ocr-note">Ouvre le volet texte pour afficher la transcription de la page
+      affichée.</p></div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <strong>Comment fonctionne la reconnaissance optique ?</strong> Le moteur Tesseract, entraîné sur le français,
+    est téléchargé une seule fois (environ 3 Mo) puis analyse l'image de la page rendue à l'écran. Le résultat
+    dépend de la qualité du scan : sur des impressions du XIXe siècle, il reste quelques confusions
+    (« ſ » long lu « f », lettres collées). Le texte obtenu est nettoyé automatiquement — césures de fin de ligne
+    recollées, espaces normalisés — avant d'être affiché. Aucune donnée ne quitte ton navigateur pendant l'OCR.
+  </div>
+
+  <div class="note-box">
+    <strong>Et la traduction ?</strong> Les ouvrages sont déjà en français : le bouton « Traduire » sert à lire une
+    page dans une autre langue, ou à aider une personne non francophone. La traduction passe par un service
+    automatique gratuit et peut être indisponible ou imprécise : le texte français d'origine reste toujours
+    accessible en repassant la langue sur « Français (original) ». Pour le français ancien, c'est le bouton
+    <strong>« Moderniser »</strong> qu'il faut utiliser : il travaille entièrement hors ligne, à partir d'un
+    glossaire de près de cent termes de psychologie du XIXe siècle.
+  </div>
+
+  <h3 style="font-family:var(--serif);margin-top:2rem">Ouvrages disponibles en texte intégral HTML</h3>
+  <p style="color:var(--gris);font-size:0.9rem">Ces trois textes sont déjà transcrits : ils s'ouvrent directement
+  dans le navigateur, sans lecteur PDF.</p>
+  <ul style="color:var(--gris);font-size:0.9rem;padding-left:1.2rem;line-height:2"><li><a href="../06-pdf-domaine-public/psychologie-generale/binet-suggestibilite.html" target="_blank" rel="noopener">La Suggestibilité</a> — Alfred Binet (1900)</li><li><a href="../06-pdf-domaine-public/psychologie-clinique/freud-interpretation-reves-1900.html" target="_blank" rel="noopener">L'interprétation des rêves</a> — Sigmund Freud (1900)</li><li><a href="../06-pdf-domaine-public/psychologie-generale/le-bon-psychologie-education.html" target="_blank" rel="noopener">Psychologie de l'éducation</a> — Gustave Le Bon (≈ 1910)</li></ul>
+
+  <div class="cta-row">
+    <a class="btn btn-secondary" href="bibliotheque.html">📚 Retour à la bibliothèque</a>
+    <a class="btn btn-secondary" href="index.html">📂 Catégories</a>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="../../index.html">Accueil</a>
+    <a href="index.html">Catégories</a>
+    <a href="references/index.html">Références</a>
+    <a href="dictionnaire.html">Dictionnaire</a>
+    <a href="bibliotheque.html">Bibliothèque</a>
+    <a href="lecteur.html">Lecteur en ligne</a>
+    <a href="quiz/index.html">Quiz</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="apprendre.html">Apprendre</a>
+    <a href="credits.html">Crédits &amp; sources</a>
+  </div>
+  <p>Psyclopédia — encyclopédie pédagogique libre de la psychologie, entièrement en français.
+  Textes de synthèse rédigés pour ce guide ; ouvrages du domaine public hébergés dans
+  <code>06-pdf-domaine-public/</code> avec mention de leur source (Gallica, Internet Archive,
+  Project Gutenberg, Les Classiques des sciences sociales, Darwin Online).
+  Illustrations : Wikimedia Commons (domaine public).</p>
+  <p style="margin-top:0.75rem;font-size:0.78rem">⚠️ Contenu pédagogique de vulgarisation : il ne remplace
+  ni un diagnostic, ni un avis médical, ni un suivi psychologique professionnel.</p>
+</footer>
+<script src="../../assets-ebook/js/app.js"></script>
+<script src="../../assets-ebook/js/ui-v2.js"></script>
+<script src="../../assets-ebook/js/search.js"></script>
+<script src="../../assets-ebook/js/lecteur.js"></script>
+</body>
+</html>

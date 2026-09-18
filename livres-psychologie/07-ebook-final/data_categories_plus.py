@@ -572,7 +572,7 @@ CATEGORIES_PLUS = [
              "<li><strong>Passer du passif à l'actif</strong> : commenter, échanger, créer plutôt que faire défiler.</li>"
              "</ul>"),
         ],
-        "figures": ["portrait-skinner.jpg:B.F. Skinner"],
+        "figures": ["portrait-thorndike.jpg:Edward Thorndike"],
         "pdfs": [],
         "fun_fact": "Le défilement infini a été inventé en 2006 par Aza Raskin, qui a depuis publiquement regretté sa création : il estime que son invention fait perdre collectivement des centaines de milliers d'heures humaines chaque jour.",
         "flashcards": [
