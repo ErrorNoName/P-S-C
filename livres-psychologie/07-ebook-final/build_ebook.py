@@ -15,6 +15,7 @@ import build_pages
 import build_outils
 import build_references
 import build_savoirs
+import build_sitemap
 from build_index import write_index
 from content import (
     CATEGORIES, DICTIONNAIRE, QUIZZES, BOOKS, EXPERIENCES, AUTEURS, TROUBLES, BIAIS,
@@ -37,6 +38,7 @@ def main():
     build_home.render_home()
 
     n_entries, size_kb, n_pdf = write_index()
+    n_pages = build_sitemap.render_sitemap()
 
     n_sections = sum(len(c["sections"]) for c in CATEGORIES)
     n_flash = sum(len(c.get("flashcards", [])) for c in CATEGORIES)
@@ -55,6 +57,7 @@ def main():
     print(f"   • Outils : {len(EXPERIENCES_LAB)} expériences jouables, {n_cards} cartes de révision "
           f"({cards_kb:.0f} Ko), {len(CATEGORIES)} fiches imprimables, index A-Z de {n_index} entrées")
     print(f"   • Index de recherche : {n_entries} entrées ({size_kb:.0f} Ko)")
+    print(f"   • sitemap.xml : {n_pages} pages référencées, robots.txt écrit")
 
 
 if __name__ == "__main__":

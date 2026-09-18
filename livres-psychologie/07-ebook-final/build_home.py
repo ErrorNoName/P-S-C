@@ -7,7 +7,9 @@ from shell import page_shell
 from content import (
     CATEGORIES, DICTIONNAIRE, QUIZZES, BOOKS,
     EXPERIENCES, AUTEURS, TROUBLES, BIAIS, TESTS, CHRONOLOGIE_TRIEE,
+    THEORIES, CAS, DEBATS, METHODES_NOTIONS, LEXIQUE_EN, PRATIQUES, METIERS,
 )
+from data_laboratoire import EXPERIENCES_LAB
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 EB = "livres-psychologie/07-ebook-final/"
@@ -23,11 +25,56 @@ RACCOURCIS = [
 ]
 
 NOUVEAUTES = [
-    ("🔍", "Recherche globale instantanée", "Ctrl + K depuis n'importe quelle page"),
-    ("📖", "Lecteur de livres intégré", "PDF, OCR français et modernisation du texte"),
-    ("🗂️", "Base de références", "Expériences, auteurs, troubles, biais, tests"),
-    ("🧭", "Parcours guidés", "Six itinéraires selon ton objectif"),
-    ("📂", "10 nouvelles catégories", "Culture, langage, évolution, numérique, politique…"),
+    ("🧩", f"{len(THEORIES)} théories et modèles", "L'idée, le mécanisme, les usages et les limites"),
+    ("🗃️", f"{len(CAS)} cas cliniques historiques", "Phineas Gage, H.M., Genie, Anna O., les jumeaux séparés…"),
+    ("⚖️", f"{len(DEBATS)} débats argumentés", "Inné/acquis, psychanalyse, écrans, libre arbitre, QI…"),
+    ("🔬", "Méthodes et statistiques", f"12 chapitres et {len(METHODES_NOTIONS)} notions pour lire une étude"),
+    ("🧰", f"{len(PRATIQUES)} fiches pratiques", "Apprendre, dormir, décider, communiquer, gérer le stress"),
+    ("💼", f"{len(METIERS)} métiers et parcours d'études", "Clinicien, neuropsychologue, ergonome, UX, psychiatre…"),
+    ("🧪", f"Laboratoire : {len(EXPERIENCES_LAB)} expériences jouables", "Stroop, empan, temps de réaction, Müller-Lyer, ancrage"),
+    ("🔁", "Révision espacée", "Un algorithme te représente chaque notion au bon moment"),
+    ("🌍", f"Lexique anglais-français ({len(LEXIQUE_EN)} termes)", "Pour lire les articles scientifiques sans contresens"),
+    ("🗂️", "Fiches imprimables et plan du site", f"{len(CATEGORIES)} fiches recto et un index A-Z complet"),
+]
+
+# (href, classe couleur, icône, titre, description, compteur)
+OUTILS_V3 = [
+    ("references/theories.html", "", "🧩", "Théories et modèles",
+     "Le cœur conceptuel de la discipline : ce que chaque modèle affirme, comment il fonctionne, "
+     "à quoi il sert et là où il échoue.", f"{len(THEORIES)} fiches"),
+    ("references/cas.html", "rose", "🗃️", "Cas cliniques célèbres",
+     "Les patients singuliers qui ont fait basculer la théorie, de la barre à mine de Phineas Gage "
+     "à l'amnésie de H.M.", f"{len(CAS)} histoires"),
+    ("references/debats.html", "or", "⚖️", "Débats et controverses",
+     "Chaque camp présenté au meilleur de ses arguments, puis l'état réel des données disponibles.",
+     f"{len(DEBATS)} dossiers"),
+    ("methodes.html", "gris", "🔬", "Méthodes et statistiques",
+     "Comment on prouve quelque chose en psychologie : plans d'expérience, p-value, taille d'effet, "
+     "biais, éthique et crise de la réplication.", f"12 chapitres · {len(METHODES_NOTIONS)} notions"),
+    ("pratique.html", "vert", "🧰", "Psychologie appliquée",
+     "Ce que la recherche permet vraiment de faire dans la vie quotidienne, en protocoles pas à pas.",
+     f"{len(PRATIQUES)} fiches"),
+    ("metiers.html", "or", "💼", "Métiers et études",
+     "Vingt métiers décrits de l'intérieur — mission, formation, quotidien, réalités du terrain — "
+     "et les quatre étapes du cursus français.", f"{len(METIERS)} métiers"),
+    ("laboratoire.html", "rose", "🧪", "Le laboratoire",
+     "Des expériences classiques rejouées directement dans le navigateur, avec tes propres résultats "
+     "chiffrés et leur explication.", f"{len(EXPERIENCES_LAB)} expériences"),
+    ("revision.html", "", "🔁", "Révision espacée",
+     "Toutes les notions du site transformées en cartes, représentées au moment où tu es sur le point "
+     "de les oublier.", "1 000 cartes"),
+    ("lexique.html", "gris", "🌍", "Lexique anglais-français",
+     "Le vocabulaire des articles scientifiques, avec les faux amis qui piègent les lecteurs francophones.",
+     f"{len(LEXIQUE_EN)} termes"),
+    ("fiches/index.html", "vert", "🗂️", "Fiches imprimables",
+     "L'essentiel de chaque domaine condensé sur une page, mis en forme pour l'impression et la révision "
+     "hors écran.", f"{len(CATEGORIES)} fiches"),
+    ("plan.html", "or", "🗺️", "Plan du site et index A-Z",
+     "Toutes les pages du site et un index alphabétique de chaque notion, expérience, auteur et trouble.",
+     "800+ entrées"),
+    ("lecteur.html", "rose", "📖", "Le lecteur de livres",
+     "Les ouvrages originaux lus page par page, avec reconnaissance du texte scanné et modernisation "
+     "du français ancien.", f"{len(BOOKS)} ouvrages"),
 ]
 
 
@@ -76,6 +123,15 @@ def _books_list():
     return items
 
 
+def _outils_cards():
+    return "".join(
+        f'<a class="hub-card{(" " + cls) if cls else ""}" href="{EB}{href}">'
+        f'<span class="hub-ico">{ico}</span><h3>{titre}</h3><p>{desc}</p>'
+        f'<span class="hub-n">{compteur}</span></a>'
+        for href, cls, ico, titre, desc, compteur in OUTILS_V3
+    )
+
+
 def _nouveautes():
     return "".join(
         f'<li class="tx-item"><div class="tx-icon">{ico}</div>'
@@ -90,6 +146,9 @@ def render_home():
     n_flash = sum(len(c.get("flashcards", [])) for c in CATEGORIES)
     n_questions = sum(len(q["questions"]) for q in QUIZZES)
     n_refs = len(EXPERIENCES) + len(AUTEURS) + len(TROUBLES) + len(BIAIS) + len(TESTS) + len(CHRONOLOGIE_TRIEE)
+    n_savoirs = (len(THEORIES) + len(CAS) + len(DEBATS) + len(METHODES_NOTIONS)
+                 + len(LEXIQUE_EN) + len(PRATIQUES) + len(METIERS))
+    n_fiches = n_refs + n_savoirs + len(DICTIONNAIRE) + n_sections
 
     raccourcis = "".join(
         f'<a class="quick-avatar" style="background:var(--{color})" href="{EB}categories/{cid}.html" title="{label}">{ico}</a>'
@@ -103,10 +162,10 @@ def render_home():
     <h1 style="font-family:var(--serif);font-weight:700;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.1;max-width:820px;margin:0 auto 1rem">
       Comprendre l'esprit humain, <span style="color:var(--vert)">une notion</span> à la fois
     </h1>
-    <p style="color:var(--gris);max-width:620px;margin:0 auto 1.75rem;font-size:1.05rem">
-      {len(CATEGORIES)} domaines, {n_sections} chapitres, {n_refs} fiches de référence, {len(DICTIONNAIRE)} notions
-      définies, {len(BOOKS)} livres du domaine public lisibles en ligne et {n_questions} questions corrigées —
-      tout, entièrement en français.
+    <p style="color:var(--gris);max-width:680px;margin:0 auto 1.75rem;font-size:1.05rem">
+      {len(CATEGORIES)} domaines, {n_sections} chapitres, {n_fiches} fiches consultables, {len(THEORIES)} théories,
+      {len(CAS)} cas cliniques, {len(DEBATS)} débats, {len(BOOKS)} livres du domaine public lisibles en ligne,
+      {len(EXPERIENCES_LAB)} expériences jouables et {n_questions} questions corrigées — tout, entièrement en français.
     </p>
     <div class="cta-row" style="justify-content:center">
       <a class="btn btn-primary" href="{EB}parcours.html">🧭 Commencer un parcours</a>
@@ -154,11 +213,18 @@ def render_home():
     <div class="stat-cell"><div class="val">{len(CATEGORIES)}</div><div class="lbl">catégories complètes</div></div>
     <div class="stat-cell"><div class="val">{n_sections}</div><div class="lbl">chapitres rédigés</div></div>
     <div class="stat-cell"><div class="val">{len(DICTIONNAIRE)}</div><div class="lbl">notions au dictionnaire</div></div>
+    <div class="stat-cell"><div class="val">{len(THEORIES)}</div><div class="lbl">théories et modèles</div></div>
     <div class="stat-cell"><div class="val">{len(EXPERIENCES)}</div><div class="lbl">expériences détaillées</div></div>
     <div class="stat-cell"><div class="val">{len(AUTEURS)}</div><div class="lbl">grandes figures</div></div>
     <div class="stat-cell"><div class="val">{len(TROUBLES)}</div><div class="lbl">troubles expliqués</div></div>
     <div class="stat-cell"><div class="val">{len(BIAIS)}</div><div class="lbl">biais cognitifs</div></div>
     <div class="stat-cell"><div class="val">{len(TESTS)}</div><div class="lbl">tests psychométriques</div></div>
+    <div class="stat-cell"><div class="val">{len(CAS)}</div><div class="lbl">cas cliniques</div></div>
+    <div class="stat-cell"><div class="val">{len(DEBATS)}</div><div class="lbl">débats argumentés</div></div>
+    <div class="stat-cell"><div class="val">{len(METHODES_NOTIONS)}</div><div class="lbl">notions de méthode</div></div>
+    <div class="stat-cell"><div class="val">{len(PRATIQUES)}</div><div class="lbl">fiches pratiques</div></div>
+    <div class="stat-cell"><div class="val">{len(METIERS)}</div><div class="lbl">métiers décrits</div></div>
+    <div class="stat-cell"><div class="val">{len(LEXIQUE_EN)}</div><div class="lbl">termes anglais traduits</div></div>
     <div class="stat-cell"><div class="val">{len(CHRONOLOGIE_TRIEE)}</div><div class="lbl">dates de chronologie</div></div>
     <div class="stat-cell"><div class="val">{n_flash}</div><div class="lbl">flashcards de révision</div></div>
     <div class="stat-cell"><div class="val">{n_questions}</div><div class="lbl">questions corrigées</div></div>
@@ -168,9 +234,9 @@ def render_home():
 
 <div class="section" style="padding-top:0">
   <div class="section-head">
-    <p class="section-eyebrow">Les outils</p>
-    <h2 class="section-title">Cinq façons d'utiliser Psyclopédia</h2>
-    <p class="section-desc">Le site n'est pas seulement une suite d'articles : c'est un environnement
+    <p class="section-eyebrow">Les fondations</p>
+    <h2 class="section-title">Par où entrer dans le site</h2>
+    <p class="section-desc">Psyclopédia n'est pas seulement une suite d'articles : c'est un environnement
     d'apprentissage avec une recherche globale, une bibliothèque lisible en ligne, une base de références
     filtrable, des parcours balisés et des quiz notés.</p>
   </div>
@@ -194,6 +260,18 @@ def render_home():
       <p>Chaque notion définie en une phrase claire, reliée à la catégorie qui l'approfondit.</p>
       <span class="hub-n">{len(DICTIONNAIRE)} entrées</span></a>
   </div>
+</div>
+
+<div class="section" style="padding-top:0">
+  <div class="section-head">
+    <p class="section-eyebrow">{n_savoirs} fiches supplémentaires</p>
+    <h2 class="section-title">Les douze salles de la bibliothèque</h2>
+    <p class="section-desc">Au-delà des catégories, le site contient douze espaces spécialisés : la théorie
+    et les cas qui l'ont construite, les controverses non tranchées, la méthode scientifique elle-même, les
+    applications quotidiennes, les métiers, un laboratoire jouable, un système de révision et de quoi
+    imprimer ou naviguer autrement.</p>
+  </div>
+  <div class="hub-grid">{_outils_cards()}</div>
 </div>
 
 <div class="dash-grid">
@@ -289,23 +367,27 @@ def render_home():
     <div class="vark-card" style="border-top-color:var(--vert)"><span class="emoji">🔄</span><h3>Rappel actif</h3>
       <p>{n_flash} flashcards et {n_questions} questions pour te tester plutôt que relire.</p></div>
     <div class="vark-card" style="border-top-color:var(--or)"><span class="emoji">📅</span><h3>Répétition espacée</h3>
-      <p>Ta progression est enregistrée : tu vois ce qu'il faut revoir, et quand.</p></div>
+      <p>Un millier de cartes te sont représentées juste avant l'oubli, selon tes propres réponses.</p></div>
     <div class="vark-card" style="border-top-color:var(--rose)"><span class="emoji">🔀</span><h3>Entrelacement</h3>
       <p>Les parcours alternent fiches, références, livres et quiz plutôt que d'enchaîner le même format.</p></div>
     <div class="vark-card" style="border-top-color:var(--gris)"><span class="emoji">🖼️</span><h3>Double codage</h3>
       <p>Portraits, schémas et chiffres clés doublent le texte par une voie visuelle.</p></div>
+    <div class="vark-card" style="border-top-color:var(--vert)"><span class="emoji">🧪</span><h3>Apprentissage par l'expérience</h3>
+      <p>Le laboratoire te fait vivre l'effet Stroop ou l'illusion de Müller-Lyer avant de l'expliquer.</p></div>
   </div>
   <div class="cta-row">
-    <a class="btn btn-primary" href="{EB}apprendre.html">📚 Le guide complet des méthodes</a>
-    <a class="btn btn-secondary" href="{EB}parcours.html">🧭 Les parcours guidés</a>
+    <a class="btn btn-primary" href="{EB}revision.html">🔁 Lancer une session de révision</a>
+    <a class="btn btn-secondary" href="{EB}laboratoire.html">🧪 Entrer dans le laboratoire</a>
+    <a class="btn btn-secondary" href="{EB}apprendre.html">📚 Le guide des méthodes</a>
   </div>
 </div>
 """
     html = page_shell(
         "Psyclopédia — L'encyclopédie vivante de la psychologie", body, depth=-2, active="Accueil",
         description=(f"Psyclopédia : encyclopédie illustrée et interactive de la psychologie en français. "
-                     f"{len(CATEGORIES)} catégories, {n_refs} fiches de référence, {len(BOOKS)} livres du domaine "
-                     f"public lisibles en ligne, {len(QUIZZES)} quiz notés."),
+                     f"{len(CATEGORIES)} catégories, {n_fiches} fiches consultables, {len(THEORIES)} théories, "
+                     f"{len(BOOKS)} livres du domaine public lisibles en ligne, {len(QUIZZES)} quiz notés, "
+                     f"laboratoire jouable et révision espacée."),
     )
     with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)

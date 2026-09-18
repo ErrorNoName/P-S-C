@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /livres-psychologie/03-ressources-gratuites-legales/
+Disallow: /livres-psychologie/04-guide-enrichi-illustre/
+Disallow: /livres-psychologie/05-larousse-illustre-complet/categories/
+Disallow: /livres-psychologie/05-larousse-illustre-complet/jeux/
+
+Sitemap: https://errornoname.github.io/P-S-C/sitemap.xml

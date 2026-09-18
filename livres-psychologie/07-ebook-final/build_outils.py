@@ -431,7 +431,9 @@ def _fiche_page(cat):
 
 
 def _fiche_tout():
-    sheets = "".join(f'<div class="fiche-sheet">{_fiche_body(cat)}</div>' for cat in CATEGORIES)
+    sheets = "".join(
+        f'<div class="fiche-sheet" id="{cat["id"]}">{_fiche_body(cat)}</div>' for cat in CATEGORIES
+    )
     sommaire = "".join(
         f'<a class="pill-link" href="#{cat["id"]}">{cat["icon"]} {cat["title"]}</a>' for cat in CATEGORIES
     )
