@@ -1,580 +1,128 @@
-<!DOCTYPE html>
-<html class="client-nojs vector-feature-language-in-header-disabled vector-feature-language-in-main-menu-disabled vector-feature-language-in-main-page-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-disabled vector-feature-custom-font-size-clientpref--excluded vector-feature-appearance-pinned-clientpref-1 skin-theme-clientpref-day vector-sticky-header-enabled vector-toc-not-available skin-thumbsize-clientpref-standard" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Redirect by file, user, page, revision, or log ID - Wikimedia Commons</title>
-<script>(function(){var className="client-js vector-feature-language-in-header-disabled vector-feature-language-in-main-menu-disabled vector-feature-language-in-main-page-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-disabled vector-feature-custom-font-size-clientpref--excluded vector-feature-appearance-pinned-clientpref-1 skin-theme-clientpref-day vector-sticky-header-enabled vector-toc-not-available skin-thumbsize-clientpref-standard";var cookie=document.cookie.match(/(?:^|; )commonswikimwclientpreferences=([^;]+)/);if(cookie){cookie[1].split('%2C').forEach(function(pref){className=className.replace(new RegExp('(^| )'+pref.replace(/-clientpref-\w+$|[^\w-]+/g,'')+'-clientpref-\\w+( |$)'),'$1'+pref+'$2');});}document.documentElement.className=className;}());RLCONF={"wgBreakFrames":true,"wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgRequestId":"d6cdddbb-6146-4960-8015-e07f5b40e209","wgCanonicalNamespace":"Special","wgCanonicalSpecialPageName":"Redirect","wgNamespaceNumber":-1,"wgPageName":"Special:Redirect/file/Bipolar_neuron.svg","wgTitle":"Redirect/file/Bipolar neuron.svg","wgCurRevisionId":0,"wgRevisionId":0,"wgArticleId":0,"wgIsArticle":false,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgPageViewLanguage":"en","wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgRelevantPageName":"Special:Redirect/file/Bipolar_neuron.svg","wgRelevantArticleId":0,"wgTempUserName":null,"wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgNoticeProject":"commons","wgConfirmEditCaptchaNeededForGenericEdit":false,"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":false,"wgMediaViewerMobileBeta":false,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","pageVariantFallbacks":"en"},"wgMFDisplayWikibaseDescriptions":{"search":true,"watchlist":true,"tagline":true,"nearby":true},"wgWMESchemaEditAttemptStepOversample":false,"wgWMEPageLength":0,"wgTestKitchenUserExperiments":{"overrides":[],"enrolled":[],"assigned":[],"subject_ids":[]},"upwizPropertyTitles":{"P180":"Main subjects visible in this work"},"upwizPropertyPlaceholders":{"P180":"e.g., Angolan giraffe"},"upwizPropertyCopyLabels":{"P180":"Main subjects"},"wgEditSubmitButtonLabelPublish":true,"wgVisualEditorPageIsDisambiguation":false,"wgULSPosition":"personal","wgULSisCompactLinksEnabled":true,"wgVector2022LanguageInHeader":false,"wgULSisLanguageSelectorEmpty":true,"wgULSLanguageSelectorV2Enabled":true,"wbmiDefaultProperties":["P180"],"wbmiPropertyTitles":{"P180":"Items portrayed in this file"},"wbmiPropertyTypes":{"P180":"wikibase-item"},"wbmiRepoApiUrl":"/w/api.php","wbmiHelpUrls":{"P180":"https://commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Depicts"},"wbmiExternalEntitySearchBaseUri":"https://www.wikidata.org/w/api.php","wbmiSupportedDataTypes":["wikibase-item","string","quantity","time","monolingualtext","external-id","globe-coordinate","url"],"wgCheckUserClientHintsHeadersJsApi":["brands","architecture","bitness","fullVersionList","mobile","model","platform","platformVersion"]};
-RLSTATE={"ext.gadget.Long-Image-Names-in-Categories":"ready","ext.globalCssJs.user.styles":"ready","site.styles":"ready","user.styles":"ready","ext.globalCssJs.user":"ready","user":"ready","user.options":"loading","ext.wikimediamessages.styles":"ready","oojs-ui-core.styles":"ready","oojs-ui.styles.indicators":"ready","mediawiki.widgets.styles":"ready","oojs-ui-core.icons":"ready","mediawiki.htmlform.ooui.styles":"ready","mediawiki.htmlform.styles":"ready","mediawiki.codex.messagebox.styles":"ready","skins.vector.search.codex.styles":"ready","skins.vector.styles":"ready","skins.vector.icons":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.pt":"ready"};RLPAGEMODULES=["mediawiki.htmlform","mediawiki.htmlform.ooui","site","mediawiki.page.ready","skins.vector.js","ext.centralNotice.geoIP","ext.gadget.Slideshow","ext.gadget.ZoomViewer","ext.gadget.CollapsibleTemplates","ext.gadget.fastcci","ext.gadget.Stockphoto","ext.gadget.WatchlistNotice","ext.gadget.AjaxQuickDelete","ext.gadget.WikiMiniAtlas","ext.gadget.LanguageSelect","ext.gadget.PictureOfTheYearEnhancements","ext.urlShortener.toolbar","ext.centralauth.centralautologin","ext.testKitchen","ext.visualEditor.desktopArticleTarget.init","ext.echo.centralauth","ext.eventLogging","ext.wikimediaEvents","ext.wikimediaEvents.wikibase","ext.navigationTiming","ext.uls.compactlinks","ext.uls.interface","wikibase.databox.fromWikidata","ext.checkUser.clientHints"];</script>
-<script>(RLQ=window.RLQ||[]).push(function(){mw.loader.impl(function(){return["user.options@12s5i",function($,jQuery,require,module){mw.user.tokens.set({"patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});
-}];});});</script>
-<link rel="stylesheet" href="/w/load.php?lang=en&amp;modules=ext.uls.pt%7Cext.visualEditor.desktopArticleTarget.noscript%7Cext.wikimediamessages.styles%7Cmediawiki.codex.messagebox.styles%7Cmediawiki.htmlform.ooui.styles%7Cmediawiki.htmlform.styles%7Cmediawiki.widgets.styles%7Coojs-ui-core.icons%2Cstyles%7Coojs-ui.styles.indicators%7Cskins.vector.icons%2Cstyles%7Cskins.vector.search.codex.styles&amp;only=styles&amp;skin=vector-2022">
-<script async="" src="/w/load.php?lang=en&amp;modules=startup&amp;only=scripts&amp;raw=1&amp;skin=vector-2022"></script>
-<meta name="ResourceLoaderDynamicStyles" content="">
-<link rel="stylesheet" href="/w/load.php?lang=en&amp;modules=ext.gadget.Long-Image-Names-in-Categories&amp;only=styles&amp;skin=vector-2022">
-<link rel="stylesheet" href="/w/load.php?lang=en&amp;modules=site.styles&amp;only=styles&amp;skin=vector-2022">
-<meta name="generator" content="MediaWiki 1.47.0-wmf.20">
-<meta name="referrer" content="origin">
-<meta name="referrer" content="origin-when-cross-origin">
-<meta name="robots" content="noindex,nofollow,max-image-preview:standard">
-<meta name="format-detection" content="telephone=no">
-<meta name="viewport" content="width=1120">
-<meta property="og:title" content="Redirect by file, user, page, revision, or log ID - Wikimedia Commons">
-<meta property="og:type" content="website">
-<link rel="apple-touch-icon" href="/static/apple-touch/commons.png">
-<link rel="icon" href="/static/favicon/commons.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/w/rest.php/v1/search" title="Wikimedia Commons">
-<link rel="EditURI" type="application/rsd+xml" href="//commons.wikimedia.org/w/api.php?action=rsd">
-<link rel="canonical" href="https://commons.wikimedia.org/wiki/Special:Redirect/file/Bipolar_neuron.svg">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="Wikimedia Commons Atom feed" href="/w/index.php?title=Special:RecentChanges&amp;feed=atom">
-<link rel="dns-prefetch" href="auth.wikimedia.org">
-</head>
-<body class="skin--responsive skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns--1 ns-special mw-special-Redirect page-Special_Redirect_file_Bipolar_neuron_svg rootpage-Special_Redirect_file_Bipolar_neuron_svg skin-vector-2022 action-view">
-<div id="mw-aria-live-region" class="mw-aria-live-region" aria-live="polite"></div><a class="mw-jump-link" href="#bodyContent">Jump to content</a>
-<div class="vector-header-container">
-	<header class="vector-header mw-header no-font-mode-scale">
-		<div class="vector-header-start">
-			<nav class="vector-main-menu-landmark" aria-label="Site">
-				
-<div id="vector-main-menu-dropdown" class="vector-dropdown vector-main-menu-dropdown vector-button-flush-left vector-button-flush-right"  title="Main menu" >
-	<input type="checkbox" id="vector-main-menu-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-main-menu-dropdown" class="vector-dropdown-checkbox "  aria-label="Main menu"   >
-	<label id="vector-main-menu-dropdown-label" for="vector-main-menu-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-menu mw-ui-icon-wikimedia-menu cdx-button__icon"></span>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
-<span class="vector-dropdown-label-text">Main menu</span>
-	</label>
-	<div class="vector-dropdown-content">
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:version="0.46+devel"
+   version="1.1"
+   id="neuron"
+   height="633.71252"
+   width="1179">
+  <defs>
+	<style type="text/css">
+		#Lines {
+			stroke: #000000;
+			stroke-width: 2;
+			stroke-linecap: round;
+		}
+		#Cell {
+			stroke: #000000;
+			stroke-width: 2;
+			fill-opacity: 1;
+		}
+		#Cell_Body {
+			fill: #a88fd1;
+		}
+		#Cell_Body_Nucleus {
+			fill: #2d7132;
+		}
+		#Small_Cell {
+			fill: #f4cc4b;
+		}
+		#Small_Cell_Nucleus {
+			fill: #d79b9b;
+		}
+	</style>
+  </defs>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Quasar Jarosz, quasarj.com</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
 
-
-				<div id="vector-main-menu-unpinned-container" class="vector-unpinned-container">
-		
-<div id="vector-main-menu" class="vector-main-menu vector-pinnable-element">
-	<div
-	class="vector-pinnable-header vector-main-menu-pinnable-header vector-pinnable-header-unpinned"
-	data-feature-name="main-menu-pinned"
-	data-pinnable-element-id="vector-main-menu"
-	data-pinned-container-id="vector-main-menu-pinned-container"
-	data-unpinned-container-id="vector-main-menu-unpinned-container"
->
-	<div class="vector-pinnable-header-label">Main menu</div>
-	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-main-menu.pin" aria-label="Move Main menu to sidebar">move to sidebar</button>
-	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-main-menu.unpin" aria-label="Hide Main menu">hide</button>
-</div>
-
+	<g id="Cell">
+	  <g id="Cell_Body">
+		<path
+		   d="m 206.10019,562.12434 9.15955,-26.50534 c -10.51421,4.83421 -27.28139,21.72124 -37.92788,19.61846 17.6415,-14.68138 34.76421,-27.05882 45.25952,-51.8195 13.4532,-27.60799 7.45818,-39.6122 -17.22962,-37.91724 -23.27537,1.59799 -47.03719,19.66233 -46.09678,60.0172 0.37993,16.30314 -5.41737,24.29246 -5.83139,7.43195 -0.13461,-5.48195 -3.76506,-5.13328 -7.70584,-1.93448 -12.8434,10.96517 13.4041,-45.58961 11.04747,-54.00791 -10.0857,3.25724 -34.1671,59.65839 -38.5198,53.26042 2.04742,-14.12157 0.25958,-18.55586 -8.72538,-2.00634 -3.03536,5.59086 -12.149223,18.29181 -14.250423,15.62944 7.329613,-18.97188 21.196723,-35.17271 28.571583,-54.25907 0,-0.93787 -7.32675,1.57547 -16.28167,5.58517 -18.658408,8.35464 -29.102304,7.48607 -20.590964,-1.71247 5.097827,-5.5094 60.166844,-28.78842 95.508254,-40.37368 29.65528,-9.72128 35.41948,-13.36886 35.34439,-22.36588 -0.0733,-8.78132 -6.99049,-17.06972 -17.7263,-24.6791 -14.96231,-10.60505 -38.92235,-1.94276 -61.31584,26.06834 -7.76558,8.95175 -11.8845,22.32535 -24.77187,22.6667 1.55876,-4.05277 -0.0326,-13.2119 8.29321,-20.05803 4.05261,-3.33238 8.9924,-10.77915 11.64765,-15.80116 4.78107,-9.04267 7.99466,-13.11281 7.99466,-13.11281 0,0 -51.473867,9.5788 -51.528938,9.69812 12.784208,-7.09789 13.277368,-6.18656 6.58278,-18.68519 -5.641419,-12.47346 -6.054443,-17.30768 -4.628489,-54.17443 1.557696,-40.27299 6.056125,-55.35828 6.056125,-55.35828 1.064084,8.74669 4.710682,17.77651 11.228742,0.14587 0,0 -1.26066,1.22308 -3.4372,34.74652 -2.59029,39.89596 6.69203,65.80891 20.9806,67.64361 7.43359,0.95449 39.51224,0.77143 41.9285,-2.43461 -4.23792,-11.04197 -25.2457,-10.84245 -34.23508,-17.25976 -0.0558,-1.26593 5.76518,-1.66478 11.94726,-3.47632 10.05999,-2.94792 12.11977,-0.91634 25.64545,5.78724 28.41708,16.44721 16.7838,7.24213 16.39198,-11.87788 0,0 7.21142,8.46211 12.59044,13.596 15.91109,15.18602 23.58025,8.27456 22.2708,-16.89379 -0.91522,-17.59113 -4.92075,-39.92126 -25.46743,-65.00174 -11.90496,-14.53188 -9.44755,-21.60951 -20.49695,-23.87472 -27.81251,5.7201 -43.69053,-22.25643 -53.62315,-27.22191 -6.56887,0 -26.408412,-9.53626 -29.977829,-12.13619 -12.392718,-14.56281 24.053939,1.6087 29.659879,0.53476 -1.3655,-17.85061 -43.825565,-61.63272 -42.934502,-59.95147 11.939616,-3.83312 1.517981,-29.03796 1.660697,-36.34523 6.039415,7.53271 8.241863,5.72648 10.847846,-2.22515 -0.958071,29.17636 1.144563,45.27193 20.202669,63.55244 17.12317,19.75675 27.01277,52.96178 52.54681,60.04644 6.35988,2.05288 12.19671,2.33423 15.062,0.80864 5.64336,-3.00474 9.55451,-9.20036 -28.75399,-56.53963 -22.88712,-28.28247 -29.94427,-39.78243 -26.34149,-45.03571 5.29253,-1.00587 6.31039,1.3085 15.22618,11.35 l 11.12333,12.52776 1.47253,-9.65334 c 1.52105,-8.68641 0.32169,-30.75763 -8.16374,-43.42776 -4.85032,-7.24232 3.8959,-5.83154 8.47011,2.70705 l 4.14494,7.73728 2.01567,-8.97587 c 2.55656,-11.38449 5.23969,-19.89155 5.23969,-19.89155 -0.58216,11.04051 1.57917,14.97649 8.47424,9.30581 -0.58825,31.54194 -25.45781,59.26435 -1.76475,94.62583 l 6.19144,-10.2634 c 4.92093,-8.15731 8.14345,-16.57384 7.59407,-41.10875 -0.52226,-23.32384 4.53918,-42.97656 6.91139,-43.37193 1.61885,11.34349 -2.25468,26.22128 4.82999,37.26112 0.43504,-10.11579 8.33587,-26.49759 9.29183,-25.18314 0.73709,0 0.52922,7.60863 -9.71822,44.30407 -9.47499,33.92935 -6.34544,60.36647 1.88951,78.21518 5.73113,12.42184 10.9157,11.1314 12.02573,4.70575 0.68277,-3.95233 0.74081,-20.44431 0.12899,-36.64884 -1.09996,-29.13318 -0.92946,-34.04106 -0.92946,-34.04106 -0.40994,8.7453 15.20481,23.05148 30.07077,-14.23077 4.74118,-11.89039 13.77718,-24.24188 13.77718,-24.24188 -6.16716,17.32136 -6.39798,27.68267 -6.01177,30.91983 1.18441,0.79909 11.68121,-3.61174 17.03423,-7.6215 -0.0865,-0.13364 -33.9585,42.36228 -35.92407,57.72103 9.50964,8.10982 28.63918,-28.63812 28.63918,-28.63812 0.0929,-0.46465 2.4572,10.21891 2.22939,11.35796 0.65431,0.27957 12.74283,-9.58241 13.10542,-8.67613 0.82093,-0.84618 -11.07821,18.01899 -28.56239,31.1105 -28.41823,27.69031 -19.51495,62.23686 -9.24191,78.38253 6.9767,14.09569 35.11872,32.88772 46.19536,35.60677 17.66765,4.33698 19.65788,-21.02855 3.80785,-48.53147 -11.47017,-19.90303 -18.54356,-52.64068 -14.97862,-62.03821 3.33812,-8.79961 5.56444,1.25887 13.02355,8.91587 3.23357,3.31936 3.89187,-6.57438 2.70462,-25.99535 -1.59719,-26.12704 -3.50444,-32.71279 0.77739,-32.71279 2.65569,0 5.07851,5.04349 5.07851,6.62442 0,1.58093 2.78034,-0.14035 5.25307,-5.8e-4 3.59401,0.20314 0.017,22.52876 -1.28955,25.71744 -1.84595,4.50506 10.38161,-15.20065 14.00774,-24.91712 2.81794,-7.55086 4.09165,-26.08338 4.09165,-26.08338 -0.26907,0.4815 2.5962,18.46875 7.95126,15.9556 2.77786,-1.30366 1.82252,1.2042 3.43892,1.2042 1.6164,0 3.81392,-3.43734 3.81392,-9.93021 0,-8.95239 0.99688,-11.43106 4.12518,-10.25696 2.89621,1.08699 5.00677,-3.8848 9.58389,-15.85532 3.95629,-10.34688 5.59114,-22.88364 8.25145,-22.88364 4.89855,0 2.42936,17.34702 -5.57579,54.32219 -9.98521,46.12102 -6.19331,45.68987 12.99121,19.08326 6.83951,-9.48558 14.02013,-20.25171 16.38904,-20.25171 5.78767,0 -8.70151,26.73018 -8.70151,26.73018 0,0 7.92587,0.5413 11.47395,2.54434 2.19193,1.23744 -5.8897,8.55407 -25.95272,23.17558 -22.21131,16.18716 -21.5258,21.16244 -34.15122,68.2219 -15.16834,41.0017 29.49489,70.17829 61.79013,75.05155 43.09181,12.708 78.5422,23.95443 110.50191,33.41967 37.64565,11.14919 71.01235,20.77385 111.7988,21.92529 37.34666,1.05432 76.97284,-2.35046 112.79231,-13.80032 32.96277,-10.5367 62.70182,-27.1793 84.47406,-54.13663 36.3213,-44.97126 60.83967,-89.49681 60.83967,-89.49681 10.42143,-29.28989 27.27811,-55.71586 24.16208,-87.9319 -1.84051,-11.52196 -14.32393,-20.48389 -21.49321,-13.28918 -2.2659,2.27394 -7.27424,9.22331 -11.11732,9.22331 -9.16119,0 -13.10183,-7.09837 -4.0872,-13.01581 l 10.32488,-3.81033 c -4.66954,-15.71587 -26.59131,-11.81438 -14.26371,-24.64203 10.9587,-8.25589 19.46049,-6.0614 16.74362,3.64491 -1.17381,4.19352 5.12274,9.55759 16.42617,14.6598 15.33268,6.92094 16.33016,3.19706 16.9465,1.91129 0.94138,-1.96385 1.20097,-6.18229 3.74909,-8.25064 3.3539,-2.72239 9.42152,-3.08563 8.07174,-10.12264 -1.83683,-9.57626 -4.90202,-17.48536 4.67544,-16.58577 8.16702,0.7671 1.43107,11.07411 5.10959,14.93337 6.18452,6.48841 22.45952,-7.90525 26.60552,6.62193 -0.86854,4.30194 -2.45389,7.19487 -12.51502,5.4044 -10.07031,-1.7921 -18.18955,-0.91497 -24.28104,11.81893 -4.2911,8.97028 -11.27708,39.7811 -6.32528,37.8284 1.52998,-0.60333 19.41333,-10.39283 33.69109,-18.29748 29.74202,-16.46618 50.94539,-32.40752 49.59866,-44.96487 -0.63715,-5.94104 -0.12643,-13.27733 5.76122,-15.90105 13.3023,-5.9279 13.4226,-0.92628 10.99472,9.85609 -1.83871,8.16588 2.49458,7.96221 4.07908,8.2707 0.2398,1.43129 -17.97844,15.75121 -17.97844,15.75121 0,0 28.02184,-12.38916 28.02184,-6.15109 0,7.48812 -5.7145,10.54312 -25.78289,16.22891 -9.55621,2.70746 -24.68003,11.41291 -32.09607,16.53666 -17.3999,14.76428 -52.38504,19.80878 -58.71269,45.46372 -4.85089,10.31296 -8.00562,15.39071 -5.28028,17.08418 6.27488,3.89909 14.90889,5.31394 30.23432,-10.35374 8.24654,-8.43071 18.6501,-16.81933 23.11902,-18.64138 4.46893,-1.82205 9.60588,-6.58197 11.49267,-10.54121 4.5359,-9.51812 11.34341,-17.18611 11.09023,-4.7996 -0.15006,7.34162 3.88745,8.11539 12.12916,-1.79075 8.6294,-10.37213 15.29091,-4.79734 12.47575,8.52651 -1.53874,7.28272 -31.07996,9.16091 -31.87911,13.12425 0,2.52643 20.29643,2.56267 18.52289,3.57682 -12.73442,8.38544 -31.05275,4.4683 -40.21122,17.49055 l 23.11415,3.17079 c 8.82372,1.35502 18.83121,4.25041 22.23888,6.43419 3.40767,2.18379 15.99059,6.82354 27.96209,10.31055 19.9217,5.80273 33.4556,11.56869 33.859,16.91597 0.4349,5.76601 -38.2613,-6.9091 -61.36459,-16.4349 -4.65106,-1.9177 13.16121,11.80812 19.56379,21.32801 4.6898,6.97314 9.522,18.30594 9.7251,30.97964 0.3703,23.09753 5.3938,25.00762 19.535,29.35419 13.6724,4.20248 13.0029,13.11332 -0.9181,14.26094 -21.3486,-2.88954 -27.3931,-21.36522 -31.1862,-39.23452 -7.51434,6.89746 -21.92903,25.42839 -25.77056,14.10337 0,-2.98003 1.52009,-6.64138 5.53858,-9.21663 12.80478,-8.20586 20.05838,-18.02764 16.54345,-27.90257 -5.80284,-16.30263 -58.11256,-54.02162 -74.15676,-41.005 -3.3098,2.68524 4.57823,8.40132 9.20417,17.77449 7.46717,15.13007 7.74482,28.08875 5.74107,31.25972 -0.94666,1.49815 -9.51,1.35787 -9.38298,-2.43245 0.68989,-20.58605 -5.60284,-31.31159 -8.1861,-32.89696 -1.77429,-0.88714 -2.64718,11.42671 2.11032,40.11989 0.49433,2.98138 -1.55129,3.89398 -4.73752,3.89398 -8.33001,0 -11.37904,-4.39327 -8.65623,-12.30111 2.82323,-8.1995 -0.0597,-18.16889 -2.9348,-26.53804 -3.90222,-11.35915 -14.50433,-17.18589 -24.46651,-5.69772 -3.42162,3.82591 -6.61913,7.75079 -9.63322,11.73949 -25.26648,33.43653 -37.6431,71.35789 -61.09489,93.05976 -28.24525,26.13764 -57.79436,45.38731 -90.94878,56.63754 -35.29201,11.97558 -74.2686,15.88849 -118.85279,12.53035 -35.82994,-2.69875 -74.69585,-14.63263 -119.11068,-23.65079 L 378.51481,391.28522 c -25.08672,4.19365 -53.11343,29.31311 -54.72524,37.92606 -2.59082,13.84444 21.13857,25.59557 54.36085,33.21398 15.59905,6.18469 16.20771,8.18135 -0.81758,6.21272 l -16.08118,-0.73031 c 3.8988,8.58738 16.38387,12.48286 17.86552,17.82229 -10.76525,8.9836 -76.7878,-48.80052 -78.53318,-33.81678 -6.94573,32.46941 94.2912,80.03175 65.62442,78.35328 -6.10325,-1.09156 -13.34289,-2.80486 -15.4017,-3.10983 -5.88905,-0.87235 -12.65875,5.13876 -5.90693,13.47499 3.7428,4.62111 10.37941,12.33433 6.90107,14.14932 -17.2671,-7.74045 -21.22945,-35.34039 -39.31559,-41.95567 -7.61499,6.75803 -0.21313,24.23533 -8.04736,30.77921 -0.39896,-27.13664 -0.66067,-54.26924 -16.69001,-81.86559 l -16.67118,0 -20.56028,0 c 2.80394,17.07876 7.97601,82.31534 4.52538,75.61876 -5.04043,-9.78187 -9.86547,-20.31762 -13.96961,-33.37651 -8.61666,10.62045 -17.25442,47.47176 -17.89732,63.26132 -3.23268,-12.44911 -6.80512,-15.87207 -17.0747,-5.11812 z M 313.64481,267.34063 c 11.79033,-22.94295 15.59285,-68.76616 12.85507,-77.58094 -2.82313,-9.08959 -46.22661,72.0161 -36.06646,84.77974 5.49597,6.90429 12.29168,19.208 15.69586,15.69517 1.27813,-1.31892 4.04137,-11.82746 7.51553,-22.89397 z" />
+		<path
+		   d="m 266.25,388.46252 c -8.25762,-4.41371 -14.25,0.55102 -14.25,8.75 0,9.80419 29.85389,42.39612 37.75,34.5 15.63549,-15.63549 -6.30338,-38.51334 -23.5,-43.25 z"
+		   id="Cell_Body_Nucleus" />
+	  </g>
+	  
+	  <g id="Neck">
+		<g id="Small_Cell">
+		  <path
+			 d="m 383.5,371.21252 c 29.73372,-6.58867 57.99394,6.95485 85.67244,16.25008 7.07584,2.89756 13.29553,8.28646 16.44747,15.33189 -0.56539,12.48331 -13.66954,22.60671 -25.89067,20.1049 -20.81927,0.40026 -42.50084,-2.0186 -60.90562,-12.46069 -8.69775,-3.84797 -18.16183,-9.38592 -20.95585,-19.13922 -1.20874,-7.14958 1.79888,-14.2115 5.63223,-20.08696 z" />
+		  <path
+			 d="m 501.5,404.21252 c 15.08462,-3.53005 27.29865,0.15973 41.5,3 12.00667,2.40134 28.84181,3.17091 39.5,8.5 45.00023,38.83122 -25.706,35.66934 -48.5,31.5 -26.30051,-6.06979 -61.87157,-25.90395 -32.5,-43 z" />
+		  <path
+			 d="m 611.5,425.21252 c 14.64803,-4.33339 95.06743,-24.05147 100,-2.5 8.37238,36.58079 -55.74893,39.70067 -79,35 -10.97104,-2.21802 -38.41754,-16.10662 -21,-32.5 z" />
+		  <path
+			 d="m 722,409.71252 c 5.92668,-11.24195 73.1895,-64.06211 87,-32 6.86822,15.94509 -89.40974,77.84937 -89,45.5 0.0717,-5.65801 -1.9929,-7.5071 2,-13.5 z" />
+		  <path
+			 d="m 820.9375,369.33752 c 12.56161,-1.96628 17.82959,-14.39208 28.0625,-24.625 14.72196,-14.72195 29.5,-37.40007 29.5,-57.5 0,-4.65766 -23.61268,-17.88732 -27.76777,-13.73223 -10.89772,10.89772 -81.07245,90.72946 -29.79473,95.85723 z" />
+		</g>
+		<g id="Small_Cell_Nucleus">
+		  <path
+			 d="m 415.25,393.46252 c 3.0616,-0.52019 5.33182,-0.93522 7.125,-3.625 5.59213,-8.38819 -10.05311,-8.89896 -14.25,-7.5 -8.56188,2.85396 0.006,12.33449 7.125,11.125 z" />
+		  <path
+			 d="m 536.375,434.83752 c 3.28921,-0.30585 6.25799,-0.88298 8.5,-3.125 7.28578,-7.28577 -8.20639,-9.72287 -12.625,-8.25 -7.16886,2.38962 -2.83373,12.02205 4.125,11.375 z" />
+		  <path
+			 d="m 657.875,443.96252 c 24.45312,1.4981 12.67565,-21.01602 -3.5,-11.375 -5.2911,3.1536 -1.42525,11.375 3.5,11.375 z" />
+		  <path
+			 d="m 764.25,389.96252 c -3.03826,0.0784 -5.71193,2.14129 -8.125,3.75 -8.41496,5.60998 3.46629,13.49195 10.1224,10.8295 11.0124,-4.40496 9.92954,-15.86724 -1.9974,-14.5795 z" />
+		  <path
+			 d="m 834.53661,327.66963 c 2.40255,0.89066 5.90239,-2.42089 7.15533,-4.92678 0.81335,-1.62668 2.13637,-3.48291 2.60356,-5.35355 5.24667,-21.00799 -28.03168,3.50628 -9.75889,10.28033 z" />
+		</g>
+	  </g>
+	</g>
 	
-<div id="p-navigation" class="vector-menu mw-portlet mw-portlet-navigation"  >
-	<div class="vector-menu-heading">
-		Navigate
-	</div>
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			
-			<li id="n-mainpage-description" class="mw-list-item"><a href="/wiki/Main_Page" title="Visit the main page [z]" accesskey="z"><span>Main page</span></a></li><li id="n-welcome" class="mw-list-item"><a href="/wiki/Commons:Welcome"><span>Welcome</span></a></li><li id="n-portal" class="mw-list-item"><a href="/wiki/Commons:Community_portal" title="About the project, what you can do, where to find things"><span>Community portal</span></a></li><li id="n-village-pump" class="mw-list-item"><a href="/wiki/Commons:Village_pump"><span>Village pump</span></a></li><li id="n-help" class="mw-list-item"><a href="/wiki/Special:MyLanguage/Help:Contents" title="The place to find out"><span>Help center</span></a></li>
-		</ul>
-		
-	</div>
-</div>
-
-	
-<div id="p-participate" class="vector-menu mw-portlet mw-portlet-participate"  >
-	<div class="vector-menu-heading">
-		Participate
-	</div>
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			
-			<li id="n-uploadbtn" class="mw-list-item"><a href="/wiki/Special:UploadWizard"><span>Upload file</span></a></li><li id="n-recentchanges" class="mw-list-item"><a href="/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r"><span>Recent changes</span></a></li><li id="n-latestfiles" class="mw-list-item"><a href="/wiki/Special:NewFiles"><span>Latest files</span></a></li><li id="n-randomimage" class="mw-list-item"><a href="/wiki/Special:Random/File" title="Load a random file [x]" accesskey="x"><span>Random file</span></a></li><li id="n-contact" class="mw-list-item"><a href="/wiki/Commons:Contact_us"><span>Contact us</span></a></li><li id="n-specialpages" class="mw-list-item"><a href="/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q"><span>Special pages</span></a></li>
-		</ul>
-		
-	</div>
-</div>
-
-</div>
-
-				</div>
-
-	</div>
-</div>
-
-		</nav>
-			
-<a href="/wiki/Main_Page" class="mw-logo">
-	<img class="mw-logo-icon" src="/static/images/icons/commonswiki.svg" alt="" aria-hidden="true" height="50" width="50">
-	<span class="mw-logo-container skin-invert">
-		<img class="mw-logo-wordmark" alt="Wikimedia Commons" src="/static/images/mobile/copyright/commonswiki-wordmark.svg" style="width: 7.1875em; height: 2em;">
-	</span>
-</a>
-
-		</div>
-		<div class="vector-header-end">
-			
-<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses vector-search-box">
-	<a href="/wiki/Special:MediaSearch" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only search-toggle" title="Search Wikimedia Commons [f]" accesskey="f"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search cdx-button__icon"></span>
-
-<span>Search</span>
-	</a>
-	<div class="vector-typeahead-search-container">
-		<div class="cdx-typeahead-search">
-			<form action="/w/index.php" id="searchform" class="cdx-search-input cdx-search-input--has-end-button">
-				<div id="simpleSearch" class="cdx-search-input__input-wrapper"  data-search-loc="header-moved">
-					<div class="cdx-text-input cdx-text-input--has-start-icon">
-						<input
-							class="cdx-text-input__input mw-searchInput" autocomplete="off"
-							 type="search" name="search" placeholder="Search Wikimedia Commons" aria-label="Search Wikimedia Commons" autocapitalize="none" spellcheck="false" title="Search Wikimedia Commons [f]" accesskey="f" id="searchInput"
-							>
-						<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
-					</div>
-					<input type="hidden" name="title" value="Special:MediaSearch">
-				</div>
-				<button class="cdx-button cdx-search-input__end-button">Search</button>
-			</form>
-		</div>
-	</div>
-</div>
-
-			<nav class="vector-user-links vector-user-links-wide" aria-label="Personal tools">
-	<div class="vector-user-links-main">
-	
-<div id="p-vector-user-menu-preferences" class="vector-menu mw-portlet"  >
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			<li id="ca-uls" class="mw-list-item active vector-menu-item--collapsible"><a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet uls-trigger" id=""><span class="vector-icon mw-ui-icon-wikimedia-language mw-ui-icon-wikimedia-wikimedia-language cdx-button__icon"></span>
-
-<span>English</span>
-</a>
-</li>
-
-			
-		</ul>
-		
-	</div>
-</div>
-
-	
-<div id="p-vector-user-menu-userpage" class="vector-menu mw-portlet emptyPortlet"  >
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			
-			
-		</ul>
-		
-	</div>
-</div>
-
-	<nav class="vector-appearance-landmark" aria-label="Appearance">
-		
-<div id="vector-appearance-dropdown" class="vector-dropdown "  title="Change the appearance of the page&#039;s font size, width, and color" >
-	<input type="checkbox" id="vector-appearance-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-appearance-dropdown" class="vector-dropdown-checkbox "  aria-label="Appearance"   >
-	<label id="vector-appearance-dropdown-label" for="vector-appearance-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-appearance mw-ui-icon-wikimedia-appearance cdx-button__icon"></span>
-
-<span class="vector-dropdown-label-text">Appearance</span>
-	</label>
-	<div class="vector-dropdown-content">
-
-
-			<div id="vector-appearance-unpinned-container" class="vector-unpinned-container">
-				
-			</div>
-		
-	</div>
-</div>
-
-	</nav>
-	
-<div id="p-vector-user-menu-notifications" class="vector-menu mw-portlet emptyPortlet"  >
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			
-			
-		</ul>
-		
-	</div>
-</div>
-
-	
-<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet"  >
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			<li id="pt-sitesupport-2" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="https://donate.wikimedia.org/?wmf_source=donate&amp;wmf_medium=sidebar&amp;wmf_campaign=commons.wikimedia.org&amp;uselang=en" data-mw-donate-attempt="top_link" class=""><span>Donate</span></a>
-</li>
-<li id="pt-createaccount-2" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Special:CreateAccount&amp;returnto=Special%3ARedirect%2Ffile%2FBipolar+neuron.svg" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span>Create account</span></a>
-</li>
-<li id="pt-login-2" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Special:UserLogin&amp;returnto=Special%3ARedirect%2Ffile%2FBipolar+neuron.svg" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o" class=""><span>Log in</span></a>
-</li>
-
-			
-		</ul>
-		
-	</div>
-</div>
-
-	</div>
-	
-<div id="vector-user-links-dropdown" class="vector-dropdown vector-user-menu vector-button-flush-right vector-user-menu-logged-out vector-user-links-dropdown--collapsible"  title="More options" >
-	<input type="checkbox" id="vector-user-links-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-user-links-dropdown" class="vector-dropdown-checkbox "  aria-label="Personal tools"   >
-	<label id="vector-user-links-dropdown-label" for="vector-user-links-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-userAvatar mw-ui-icon-wikimedia-userAvatar cdx-button__icon"></span>
-
-<span class="vector-dropdown-label-text">Personal tools</span>
-	</label>
-	<div class="vector-dropdown-content">
-
-
-		
-<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal"  title="User menu" >
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			<li id="pt-sitesupport" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="https://donate.wikimedia.org/?wmf_source=donate&amp;wmf_medium=sidebar&amp;wmf_campaign=commons.wikimedia.org&amp;uselang=en" data-mw-donate-attempt="top_link" class=""><span class="vector-icon mw-ui-icon-heart mw-ui-icon-wikimedia-heart cdx-button__icon"></span>
-
-<span>Donate</span></a>
-</li>
-<li id="pt-createaccount" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Special:CreateAccount&amp;returnto=Special%3ARedirect%2Ffile%2FBipolar+neuron.svg" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span class="vector-icon mw-ui-icon-userAvatar mw-ui-icon-wikimedia-userAvatar cdx-button__icon"></span>
-
-<span>Create account</span></a>
-</li>
-<li id="pt-login" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Special:UserLogin&amp;returnto=Special%3ARedirect%2Ffile%2FBipolar+neuron.svg" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o" class=""><span class="vector-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn cdx-button__icon"></span>
-
-<span>Log in</span></a>
-</li>
-
-			
-		</ul>
-		
-	</div>
-</div>
-
-	
-	</div>
-</div>
-
-</nav>
-
-		</div>
-	</header>
-</div>
-<div class="mw-page-container">
-	<div class="mw-page-container-inner">
-		<div class="vector-sitenotice-container">
-			<div id="siteNotice"><!-- CentralNotice --></div>
-		</div>
-		<div class="vector-column-start">
-			<div class="vector-main-menu-container">
-		<div id="mw-navigation">
-			<nav id="mw-panel" class="vector-main-menu-landmark" aria-label="Site">
-				<div id="vector-main-menu-pinned-container" class="vector-pinned-container">
-				
-				</div>
-		</nav>
-		</div>
-	</div>
-</div>
-		<div class="mw-content-container">
-			<main id="content" class="mw-body">
-				<header class="mw-body-header vector-page-titlebar no-font-mode-scale">
-					<h1 id="firstHeading" class="firstHeading mw-first-heading">Redirect by file, user, page, revision, or log ID</h1>
-		<div class="mw-indicators">
-	</div>
-</header>
-				<div class="vector-page-toolbar">
-					<div class="vector-page-toolbar-container">
-						<div id="left-navigation">
-							<nav aria-label="Namespaces">
-								
-<div id="p-associated-pages" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-associated-pages emptyPortlet"  >
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			
-			
-		</ul>
-		
-	</div>
-</div>
-
-								
-<div id="vector-variants-dropdown" class="vector-dropdown emptyPortlet"  >
-	<input type="checkbox" id="vector-variants-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-variants-dropdown" class="vector-dropdown-checkbox " aria-label="Change language variant"    >
-	<label id="vector-variants-dropdown-label" for="vector-variants-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"  ><span class="vector-dropdown-label-text">English</span>
-	</label>
-	<div class="vector-dropdown-content">
-
-
-					
-<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet"  >
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			
-			
-		</ul>
-		
-	</div>
-</div>
-
-				
-	</div>
-</div>
-
-							</nav>
-						</div>
-						<div id="right-navigation" class="vector-collapsible">
-							<nav aria-label="Views">
-			    
-<div id="p-views" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-views emptyPortlet"  >
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			
-			
-		</ul>
-		
-	</div>
-</div>
-
-			</nav>
-
-							<nav class="vector-page-tools-landmark" aria-label="Page tools">
-								
-<div id="vector-page-tools-dropdown" class="vector-dropdown vector-page-tools-dropdown"  >
-	<input type="checkbox" id="vector-page-tools-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-tools-dropdown" class="vector-dropdown-checkbox "  aria-label="Tools"   >
-	<label id="vector-page-tools-dropdown-label" for="vector-page-tools-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-verticalEllipsis mw-ui-icon-wikimedia-verticalEllipsis cdx-button__icon"></span>
-
-<span class="vector-dropdown-label-text">Tools</span>
-	</label>
-	<div class="vector-dropdown-content">
-
-
-									<div id="vector-page-tools-unpinned-container" class="vector-unpinned-container">
-						
-<div id="vector-page-tools" class="vector-page-tools vector-pinnable-element">
-	<div
-	class="vector-pinnable-header vector-page-tools-pinnable-header vector-pinnable-header-unpinned"
-	data-feature-name="page-tools-pinned"
-	data-pinnable-element-id="vector-page-tools"
-	data-pinned-container-id="vector-page-tools-pinned-container"
-	data-unpinned-container-id="vector-page-tools-unpinned-container"
->
-	<div class="vector-pinnable-header-label">Tools</div>
-	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-page-tools.pin" aria-label="Move Tools to sidebar">move to sidebar</button>
-	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-page-tools.unpin" aria-label="Hide Tools">hide</button>
-</div>
-
-	
-<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions emptyPortlet"  >
-	<div class="vector-menu-heading">
-		Actions
-	</div>
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			
-			
-		</ul>
-		
-	</div>
-</div>
-
-<div id="p-tb" class="vector-menu mw-portlet mw-portlet-tb"  >
-	<div class="vector-menu-heading">
-		General
-	</div>
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			
-			<li id="t-print" class="mw-list-item"><a href="javascript:print();" rel="alternate" title="Printable version of this page [p]" accesskey="p"><span>Printable version</span></a></li><li id="t-urlshortener" class="mw-list-item"><a href="/w/index.php?title=Special:UrlShortener&amp;url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FSpecial%3ARedirect%2Ffile%2FBipolar_neuron.svg"><span>Get shortened URL</span></a></li>
-		</ul>
-		
-	</div>
-</div>
-
-<div id="p-wikibase-otherprojects" class="vector-menu mw-portlet mw-portlet-wikibase-otherprojects emptyPortlet"  >
-	<div class="vector-menu-heading">
-		In other projects
-	</div>
-	<div class="vector-menu-content">
-		
-		<ul class="vector-menu-content-list">
-			
-			
-		</ul>
-		
-	</div>
-</div>
-
-</div>
-
-									</div>
-				
-	</div>
-</div>
-
-							</nav>
-						</div>
-					</div>
-				</div>
-				<div class="vector-column-end no-font-mode-scale">
-					<div class="vector-sticky-pinned-container">
-						<nav class="vector-page-tools-landmark" aria-label="Page tools">
-							<div id="vector-page-tools-pinned-container" class="vector-pinned-container">
-				
-							</div>
-		</nav>
-						<nav class="vector-appearance-landmark" aria-label="Appearance">
-							<div id="vector-appearance-pinned-container" class="vector-pinned-container">
-				<div id="vector-appearance" class="vector-appearance vector-pinnable-element">
-	<div
-	class="vector-pinnable-header vector-appearance-pinnable-header vector-pinnable-header-pinned"
-	data-feature-name="appearance-pinned"
-	data-pinnable-element-id="vector-appearance"
-	data-pinned-container-id="vector-appearance-pinned-container"
-	data-unpinned-container-id="vector-appearance-unpinned-container"
->
-	<div class="vector-pinnable-header-label">Appearance</div>
-	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-appearance.pin" aria-label="Move Appearance to sidebar">move to sidebar</button>
-	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-appearance.unpin" aria-label="Hide Appearance">hide</button>
-</div>
-
-
-</div>
-
-							</div>
-		</nav>
-					</div>
-				</div>
-				<div id="bodyContent" class="vector-body" aria-labelledby="firstHeading" data-mw-ve-target-container>
-					<div class="vector-body-before-content">
-					
-						
-						<div id="contentSub"><div id="mw-content-subtitle"></div></div>
-						
-					</div>
-					
-					<div id="mw-content-text" class="mw-body-content"><div class="mw-specialpage-summary">
-<p>This special page redirects to a file (given the filename), a page (given a revision ID or page ID), a user page (given a numeric user ID), or a log entry (given the log ID). Usage: <a href="/wiki/Special:Redirect/file/Example.jpg" title="Special:Redirect/file/Example.jpg">Special:Redirect/file/Example.jpg</a>, <a href="/wiki/Special:Redirect/page/64308" title="Special:Redirect/page/64308">Special:Redirect/page/64308</a>, <a href="/wiki/Special:Redirect/revision/328429" title="Special:Redirect/revision/328429">Special:Redirect/revision/328429</a>, <a href="/wiki/Special:Redirect/user/101" title="Special:Redirect/user/101">Special:Redirect/user/101</a>, or <a href="/wiki/Special:Redirect/logid/186" title="Special:Redirect/logid/186">Special:Redirect/logid/186</a>.
-</p>
-</div><div class='mw-htmlform-ooui-wrapper oo-ui-layout oo-ui-panelLayout'><form action='/wiki/Special:Redirect/file/Bipolar_neuron.svg' method='get' enctype='application/x-www-form-urlencoded' class='mw-htmlform mw-htmlform-ooui oo-ui-layout oo-ui-formLayout'><div class='mw-htmlform-ooui-header mw-htmlform-ooui-header-errors oo-ui-layout oo-ui-fieldLayout oo-ui-fieldLayout-align-top'><div class='oo-ui-fieldLayout-body'><span class='oo-ui-fieldLayout-header'><label id='ooui-php-1' class='oo-ui-labelElement-label'></label></span><div class='oo-ui-fieldLayout-field'><div aria-labelledby='ooui-php-1' class='oo-ui-widget oo-ui-widget-enabled'></div></div></div><div class='oo-ui-fieldLayout-messages'><div role='alert' class='oo-ui-widget oo-ui-widget-enabled oo-ui-labelElement oo-ui-flaggedElement-error oo-ui-iconElement oo-ui-messageWidget'><span class='oo-ui-iconElement-icon oo-ui-icon-error oo-ui-image-error'></span><span class='oo-ui-labelElement-label'>Value not found</span></div></div></div><div id='ooui-php-4' class='mw-htmlform-field-HTMLSelectField mw-htmlform-autoinfuse oo-ui-layout oo-ui-labelElement oo-ui-fieldLayout oo-ui-fieldLayout-align-top' data-ooui='{"_":"mw.htmlform.FieldLayout","fieldWidget":{"tag":"mw-input-wptype"},"align":"top","helpInline":true,"$overlay":true,"label":{"html":"Lookup:"},"classes":["mw-htmlform-field-HTMLSelectField","mw-htmlform-autoinfuse"]}'><div class='oo-ui-fieldLayout-body'><span class='oo-ui-fieldLayout-header'><label for='ooui-php-2' class='oo-ui-labelElement-label'>Lookup:</label></span><div class='oo-ui-fieldLayout-field'><div id='mw-input-wptype' class='oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-dropdownInputWidget oo-ui-dropdownInputWidget-php' data-ooui='{"_":"OO.ui.DropdownInputWidget","options":[{"data":"user","label":"User ID"},{"data":"page","label":"Page ID"},{"data":"revision","label":"Page revision"},{"data":"file","label":"Filename"},{"data":"logid","label":"Log ID"}],"$overlay":true,"name":"wptype","value":"file","inputId":"ooui-php-2","required":false}'><select tabindex='0' name='wptype' id='ooui-php-2' class='oo-ui-inputWidget-input'><option value='user'>User ID</option><option value='page'>Page ID</option><option value='revision'>Page revision</option><option value='file' selected='selected'>Filename</option><option value='logid'>Log ID</option></select><span class='oo-ui-widget oo-ui-widget-enabled oo-ui-indicatorElement-indicator oo-ui-indicator-down oo-ui-indicatorElement oo-ui-labelElement-invisible oo-ui-indicatorWidget'></span></div></div></div></div><div id='ooui-php-5' class='mw-htmlform-field-HTMLTextField oo-ui-layout oo-ui-labelElement oo-ui-fieldLayout oo-ui-fieldLayout-align-top' data-ooui='{"_":"mw.htmlform.FieldLayout","fieldWidget":{"tag":"mw-input-wpvalue"},"align":"top","helpInline":true,"$overlay":true,"label":{"html":"Value:"},"classes":["mw-htmlform-field-HTMLTextField"]}'><div class='oo-ui-fieldLayout-body'><span class='oo-ui-fieldLayout-header'><label for='ooui-php-3' class='oo-ui-labelElement-label'>Value:</label></span><div class='oo-ui-fieldLayout-field'><div id='mw-input-wpvalue' class='oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-indicatorElement oo-ui-textInputWidget oo-ui-textInputWidget-type-text oo-ui-textInputWidget-php' data-ooui='{"_":"OO.ui.TextInputWidget","name":"wpvalue","value":"Bipolar_neuron.svg","inputId":"ooui-php-3","indicator":"required","required":true}'><input type='text' tabindex='0' name='wpvalue' value='Bipolar_neuron.svg' required='' id='ooui-php-3' class='oo-ui-inputWidget-input' /><span class='oo-ui-iconElement-icon oo-ui-iconElement-noIcon'></span><span class='oo-ui-indicatorElement-indicator oo-ui-indicator-required'></span></div></div></div></div><div class="mw-htmlform-submit-buttons">
-<span id='ooui-php-6' class='mw-htmlform-submit oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-buttonElement-size-medium oo-ui-labelElement oo-ui-flaggedElement-primary oo-ui-flaggedElement-progressive oo-ui-buttonInputWidget' data-ooui='{"_":"OO.ui.ButtonInputWidget","type":"submit","value":"Go","label":"Go","flags":["primary","progressive"],"classes":["mw-htmlform-submit"]}'><button type='submit' tabindex='0' value='Go' class='oo-ui-inputWidget-input oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-iconElement-noIcon oo-ui-image-invert'></span><span class='oo-ui-labelElement-label'>Go</span><span class='oo-ui-indicatorElement-indicator oo-ui-indicatorElement-noIndicator oo-ui-image-invert'></span></button></span></div>
-</form></div><noscript><img src="https://commons.wikimedia.org/wiki/Special:CentralAutoLogin/start?useformat=desktop&amp;type=1x1&amp;usesul3=1" alt="" width="1" height="1" style="border: none; position: absolute;"></noscript>
-<div class="printfooter" data-nosnippet="">Retrieved from "<a dir="ltr" href="https://commons.wikimedia.org/wiki/Special:Redirect/file/Bipolar_neuron.svg">https://commons.wikimedia.org/wiki/Special:Redirect/file/Bipolar_neuron.svg</a>"</div></div>
-					<div id="catlinks" class="catlinks catlinks-allhidden" data-mw-interface=""></div>
-				</div>
-			</main>
-			
-		</div>
-		<div class="mw-footer-container">
-			<footer id="footer" class="mw-footer" >
-				<ul id="footer-info" class="mw-portlet mw-portlet-footer-info emptyPortlet">
-</ul>
-
-				<ul id="footer-places" class="mw-portlet mw-portlet-footer-places">
-	<li id="footer-places-privacy"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy">Privacy policy</a></li>
-	<li id="footer-places-about"><a href="/wiki/Commons:Welcome">About Wikimedia Commons</a></li>
-	<li id="footer-places-disclaimers"><a href="/wiki/Commons:General_disclaimer">Disclaimers</a></li>
-	<li id="footer-places-legal-safety-contacts"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Legal:Wikimedia_Foundation_Legal_and_Safety_Contact_Information">Legal &amp; safety contacts</a></li>
-	<li id="footer-places-wm-codeofconduct"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Universal_Code_of_Conduct">Code of Conduct</a></li>
-	<li id="footer-places-developers"><a href="https://developer.wikimedia.org">Developers</a></li>
-	<li id="footer-places-statslink"><a href="https://stats.wikimedia.org/#/commons.wikimedia.org">Statistics</a></li>
-	<li id="footer-places-cookiestatement"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Cookie_statement">Cookie statement</a></li>
-	<li id="footer-places-mobileview"><a href="//commons.wikimedia.org/w/index.php?title=Special:Redirect/file/Bipolar_neuron.svg&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-</ul>
-
-				<ul id="footer-icons" class="mw-portlet mw-portlet-footer-icons noprint">
-	<li id="footer-copyrightico"><a href="https://www.wikimedia.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><picture><source media="(min-width: 500px)" srcset="/static/images/footer/wikimedia-button.svg" width="84" height="29"><img src="/static/images/footer/wikimedia.svg" width="25" height="25" alt="Wikimedia Foundation" lang="en" loading="lazy"></picture></a></li>
-	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><picture><source media="(min-width: 500px)" srcset="/w/resources/assets/poweredby_mediawiki.svg" width="88" height="31"><img src="/w/resources/assets/mediawiki_compact.svg" alt="Powered by MediaWiki" lang="en" width="25" height="25" loading="lazy"></picture></a></li>
-</ul>
-
-			</footer>
-		</div>
-	</div> 
-</div> 
-<div class="vector-header-container vector-sticky-header-container no-font-mode-scale">
-	<div id="vector-sticky-header" class="vector-sticky-header">
-		<div class="vector-sticky-header-start">
-			<div class="vector-sticky-header-icon-start vector-button-flush-left" aria-hidden="true">
-				<button class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-sticky-header-search-toggle" tabindex="-1" data-event-name="ui.vector-sticky-search-form.icon"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search cdx-button__icon"></span>
-
-<span>Search</span>
-			</button>
-		</div>
-			
-		<div role="search" class="vector-search-box-vue vector-search-box">
-			<div class="vector-typeahead-search-container">
-				<div class="cdx-typeahead-search">
-					<form action="/w/index.php" id="vector-sticky-search-form" class="cdx-search-input cdx-search-input--has-end-button">
-						<div  class="cdx-search-input__input-wrapper"  data-search-loc="header-moved">
-							<div class="cdx-text-input cdx-text-input--has-start-icon">
-								<input
-									class="cdx-text-input__input mw-searchInput" autocomplete="off"
-									
-									type="search" name="search" placeholder="Search Wikimedia Commons">
-								<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
-							</div>
-							<input type="hidden" name="title" value="Special:MediaSearch">
-						</div>
-						<button class="cdx-button cdx-search-input__end-button">Search</button>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="vector-sticky-header-context-bar">
-				<div class="vector-sticky-header-context-bar-primary" aria-hidden="true" >Redirect by file, user, page, revision, or log ID</div>
-			</div>
-		</div>
-		<div class="vector-sticky-header-end" aria-hidden="true">
-			<div class="vector-sticky-header-icons">
-				<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-talk-sticky-header" tabindex="-1" data-event-name="talk-sticky-header"><span class="vector-icon mw-ui-icon-speechBubbles mw-ui-icon-wikimedia-speechBubbles cdx-button__icon"></span>
-
-<span></span>
-			</a>
-			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-subject-sticky-header" tabindex="-1" data-event-name="subject-sticky-header"><span class="vector-icon mw-ui-icon-article mw-ui-icon-wikimedia-article cdx-button__icon"></span>
-
-<span></span>
-			</a>
-			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-history-sticky-header" tabindex="-1" data-event-name="history-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-history mw-ui-icon-wikimedia-wikimedia-history cdx-button__icon"></span>
-
-<span></span>
-			</a>
-			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only mw-watchlink" id="ca-watchstar-sticky-header" tabindex="-1" data-event-name="watch-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-star mw-ui-icon-wikimedia-wikimedia-star cdx-button__icon"></span>
-
-<span></span>
-			</a>
-			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-edit-sticky-header" tabindex="-1" data-event-name="wikitext-edit-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-wikiText mw-ui-icon-wikimedia-wikimedia-wikiText cdx-button__icon"></span>
-
-<span></span>
-			</a>
-			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-ve-edit-sticky-header" tabindex="-1" data-event-name="ve-edit-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-edit mw-ui-icon-wikimedia-wikimedia-edit cdx-button__icon"></span>
-
-<span></span>
-			</a>
-			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-viewsource-sticky-header" tabindex="-1" data-event-name="ve-edit-protected-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-editLock mw-ui-icon-wikimedia-wikimedia-editLock cdx-button__icon"></span>
-
-<span></span>
-			</a>
-		</div>
-			<div class="vector-sticky-header-buttons">
-				<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--action-progressive" id="ca-addsection-sticky-header" tabindex="-1" data-event-name="addsection-sticky-header"><span class="vector-icon mw-ui-icon-speechBubbleAdd-progressive mw-ui-icon-wikimedia-speechBubbleAdd-progressive cdx-button__icon"></span>
-
-<span>Add topic</span>
-			</a>
-		</div>
-			<div class="vector-sticky-header-icon-end">
-				<div class="vector-user-links">
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="mw-portlet mw-portlet-dock-bottom emptyPortlet" id="p-dock-bottom">
-	<ul>
-		
-	</ul>
-</div>
-<script>(RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgHostname":"mw-web.eqiad.main-d4b6c954b-hbcqx","wgBackendResponseTime":129});});</script>
-</body>
-</html>
+  <g
+     id="Lines">
+    <path
+       d="M 223.77999,192.41409 218.496,53.177857"
+       id="path10"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="M 330.19282,348.45961 414.36457,241.26826"
+       id="path12"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="M 130.81475,591.28612 264.32592,417.66392"
+       id="path14"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="m 671.75144,542.49575 -1.9542,-83.65782"
+       id="path16"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="M 895.90429,472.49218 770.18124,403.22177"
+       id="path18"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="m 758.01847,220.76216 41.15415,140.26411"
+       id="path20"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="m 1030.9617,104.08955 3.6191,164.16467"
+       id="path22"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>
