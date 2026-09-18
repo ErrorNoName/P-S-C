@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psyclopédia — L'encyclopédie vivante de la psychologie</title>
+<meta name="description" content="Psyclopédia : l'encyclopédie illustrée et interactive de la psychologie en français. 17 catégories, 13 livres du domaine public, quiz notés, fiches de révision.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets-ebook/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <nav class="nav-pill">
+    <a class="brand" href="index.html"><span class="brand-mark"></span>Psyclopédia</a>
+    <ul class="nav-links">
+      <a href="index.html" class="active">Accueil</a>
+      <a href="livres-psychologie/07-ebook-final/index.html">Catégories</a>
+      <a href="livres-psychologie/07-ebook-final/quiz/index.html">Quiz</a>
+      <a href="livres-psychologie/07-ebook-final/apprendre.html">Apprendre</a>
+      <a href="livres-psychologie/07-ebook-final/bibliotheque.html">Bibliothèque</a>
+    </ul>
+    <div class="nav-side">
+      <span class="nav-badge">🇫🇷 100% Français</span>
+    </div>
+  </nav>
+</div>
+
+<!-- HERO : livre ouvert -->
+<div class="wrap" style="margin-top:1rem">
+  <div style="text-align:center;padding:2.5rem 1rem 1rem">
+    <p class="section-eyebrow">L'encyclopédie vivante et illustrée</p>
+    <h1 style="font-family:var(--serif);font-weight:700;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.1;max-width:760px;margin:0 auto 1rem">
+      Comprendre l'esprit humain, <span style="color:var(--vert)">une catégorie</span> à la fois
+    </h1>
+    <p style="color:var(--gris);max-width:560px;margin:0 auto 1.75rem;font-size:1.05rem">
+      17 domaines de la psychologie, 13 livres complets du domaine public, des flashcards, des quiz notés et
+      des méthodes d'apprentissage éprouvées — tout, entièrement en français.
+    </p>
+    <div class="cta-row" style="justify-content:center">
+      <a class="btn btn-primary" href="livres-psychologie/07-ebook-final/index.html">📂 Explorer les catégories</a>
+      <a class="btn btn-secondary" href="livres-psychologie/07-ebook-final/quiz/index.html">🎮 Faire un quiz</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO dashboard : progression -->
+<div class="hero-card">
+  <div class="hero-top">
+    <div class="hero-stat">
+      <div class="hero-stat-row">
+        <div class="hero-icon vert">📖</div>
+        <div><div class="hero-stat-num" data-visited-count>0</div><div class="hero-stat-label">Catégories explorées / 17</div></div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-icon or">🎯</div>
+        <div><div class="hero-stat-num" data-quiz-count>0</div><div class="hero-stat-label">Quiz complétés / 10</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="hero-center-label">Ton score de maîtrise global</div>
+      <div class="hero-balance" data-mastery-pct>0%</div>
+      <div class="hero-pill-change">Continue à explorer pour progresser 🚀</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-row">
+        <div class="hero-icon vert">🏆</div>
+        <div><div class="hero-stat-num" data-best-quiz-pct>—</div><div class="hero-stat-label">Meilleur score quiz</div></div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-icon or">📚</div>
+        <div><div class="hero-stat-num">13</div><div class="hero-stat-label">Livres complets inclus</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-sparkline" id="hero-sparkline"></div>
+</div>
+
+<!-- 3 colonnes façon dashboard -->
+<div class="dash-grid">
+  <div class="panel">
+    <div class="panel-head"><h3>📊 Répartition des 17 catégories</h3></div>
+    <div class="bars" id="domain-bars"></div>
+    <div class="legend">
+      <span><i style="background:var(--vert)"></i>Fondamentaux</span>
+      <span><i style="background:var(--or)"></i>Humain & société</span>
+      <span><i style="background:var(--rose)"></i>Clinique</span>
+      <span><i style="background:var(--gris)"></i>Appliquée</span>
+    </div>
+
+    <div class="reader-card">
+      <div class="reader-card-top">
+        <span>CARTE D'APPRENANT</span>
+        <span class="reader-card-badge">PSYCLOPÉDIA</span>
+      </div>
+      <div class="reader-card-score">🧠 Prêt à apprendre</div>
+      <div class="reader-card-actions">
+        <a class="rc-btn" href="livres-psychologie/07-ebook-final/categories/01-fondamentaux.html" title="Commencer">▶</a>
+        <a class="rc-btn" href="#" id="btn-random-cat" data-cats="01-fondamentaux,02-histoire,03-cognitive,04-sociale,05-developpement,06-personnalite,07-emotions,08-neurosciences,09-psychopathologie,10-therapies,11-positive,12-travail,13-education,14-sante,15-legale,16-comparee" title="Catégorie aléatoire">🎲</a>
+        <a class="rc-btn" href="livres-psychologie/07-ebook-final/quiz/index.html" title="Quiz">🎮</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h3>⚡ Accès rapide</h3></div>
+    <div class="quick-row">
+      <a class="quick-avatar" style="background:var(--vert)" href="livres-psychologie/07-ebook-final/categories/03-cognitive.html" title="Cognitive">💭</a>
+      <a class="quick-avatar" style="background:var(--or)" href="livres-psychologie/07-ebook-final/categories/04-sociale.html" title="Sociale">👥</a>
+      <a class="quick-avatar" style="background:var(--rose)" href="livres-psychologie/07-ebook-final/categories/09-psychopathologie.html" title="Psychopathologie">🩺</a>
+      <a class="quick-avatar" style="background:var(--gris)" href="livres-psychologie/07-ebook-final/categories/08-neurosciences.html" title="Neurosciences">🧠</a>
+      <a class="quick-avatar" style="background:var(--or)" href="livres-psychologie/07-ebook-final/categories/11-positive.html" title="Positive">🌤️</a>
+      <a class="quick-avatar add" href="livres-psychologie/07-ebook-final/index.html" title="Tout voir">+</a>
+    </div>
+
+    <div class="panel-head"><h3>🥧 Grands domaines</h3></div>
+    <div class="bubbles">
+      <div class="bubble" style="background:var(--vert);width:100px;height:100px"><b>13%</b><span>Fondements</span></div>
+      <div class="bubble" style="background:var(--or);width:118px;height:118px"><b>19%</b><span>Développement</span></div>
+      <div class="bubble" style="background:var(--rose);width:118px;height:118px"><b>19%</b><span>Clinique</span></div>
+      <div class="bubble" style="background:var(--gris);width:130px;height:130px"><b>25%</b><span>Vie quotidienne</span></div>
+      <div class="bubble" style="background:#8FBFA8;width:88px;height:88px"><b>12%</b><span>Sociale</span></div>
+      <div class="bubble" style="background:#D9B25C;width:82px;height:82px"><b>12%</b><span>Société &amp; nature</span></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h3>🆕 Derniers ajouts à la bibliothèque</h3><a href="livres-psychologie/07-ebook-final/bibliotheque.html">Tout voir</a></div>
+    <ul class="tx-list">
+      <li class="tx-item"><div class="tx-icon">⚖️</div><div class="tx-info"><div class="tx-name">L'homme criminel — Lombroso</div><div class="tx-date">Psychologie légale</div></div><span class="tx-amount plus">Nouveau</span></li>
+      <li class="tx-item"><div class="tx-icon">🩺</div><div class="tx-info"><div class="tx-name">Les névroses — Janet</div><div class="tx-date">Psychopathologie</div></div><span class="tx-amount plus">Nouveau</span></li>
+      <li class="tx-item"><div class="tx-icon">🧠</div><div class="tx-info"><div class="tx-name">Leçons cliniques — Charcot</div><div class="tx-date">Neurosciences</div></div><span class="tx-amount plus">Nouveau</span></li>
+      <li class="tx-item"><div class="tx-icon">🐾</div><div class="tx-info"><div class="tx-name">Expression des émotions — Darwin</div><div class="tx-date">Comparée</div></div><span class="tx-amount plus">Nouveau</span></li>
+      <li class="tx-item"><div class="tx-icon">👥</div><div class="tx-info"><div class="tx-name">Le Suicide — Durkheim</div><div class="tx-date">Sociale</div></div><span class="tx-amount plus">Nouveau</span></li>
+    </ul>
+
+    <div class="mastery-box">
+      <div class="mastery-head"><span style="font-size:0.85rem;color:var(--gris)">Niveau de maîtrise</span><span class="mastery-badge" data-mastery-badge>Débutant</span></div>
+      <div class="mastery-track"><div class="mastery-marker" data-mastery-marker style="left:0%"></div></div>
+      <div class="mastery-pct" data-mastery-pct>0%</div>
+    </div>
+  </div>
+</div>
+
+<!-- Catégories -->
+<div class="section" id="categories">
+  <div class="section-head">
+    <p class="section-eyebrow">17 domaines complets</p>
+    <h2 class="section-title">Toutes les catégories de la psychologie</h2>
+    <p class="section-desc">Des fondamentaux à la criminologie, en passant par les neurosciences et le bien-être :
+    une couverture complète, pensée pour tous les niveaux.</p>
+  </div>
+  <div class="cat-grid" id="home-cat-grid"></div>
+  <div class="cta-row"><a class="btn btn-secondary" href="livres-psychologie/07-ebook-final/dictionnaire.html">📖 Voir aussi le dictionnaire A-Z (64 notions)</a></div>
+</div>
+
+<!-- Comment apprendre -->
+<div class="section">
+  <div class="section-head">
+    <p class="section-eyebrow">Adapté à tous les profils</p>
+    <h2 class="section-title">🧑‍🎨 Apprends à ta façon</h2>
+    <p class="section-desc">Visuel, auditif, lecture/écriture ou kinesthésique : chaque fiche de Psyclopédia est
+    conçue pour s'adapter à ton style d'apprentissage préféré.</p>
+  </div>
+  <div class="vark-grid">
+    <div class="vark-card" style="border-top-color:var(--vert)"><span class="emoji">👁️</span><h3>Visuel</h3><p>Schémas, portraits, diagrammes illustrent chaque notion.</p></div>
+    <div class="vark-card" style="border-top-color:var(--or)"><span class="emoji">👂</span><h3>Auditif</h3><p>Résumés courts à lire à voix haute et à reformuler.</p></div>
+    <div class="vark-card" style="border-top-color:var(--rose)"><span class="emoji">✍️</span><h3>Lecture / Écriture</h3><p>Contenus riches en texte, dictionnaire pour reformuler.</p></div>
+    <div class="vark-card" style="border-top-color:var(--gris)"><span class="emoji">🤸</span><h3>Kinesthésique</h3><p>Flashcards à manipuler et quiz interactifs notés.</p></div>
+  </div>
+  <div class="cta-row"><a class="btn btn-primary" href="livres-psychologie/07-ebook-final/apprendre.html">📚 Découvrir toutes les techniques d'apprentissage</a></div>
+</div>
+
+<!-- Quiz preview -->
+<div class="section">
+  <div class="section-head">
+    <p class="section-eyebrow">59 questions, 10 thèmes</p>
+    <h2 class="section-title">🎮 Teste tes connaissances</h2>
+    <p class="section-desc">Chaque quiz est noté sur 20 avec un corrigé complet et des explications détaillées.</p>
+  </div>
+  <div class="grid-3" id="home-quiz-preview"></div>
+  <div class="cta-row"><a class="btn btn-secondary" href="livres-psychologie/07-ebook-final/quiz/index.html">Voir les 10 quiz</a></div>
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="livres-psychologie/07-ebook-final/index.html">Catégories</a>
+    <a href="livres-psychologie/07-ebook-final/quiz/index.html">Quiz</a>
+    <a href="livres-psychologie/07-ebook-final/apprendre.html">Apprendre</a>
+    <a href="livres-psychologie/07-ebook-final/bibliotheque.html">Bibliothèque PDF</a>
+    <a href="livres-psychologie/README.md">Sources &amp; code</a>
+  </div>
+  <p>Psyclopédia — Projet pédagogique open source, entièrement en français. Textes pédagogiques originaux ;
+  livres du domaine public hébergés avec mention de leur source (Gallica, Internet Archive, Project Gutenberg,
+  UQAM, Darwin Online). Illustrations : Wikimedia Commons.</p>
+</footer>
+
+<script src="assets-ebook/js/app.js"></script>
+<script>
+// Sparkline (17 barres, une par catégorie + dictionnaire)
+const CATS = ["01-fondamentaux","02-histoire","03-cognitive","04-sociale","05-developpement","06-personnalite","07-emotions","08-neurosciences","09-psychopathologie","10-therapies","11-positive","12-travail","13-education","14-sante","15-legale","16-comparee","17-dictionnaire"];
+const CAT_META = {
+  "01-fondamentaux": ["🧩","Fondamentaux & Méthodes","vert"], "02-histoire": ["📜","Histoire & Grands Courants","gris"],
+  "03-cognitive": ["💭","Psychologie Cognitive","vert"], "04-sociale": ["👥","Psychologie Sociale","or"],
+  "05-developpement": ["🌱","Psychologie du Développement","vert"], "06-personnalite": ["🎭","Personnalité & Différences individuelles","rose"],
+  "07-emotions": ["❤️","Émotions & Motivation","rose"], "08-neurosciences": ["🧠","Neurosciences & Psycho biologique","vert"],
+  "09-psychopathologie": ["🩺","Psychopathologie & Troubles mentaux","rose"], "10-therapies": ["🛋️","Thérapies & Interventions","or"],
+  "11-positive": ["🌤️","Psychologie Positive & Bien-être","or"], "12-travail": ["💼","Psychologie du Travail","gris"],
+  "13-education": ["🎓","Psychologie de l'Éducation","vert"], "14-sante": ["🏥","Psychologie de la Santé","rose"],
+  "15-legale": ["⚖️","Psychologie Légale & Criminologie","gris"], "16-comparee": ["🐾","Psychologie Comparée & Éthologie","or"],
+  "17-dictionnaire": ["📖","Dictionnaire général A-Z","vert"]
+};
+const CAT_SUBTITLE = {
+  "01-fondamentaux": "Qu'est-ce que la psychologie et comment la étudie-t-on ?",
+  "02-histoire": "De la philosophie antique à la science moderne de l'esprit",
+  "03-cognitive": "Comment le cerveau perçoit, mémorise et raisonne",
+  "04-sociale": "Comment le groupe transforme la pensée et l'action",
+  "05-developpement": "De la petite enfance au grand âge : une vie de transformations",
+  "06-personnalite": "Ce qui nous rend uniques : traits, intelligence, volonté",
+  "07-emotions": "Ce qui nous fait ressentir, désirer et agir",
+  "08-neurosciences": "Le cerveau : 86 milliards de neurones au service de l'esprit",
+  "09-psychopathologie": "Comprendre la souffrance psychique sans stigmatiser",
+  "10-therapies": "Les grandes approches pour soigner l'esprit",
+  "11-positive": "La science du bien vivre, pas seulement de la maladie",
+  "12-travail": "Motivation, leadership et bien-être en entreprise",
+  "13-education": "Comment on apprend vraiment (et comment mieux enseigner)",
+  "14-sante": "Le corps et l'esprit face à la maladie et au stress",
+  "15-legale": "Comprendre le crime, le témoignage et l'expertise judiciaire",
+  "16-comparee": "Ce que les animaux nous apprennent sur l'esprit",
+  "17-dictionnaire": "64 notions clés reliées à toutes les catégories"
+};
+
+const spark = document.getElementById('hero-sparkline');
+const progress = JSON.parse(localStorage.getItem('psyclopedia_progress_v1') || '{"visited":{},"quizBest":{}}');
+CATS.forEach(id => {
+  const bar = document.createElement('i');
+  const visited = progress.visited[id];
+  const h = 15 + Math.random() * 30;
+  bar.style.height = (visited ? 45 + Math.random()*15 : h) + 'px';
+  bar.style.background = visited ? 'var(--vert)' : 'var(--gris-light)';
+  spark.appendChild(bar);
+});
+
+// Domain bars (6 meta-groups)
+const domains = [
+  {label:"Fondam.", n:2, color:"vert"}, {label:"Sociale", n:2, color:"or"},
+  {label:"Humain", n:3, color:"vert"}, {label:"Clinique", n:3, color:"rose"},
+  {label:"Quotidien", n:4, color:"gris"}, {label:"Nature", n:2, color:"or"}
+];
+const domainBars = document.getElementById('domain-bars');
+domains.forEach(d => {
+  const col = document.createElement('div');
+  col.className = 'bar-col';
+  col.innerHTML = `<div class="bar-stack"><div class="bar-seg" style="height:${d.n*22}px;background:var(--${d.color})"></div></div><div class="bar-label">${d.label}</div>`;
+  domainBars.appendChild(col);
+});
+
+// Category grid
+const grid = document.getElementById('home-cat-grid');
+CATS.forEach(id => {
+  const [icon, title, color] = CAT_META[id];
+  const num = id.split('-')[0];
+  const href = id === "17-dictionnaire" ? "livres-psychologie/07-ebook-final/dictionnaire.html" : `livres-psychologie/07-ebook-final/categories/${id}.html`;
+  const card = document.createElement('a');
+  card.href = href;
+  card.className = 'cat-card';
+  card.setAttribute('data-cat-id', id);
+  card.innerHTML = `<span class="cat-check">✅</span>
+    <div class="cat-card-icon" style="background:var(--${color}-light)">${icon}</div>
+    <h3>${num} · ${title}</h3><p>${CAT_SUBTITLE[id]}</p>
+    <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="${id}"></div></div>`;
+  grid.appendChild(card);
+});
+
+// Quiz preview (first 3)
+const QUIZ_PREVIEW = [
+  {id:"fondamentaux-histoire", icon:"📜", title:"Fondamentaux & Histoire", desc:"Des origines philosophiques aux grandes écoles.", n:8, diff:"Facile"},
+  {id:"cognitive", icon:"💭", title:"Psychologie Cognitive", desc:"Perception, mémoire, attention, biais.", n:7, diff:"Moyen"},
+  {id:"sociale", icon:"👥", title:"Psychologie Sociale", desc:"Conformité, obéissance, foules.", n:6, diff:"Moyen"}
+];
+const qgrid = document.getElementById('home-quiz-preview');
+QUIZ_PREVIEW.forEach(q => {
+  const card = document.createElement('a');
+  card.href = `livres-psychologie/07-ebook-final/quiz/quiz.html?id=${q.id}`;
+  card.className = 'quiz-card';
+  card.innerHTML = `<div class="quiz-card-top"><span class="quiz-icon">${q.icon}</span></div>
+    <h3>${q.title}</h3><p>${q.desc}</p>
+    <div class="quiz-meta"><span>❓ ${q.n} questions</span><span>📊 ${q.diff}</span></div>`;
+  qgrid.appendChild(card);
+});
+
+// Re-run app.js mastery/visited logic on dynamically created elements
+document.dispatchEvent(new Event('DOMContentLoaded'));
+</script>
+</body>
+</html>
