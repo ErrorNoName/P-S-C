@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Quiz Psychologie — Larousse Illustré</title>
+<link rel="stylesheet" href="../css/larousse.css">
+</head>
+<body>
+<nav class="top-nav"><a href="../index.html" class="logo">📚 Larousse Psychologie</a></nav>
+<main class="quiz-page">
+  <h1>🎮 Quiz — Teste tes connaissances !</h1>
+  <div id="quiz-container"></div>
+  <div id="score-display"></div>
+  <button id="restart-btn" style="display:none">Recommencer</button>
+</main>
+<script>
+const QUESTIONS = [{"q": "Qui a fondé le premier laboratoire de psychologie en 1879 ?", "a": ["Freud", "Wundt", "Skinner", "Piaget"], "correct": 1}, {"q": "Combien d'items retient la mémoire à court terme (Miller) ?", "a": ["3±1", "7±2", "15±3", "50"], "correct": 1}, {"q": "Quel neurotransmetteur est lié à la récompense ?", "a": ["GABA", "Dopamine", "Histamine", "Acétylcholine"], "correct": 1}, {"q": "L'expérience de Milgram portait sur...", "a": ["La mémoire", "L'obéissance", "La perception", "Le langage"], "correct": 1}, {"q": "Pavlov a étudié...", "a": ["Les rêves", "Le conditionnement classique", "L'intelligence", "Les émotions"], "correct": 1}, {"q": "L'amygdale traite surtout...", "a": ["La vision", "La peur", "Le langage", "L'équilibre"], "correct": 1}, {"q": "Piaget décrit combien de stades ?", "a": ["2", "4", "6", "8"], "correct": 1}, {"q": "La TCC signifie...", "a": ["Thérapie Centrée sur le Corps", "Thérapie Cognitivo-Comportementale", "Test de Cognition Collective", "Traitement Chimique Cérébral"], "correct": 1}, {"q": "Le Bon a écrit sur...", "a": ["Les enfants", "Les foules", "Les rêves", "Les animaux"], "correct": 1}, {"q": "Le PERMA est un modèle de...", "a": ["Mémoire", "Bien-être", "Intelligence", "Stress"], "correct": 1}];
+let current = 0, score = 0;
+
+function render() {
+  const q = QUESTIONS[current];
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = `<p class="progress">Question ${current+1}/${QUESTIONS.length}</p>
+    <h2>${q.q}</h2>
+    <div class="answers">${q.a.map((ans,i)=>`<button class="answer-btn" data-i="${i}">${ans}</button>`).join('')}</div>`;
+  container.querySelectorAll('.answer-btn').forEach(btn => {
+    btn.onclick = () => {
+      const i = +btn.dataset.i;
+      btn.parentElement.querySelectorAll('.answer-btn').forEach(b => {
+        b.disabled = true;
+        if (+b.dataset.i === q.correct) b.classList.add('correct');
+        else if (+b.dataset.i === i) b.classList.add('wrong');
+      });
+      if (i === q.correct) score++;
+      setTimeout(() => { current++; current < QUESTIONS.length ? render() : showScore(); }, 1200);
+    };
+  });
+}
+
+function showScore() {
+  document.getElementById('quiz-container').innerHTML = '';
+  const pct = Math.round(score/QUESTIONS.length*100);
+  document.getElementById('score-display').innerHTML = `<div class="score-card">
+    <h2>${pct >= 70 ? '🏆' : '📚'} Score : ${score}/${QUESTIONS.length}</h2>
+    <p>${pct >= 70 ? 'Excellent ! Tu maîtrises les bases.' : 'Continue à explorer le Larousse !'}</p>
+  </div>`;
+  document.getElementById('restart-btn').style.display = 'block';
+}
+
+document.getElementById('restart-btn').onclick = () => { current=0; score=0; document.getElementById('score-display').innerHTML=''; document.getElementById('restart-btn').style.display='none'; render(); };
+render();
+</script>
+</body>
+</html>
