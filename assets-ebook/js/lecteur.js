@@ -124,38 +124,51 @@
     ["électrisation", "stimulation électrique (pratique historique)"],
   ];
 
-  // Réécritures orthographiques et typographiques anciennes → modernes.
-  var REGLES = [
-    [/\boit\b/g, "ait"],
-    [/\bétoit\b/gi, "était"],
-    [/\bavoit\b/gi, "avait"],
-    [/\bétoient\b/gi, "étaient"],
-    [/\bavoient\b/gi, "avaient"],
-    [/\bfaisoit\b/gi, "faisait"],
-    [/\bpouvoit\b/gi, "pouvait"],
-    [/\bdevoit\b/gi, "devait"],
-    [/\bconnoissance\b/gi, "connaissance"],
-    [/\bfoible\b/gi, "faible"],
-    [/\bfoiblesse\b/gi, "faiblesse"],
-    [/\bparoît\b/gi, "paraît"],
-    [/\bparoissent\b/gi, "paraissent"],
-    [/\bcroyoit\b/gi, "croyait"],
-    [/\benfans\b/gi, "enfants"],
-    [/\bparens\b/gi, "parents"],
-    [/\bsavans\b/gi, "savants"],
-    [/\bdifférens\b/gi, "différents"],
-    [/\bsentimens\b/gi, "sentiments"],
-    [/\bmouvemens\b/gi, "mouvements"],
-    [/\bévénemens\b/gi, "événements"],
-    [/\bphénomènes?\s+moraux\b/gi, "phénomènes psychologiques"],
-    [/\btrès-([a-zàâçéèêëîïôûùüÿñæœ])/gi, "très $1"],
-    [/\bpar-tout\b/gi, "partout"],
-    [/\baujourd'-hui\b/gi, "aujourd'hui"],
-    [/\blong-temps\b/gi, "longtemps"],
-    [/\bpoëte\b/gi, "poète"],
-    [/\bpoësie\b/gi, "poésie"],
-    [/ſ/g, "s"],
+  // `\b` de JavaScript ne considère pas « é » comme une lettre : /\bétoit\b/ ne
+  // reconnaît jamais « étoit », et /\baliéné\b/ jamais « aliéné ». Sur un corpus
+  // français du XIXe siècle, c'est justement la moitié du vocabulaire visé. On
+  // délimite donc explicitement sur la lettre française, en capturant le
+  // caractère qui précède plutôt qu'en utilisant une rétro-assertion.
+  var LETTRE = "A-Za-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u00FF\\u0152\\u0153";
+
+  function motRegex(motif, flags) {
+    return new RegExp("([^" + LETTRE + "]|^)(" + motif + ")(?![" + LETTRE + "])", flags);
+  }
+
+  // Réécritures mot à mot : (forme ancienne, forme moderne).
+  var MOTS_ANCIENS = [
+    ["oit", "ait"], ["étoit", "était"], ["avoit", "avait"],
+    ["étoient", "étaient"], ["avoient", "avaient"], ["faisoit", "faisait"],
+    ["pouvoit", "pouvait"], ["devoit", "devait"], ["connoissance", "connaissance"],
+    ["foible", "faible"], ["foiblesse", "faiblesse"], ["paroît", "paraît"],
+    ["paroissent", "paraissent"], ["croyoit", "croyait"], ["enfans", "enfants"],
+    ["parens", "parents"], ["savans", "savants"], ["différens", "différents"],
+    ["sentimens", "sentiments"], ["mouvemens", "mouvements"],
+    ["événemens", "événements"], ["par-tout", "partout"],
+    ["aujourd'-hui", "aujourd'hui"], ["long-temps", "longtemps"],
+    ["poëte", "poète"], ["poësie", "poésie"],
   ];
+
+  var REGLES = MOTS_ANCIENS.map(function (pair) {
+    return [motRegex(pair[0].replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"), "$1" + pair[1]];
+  }).concat([
+    [/([^A-Za-z\u00C0-\u00FF]|^)(phénomènes?)\s+moraux/gi, "$1$2 psychologiques"],
+    [/très-([a-zàâçéèêëîïôûùüÿñæœ])/gi, "très $1"],
+    [/ſ/g, "s"],
+  ]);
+
+  // Index du glossaire : une seule expression alternative, construite du terme
+  // le plus long au plus court pour que « aliénation mentale » l'emporte sur
+  // « aliénation ».
+  var LEXIQUE_DEFS = {};
+  var LEXIQUE_RE = (function () {
+    var termes = LEXIQUE.slice().sort(function (a, b) { return b[0].length - a[0].length; });
+    var motifs = termes.map(function (pair) {
+      LEXIQUE_DEFS[pair[0].toLowerCase()] = pair[1];
+      return pair[0].replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    });
+    return motRegex(motifs.join("|"), "gi");
+  })();
 
   /* ------------------------------ Utilitaires ------------------------------ */
 
@@ -193,15 +206,14 @@
   function modernize(txt) {
     var out = escHtml(txt);
     REGLES.forEach(function (r) { out = out.replace(r[0], r[1]); });
-    // Glossaire : du terme le plus long au plus court pour éviter les collisions.
-    var sorted = LEXIQUE.slice().sort(function (a, b) { return b[0].length - a[0].length; });
-    sorted.forEach(function (pair) {
-      var re = new RegExp("\\b(" + pair[0].replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")\\b", "gi");
-      out = out.replace(re, function (m) {
-        return '<span class="modern" data-gloss="' + pair[1].replace(/"/g, "&quot;") + '">' + m + "</span>";
-      });
+    // Une seule passe : balayer le glossaire terme par terme réécrirait les
+    // mots courts à l'intérieur des attributs data-gloss déjà insérés.
+    return out.replace(LEXIQUE_RE, function (m, avant, terme) {
+      var def = LEXIQUE_DEFS[terme.toLowerCase()];
+      if (!def) return m;
+      return avant + '<span class="modern" data-gloss="' + def.replace(/"/g, "&quot;") +
+        '">' + terme + "</span>";
     });
-    return out;
   }
 
   /* ------------------------------- Rendu PDF ------------------------------- */

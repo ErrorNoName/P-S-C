@@ -287,7 +287,13 @@
   font-family: var(--serif); font-size: 0.97rem; line-height: 1.85; color: var(--noir);
   white-space: pre-wrap; word-break: break-word;
 }
-#reader-text .modern { background: var(--or-light); border-radius: 3px; padding: 0 2px; cursor: help; }
+#reader-text .modern {
+  background: var(--or-light); border-radius: 3px; padding: 0 2px; cursor: help;
+  /* Le fond seul passait inaperçu : le souligné pointillé signale qu'une
+     définition est disponible au survol. */
+  border-bottom: 1px dotted var(--or); box-decoration-break: clone;
+}
+#reader-text .modern:hover { background: var(--or); color: #fff; border-bottom-color: transparent; }
 #reader-text .ocr-note { font-family: var(--sans); font-size: 0.8rem; color: var(--gris); font-style: italic; }
 
 .reader-status {
