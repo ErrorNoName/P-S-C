@@ -3,7 +3,7 @@
 
 import os
 
-from shell import page_shell
+from shell import DISCORD_INVITE, page_shell
 from content import (
     CATEGORIES, DICTIONNAIRE, QUIZZES, BOOKS,
     EXPERIENCES, AUTEURS, TROUBLES, BIAIS, TESTS, CHRONOLOGIE_TRIEE,
@@ -43,6 +43,7 @@ NOUVEAUTES = [
     ("🧪", f"Laboratoire : {len(EXPERIENCES_LAB)} expériences jouables", "Stroop, empan, temps de réaction, Müller-Lyer, ancrage"),
     ("🔁", "Révision espacée", "Un algorithme te représente chaque notion au bon moment"),
     ("🎓", "Cours magistraux de 50 min", "Cursus annuel, calendrier, replays YouTube francophones et fiches en direct"),
+    ("💬", "Serveur Discord", "Cours, fiches, forums thématiques et entraide — le site reste la source"),
 ]
 
 # (href, classe couleur, icône, titre, description, compteur)
@@ -101,6 +102,9 @@ OUTILS_V3 = [
     ("emploi-du-temps.html", "vert", "🎓", "Emploi du temps & cours",
      "Un cursus annuel de cours magistraux et de TD de 50 minutes, avec compte à rebours, "
      "replays francophones et ressources synchronisées.", "60 séances · 2 semestres"),
+    (DISCORD_INVITE, "or", "💬", "Communauté Discord",
+     "Annonces de cours, forums par champ, fiches et entraide. Ce n'est pas un soin : "
+     "en détresse, ouvrez d'abord la page Aide.", "Rejoindre"),
 ]
 
 
@@ -149,13 +153,22 @@ def _books_list():
     return items
 
 
+def _hub_href(href):
+    if href.startswith("http"):
+        return href, ' target="_blank" rel="noopener"'
+    return EB + href, ""
+
+
 def _outils_cards():
-    return "".join(
-        f'<a class="hub-card{(" " + cls) if cls else ""}" href="{EB}{href}">'
-        f'<span class="hub-ico">{ico}</span><h3>{titre}</h3><p>{desc}</p>'
-        f'<span class="hub-n">{compteur}</span></a>'
-        for href, cls, ico, titre, desc, compteur in OUTILS_V3
-    )
+    cards = []
+    for href, cls, ico, titre, desc, compteur in OUTILS_V3:
+        url, extra = _hub_href(href)
+        cards.append(
+            f'<a class="hub-card{(" " + cls) if cls else ""}" href="{url}"{extra}>'
+            f'<span class="hub-ico">{ico}</span><h3>{titre}</h3><p>{desc}</p>'
+            f'<span class="hub-n">{compteur}</span></a>'
+        )
+    return "".join(cards)
 
 
 def _nouveautes():
@@ -197,6 +210,7 @@ def render_home():
     <div class="cta-row" style="justify-content:center">
       <a class="btn btn-primary" href="{EB}parcours.html">🧭 Commencer un parcours</a>
       <a class="btn btn-secondary" href="{EB}emploi-du-temps.html">🎓 Emploi du temps</a>
+      <a class="btn btn-secondary" href="{DISCORD_INVITE}" target="_blank" rel="noopener">💬 Rejoindre le Discord</a>
       <button class="btn btn-secondary" data-search-open="">🔍 Rechercher (Ctrl + K)</button>
     </div>
   </div>
@@ -292,6 +306,9 @@ def render_home():
     <a class="hub-card" href="{EB}emploi-du-temps.html"><span class="hub-ico">🎓</span><h3>Les cours de 50 minutes</h3>
       <p>Cursus annuel, calendrier, compte à rebours, replays YouTube francophones et fiches en direct.</p>
       <span class="hub-n">60 séances</span></a>
+    <a class="hub-card or" href="{DISCORD_INVITE}" target="_blank" rel="noopener"><span class="hub-ico">💬</span><h3>Le serveur Discord</h3>
+      <p>Prolonger le site : annonces de séance, forums thématiques, fiches et entraide bienveillante.</p>
+      <span class="hub-n">Rejoindre</span></a>
   </div>
 </div>
 

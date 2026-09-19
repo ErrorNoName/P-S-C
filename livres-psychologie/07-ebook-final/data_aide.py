@@ -160,6 +160,9 @@ PARCOURS_SOIN = [
 
 # (nom, url, description) — ressources francophones en accès libre
 RESSOURCES_LIBRES = [
+    ("Serveur Discord Psyclopédia", "https://discord.gg/sX3TAqH4pD",
+     "Communauté francophone d'apprentissage : cours, fiches, forums thématiques. "
+     "Ce n'est pas un service de soin — les numéros d'urgence restent ci-dessus."),
     ("Psychomédia et sites de vulgarisation scientifique", None,
      "Utiles pour suivre l'actualité, à condition de remonter systématiquement à l'étude citée : "
      "le titre d'un article de presse surestime presque toujours la portée d'un résultat."),

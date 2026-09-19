@@ -8,7 +8,7 @@ import os
 import re
 import unicodedata
 
-from shell import page_shell, page_header, slugify, strip_html
+from shell import DISCORD_INVITE, page_shell, page_header, slugify, strip_html
 from content import (
     CATEGORIES, DICTIONNAIRE, QUIZZES, BOOKS, QUIZ_FOR_CATEGORY,
     EXPERIENCES, AUTEURS, TROUBLES, BIAIS, TESTS, CHRONOLOGIE_TRIEE,
@@ -557,6 +557,7 @@ def render_plan():
             ("Métiers et études", "metiers.html"),
             ("Questions fréquentes", "faq.html"),
             ("Aide et ressources", "aide.html"),
+            ("Communauté Discord", DISCORD_INVITE),
         ]),
         ("Base de références", [
             ("Hub des références", "references/index.html"),
@@ -593,7 +594,12 @@ def render_plan():
 
     cols_html = "".join(
         f'<div class="plan-col"><h3>{titre}</h3>'
-        + "".join(f'<a href="{href}">{label}</a>' for label, href in liens)
+        + "".join(
+            f'<a href="{href}"'
+            + (' target="_blank" rel="noopener"' if href.startswith("http") else "")
+            + f">{label}</a>"
+            for label, href in liens
+        )
         + "</div>"
         for titre, liens in colonnes
     )

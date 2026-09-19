@@ -1,0 +1,4 @@
+{
+  "install": "python3 -m pip install -q -r discord/requirements.txt",
+  "start": "bash discord/supervise.sh --daemon"
+}

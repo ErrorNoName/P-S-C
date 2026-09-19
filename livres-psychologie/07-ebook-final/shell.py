@@ -11,6 +11,9 @@ import html
 import re
 import unicodedata
 
+# Invitation permanente vers le serveur communautaire (salon 👋-bienvenue).
+DISCORD_INVITE = "https://discord.gg/sX3TAqH4pD"
+
 # Éléments de la barre de navigation : (libellé, chemin relatif à 07-ebook-final/)
 NAV_ITEMS = [
     ("Accueil", "@root:index.html"),
@@ -62,9 +65,16 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
                extra_scripts="", body_attrs="", wide=False):
     links_html = ""
     for label, target in NAV_ITEMS:
-        href = repo_root(depth) + target[6:] if target.startswith("@root:") else ebook(depth, target)
+        extra_attr = ""
+        if target.startswith("@ext:"):
+            href = target[5:]
+            extra_attr = ' target="_blank" rel="noopener"'
+        elif target.startswith("@root:"):
+            href = repo_root(depth) + target[6:]
+        else:
+            href = ebook(depth, target)
         cls = ' class="active"' if label == active else ""
-        links_html += f'<a href="{href}"{cls}>{label}</a>'
+        links_html += f'<a href="{href}"{cls}{extra_attr}>{label}</a>'
 
     desc = description or ("Psyclopédia : l'encyclopédie vivante et illustrée de la psychologie, "
                            "en français — 26 catégories, références, bibliothèque et quiz notés.")
@@ -96,6 +106,9 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a class="brand" href="{repo_root(depth)}index.html"><span class="brand-mark"></span>Psyclopédia</a>
     <ul class="nav-links">{links_html}</ul>
     <div class="nav-side">
+      <a class="nav-discord-btn" href="{DISCORD_INVITE}" target="_blank" rel="noopener" aria-label="Rejoindre le serveur Discord">
+        <span aria-hidden="true">💬</span><span class="nav-discord-label">Discord</span>
+      </a>
       <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
         <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
       </button>
@@ -128,6 +141,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a href="{ebook(depth, 'faq.html')}">Questions fréquentes</a>
     <a href="{ebook(depth, 'auto-evaluations.html')}">Auto-évaluations</a>
     <a href="{ebook(depth, 'aide.html')}">Aide &amp; ressources</a>
+    <a href="{DISCORD_INVITE}" target="_blank" rel="noopener">Communauté Discord</a>
     <a href="{ebook(depth, 'plan.html')}">Plan du site</a>
     <a href="{ebook(depth, 'credits.html')}">Crédits &amp; sources</a>
   </div>
