@@ -138,7 +138,8 @@ class StructureTests(unittest.TestCase):
         self.assertTrue(LINKS["discord"].startswith("https://discord.gg/"))
         shell = (HERE.parent / "livres-psychologie/07-ebook-final/shell.py").read_text(encoding="utf-8")
         self.assertIn(f'DISCORD_INVITE = "{LINKS["discord"]}"', shell)
-        self.assertIn('("Discord", "@ext:" + DISCORD_INVITE)', shell)
+        self.assertIn("nav-discord-btn", shell)
+        self.assertIn("{DISCORD_INVITE}", shell)
 
     def test_aucun_jeton_dans_le_dossier(self):
         import re

@@ -26,7 +26,6 @@ NAV_ITEMS = [
     ("Apprendre", "apprendre.html"),
     ("Cours", "emploi-du-temps.html"),
     ("Aide", "aide.html"),
-    ("Discord", "@ext:" + DISCORD_INVITE),
 ]
 
 # Chemins relatifs à 07-ebook-final/ vers les ressources partagées du dépôt.
@@ -107,6 +106,9 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a class="brand" href="{repo_root(depth)}index.html"><span class="brand-mark"></span>Psyclopédia</a>
     <ul class="nav-links">{links_html}</ul>
     <div class="nav-side">
+      <a class="nav-discord-btn" href="{DISCORD_INVITE}" target="_blank" rel="noopener" aria-label="Rejoindre le serveur Discord">
+        <span aria-hidden="true">💬</span><span class="nav-discord-label">Discord</span>
+      </a>
       <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
         <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
       </button>
