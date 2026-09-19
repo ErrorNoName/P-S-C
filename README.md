@@ -13,6 +13,8 @@ guidés — le tout hébergé sur GitHub Pages.
 
 ➡️ **[Ouvrir Psyclopédia](https://errornoname.github.io/P-S-C/)** — en ligne, mis à jour automatiquement à chaque push sur `main`.
 
+💬 **[Rejoindre le Discord](https://discord.gg/sX3TAqH4pD)** — cours, forums thématiques et entraide (ce n'est pas un soin).
+
 En local, un simple double-clic sur [`index.html`](index.html) suffit pour la quasi-totalité du site. Seule la
 **recherche globale** a besoin d'un serveur web, car elle charge un index JSON (les navigateurs bloquent
 `fetch` sur le protocole `file://`) :

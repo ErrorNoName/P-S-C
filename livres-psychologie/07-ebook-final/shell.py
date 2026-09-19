@@ -11,6 +11,9 @@ import html
 import re
 import unicodedata
 
+# Invitation permanente vers le serveur communautaire (salon 👋-bienvenue).
+DISCORD_INVITE = "https://discord.gg/sX3TAqH4pD"
+
 # Éléments de la barre de navigation : (libellé, chemin relatif à 07-ebook-final/)
 NAV_ITEMS = [
     ("Accueil", "@root:index.html"),
@@ -23,6 +26,7 @@ NAV_ITEMS = [
     ("Apprendre", "apprendre.html"),
     ("Cours", "emploi-du-temps.html"),
     ("Aide", "aide.html"),
+    ("Discord", "@ext:" + DISCORD_INVITE),
 ]
 
 # Chemins relatifs à 07-ebook-final/ vers les ressources partagées du dépôt.
@@ -62,9 +66,16 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
                extra_scripts="", body_attrs="", wide=False):
     links_html = ""
     for label, target in NAV_ITEMS:
-        href = repo_root(depth) + target[6:] if target.startswith("@root:") else ebook(depth, target)
+        extra_attr = ""
+        if target.startswith("@ext:"):
+            href = target[5:]
+            extra_attr = ' target="_blank" rel="noopener"'
+        elif target.startswith("@root:"):
+            href = repo_root(depth) + target[6:]
+        else:
+            href = ebook(depth, target)
         cls = ' class="active"' if label == active else ""
-        links_html += f'<a href="{href}"{cls}>{label}</a>'
+        links_html += f'<a href="{href}"{cls}{extra_attr}>{label}</a>'
 
     desc = description or ("Psyclopédia : l'encyclopédie vivante et illustrée de la psychologie, "
                            "en français — 26 catégories, références, bibliothèque et quiz notés.")
@@ -128,6 +139,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a href="{ebook(depth, 'faq.html')}">Questions fréquentes</a>
     <a href="{ebook(depth, 'auto-evaluations.html')}">Auto-évaluations</a>
     <a href="{ebook(depth, 'aide.html')}">Aide &amp; ressources</a>
+    <a href="{DISCORD_INVITE}" target="_blank" rel="noopener">Communauté Discord</a>
     <a href="{ebook(depth, 'plan.html')}">Plan du site</a>
     <a href="{ebook(depth, 'credits.html')}">Crédits &amp; sources</a>
   </div>

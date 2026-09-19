@@ -35,6 +35,7 @@ LINKS = {
     "faq": f"{APP}/faq.html",
     "references": f"{APP}/references/index.html",
     "categories": f"{APP}/index.html",
+    "discord": "https://discord.gg/sX3TAqH4pD",
 }
 
 # Charte (assets-ebook/css/style.css)

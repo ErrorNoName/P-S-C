@@ -3,7 +3,7 @@
 
 import os
 
-from shell import page_shell, page_header, strip_html
+from shell import DISCORD_INVITE, page_shell, page_header, strip_html
 from data_courants import COURANTS
 from data_mythes import MYTHES
 from data_faq import FAQ
@@ -268,6 +268,14 @@ def render_aide():
 
     body = f"""{header}
 <div class="section">
+  <div class="note-box">
+    <strong>Communauté Discord.</strong> Le serveur
+    <a href="{DISCORD_INVITE}" target="_blank" rel="noopener">Psyclopédia</a>
+    prolonge le site : annonces des cours de 50 minutes, forums par champ, fiches et entraide.
+    Ce n'est <em>pas</em> un lieu de soin ni de diagnostic. En détresse, utilisez d'abord les
+    numéros ci-dessous.
+  </div>
+
   <div class="urgence-box">
     <h2>En cas d'urgence</h2>
     <p>Si vous ou quelqu'un d'autre êtes en danger immédiat, appelez le <b>15</b> ou le <b>112</b>, ou rendez-vous

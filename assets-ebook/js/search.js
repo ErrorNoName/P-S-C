@@ -11,6 +11,14 @@
   var ROOT = document.body.getAttribute("data-root") || "./";
   var INDEX_URL = ROOT + "livres-psychologie/07-ebook-final/search-index.json";
 
+  function isAbs(url) {
+    return /^https?:\/\//i.test(url || "");
+  }
+
+  function hitHref(url) {
+    return isAbs(url) ? url : ROOT + url;
+  }
+
   var KIND_LABEL = {
     categorie: "Catégorie",
     section: "Section",
@@ -352,7 +360,7 @@
         lastKind = h.e.k;
       }
       html +=
-        '<a class="search-hit' + (i === 0 ? " sel" : "") + '" data-i="' + i + '" href="' + ROOT + h.e.u + '">' +
+        '<a class="search-hit' + (i === 0 ? " sel" : "") + '" data-i="' + i + '" href="' + hitHref(h.e.u) + '"' + (isAbs(h.e.u) ? ' target="_blank" rel="noopener"' : "") + ">" +
           '<span class="search-hit-ico">' + (KIND_ICON[h.e.k] || "•") + "</span>" +
           '<div class="search-hit-body">' +
             '<div class="search-hit-title">' + highlight(h.e.t, terms) + "</div>" +

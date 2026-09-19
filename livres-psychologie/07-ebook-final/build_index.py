@@ -11,7 +11,7 @@ une URL relative à la racine du dépôt et des mots-clés supplémentaires.
 import json
 import os
 
-from shell import slugify, strip_html
+from shell import DISCORD_INVITE, slugify, strip_html
 from content import (
     CATEGORIES, DICTIONNAIRE, QUIZZES, BOOKS, PDF_BOOKS,
     EXPERIENCES, AUTEURS, TROUBLES, BIAIS, TESTS, CHRONOLOGIE_TRIEE,
@@ -67,6 +67,7 @@ def build_index():
         ("Questions fréquentes", f"{len(FAQ)} questions sur la psychologie, le cerveau, l'apprentissage et la santé mentale.", EBOOK + "faq.html", "faq questions reponses frequentes"),
         ("Auto-évaluations pédagogiques", f"{len(EVALUATIONS)} questionnaires pour comprendre la psychométrie de l'intérieur, sans valeur diagnostique.", EBOOK + "auto-evaluations.html", "test questionnaire auto evaluation personnalite big five chronotype"),
         ("Aide et ressources", "Numéros d'urgence et d'écoute, parcours de soin, remboursement, ressources libres.", EBOOK + "aide.html", "aide urgence 3114 ecoute consulter psychologue psychiatre cmp remboursement"),
+        ("Serveur Discord Psyclopédia", "Communauté : cours de 50 min, forums thématiques, fiches et entraide. Pas un soin.", DISCORD_INVITE, "discord communaute forum serveur entraide"),
         ("Plan du site et index A-Z", "Toutes les pages et l'index alphabétique général de Psyclopédia.", EBOOK + "plan.html", "plan sommaire index alphabetique sitemap"),
         ("Crédits et sources", "Origine et licence de chaque illustration et de chaque ouvrage utilisé.", EBOOK + "credits.html", "credits sources licences attribution domaine public"),
         ("Emploi du temps et cours", "Cursus annuel de cours magistraux et travaux dirigés de 50 minutes, calendrier, compte à rebours et progression locale.", EBOOK + "emploi-du-temps.html", "cours emploi du temps calendrier cm td magistral replay countdown"),
