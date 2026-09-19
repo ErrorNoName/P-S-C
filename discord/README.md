@@ -64,8 +64,29 @@ python3 -m pip install -r requirements.txt
 python3 bot.py
 ```
 
+Pour le faire tourner **en continu** (relance automatique si le processus tombe) :
+
+```bash
+bash discord/supervise.sh            # premier plan
+bash discord/supervise.sh --daemon   # arrière-plan
+```
+
+`supervise.sh` relit le jeton, lance `bot.py`, et le relance 8 secondes après
+chaque arrêt. Un fichier `/tmp/psyc-bot.ready` signale la connexion.
+
+## Pré-remplir les forums
+
+Les 211 fils (fiches, 13 livres du domaine public, 30 cas historiques, citations,
+glossaire, 20 modules de cours, expériences, mythes, fonds ouverts) viennent des
+données du site :
+
+```bash
+python3 discord/seed_forums.py --dry-run
+python3 discord/seed_forums.py          # idempotent
+```
+
 Sans processus hôte, les commandes slash resteront sans réponse : ce n'est
-pas bloquant, les murs d'orientation suffisent.
+pas bloquant, les murs d'orientation et les fils suffisent.
 
 Inviter le bot (permissions Administrateur, une fois) :
 
