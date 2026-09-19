@@ -802,6 +802,11 @@ SLASH_COMMANDS = [
         "description": "Choisir ses rôles de niveau et d'intérêt",
         "type": 1,
     },
+    {
+        "name": "ressource",
+        "description": "Une ressource Psyclopédia ou un fonds ouvert",
+        "type": 1,
+    },
 ]
 
 

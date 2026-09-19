@@ -18,15 +18,17 @@ les embeds d'orientation sont déjà postés par deploy_server.py.
 from __future__ import annotations
 
 import json
+import logging
 import os
 import sys
+import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
-from blueprint import ROLES
+from blueprint import LINKS, ROLES, SITE
 from deploy_server import load_guild_id, load_token
 from embeds import COMMAND_EMBEDS, mentionize
 
@@ -41,6 +43,8 @@ except ImportError as exc:  # pragma: no cover
 
 
 STATE_PATH = HERE / "deploy_state.json"
+READY_PATH = Path(os.environ.get("PSYC_BOT_READY", "/tmp/psyc-bot.ready"))
+LOG = logging.getLogger("psyclopedia")
 INTEREST_KEYS = [r["key"] for r in ROLES if r.get("interest")]
 LEVEL_KEYS = ["nouveau", "apprenant", "licence", "master"]
 
@@ -192,6 +196,8 @@ class Psyclopedia(discord.Client):
         await self.tree.sync(guild=guild)
 
     async def on_ready(self):
+        READY_PATH.write_text(f"{int(time.time())} {self.user}\n", encoding="utf-8")
+        LOG.info("Connecté %s · %s serveur(s)", self.user, len(self.guilds))
         print(f"Connecté : {self.user} · {len(self.guilds)} serveur(s)")
         await self.change_presence(
             activity=discord.Activity(
@@ -244,6 +250,23 @@ client.tree.command(name="aide", description="Numéros d'aide et cadre")(_slash(
 client.tree.command(name="cours", description="Cursus, lecteur et archives")(_slash("cours"))
 
 
+@client.tree.command(name="ressource", description="Une ressource Psyclopédia ou un fonds ouvert")
+async def ressource_cmd(interaction: discord.Interaction):
+    embed = discord.Embed(
+        title="Ressources",
+        description=(
+            f"[Site]({SITE}) · [Cours]({LINKS['cours']}) · [Fiches]({LINKS['fiches']}) · "
+            f"[Bibliothèque]({LINKS['bibliotheque']}) · [Aide]({LINKS['aide']})\n"
+            "[Collège de France](https://www.college-de-france.fr/fr) · "
+            "[Canal-U](https://www.canal-u.tv/) · [HAL](https://hal.science/) · "
+            "[OpenEdition](https://www.openedition.org/) · [Gallica](https://gallica.bnf.fr/)"
+        ),
+        color=0x50A67E,
+    )
+    embed.set_footer(text="Psyclopédia — Encyclopédie vivante de la psychologie")
+    await interaction.response.send_message(embed=embed, ephemeral=True)
+
+
 @client.tree.command(name="roles", description="Choisir niveau et intérêts")
 async def roles_cmd(interaction: discord.Interaction):
     if not interaction.guild:
@@ -257,11 +280,15 @@ async def roles_cmd(interaction: discord.Interaction):
 
 
 def main():
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s %(name)s %(message)s",
+    )
     token = load_token()
     # Garde-fou : ne jamais imprimer le jeton.
     if len(token) < 50 or "." not in token:
         raise SystemExit("Jeton Discord invalide (longueur).")
-    client.run(token, log_handler=None)
+    client.run(token)
 
 
 if __name__ == "__main__":

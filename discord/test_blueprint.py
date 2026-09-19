@@ -102,7 +102,10 @@ class StructureTests(unittest.TestCase):
 
     def test_slash_commands(self):
         names = {c["name"] for c in SLASH_COMMANDS}
-        self.assertEqual(names, {"guide", "regles", "planning", "site", "aide", "cours", "roles"})
+        self.assertEqual(
+            names,
+            {"guide", "regles", "planning", "site", "aide", "cours", "roles", "ressource"},
+        )
 
     def test_embeds_limites_discord(self):
         self.assertEqual(validate_embeds(), [])
@@ -154,6 +157,21 @@ class StructureTests(unittest.TestCase):
             value = leaked.group(0).split("=", 1)[1].strip().strip("'\"")
             if len(value) >= 50 and "." in value:
                 self.fail(f"jeton possible dans {path.name}")
+
+    def test_catalogue_forums(self):
+        from forum_catalog import build_catalog, validate_catalog
+
+        catalog = build_catalog()
+        self.assertGreaterEqual(len(catalog), 80)
+        forums = {item["forum"] for item in catalog}
+        for key in (
+            "fiches_synthese", "livres_dp", "fiches_cliniques", "citations",
+            "glossaire", "forum_revision", "articles", "esprit",
+        ):
+            self.assertIn(key, forums)
+        self.assertEqual(validate_catalog(catalog), [])
+        titles = [(i["forum"], i["title"]) for i in catalog]
+        self.assertEqual(len(titles), len(set(titles)))
 
     def test_flatten_structure_couvre_tout(self):
         rows = flatten_structure()
