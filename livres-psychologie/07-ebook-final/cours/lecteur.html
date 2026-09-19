@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecteur de cours — Psyclopédia</title>
+<meta name="description" content="Lecteur synchronisé de Psyclopédia : conférence francophone, fiches en direct, surlignage des notions et carnet de notes exportable.">
+<meta property="og:title" content="Lecteur de cours — Psyclopédia">
+<meta property="og:description" content="Lecteur synchronisé de Psyclopédia : conférence francophone, fiches en direct, surlignage des notions et carnet de notes exportable.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="../../../assets-ebook/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets-ebook/css/style.css">
+<link rel="stylesheet" href="../../../assets-ebook/css/v2.css">
+<link rel="stylesheet" href="../../../assets-ebook/css/v3.css">
+<link rel="stylesheet" href="../../../assets-ebook/css/v4.css">
+<link rel="stylesheet" href="../../../assets-ebook/css/cours.css">
+</head>
+<body data-root="../../../" class="has-lecteur">
+<div class="topbar">
+  <nav class="nav-pill">
+    <a class="brand" href="../../../index.html"><span class="brand-mark"></span>Psyclopédia</a>
+    <ul class="nav-links"><a href="../../../index.html">Accueil</a><a href="../index.html">Catégories</a><a href="../references/index.html">Références</a><a href="../methodes.html">Méthodes</a><a href="../pratique.html">Pratique</a><a href="../bibliotheque.html">Bibliothèque</a><a href="../quiz/index.html">Quiz</a><a href="../apprendre.html">Apprendre</a><a href="../emploi-du-temps.html" class="active">Cours</a><a href="../aide.html">Aide</a></ul>
+    <div class="nav-side">
+      <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
+        <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<div class="page-header">
+  <p class="breadcrumb"><a href="../../../index.html">Accueil</a> → <a href="../emploi-du-temps.html">Emploi du temps</a> → <a href="index.html">Archives</a> → Lecteur</p>
+  <div class="page-hero">
+    <div class="page-hero-icon" style="background:var(--rose-light)">🎬</div>
+    <div>
+      <h1>Lecteur de cours</h1>
+      <p class="subtitle">Vidéo francophone, ressources synchronisées, surlignage en direct et carnet de notes.</p>
+    </div>
+  </div>
+  <div class="meta-row"><span class="meta-chip">▶️ YouTube FR</span><span class="meta-chip">📄 Fiches live</span><span class="meta-chip">🎤 Karaoké</span><span class="meta-chip">📝 Notes MD / PDF</span></div>
+</div>
+<div class="section cours-page lecteur-page" data-cours-page="lecteur" id="lecteur-root">
+  <div class="lecteur-top">
+    <div>
+      <p class="section-eyebrow" id="lec-kicker">Séance</p>
+      <h2 id="lec-title" class="section-title" style="font-size:1.55rem">Chargement…</h2>
+      <p id="lec-meta" class="section-desc"></p>
+    </div>
+    <div class="lecteur-actions">
+      <button type="button" class="btn btn-secondary" id="btn-cinema">🎬 Mode cinéma</button>
+      <button type="button" class="btn btn-secondary" id="btn-start">▶️ Commencer la séance</button>
+      <a class="btn btn-secondary" href="../emploi-du-temps.html">📅 Emploi du temps</a>
+    </div>
+  </div>
+
+  <div class="phase-track" id="phase-track" aria-hidden="false">
+    <div class="phase-segs"><div class="phase-seg exposition" data-phase="exposition" style="flex:1080"><span>Exposition</span></div><div class="phase-seg demonstration" data-phase="demonstration" style="flex:840"><span>Démonstration</span></div><div class="phase-seg cas" data-phase="cas" style="flex:600"><span>Cas clinique</span></div><div class="phase-seg synthese" data-phase="synthese" style="flex:480"><span>Synthèse & Quiz flash</span></div></div>
+    <div class="phase-needle" id="phase-needle"></div>
+  </div>
+  <p class="phase-now" id="phase-now">Exposition · 00:00 / 50:00</p>
+
+  <div class="lecteur-grid" id="lecteur-grid">
+    <div class="lecteur-col video-col">
+      <div class="yt-stage" id="yt-stage">
+        <div id="yt-player"></div>
+        <button type="button" class="yt-fallback" id="yt-fallback" hidden>
+          La lecture automatique a été bloquée. Clique pour lancer la vidéo.
+        </button>
+      </div>
+      <p class="tiny-note" id="yt-credit"></p>
+      <div class="notes-box">
+        <div class="notes-head">
+          <h3>Notes de séance</h3>
+          <div>
+            <button type="button" class="pill-link" id="btn-md">Exporter Markdown</button>
+            <button type="button" class="pill-link" id="btn-pdf">Exporter PDF</button>
+          </div>
+        </div>
+        <textarea id="cours-notes" rows="7" placeholder="Écris ici pendant la vidéo. Sauvegarde automatique sur cet appareil."></textarea>
+      </div>
+    </div>
+    <aside class="lecteur-col res-col" id="res-col">
+      <div class="sync-card current" id="sync-current">
+        <p class="section-eyebrow">En ce moment</p>
+        <h3 id="sync-title">Les fiches s'afficheront avec la vidéo</h3>
+        <p id="sync-body"></p>
+        <p class="karaoke" id="sync-karaoke"></p>
+      </div>
+      <div id="res-list" class="res-list"></div>
+      <div class="quiz-box" id="quiz-box">
+        <h3>Quiz flash</h3>
+        <p class="tiny-note">Quatre questions de contrôle, notées localement. Pas un examen officiel.</p>
+        <div id="quiz-mount"></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="lec-links" id="lec-links"></div>
+  <p class="tiny-note" style="margin-top:1.2rem">⚠️ Contenu pédagogique. Une séance ne diagnostique rien,
+  ne remplace pas un professionnel, et les vidéos YouTube restent la propriété de leurs auteurs.
+  Si les sous-titres YouTube sont inaccessibles, le lecteur bascule sur la timeline JSON du cours.</p>
+</div>
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<footer>
+  <div class="foot-links">
+    <a href="../../../index.html">Accueil</a>
+    <a href="../index.html">Catégories</a>
+    <a href="../references/index.html">Références</a>
+    <a href="../dictionnaire.html">Dictionnaire</a>
+    <a href="../bibliotheque.html">Bibliothèque</a>
+    <a href="../lecteur.html">Lecteur en ligne</a>
+    <a href="../methodes.html">Méthodes</a>
+    <a href="../pratique.html">Psychologie pratique</a>
+    <a href="../lexique.html">Lexique anglais</a>
+    <a href="../metiers.html">Métiers &amp; études</a>
+    <a href="../quiz/index.html">Quiz</a>
+    <a href="../laboratoire.html">Laboratoire</a>
+    <a href="../revision.html">Révision espacée</a>
+    <a href="../fiches/index.html">Fiches de révision</a>
+    <a href="../parcours.html">Parcours</a>
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../emploi-du-temps.html">Emploi du temps &amp; cours</a>
+    <a href="../cours/index.html">Cours &amp; archives</a>
+    <a href="../references/courants.html">Grands courants</a>
+    <a href="../references/mythes.html">Idées reçues</a>
+    <a href="../faq.html">Questions fréquentes</a>
+    <a href="../auto-evaluations.html">Auto-évaluations</a>
+    <a href="../aide.html">Aide &amp; ressources</a>
+    <a href="../plan.html">Plan du site</a>
+    <a href="../credits.html">Crédits &amp; sources</a>
+  </div>
+  <p>Psyclopédia — encyclopédie pédagogique libre de la psychologie, entièrement en français.
+  Textes de synthèse rédigés pour ce guide ; ouvrages du domaine public hébergés dans
+  <code>06-pdf-domaine-public/</code> avec mention de leur source (Gallica, Internet Archive,
+  Project Gutenberg, Les Classiques des sciences sociales, Darwin Online).
+  Illustrations : Wikimedia Commons (domaine public).</p>
+  <p style="margin-top:0.75rem;font-size:0.78rem">⚠️ Contenu pédagogique de vulgarisation : il ne remplace
+  ni un diagnostic, ni un avis médical, ni un suivi psychologique professionnel.</p>
+</footer>
+<script src="../../../assets-ebook/js/app.js"></script>
+<script src="../../../assets-ebook/js/ui-v2.js"></script>
+<script src="../../../assets-ebook/js/search.js"></script>
+<script src="../../../assets-ebook/js/cours.js"></script>
+</body>
+</html>

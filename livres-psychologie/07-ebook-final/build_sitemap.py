@@ -17,8 +17,10 @@ EXCLUS = ("livres-psychologie/03-", "livres-psychologie/04-", "livres-psychologi
 def _priorite(rel):
     if rel == "index.html":
         return "1.0", "weekly"
-    if rel.endswith(("/index.html", "/plan.html")):
+    if rel.endswith(("/index.html", "/plan.html", "/emploi-du-temps.html")):
         return "0.9", "weekly"
+    if "/cours/" in rel:
+        return "0.8", "weekly"
     if "/categories/" in rel or "/references/" in rel:
         return "0.8", "monthly"
     if "/fiches/" in rel or "/laboratoire/" in rel:

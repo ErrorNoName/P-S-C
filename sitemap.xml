@@ -217,6 +217,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/cours/index.html</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/cours/lecteur.html</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/credits.html</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -227,6 +239,12 @@
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/emploi-du-temps.html</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/faq.html</loc>

@@ -581,6 +581,8 @@ def render_plan():
             ("Auto-évaluations", "auto-evaluations.html"),
             ("Parcours guidés", "parcours.html"),
             ("Apprendre efficacement", "apprendre.html"),
+            ("Emploi du temps & cours", "emploi-du-temps.html"),
+            ("Cours & archives", "cours/index.html"),
         ]),
         ("Lire les ouvrages", [
             ("Bibliothèque", "bibliotheque.html"),

@@ -606,7 +606,7 @@ def render_apprendre():
 
   <div class="cta-row">
     <a class="btn btn-primary" href="parcours.html">🧭 Choisir un parcours guidé</a>
-    <a class="btn btn-secondary" href="index.html">📂 Toutes les catégories</a>
+    <a class="btn btn-secondary" href="emploi-du-temps.html">🎓 Emploi du temps &amp; cours</a>
     <a class="btn btn-secondary" href="quiz/index.html">🎮 Tous les quiz</a>
   </div>
   </div>

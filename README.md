@@ -5,8 +5,9 @@
 Un site d'apprentissage complet et autonome : 26 catégories rédigées, plus de 1 100 fiches consultables
 (références, théories, courants, cas cliniques, débats, méthodes, pratique, métiers), 13 ouvrages du domaine
 public lisibles directement en ligne, une recherche globale instantanée, 26 quiz notés avec corrigés, un
-laboratoire d'expériences jouables, un système de révision espacée et des parcours guidés — le tout hébergé
-sur GitHub Pages.
+laboratoire d'expériences jouables, un système de révision espacée, un **cursus annuel de 60 cours**
+de 50 minutes (emploi du temps, replays YouTube francophones, fiches synchronisées) et des parcours
+guidés — le tout hébergé sur GitHub Pages.
 
 ## 🚀 Accéder au site
 
@@ -28,7 +29,7 @@ python3 -m http.server 8000
 Accessible partout par <kbd>Ctrl</kbd> + <kbd>K</kbd> (ou la touche <kbd>/</kbd>), il interroge un index de
 **1 695 entrées** couvrant catégories, chapitres, notions, expériences, auteurs, théories, courants, troubles,
 biais, tests, cas cliniques, débats, idées reçues, questions fréquentes, fiches pratiques, métiers, expériences
-du laboratoire, termes anglais, dates, livres et quiz. Il ignore les accents, accepte plusieurs mots,
+du laboratoire, termes anglais, dates, livres, quiz et cours magistraux. Il ignore les accents, accepte plusieurs mots,
 **tolère les fautes de frappe** (distance de Levenshtein bornée), classe les résultats par pertinence de champ,
 les regroupe par type, surligne les correspondances et se pilote entièrement au clavier.
 
@@ -135,6 +136,16 @@ sources lisibles en ligne, des flashcards de rappel actif et un quiz noté.
   « les frontières de la discipline ». Les étapes déjà faites se cochent toutes seules.
 - **[Guide d'apprentissage](livres-psychologie/07-ebook-final/apprendre.html)** — les cinq techniques validées
   par la science cognitive, les erreurs de révision les plus coûteuses, et un plan concret sur 30 jours.
+- **[Emploi du temps & cours](livres-psychologie/07-ebook-final/emploi-du-temps.html)** — cursus annuel
+  2026-2027 (2 semestres × 15 semaines × CM + TD) : 60 séances de 50 minutes découpées en Exposition /
+  Démonstration / Cas clinique / Synthèse & quiz flash. Calendrier semaine ou mois, compte à rebours avant
+  le prochain cours, assiduité et notes de quiz dans le navigateur.
+- **[Lecteur de cours](livres-psychologie/07-ebook-final/cours/lecteur.html)** — iframe YouTube 100 %
+  francophone (Collège de France, universités, archives), panneau de fiches synchronisé sur une timeline
+  JSON, surlignage des notions au moment où elles sont nommées, notes exportables en Markdown ou PDF.
+  Si les sous-titres YouTube sont inaccessibles, la timeline du cours prend le relais.
+- **[Cours & archives](livres-psychologie/07-ebook-final/cours/index.html)** — tous les replays filtrables
+  par catégorie, thème et intervenant.
 - **[Bibliothèque](livres-psychologie/07-ebook-final/bibliotheque.html)** — 13 ouvrages du domaine public.
 - **[Crédits et sources](livres-psychologie/07-ebook-final/credits.html)** — chaque illustration avec son
   fichier d'origine sur Wikimedia Commons et sa licence exacte, vérifiés un par un via l'API de Commons.
@@ -147,11 +158,11 @@ sources lisibles en ligne, des flashcards de rappel actif et un quiz noté.
 ├── index.html                          Accueil (généré par build_home.py)
 ├── sitemap.xml, robots.txt             Générés par build_sitemap.py
 ├── assets-ebook/
-│   ├── css/style.css + v2 v3 v4.css    Design system
+│   ├── css/style.css + v2 v3 v4 + cours.css
 │   └── js/app.js, search.js,           Progression, recherche, lecteur, interface,
-│          lecteur.js, ui-v2.js,        laboratoire, révision espacée, auto-évaluations
+│          lecteur.js, ui-v2.js,        laboratoire, révision, auto-évaluations, cours
 │          quiz-engine.js, laboratoire.js,
-│          revision.js, autoeval.js
+│          revision.js, autoeval.js, cours.js
 └── livres-psychologie/
     ├── 07-ebook-final/                 ★ LE SITE ★
     │   ├── build_ebook.py              Point d'entrée du générateur

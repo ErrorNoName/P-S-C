@@ -35,6 +35,7 @@
     date: "Chronologie",
     livre: "Livre",
     quiz: "Quiz",
+    cours: "Cours",
     page: "Page",
   };
 
@@ -43,7 +44,7 @@
     theorie: "🧩", courant: "🏛️", trouble: "🩺", biais: "🌀", test: "📊", cas: "🗃️", debat: "⚖️",
     mythe: "🧹", faq: "❓", aide: "🤝", eval: "📋",
     pratique: "🧰", metier: "💼", labo: "🧪", anglais: "🌍",
-    date: "🗓️", livre: "📕", quiz: "🎮", page: "🧭",
+    date: "🗓️", livre: "📕", quiz: "🎮", cours: "🎓", page: "🧭",
   };
 
   var FILTERS = [
@@ -69,6 +70,7 @@
     ["date", "Chronologie"],
     ["livre", "Livres"],
     ["quiz", "Quiz"],
+    ["cours", "Cours"],
   ];
 
   var index = null;

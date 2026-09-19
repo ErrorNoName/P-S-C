@@ -11,6 +11,7 @@ d'apprentissage, puis l'index de recherche.
 
 import build_autoeval
 import build_categories
+import build_cours
 import build_home
 import build_pages
 import build_outils
@@ -42,6 +43,7 @@ def main():
     n_evals, n_eval_items = build_autoeval.render_all()
     n_cards, cards_kb, n_index = build_outils.render_all()
     build_pages.render_all()
+    n_cours = build_cours.render_all()
     build_home.render_home()
 
     n_entries, size_kb, n_pdf = write_index()
@@ -67,6 +69,7 @@ def main():
     print(f"   • Outils : {len(EXPERIENCES_LAB)} expériences jouables, {n_cards} cartes de révision "
           f"({cards_kb:.0f} Ko), {len(CATEGORIES)} fiches imprimables, index A-Z de {n_index} entrées")
     print(f"   • Index de recherche : {n_entries} entrées ({size_kb:.0f} Ko)")
+    print(f"   • Cursus : {n_cours} séances de 50 min (emploi du temps, archives, lecteur)")
     print(f"   • sitemap.xml : {n_pages} pages référencées, robots.txt écrit")
 
 

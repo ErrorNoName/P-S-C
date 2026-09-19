@@ -42,6 +42,7 @@ NOUVEAUTES = [
     ("💼", f"{len(METIERS)} métiers et parcours d'études", "Clinicien, neuropsychologue, ergonome, UX, psychiatre…"),
     ("🧪", f"Laboratoire : {len(EXPERIENCES_LAB)} expériences jouables", "Stroop, empan, temps de réaction, Müller-Lyer, ancrage"),
     ("🔁", "Révision espacée", "Un algorithme te représente chaque notion au bon moment"),
+    ("🎓", "Cours magistraux de 50 min", "Cursus annuel, calendrier, replays YouTube francophones et fiches en direct"),
 ]
 
 # (href, classe couleur, icône, titre, description, compteur)
@@ -97,6 +98,9 @@ OUTILS_V3 = [
     ("lecteur.html", "rose", "📖", "Le lecteur de livres",
      "Les ouvrages originaux lus page par page, avec reconnaissance du texte scanné et modernisation "
      "du français ancien.", f"{len(BOOKS)} ouvrages"),
+    ("emploi-du-temps.html", "vert", "🎓", "Emploi du temps & cours",
+     "Un cursus annuel de cours magistraux et de TD de 50 minutes, avec compte à rebours, "
+     "replays francophones et ressources synchronisées.", "60 séances · 2 semestres"),
 ]
 
 
@@ -192,7 +196,7 @@ def render_home():
     </p>
     <div class="cta-row" style="justify-content:center">
       <a class="btn btn-primary" href="{EB}parcours.html">🧭 Commencer un parcours</a>
-      <a class="btn btn-secondary" href="{EB}index.html">📂 Explorer les catégories</a>
+      <a class="btn btn-secondary" href="{EB}emploi-du-temps.html">🎓 Emploi du temps</a>
       <button class="btn btn-secondary" data-search-open="">🔍 Rechercher (Ctrl + K)</button>
     </div>
   </div>
@@ -285,6 +289,9 @@ def render_home():
     <a class="hub-card or" href="{EB}dictionnaire.html"><span class="hub-ico">📖</span><h3>Le dictionnaire</h3>
       <p>Chaque notion définie en une phrase claire, reliée à la catégorie qui l'approfondit.</p>
       <span class="hub-n">{len(DICTIONNAIRE)} entrées</span></a>
+    <a class="hub-card" href="{EB}emploi-du-temps.html"><span class="hub-ico">🎓</span><h3>Les cours de 50 minutes</h3>
+      <p>Cursus annuel, calendrier, compte à rebours, replays YouTube francophones et fiches en direct.</p>
+      <span class="hub-n">60 séances</span></a>
   </div>
 </div>
 

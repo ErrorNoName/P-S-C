@@ -21,6 +21,7 @@ NAV_ITEMS = [
     ("Bibliothèque", "bibliotheque.html"),
     ("Quiz", "quiz/index.html"),
     ("Apprendre", "apprendre.html"),
+    ("Cours", "emploi-du-temps.html"),
     ("Aide", "aide.html"),
 ]
 
@@ -120,6 +121,8 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a href="{ebook(depth, 'fiches/index.html')}">Fiches de révision</a>
     <a href="{ebook(depth, 'parcours.html')}">Parcours</a>
     <a href="{ebook(depth, 'apprendre.html')}">Apprendre</a>
+    <a href="{ebook(depth, 'emploi-du-temps.html')}">Emploi du temps &amp; cours</a>
+    <a href="{ebook(depth, 'cours/index.html')}">Cours &amp; archives</a>
     <a href="{ebook(depth, 'references/courants.html')}">Grands courants</a>
     <a href="{ebook(depth, 'references/mythes.html')}">Idées reçues</a>
     <a href="{ebook(depth, 'faq.html')}">Questions fréquentes</a>

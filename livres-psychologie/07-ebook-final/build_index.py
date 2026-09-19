@@ -24,6 +24,7 @@ from data_mythes import MYTHES
 from data_faq import FAQ
 from data_aide import PARCOURS_SOIN
 from data_autoeval import EVALUATIONS
+from data_cours import get_cours
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 EBOOK = "livres-psychologie/07-ebook-final/"
@@ -68,6 +69,9 @@ def build_index():
         ("Aide et ressources", "Numéros d'urgence et d'écoute, parcours de soin, remboursement, ressources libres.", EBOOK + "aide.html", "aide urgence 3114 ecoute consulter psychologue psychiatre cmp remboursement"),
         ("Plan du site et index A-Z", "Toutes les pages et l'index alphabétique général de Psyclopédia.", EBOOK + "plan.html", "plan sommaire index alphabetique sitemap"),
         ("Crédits et sources", "Origine et licence de chaque illustration et de chaque ouvrage utilisé.", EBOOK + "credits.html", "credits sources licences attribution domaine public"),
+        ("Emploi du temps et cours", "Cursus annuel de cours magistraux et travaux dirigés de 50 minutes, calendrier, compte à rebours et progression locale.", EBOOK + "emploi-du-temps.html", "cours emploi du temps calendrier cm td magistral replay countdown"),
+        ("Cours et archives", "Médiathèque des séances : replays par catégorie, thème et intervenant, notes exportables.", EBOOK + "cours/index.html", "archives mediatheque replay cours notes"),
+        ("Lecteur de cours synchronisé", "Vidéo francophone, fiches Psyclopédia en direct, surlignage et quiz flash.", EBOOK + "cours/lecteur.html", "lecteur youtube synchronisation karaoke ressources cinema"),
     ]
     for title, desc, url, kw in static_pages:
         entries.append(_entry(title, desc, "page", url, kw))
@@ -244,6 +248,17 @@ def build_index():
             f"{book['author']} {book['year']} {book['cat']} domaine public livre complet",
         ))
 
+    # -- Cours magistraux et TD --------------------------------------------
+    for course in get_cours():
+        entries.append(_entry(
+            course["kind"] + " — " + course["title"],
+            f"Semaine {course['week']} · {course['module']} · {course['guest']} — séance de 50 minutes.",
+            "cours",
+            EBOOK + "cours/lecteur.html?id=" + course["id"],
+            f"{course['theme']} {course['cat']} {course['video']['title']} {course['video']['speaker']} "
+            f"{' '.join(course['pages'])} cm td replay",
+        ))
+
     # -- Quiz ---------------------------------------------------------------
     for quiz in QUIZZES:
         entries.append(_entry(
@@ -257,7 +272,8 @@ def build_index():
     kind_order = {"categorie": 0, "notion": 1, "section": 2, "experience": 3, "auteur": 4,
                   "theorie": 5, "courant": 6, "trouble": 7, "biais": 8, "test": 9, "cas": 10,
                   "debat": 11, "mythe": 12, "faq": 13, "pratique": 14, "aide": 15, "metier": 16,
-                  "labo": 17, "eval": 18, "anglais": 19, "date": 20, "livre": 21, "quiz": 22, "page": 23}
+                  "labo": 17, "eval": 18, "anglais": 19, "date": 20, "livre": 21, "quiz": 22,
+                  "cours": 23, "page": 24}
     entries.sort(key=lambda e: kind_order.get(e["k"], 99))
     return entries
 

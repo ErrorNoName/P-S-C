@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours & Archives — Psyclopédia</title>
+<meta name="description" content="Médiathèque des cours magistraux et travaux dirigés de Psyclopédia : replays francophones, filtres et notes locales.">
+<meta property="og:title" content="Cours & Archives — Psyclopédia">
+<meta property="og:description" content="Médiathèque des cours magistraux et travaux dirigés de Psyclopédia : replays francophones, filtres et notes locales.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="../../../assets-ebook/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets-ebook/css/style.css">
+<link rel="stylesheet" href="../../../assets-ebook/css/v2.css">
+<link rel="stylesheet" href="../../../assets-ebook/css/v3.css">
+<link rel="stylesheet" href="../../../assets-ebook/css/v4.css">
+<link rel="stylesheet" href="../../../assets-ebook/css/cours.css">
+</head>
+<body data-root="../../../">
+<div class="topbar">
+  <nav class="nav-pill">
+    <a class="brand" href="../../../index.html"><span class="brand-mark"></span>Psyclopédia</a>
+    <ul class="nav-links"><a href="../../../index.html">Accueil</a><a href="../index.html">Catégories</a><a href="../references/index.html">Références</a><a href="../methodes.html">Méthodes</a><a href="../pratique.html">Pratique</a><a href="../bibliotheque.html">Bibliothèque</a><a href="../quiz/index.html">Quiz</a><a href="../apprendre.html">Apprendre</a><a href="../emploi-du-temps.html" class="active">Cours</a><a href="../aide.html">Aide</a></ul>
+    <div class="nav-side">
+      <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
+        <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<div class="page-header">
+  <p class="breadcrumb"><a href="../../../index.html">Accueil</a> → <a href="../emploi-du-temps.html">Emploi du temps</a> → Cours & Archives</p>
+  <div class="page-hero">
+    <div class="page-hero-icon" style="background:var(--or-light)">📼</div>
+    <div>
+      <h1>Cours & Archives</h1>
+      <p class="subtitle">60 séances archivées, classées par catégorie, thème et intervenant. Chaque replay rouvre le lecteur synchronisé et ton carnet de notes.</p>
+    </div>
+  </div>
+  <div class="meta-row"><span class="meta-chip">📼 60 replays</span><span class="meta-chip">👤 20 intervenants</span><span class="meta-chip">📝 Notes exportables</span></div>
+</div>
+<div class="section cours-page" data-cours-page="archives">
+  <div class="cours-filters">
+    <label>Catégorie
+      <select id="arch-cat"><option value="">Toutes</option><option value="01-fondamentaux">Fondamentaux & Méthodes</option><option value="02-histoire">Histoire & Grands Courants</option><option value="03-cognitive">Psychologie Cognitive</option><option value="04-sociale">Psychologie Sociale</option><option value="05-developpement">Psychologie du Développement</option><option value="06-personnalite">Personnalité & Différences individuelles</option><option value="07-emotions">Émotions & Motivation</option><option value="08-neurosciences">Neurosciences & Psychologie biologique</option><option value="09-psychopathologie">Psychopathologie & Troubles mentaux</option><option value="10-therapies">Thérapies & Interventions</option><option value="11-positive">Psychologie Positive & Bien-être</option><option value="12-travail">Psychologie du Travail & des Organisations</option><option value="13-education">Psychologie de l'Éducation & de l'Apprentissage</option><option value="14-sante">Psychologie de la Santé</option><option value="15-legale">Psychologie Légale & Criminologie</option><option value="16-comparee">Psychologie Comparée & Éthologie</option><option value="17-interculturelle">Psychologie Interculturelle</option><option value="18-langage">Psycholinguistique & Langage</option><option value="19-psychometrie">Psychométrie & Mesure</option><option value="20-sport">Psychologie du Sport & Performance</option><option value="21-consommation">Psychologie de la Consommation</option><option value="22-numerique">Psychologie du Numérique</option><option value="26-politique">Psychologie Politique & Croyances</option><option value="23-evolutionniste">Psychologie Évolutionniste</option><option value="24-vieillissement">Vieillissement & Gérontopsychologie</option><option value="25-environnementale">Psychologie Environnementale</option></select>
+    </label>
+    <label>Module
+      <select id="arch-mod"><option value="">Tous</option><option value="Fondations">Fondations</option><option value="Histoire">Histoire</option><option value="Cognition">Cognition</option><option value="Sociale">Sociale</option><option value="Développement">Développement</option><option value="Personnalité">Personnalité</option><option value="Émotions">Émotions</option><option value="Neurosciences">Neurosciences</option><option value="Clinique">Clinique</option><option value="Positive">Positive</option><option value="Méthodes">Méthodes</option><option value="Références">Références</option><option value="Débats">Débats</option><option value="Synthèse">Synthèse</option><option value="Applications">Applications</option><option value="Mesure">Mesure</option><option value="Frontières">Frontières</option><option value="Orientation">Orientation</option><option value="Repères">Repères</option><option value="Sources">Sources</option></select>
+    </label>
+    <label>Intervenant
+      <select id="arch-guest"><option value="">Tous</option><option value="Stanislas Dehaene">Stanislas Dehaene</option><option value="Psychologue francophone">Psychologue francophone</option><option value="Frédéric Worms">Frédéric Worms</option><option value="Jean Piaget">Jean Piaget</option><option value="Claire Sergent">Claire Sergent</option><option value="André Duclos">André Duclos</option><option value="Cours francophone">Cours francophone</option><option value="Sprouts en Français">Sprouts en Français</option><option value="Cynthia Fleury">Cynthia Fleury</option><option value="Coursitout">Coursitout</option><option value="Hogrefe France">Hogrefe France</option><option value="Les Rares Livres">Les Rares Livres</option><option value="Lionel Naccache">Lionel Naccache</option><option value="George M. Tarabulsy">George M. Tarabulsy</option><option value="Nathalie Duriez, Damien Fouques et collègues">Nathalie Duriez, Damien Fouques et collègues</option><option value="Nathalie Duriez et collègues">Nathalie Duriez et collègues</option><option value="Steven Laureys">Steven Laureys</option><option value="Mathilde Mus">Mathilde Mus</option><option value="Vulgarisation francophone">Vulgarisation francophone</option><option value="Raptor Neuropsy">Raptor Neuropsy</option></select>
+    </label>
+    <label>Recherche
+      <input type="search" id="arch-q" placeholder="Titre, thème, mot-clé…">
+    </label>
+  </div>
+  <p class="tiny-note" id="arch-count"></p>
+  <div class="arch-grid" id="arch-grid"></div>
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="../../../index.html">Accueil</a>
+    <a href="../index.html">Catégories</a>
+    <a href="../references/index.html">Références</a>
+    <a href="../dictionnaire.html">Dictionnaire</a>
+    <a href="../bibliotheque.html">Bibliothèque</a>
+    <a href="../lecteur.html">Lecteur en ligne</a>
+    <a href="../methodes.html">Méthodes</a>
+    <a href="../pratique.html">Psychologie pratique</a>
+    <a href="../lexique.html">Lexique anglais</a>
+    <a href="../metiers.html">Métiers &amp; études</a>
+    <a href="../quiz/index.html">Quiz</a>
+    <a href="../laboratoire.html">Laboratoire</a>
+    <a href="../revision.html">Révision espacée</a>
+    <a href="../fiches/index.html">Fiches de révision</a>
+    <a href="../parcours.html">Parcours</a>
+    <a href="../apprendre.html">Apprendre</a>
+    <a href="../emploi-du-temps.html">Emploi du temps &amp; cours</a>
+    <a href="../cours/index.html">Cours &amp; archives</a>
+    <a href="../references/courants.html">Grands courants</a>
+    <a href="../references/mythes.html">Idées reçues</a>
+    <a href="../faq.html">Questions fréquentes</a>
+    <a href="../auto-evaluations.html">Auto-évaluations</a>
+    <a href="../aide.html">Aide &amp; ressources</a>
+    <a href="../plan.html">Plan du site</a>
+    <a href="../credits.html">Crédits &amp; sources</a>
+  </div>
+  <p>Psyclopédia — encyclopédie pédagogique libre de la psychologie, entièrement en français.
+  Textes de synthèse rédigés pour ce guide ; ouvrages du domaine public hébergés dans
+  <code>06-pdf-domaine-public/</code> avec mention de leur source (Gallica, Internet Archive,
+  Project Gutenberg, Les Classiques des sciences sociales, Darwin Online).
+  Illustrations : Wikimedia Commons (domaine public).</p>
+  <p style="margin-top:0.75rem;font-size:0.78rem">⚠️ Contenu pédagogique de vulgarisation : il ne remplace
+  ni un diagnostic, ni un avis médical, ni un suivi psychologique professionnel.</p>
+</footer>
+<script src="../../../assets-ebook/js/app.js"></script>
+<script src="../../../assets-ebook/js/ui-v2.js"></script>
+<script src="../../../assets-ebook/js/search.js"></script>
+<script src="../../../assets-ebook/js/cours.js"></script>
+</body>
+</html>

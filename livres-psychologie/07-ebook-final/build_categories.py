@@ -342,7 +342,7 @@ def render_dictionnaire():
     entries_html = ""
     for term, definition, cat_id in DICTIONNAIRE:
         cat_label = CATEGORY_TITLE.get(cat_id, "Psychologie générale")
-        entries_html += f"""<div class="ref-card" data-letter-key="{letter_of(term)}" data-ref-id="def-{slugify(term)}" data-search="{term} {strip_html(definition)}">
+        entries_html += f"""<div class="ref-card" id="def-{slugify(term)}" data-letter-key="{letter_of(term)}" data-ref-id="def-{slugify(term)}" data-search="{term} {strip_html(definition)}">
           <div class="ref-card-head">
             <span class="ref-n">{letter_of(term)}</span>
             <div class="ref-h"><h3>{term}</h3><p class="ref-sub">{definition[:110]}{'…' if len(definition) > 110 else ''}</p></div>
