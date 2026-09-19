@@ -183,8 +183,9 @@ def channel_payload(spec, parent_id, everyone_id, role_ids, community_on, staff_
         "name": spec["name"],
         "type": kind,
         "parent_id": parent_id,
-        "topic": spec.get("topic", "")[:1024],
     }
+    if kind != T_VOICE and spec.get("topic"):
+        payload["topic"] = spec["topic"][:1024]
     if spec.get("slowmode") and kind in (T_TEXT, T_NEWS):
         payload["rate_limit_per_user"] = int(spec["slowmode"])
 
@@ -519,7 +520,19 @@ def deploy(repost=False):
                 community_on,
                 staff_cat=bool(category.get("staff_only")),
             )
-            ch = ensure_channel(api, guild_id, payload, channels)
+            try:
+                ch = ensure_channel(api, guild_id, payload, channels)
+            except DiscordError as exc:
+                print(f"  ! {spec['name']} : {exc.status} {exc.body[:220]}")
+                if "topic" in payload:
+                    payload.pop("topic", None)
+                    try:
+                        ch = ensure_channel(api, guild_id, payload, channels)
+                    except DiscordError as exc2:
+                        print(f"  !! abandon {spec['name']} : {exc2.status}")
+                        continue
+                else:
+                    continue
             ids[spec["key"]] = ch["id"]
             created_channels.append(ch)
             channels = api.get(f"/guilds/{guild_id}/channels")

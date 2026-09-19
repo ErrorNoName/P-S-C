@@ -715,7 +715,7 @@ CATEGORIES = [
                 "key": "amphi",
                 "name": "🎤-amphi",
                 "type": T_VOICE,
-                "topic": "Amphithéâtre : séances commentées, oraux blancs, conférences communautaires.",
+                "topic": "Amphithéâtre : séances commentées et mises en situation pédagogiques.",
             },
             {
                 "key": "revision_voc",
