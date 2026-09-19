@@ -118,7 +118,11 @@ EVALUATIONS = [
             "la plus souple.</p>"
             "<p>Ces cinq dimensions sont assez stables à l'âge adulte, mais elles évoluent : la "
             "conscienciosité et l'agréabilité augmentent en moyenne avec l'âge, le névrosisme diminue. "
-            "Ce n'est donc pas une signature définitive.</p>",
+            "Ce n'est donc pas une signature définitive.</p>"
+            "<p><b>Une vérification à faire vous-même.</b> Refaites le questionnaire en répondant « tout à "
+            "fait d'accord » partout : vos cinq scores resteront proches de la moyenne au lieu de monter à "
+            "100. C'est exactement le rôle des items inversés — ils annulent la tendance à acquiescer. Un "
+            "questionnaire qui ne fait pas cela mesure en partie votre docilité.</p>",
     },
 
     # ------------------------------------------------------------------ Chronotype

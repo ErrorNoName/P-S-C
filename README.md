@@ -2,9 +2,11 @@
 
 **L'encyclopédie vivante et illustrée de la psychologie, en français.**
 
-Un site d'apprentissage complet et autonome : 26 catégories rédigées, une base de références de 322 fiches,
-13 ouvrages du domaine public lisibles directement en ligne, une recherche globale instantanée, 26 quiz notés
-avec corrigés, et des parcours guidés — le tout hébergé sur GitHub Pages.
+Un site d'apprentissage complet et autonome : 26 catégories rédigées, plus de 1 100 fiches consultables
+(références, théories, courants, cas cliniques, débats, méthodes, pratique, métiers), 13 ouvrages du domaine
+public lisibles directement en ligne, une recherche globale instantanée, 26 quiz notés avec corrigés, un
+laboratoire d'expériences jouables, un système de révision espacée et des parcours guidés — le tout hébergé
+sur GitHub Pages.
 
 ## 🚀 Accéder au site
 
@@ -24,10 +26,11 @@ python3 -m http.server 8000
 ### Un moteur de recherche intelligent
 
 Accessible partout par <kbd>Ctrl</kbd> + <kbd>K</kbd> (ou la touche <kbd>/</kbd>), il interroge un index de
-**1 144 entrées** couvrant catégories, chapitres, notions, expériences, auteurs, troubles, biais, tests, dates,
-livres et quiz. Il ignore les accents, accepte plusieurs mots, **tolère les fautes de frappe** (distance de
-Levenshtein bornée), classe les résultats par pertinence de champ, surligne les correspondances et se pilote
-entièrement au clavier.
+**1 695 entrées** couvrant catégories, chapitres, notions, expériences, auteurs, théories, courants, troubles,
+biais, tests, cas cliniques, débats, idées reçues, questions fréquentes, fiches pratiques, métiers, expériences
+du laboratoire, termes anglais, dates, livres et quiz. Il ignore les accents, accepte plusieurs mots,
+**tolère les fautes de frappe** (distance de Levenshtein bornée), classe les résultats par pertinence de champ,
+les regroupe par type, surligne les correspondances et se pilote entièrement au clavier.
 
 ### Un lecteur de livres intégré
 
@@ -77,6 +80,49 @@ sources lisibles en ligne, des flashcards de rappel actif et un quiz noté.
 | [Biais cognitifs](livres-psychologie/07-ebook-final/references/biais.html) | 58 biais : définition, exemple concret, **parade** |
 | [Tests psychométriques](livres-psychologie/07-ebook-final/references/tests.html) | 27 instruments : ce qu'ils mesurent, passation, interprétation, limites |
 | [Chronologie](livres-psychologie/07-ebook-final/references/chronologie.html) | 83 dates réparties en six grandes périodes |
+| [Théories et modèles](livres-psychologie/07-ebook-final/references/theories.html) | 73 modèles : l'idée, le mécanisme, les usages **et les limites** |
+| [Cas cliniques célèbres](livres-psychologie/07-ebook-final/references/cas.html) | 30 histoires singulières qui ont fait basculer la théorie |
+| [Débats et controverses](livres-psychologie/07-ebook-final/references/debats.html) | 20 dossiers : chaque camp au meilleur de ses arguments, puis l'état des données |
+| [Les grands courants](livres-psychologie/07-ebook-final/references/courants.html) | 14 écoles : postulat, méthode, apports, critiques, héritage |
+| [Idées reçues et neuromythes](livres-psychologie/07-ebook-final/references/mythes.html) | 50 affirmations très répandues, avec leur origine et leur part de vérité |
+
+### Comprendre comment on sait ce qu'on sait
+
+- **[Méthodes et statistiques](livres-psychologie/07-ebook-final/methodes.html)** — 12 chapitres et 50 notions :
+  plans de recherche, valeur *p*, taille d'effet, puissance, biais, éthique, crise de la réplication et lecture
+  critique d'un article.
+- **[5 auto-évaluations pédagogiques](livres-psychologie/07-ebook-final/auto-evaluations.html)** — cinq grands
+  facteurs, chronotype, méthodes d'apprentissage, régulation émotionnelle, procrastination. Les 80 affirmations
+  ont été **rédigées pour ce site** afin d'illustrer la construction d'une mesure (items inversés, échelle de
+  Likert, score par dimension) : elles ne reproduisent aucun instrument publié et **n'ont aucune valeur
+  diagnostique**. Rien n'est enregistré ni transmis.
+- **[Laboratoire](livres-psychologie/07-ebook-final/laboratoire.html)** — 7 expériences classiques rejouables
+  dans le navigateur (Stroop, empan mnésique, temps de réaction, Müller-Lyer, position sérielle, flanker,
+  ancrage), avec vos propres résultats chiffrés puis leur explication.
+
+### Passer à la pratique
+
+- **[Psychologie appliquée](livres-psychologie/07-ebook-final/pratique.html)** — 41 fiches action : apprendre,
+  procrastiner moins, dormir, décider, communiquer, gérer le stress, chacune avec l'état de la recherche, un
+  protocole en étapes et le piège classique.
+- **[Métiers et études](livres-psychologie/07-ebook-final/metiers.html)** — 20 métiers décrits de l'intérieur et
+  les quatre étapes du cursus français.
+- **[Lexique anglais-français](livres-psychologie/07-ebook-final/lexique.html)** — 158 termes traduits et 18 faux
+  amis, pour lire les articles scientifiques sans contresens.
+- **[Aide et ressources](livres-psychologie/07-ebook-final/aide.html)** — numéros d'urgence et d'écoute (France,
+  Belgique, Suisse, Canada), parcours de soin, remboursement, à quoi ressemble une première séance, comment
+  aider un proche, et où lire la recherche en accès libre.
+- **[Questions fréquentes](livres-psychologie/07-ebook-final/faq.html)** — 50 questions, avec des réponses qui
+  précisent aussi ce qu'on ignore encore.
+
+### Retenir durablement
+
+- **[Révision espacée](livres-psychologie/07-ebook-final/revision.html)** — 1 000 cartes tirées de tout le site,
+  replanifiées automatiquement selon vos réponses (algorithme inspiré de SM-2), réparties en 33 paquets.
+- **[26 fiches de révision imprimables](livres-psychologie/07-ebook-final/fiches/index.html)** — l'essentiel de
+  chaque domaine sur une page, plus une fiche unique regroupant tout le programme.
+- **[Plan du site et index A-Z](livres-psychologie/07-ebook-final/plan.html)** — toutes les pages et 941 entrées
+  classées alphabétiquement.
 
 ### Et aussi
 
@@ -99,19 +145,24 @@ sources lisibles en ligne, des flashcards de rappel actif et un quiz noté.
 ```
 /
 ├── index.html                          Accueil (généré par build_home.py)
+├── sitemap.xml, robots.txt             Générés par build_sitemap.py
 ├── assets-ebook/
-│   ├── css/style.css, css/v2.css       Design system
-│   └── js/app.js, search.js,           Progression, recherche, lecteur, interface
-│          lecteur.js, ui-v2.js, quiz-engine.js
+│   ├── css/style.css + v2 v3 v4.css    Design system
+│   └── js/app.js, search.js,           Progression, recherche, lecteur, interface,
+│          lecteur.js, ui-v2.js,        laboratoire, révision espacée, auto-évaluations
+│          quiz-engine.js, laboratoire.js,
+│          revision.js, autoeval.js
 └── livres-psychologie/
     ├── 07-ebook-final/                 ★ LE SITE ★
     │   ├── build_ebook.py              Point d'entrée du générateur
     │   ├── shell.py, content.py        Coque commune, fusion des données
     │   ├── build_*.py                  Générateurs (catégories, références, pages, accueil, index)
     │   ├── data_*.py                   Toutes les données du site
-    │   ├── categories/, references/,   Pages générées
-    │   │   quiz/, *.html
-    │   └── search-index.json           Index de recherche généré
+│   ├── categories/, references/,   Pages générées
+│   │   quiz/, fiches/, laboratoire/,
+│   │   auto-evaluations/, *.html
+│   ├── search-index.json           Index de recherche généré
+│   └── revision-cards.json         Cartes de révision espacée générées
     ├── 06-pdf-domaine-public/          13 ouvrages, classés par thème
     ├── 05-larousse-illustre-complet/   Version précédente + bibliothèque d'illustrations
     ├── 04-guide-enrichi-illustre/      Guide original 10 chapitres
@@ -128,9 +179,19 @@ cd livres-psychologie/07-ebook-final
 python3 build_ebook.py
 ```
 
-Le script régénère les 26 fiches, le dictionnaire, les sept pages de références, les quiz, la bibliothèque,
-le lecteur, les parcours, le guide d'apprentissage, les crédits, la page d'accueil et l'index de recherche —
-et affiche un récapitulatif chiffré.
+Le script régénère l'intégralité du site — 98 pages : les 26 fiches de catégorie, le dictionnaire, les onze
+pages de références, les pages de savoirs (méthodes, pratique, lexique, métiers), les repères (courants, idées
+reçues, questions fréquentes, aide), les auto-évaluations, le laboratoire, la révision espacée, les fiches
+imprimables, les quiz, la bibliothèque, le lecteur, les parcours, le guide d'apprentissage, les crédits, le plan
+du site, la page d'accueil, l'index de recherche, `sitemap.xml` et `robots.txt` — et affiche un récapitulatif
+chiffré.
+
+Deux vérifications utiles après une modification :
+
+```bash
+python3 -c "import json; print(len(json.load(open('search-index.json'))))"   # index de recherche
+node --check ../../assets-ebook/js/autoeval.js                               # syntaxe d'un script
+```
 
 ## 📖 Déploiement
 
@@ -140,8 +201,8 @@ manuelle n'est nécessaire : le site est à jour une à deux minutes après un `
 
 ## ⚖️ Licences et avertissement
 
-Les fiches, notices, définitions, flashcards et questions de quiz sont des **contenus originaux** rédigés pour
-ce projet. Les ouvrages sont dans le domaine public et proviennent d'Internet Archive, Gallica (BnF), du Project
+Les fiches, notices, définitions, flashcards, questions de quiz et affirmations des auto-évaluations sont des
+**contenus originaux** rédigés pour ce projet. Aucun instrument psychométrique publié n'est reproduit. Les ouvrages sont dans le domaine public et proviennent d'Internet Archive, Gallica (BnF), du Project
 Gutenberg, des Classiques des sciences sociales (UQAC) et de Darwin Online. Les illustrations viennent de
 Wikimedia Commons, sous domaine public ou licence libre (CC0, CC BY, CC BY-SA) ; le détail fichier par fichier
 figure sur la [page de crédits](livres-psychologie/07-ebook-final/credits.html).
