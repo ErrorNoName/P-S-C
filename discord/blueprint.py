@@ -69,7 +69,9 @@ LOCK_SEND = P_SEND | P_PUBLIC_THREAD | P_PRIVATE_THREAD | P_SEND_THREAD
 LEGACY_CHANNEL_NAMES = {
     "informations",
     "salons-textuels",
+    "salons textuels",
     "salons-vocaux",
+    "salons vocaux",
     "bienvenue-et-règles",
     "bienvenue-et-regles",
     "annonces",
@@ -82,6 +84,8 @@ LEGACY_CHANNEL_NAMES = {
     "lounge",
     "salle-de-réunion",
     "salle-de-reunion",
+    "salle de réunion",
+    "salle de reunion",
 }
 
 GUILD_PATCH = {

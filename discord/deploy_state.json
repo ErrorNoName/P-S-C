@@ -1,0 +1,189 @@
+{
+  "guild_id": "1550870849140166697",
+  "application_id": "1550854265071866017",
+  "community": true,
+  "roles": {
+    "equipe": "1550875656139837550",
+    "moderation": "1550875659713122446",
+    "tuteur": "1550875663609626659",
+    "master": "1550875667971965029",
+    "licence": "1550875672204025876",
+    "apprenant": "1550875676121374751",
+    "nouveau": "1550875689308127263",
+    "int_cognitive": "1550875693934575709",
+    "int_sociale": "1550875698175148144",
+    "int_neuro": "1550875702335897651",
+    "int_patho": "1550875706773475433",
+    "int_histoire": "1550875711139614841",
+    "int_clinique": "1550875714729812089"
+  },
+  "channels": {
+    "cat_accueil": "1550875719842795600",
+    "regles": "1550875725278478477",
+    "journal": "1550875730118840390",
+    "bienvenue": "1550875742408146947",
+    "annonces": "1550875750276530296",
+    "roles": "1550875755540512893",
+    "guide_serveur": "1550875761366401095",
+    "guide_orientation": "1550875768022765638",
+    "liens": "1550875971698298932",
+    "cat_cours": "1550875980015599616",
+    "annonces_cours": "1550875986285826109",
+    "planning": "1550875992854372593",
+    "apres_cours": "1550875998478934127",
+    "ressources_seance": "1550876004040310854",
+    "forum_revision": "1550876009992036372",
+    "entraide_niveaux": "1550876015436501032",
+    "cat_fiches": "1550876020918198362",
+    "fiches_synthese": "1550876229777883229",
+    "citations": "1550876236023210056",
+    "livres_dp": "1550876242381770822",
+    "fiches_cliniques": "1550876249629532214",
+    "glossaire": "1550876255400890508",
+    "cat_thematiques": "1550876261017194607",
+    "socle": "1550876266599682178",
+    "esprit": "1550876272454795366",
+    "societe": "1550876278494597121",
+    "clinique": "1550876284190588939",
+    "applique": "1550876487425593374",
+    "cat_entraide": "1550876493218062467",
+    "presentations": "1550876502391001270",
+    "agora": "1550876507860115467",
+    "articles": "1550876513619026121",
+    "entraide_etudes": "1550876519306502264",
+    "soutien": "1550876525220335747",
+    "hors_sujet": "1550876531218186271",
+    "cat_vocaux": "1550876537086288062",
+    "amphi": "1550877547103920259",
+    "revision_voc": "1550877775710261418",
+    "biblio_voc": "1550877781515309136",
+    "cafe_voc": "1550877787257315489",
+    "cat_equipe_cat": "1550877793326465025",
+    "moderation": "1550877807041839264",
+    "sandbox": "1550877822644523149"
+  },
+  "messages": {
+    "bienvenue": [
+      "1550877834963325071",
+      "1550877830475288709"
+    ],
+    "regles": [
+      "1550877841577738284"
+    ],
+    "annonces": [
+      "1550877848099622954"
+    ],
+    "roles": [
+      "1550878033953554574"
+    ],
+    "guide_serveur": [
+      "1550878040282763377"
+    ],
+    "guide_orientation": [
+      "1550878071807148063",
+      "1550878068149723177",
+      "1550878063468880055",
+      "1550878059647860748",
+      "1550878055436783818",
+      "1550878050038718626",
+      "1550878045089566764"
+    ],
+    "liens": [
+      "1550878078014586941"
+    ],
+    "journal": [
+      "1550878083068989553"
+    ],
+    "annonces_cours": [
+      "1550878088114475139"
+    ],
+    "planning": [
+      "1550878092975804610"
+    ],
+    "apres_cours": [
+      "1550878099468718162"
+    ],
+    "ressources_seance": [
+      "1550878105197879338"
+    ],
+    "forum_revision": [
+      "1550880306163093565"
+    ],
+    "entraide_niveaux": [
+      "1550880537487605824"
+    ],
+    "fiches_synthese": [
+      "1550880541899886733"
+    ],
+    "citations": [
+      "1550880545695862858"
+    ],
+    "livres_dp": [
+      "1550880549709807780"
+    ],
+    "fiches_cliniques": [
+      "1550880553572769907"
+    ],
+    "glossaire": [
+      "1550880558555594763"
+    ],
+    "socle": [
+      "1550880562657501286"
+    ],
+    "esprit": [
+      "1550880567275556875"
+    ],
+    "societe": [
+      "1550880571847352432"
+    ],
+    "clinique": [
+      "1550880576918130841"
+    ],
+    "applique": [
+      "1550880794300522557"
+    ],
+    "presentations": [
+      "1550878553841737910"
+    ],
+    "agora": [
+      "1550878559021695088"
+    ],
+    "articles": [
+      "1550880801556660326"
+    ],
+    "entraide_etudes": [
+      "1550878567666024533"
+    ],
+    "soutien": [
+      "1550878573081002061"
+    ],
+    "hors_sujet": [
+      "1550878577791078461"
+    ],
+    "moderation": [
+      "1550878585932484671"
+    ]
+  },
+  "site": {
+    "accueil": "https://errornoname.github.io/P-S-C/",
+    "cours": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/emploi-du-temps.html",
+    "archives": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/cours/index.html",
+    "lecteur": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/cours/lecteur.html",
+    "aide": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/aide.html",
+    "fiches": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/fiches/index.html",
+    "bibliotheque": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/bibliotheque.html",
+    "dictionnaire": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/dictionnaire.html",
+    "methodes": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/methodes.html",
+    "apprendre": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/apprendre.html",
+    "parcours": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/parcours.html",
+    "revision": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/revision.html",
+    "quiz": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/quiz/index.html",
+    "labo": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/laboratoire.html",
+    "metiers": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/metiers.html",
+    "pratique": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/pratique.html",
+    "faq": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/faq.html",
+    "references": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/references/index.html",
+    "categories": "https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/index.html"
+  },
+  "color": "0x50a67e"
+}

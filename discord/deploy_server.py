@@ -217,10 +217,14 @@ def channel_payload(spec, parent_id, everyone_id, role_ids, community_on, staff_
     return payload
 
 
+def _norm_name(name):
+    return (name or "").casefold().replace(" ", "-")
+
+
 def find_by_name(items, name):
-    name_l = name.casefold()
+    name_l = _norm_name(name)
     for item in items:
-        if (item.get("name") or "").casefold() == name_l:
+        if _norm_name(item.get("name")) == name_l:
             return item
     return None
 
@@ -364,10 +368,10 @@ def register_commands(api, app_id, guild_id):
 def delete_legacy(api, channels, keep_ids):
     removed = []
     for channel in channels:
-        name = (channel.get("name") or "").casefold()
+        name = _norm_name(channel.get("name"))
         if channel["id"] in keep_ids:
             continue
-        if name not in LEGACY_CHANNEL_NAMES:
+        if name not in {_norm_name(n) for n in LEGACY_CHANNEL_NAMES}:
             continue
         try:
             api.delete(f"/channels/{channel['id']}")
@@ -511,7 +515,7 @@ def deploy(repost=False):
         except DiscordError:
             pass
 
-        for spec in category["channels"]:
+        for spec_index, spec in enumerate(category["channels"]):
             payload = channel_payload(
                 spec,
                 cat["id"],
@@ -535,6 +539,10 @@ def deploy(repost=False):
                     continue
             ids[spec["key"]] = ch["id"]
             created_channels.append(ch)
+            try:
+                api.patch(f"/channels/{ch['id']}", {"position": spec_index})
+            except DiscordError:
+                pass
             channels = api.get(f"/guilds/{guild_id}/channels")
             time.sleep(0.15)
 
@@ -567,6 +575,23 @@ def deploy(repost=False):
         live = next((c for c in api.get(f"/guilds/{guild_id}/channels") if c["id"] == channel_id), None)
         is_forum = live and live.get("type") == T_FORUM
         if is_forum:
+            existing_thread = None
+            try:
+                archived = api.get(
+                    f"/channels/{channel_id}/threads/archived/public"
+                )
+                active = api.get(f"/guilds/{guild_id}/threads/active")
+                pool = (archived.get("threads") or []) + (active.get("threads") or [])
+                for thread in pool:
+                    if thread.get("parent_id") == channel_id and thread.get("name") == "📌 Accueil du forum":
+                        existing_thread = thread
+                        break
+            except DiscordError:
+                existing_thread = None
+            if existing_thread and not repost:
+                messages[spec["key"]] = [existing_thread["id"]]
+                print(f"  · fil d'accueil déjà présent {spec['name']}")
+                continue
             try:
                 thread = api.post(
                     f"/channels/{channel_id}/threads",
