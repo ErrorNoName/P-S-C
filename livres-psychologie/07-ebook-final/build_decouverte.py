@@ -111,7 +111,7 @@ def render_decouverte():
   </div>
 
   <h2 id="planches">🔬 Planches d'expériences</h2>
-  <p>Douze protocoles dessinés comme des planches de cabinet : ce qu'on a fait, ce qui est apparu,
+  <p>Treize protocoles dessinés comme des planches de cabinet : ce qu'on a fait, ce qui est apparu,
   où lire le détail et les critiques.</p>
   <div class="xp-grid">{''.join(plates)}</div>
 
