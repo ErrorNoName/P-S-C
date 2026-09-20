@@ -559,6 +559,7 @@ def render_plan():
             ("Aide et ressources", "aide.html"),
             ("Communauté Discord", DISCORD_INVITE),
             ("Rappels et planches", "rappels.html"),
+            ("Zone de découverte", "decouverte.html"),
         ]),
         ("Base de références", [
             ("Hub des références", "references/index.html"),

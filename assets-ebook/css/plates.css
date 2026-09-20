@@ -56,17 +56,9 @@
 .notify-item .when { font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--or); }
 .notify-empty { color: var(--gris); font-size: 0.85rem; padding: 1rem 0; }
 
-#toast.toast-plate {
-  max-width: min(440px, calc(100vw - 2rem));
-  border-radius: 16px; padding: 0; overflow: hidden;
-  display: flex; align-items: stretch; pointer-events: auto;
+.toast-item.toast-plate {
   background: #F3E6C8; color: #1C1914; border: 1px solid #E7D7B0;
 }
-#toast.toast-plate.show { opacity: 1; }
-#toast.toast-plate img { width: 92px; height: 100%; object-fit: cover; }
-#toast.toast-plate .toast-body { padding: 0.7rem 0.9rem; text-align: left; }
-#toast.toast-plate .toast-k { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: #8A6414; }
-#toast.toast-plate .toast-t { font-family: var(--serif); font-size: 0.92rem; line-height: 1.35; }
 
 .pensee-band {
   max-width: 1180px; margin: 0 auto 2rem; padding: 0 1.5rem;
@@ -148,3 +140,90 @@
   align-items: center; margin-top: 1rem;
 }
 @media (max-width: 640px) { .emploi-plate-row { grid-template-columns: 1fr; } }
+
+/* Zone de découverte */
+.disco-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.1rem;
+  margin: 1.2rem 0 2rem;
+}
+.disco-card {
+  margin: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.disco-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  background: #EFE4C6;
+}
+.disco-card figcaption { padding: 0.75rem 0.85rem 0.95rem; }
+.disco-card figcaption p { font-size: 0.8rem; color: var(--gris); margin: 0.35rem 0 0.6rem; line-height: 1.45; }
+
+.xp-grid { display: flex; flex-direction: column; gap: 1.1rem; margin: 1.2rem 0 2rem; }
+.xp-plate {
+  display: grid;
+  grid-template-columns: minmax(160px, 240px) 1fr;
+  gap: 1.1rem;
+  background: #F3E6C8;
+  border: 1px solid #E7D7B0;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 0;
+}
+.xp-plate .xp-fig { position: relative; background: #E8D9B0; }
+.xp-plate img { width: 100%; height: 100%; min-height: 160px; object-fit: cover; display: block; }
+.xp-plate .xp-fig span {
+  position: absolute; left: 0.6rem; bottom: 0.5rem;
+  font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase;
+  background: rgba(28,25,20,0.72); color: #F6E4C4; padding: 0.15rem 0.4rem; border-radius: 4px;
+}
+.xp-plate > div { padding: 0.95rem 1.05rem 1.1rem; }
+.xp-plate h3 { font-family: var(--serif); font-size: 1.15rem; margin-bottom: 0.45rem; }
+.xp-plate p { font-size: 0.9rem; line-height: 1.5; margin: 0.35rem 0; }
+@media (max-width: 700px) {
+  .xp-plate { grid-template-columns: 1fr; }
+  .xp-plate img { min-height: 180px; max-height: 220px; }
+}
+
+.tech-grid, .project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.9rem;
+  margin: 1.1rem 0 2rem;
+}
+.tech-card, .project-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.95rem 1rem;
+  box-shadow: var(--shadow);
+}
+.tech-card:hover, .project-card:hover { border-color: var(--or); }
+.tech-card h3, .project-card h3 { font-family: var(--serif); font-size: 1.02rem; margin-bottom: 0.25rem; }
+.tech-k { font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: #8A6414; margin-bottom: 0.35rem; }
+.tech-card p, .project-card p { font-size: 0.82rem; color: var(--gris); line-height: 1.45; }
+
+.hidden-grid { display: flex; flex-direction: column; gap: 0.9rem; margin: 1.1rem 0 2rem; }
+.disco-hidden {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0.9rem;
+  align-items: center;
+}
+.disco-hidden img {
+  width: 120px; height: 88px; object-fit: cover; border-radius: 6px; background: #EFE4C6;
+}
+@media (max-width: 640px) { .disco-hidden { grid-template-columns: 1fr; } }
+
+.source-list { font-size: 0.9rem; line-height: 1.65; margin: 0.6rem 0 1.6rem; }
+.source-list a { font-weight: 600; }

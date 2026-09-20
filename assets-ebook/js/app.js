@@ -3,8 +3,8 @@
    ========================================================================== */
 
 const STORAGE_KEY = "psyclopedia_progress_v1";
-const TOTAL_CATEGORIES = 26;
-const TOTAL_QUIZZES = 26;
+const TOTAL_CATEGORIES = 27;
+const TOTAL_QUIZZES = 27;
 
 function loadProgress() {
   try {
@@ -48,16 +48,25 @@ function getMasteryPct() {
 }
 
 function toast(msg) {
-  let el = document.getElementById("toast");
-  if (!el) {
-    el = document.createElement("div");
-    el.id = "toast";
-    document.body.appendChild(el);
+  let stack = document.getElementById("toast-stack");
+  if (!stack) {
+    stack = document.createElement("div");
+    stack.id = "toast-stack";
+    stack.setAttribute("aria-live", "polite");
+    document.body.appendChild(stack);
   }
-  el.textContent = msg;
-  el.classList.add("show");
-  clearTimeout(window.__toastTimer);
-  window.__toastTimer = setTimeout(() => el.classList.remove("show"), 2600);
+  const el = document.createElement("div");
+  el.className = "toast-item toast-plain";
+  el.setAttribute("role", "status");
+  el.innerHTML = '<div class="toast-t"></div>';
+  el.querySelector(".toast-t").textContent = msg;
+  while (stack.children.length >= 3) stack.removeChild(stack.firstChild);
+  stack.appendChild(el);
+  requestAnimationFrame(() => el.classList.add("show"));
+  setTimeout(() => {
+    el.classList.remove("show");
+    setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 220);
+  }, 2600);
 }
 
 /* ---------- Init on every page ---------- */

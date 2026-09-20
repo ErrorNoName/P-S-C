@@ -18,6 +18,7 @@ DISCORD_INVITE = "https://discord.gg/sX3TAqH4pD"
 NAV_ITEMS = [
     ("Accueil", "@root:index.html"),
     ("Catégories", "index.html"),
+    ("Découverte", "decouverte.html"),
     ("Références", "references/index.html"),
     ("Méthodes", "methodes.html"),
     ("Pratique", "pratique.html"),
@@ -77,7 +78,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
         links_html += f'<a href="{href}"{cls}{extra_attr}>{label}</a>'
 
     desc = description or ("Psyclopédia : l'encyclopédie vivante et illustrée de la psychologie, "
-                           "en français — 26 catégories, références, bibliothèque et quiz notés.")
+                           "en français — 27 catégories, références, bibliothèque et quiz notés.")
     full_title = title if "Psyclopédia" in title else f"{title} — Psyclopédia"
 
     return f"""<!DOCTYPE html>
@@ -125,6 +126,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
   <div class="foot-links">
     <a href="{repo_root(depth)}index.html">Accueil</a>
     <a href="{ebook(depth, 'index.html')}">Catégories</a>
+    <a href="{ebook(depth, 'decouverte.html')}">Zone de découverte</a>
     <a href="{ebook(depth, 'references/index.html')}">Références</a>
     <a href="{ebook(depth, 'dictionnaire.html')}">Dictionnaire</a>
     <a href="{ebook(depth, 'bibliotheque.html')}">Bibliothèque</a>

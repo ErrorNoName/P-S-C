@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Cabinet du cerveau">
+  <defs>
+    <filter id="g351" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="351" result="n"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.16"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="800" height="500" fill="#D8D6C4"/>
+  <rect width="800" height="500" filter="url(#g351)" opacity="0.55"/>
+  <g stroke="#243028" fill="none" stroke-width="0.7" opacity="0.45"><line x1="140" y1="235" x2="660" y2="235"/><line x1="400" y1="55" x2="400" y2="410"/><path d="M148,230 L140,235 L148,240"/><path d="M652,230 L660,235 L652,240"/></g><circle cx="400" cy="235" r="28" fill="none" stroke="#243028" stroke-width="0.6" opacity="0.35"/><circle cx="400" cy="235" r="50" fill="none" stroke="#243028" stroke-width="0.6" opacity="0.35"/><circle cx="400" cy="235" r="72" fill="none" stroke="#243028" stroke-width="0.6" opacity="0.35"/><circle cx="400" cy="235" r="94" fill="none" stroke="#243028" stroke-width="0.6" opacity="0.35"/><circle cx="400" cy="235" r="116" fill="none" stroke="#243028" stroke-width="0.6" opacity="0.35"/><polygon points="400.0,162.0 614.0,235.0 400.0,308.0 186.0,235.0" fill="#A8B09A" fill-opacity="0.55" stroke="#243028" stroke-width="1.2"/><circle cx="400" cy="235" r="4" fill="#243028"/>
+  <text x="400" y="458" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+        font-size="22" fill="#243028">Fig. 57.</text>
+  <text x="28" y="484" font-family="Georgia, 'Times New Roman', serif" font-size="9"
+        fill="#243028" opacity="0.45">Psyclopédia · planche 57 · Cabinet du cerveau</text>
+</svg>

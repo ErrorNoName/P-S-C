@@ -1182,4 +1182,42 @@ EXTRA = {
             ("D'où vient le mythe du loup alpha ?", "D'observations de loups captifs non apparentés ; en nature, la meute est une famille et les « alphas » sont les parents."),
         ],
     },
+    "27-science-psychologique": {
+        "sections": [
+            ("Lire une « étude cerveau » dans la presse",
+             "<p>Cinq questions évitent la plupart des titres trompeurs :</p>"
+             "<ol>"
+             "<li><strong>Quelle technique ?</strong> EEG, IRMf, lésion, TMS ne disent pas la même chose.</li>"
+             "<li><strong>Combien de cerveaux ?</strong> Douze étudiants ne font pas une loi de l'espèce.</li>"
+             "<li><strong>Corrélation ou perturbation ?</strong> Seule une lésion, une TMS ou une stimulation a une valeur causale forte.</li>"
+             "<li><strong>Réplication ?</strong> Les cartes colorées se publient plus vite qu'elles ne se reproduisent.</li>"
+             "<li><strong>Quelle taille d'effet ?</strong> « La zone de l'amour s'allume » n'est pas une explication.</li>"
+             "</ol>"
+             "<p>La fiche <a href=\"01-fondamentaux.html\">Fondamentaux</a> et "
+             "<a href=\"../methodes.html\">Méthodes</a> détaillent le reste.</p>"),
+        ],
+        "mythes": [
+            ("On n'utilise que 10 % de son cerveau.",
+             "Faux. Métabolisme, lésions et IRMf montrent une utilisation large et permanente. Une petite lésion suffit à tout faire basculer."),
+            ("Le cerveau gauche est rationnel, le droit est créatif.",
+             "Les hémisphères ont des spécialisations (langage souvent à gauche) mais coopèrent en permanence. Le cliché de magazine ne décrit personne."),
+            ("Une tache colorée en IRMf prouve qu'on a trouvé le centre de X.",
+             "On a trouvé une corrélation hémodynamique, dans un contraste, sur un échantillon. Ce n'est ni un centre unique ni une cause."),
+            ("Un casque grand public peut « booster » l'intelligence.",
+             "La TMS et la DBS cliniques n'ont rien à voir avec les gadgets. Aucun dispositif de salon n'a la validation d'un traitement."),
+        ],
+        "chiffres": [
+            ("86 milliards", "Neurones dans un cerveau humain adulte (Herculano-Houzel)"),
+            ("1861", "Autopsie de Leborgne par Broca"),
+            ("1929", "Publication de l'EEG humain par Berger"),
+            ("1981", "Nobel de Sperry, Hubel et Wiesel"),
+            ("1200", "Jeunes adultes du Human Connectome Project initial"),
+            ("20 µm", "Résolution du volume BigBrain"),
+        ],
+        "flashcards": [
+            ("Quelle différence entre IRMf et TMS ?", "L'IRMf corrèle un signal sanguin à une tâche ; la TMS perturbe une région et peut établir une causalité temporaire."),
+            ("Pourquoi Cajal a-t-il eu raison contre Golgi ?", "Le système nerveux est fait de neurones distincts séparés par des synapses, pas d'un réseau cytoplasmique continu."),
+            ("Que permet OpenNeuro ?", "Télécharger et réanalyser des jeux de données d'imagerie au format BIDS, sans payer l'article source."),
+        ],
+    },
 }

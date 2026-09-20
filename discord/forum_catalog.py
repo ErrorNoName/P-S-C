@@ -96,6 +96,7 @@ def _cat_tag(cat_id):
         "24": "Santé",
         "25": "Appliquée",
         "26": "Sociale",
+        "27": "Neurosciences",
     }
     return mapping.get(cat_id[:2], "Méthodes")
 

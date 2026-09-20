@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Nouvelles catégories (17 à 26) venant compléter les 16 catégories fondatrices."""
+"""Nouvelles catégories (17 à 27) venant compléter les 16 catégories fondatrices."""
+
+from data_science_psycho import CATEGORY_SCIENCE
 
 IMG = "../../05-larousse-illustre-complet/illustrations/wikimedia"
 PDF = "../../06-pdf-domaine-public"
@@ -977,4 +979,5 @@ CATEGORIES_PLUS = [
             ("Qu'est-ce que le biais de proportionnalité ?", "La tendance à exiger qu'un grand événement ait une grande cause, ce qui rend les explications banales difficiles à accepter."),
         ],
     },
+    CATEGORY_SCIENCE,
 ]

@@ -31,8 +31,8 @@ class PlateEngineTests(unittest.TestCase):
 
     def test_une_planche_par_categorie(self):
         cats = [row[0] for row in PLATES_CATEGORIES]
-        self.assertEqual(len(cats), 26)
-        self.assertEqual(len(set(cats)), 26)
+        self.assertEqual(len(cats), 27)
+        self.assertEqual(len(set(cats)), 27)
         for _cid, figure, paper, title in PLATES_CATEGORIES:
             self.assertIn(figure, FIGURES)
             self.assertIn(paper, PAPERS)
@@ -40,7 +40,7 @@ class PlateEngineTests(unittest.TestCase):
 
     def test_ecriture_svg(self):
         n = write_svgs()
-        self.assertEqual(n, 26)
+        self.assertEqual(n, 27)
         missing = [
             cid for cid, *_ in PLATES_CATEGORIES
             if not (REPO / "assets-ebook/plates/svg" / f"cat-{cid}.svg").is_file()
@@ -73,7 +73,7 @@ class PenseesTests(unittest.TestCase):
     def test_records_json_serialisables(self):
         records = plate_records()
         json.dumps(records, ensure_ascii=False)
-        self.assertGreaterEqual(len(records), 26 + len(PLATES_STATIQUES))
+        self.assertGreaterEqual(len(records), 27 + len(PLATES_STATIQUES))
 
 
 if __name__ == "__main__":

@@ -2,8 +2,8 @@
 """
 PSYCLOPÉDIA — Fusion des sources de données.
 
-Rassemble en structures canoniques les 26 catégories (16 fondatrices enrichies
-+ 10 nouvelles), le dictionnaire complet, les quiz et les bases de références.
+Rassemble en structures canoniques les 27 catégories (16 fondatrices enrichies
++ 11 nouvelles), le dictionnaire complet, les quiz et les bases de références.
 Aucune génération HTML ici : uniquement de la donnée prête à l'emploi.
 """
 
@@ -111,6 +111,7 @@ QUIZ_FOR_CATEGORY = {
     "24-vieillissement": "vieillissement",
     "25-environnementale": "environnementale",
     "26-politique": "politique",
+    "27-science-psychologique": "science-psychologique",
 }
 
 # --------------------------------------------------------------------------

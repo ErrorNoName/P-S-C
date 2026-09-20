@@ -28,7 +28,8 @@ QUIZ_GROUPS = [
      ["emotions-motivation", "neurosciences", "psychopathologie", "therapies"]),
     ("Psychologie appliquée", "Le quotidien, le droit, l'animal et les champs émergents.",
      ["vie-quotidienne", "legale-comparee", "interculturelle", "langage", "psychometrie", "sport",
-      "consommation", "numerique", "evolutionniste", "vieillissement", "environnementale", "politique"]),
+      "consommation", "numerique", "evolutionniste", "vieillissement", "environnementale", "politique",
+      "science-psychologique"]),
     ("Transversaux et examen", "Vérifie que tu maîtrises les références et l'ensemble du programme.",
      ["experiences-celebres", "biais-cognitifs", "grands-auteurs", "troubles-reconnaitre",
       "chronologie-quiz", "examen-final"]),
@@ -387,7 +388,7 @@ PARCOURS = [
         "title": "Les frontières de la discipline",
         "desc": "Pour ceux qui connaissent déjà les bases : culture, langage, évolution, numérique, "
                 "environnement, politique — là où la psychologie se renouvelle aujourd'hui.",
-        "meta": ["≈ 3 h de lecture", "7 étapes", "Niveau avancé"],
+        "meta": ["≈ 3 h 30 de lecture", "9 étapes", "Niveau avancé"],
         "steps": [
             ("categories/17-interculturelle.html", "Interculturelle : le biais WEIRD", "Fiche"),
             ("categories/18-langage.html", "Psycholinguistique", "Fiche"),
@@ -395,7 +396,9 @@ PARCOURS = [
             ("categories/22-numerique.html", "Psychologie du numérique", "Fiche"),
             ("categories/25-environnementale.html", "Psychologie environnementale", "Fiche"),
             ("categories/26-politique.html", "Croyances, complotisme, polarisation", "Fiche"),
-            ("quiz/quiz.html?id=interculturelle", "Quiz Psychologie interculturelle", "Quiz noté"),
+            ("categories/27-science-psychologique.html", "Science psychologique du cerveau", "Fiche"),
+            ("decouverte.html", "Zone de découverte : planches et images", "Cabinet"),
+            ("quiz/quiz.html?id=science-psychologique", "Quiz Science psychologique", "Quiz noté"),
         ],
     },
 ]
@@ -546,7 +549,7 @@ def render_apprendre():
       <p>Alterner les thèmes plutôt que d'épuiser un sujet améliore la capacité à <em>distinguer</em> les
       notions — ce qui est précisément ce qu'un examen demande. C'est plus inconfortable sur le moment et plus
       efficace à terme. <strong>Ici :</strong> alterne une fiche cognitive, une fiche sociale, une page de
-      références, plutôt que de lire les 26 catégories dans l'ordre.</p></div></div>
+      références, plutôt que de lire les 27 catégories dans l'ordre.</p></div></div>
     <div class="method-item"><div class="num">04</div><div>
       <h4>L'élaboration et l'auto-explication</h4>
       <p>Se demander « pourquoi est-ce vrai ? », « en quoi est-ce différent de ce que je viens de lire ? »,

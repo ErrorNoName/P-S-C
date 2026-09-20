@@ -24,6 +24,7 @@ RACCOURCIS = [
     ("04-sociale", "or", "👥", "Sociale"),
     ("09-psychopathologie", "rose", "🩺", "Psychopathologie"),
     ("08-neurosciences", "gris", "🧠", "Neurosciences"),
+    ("27-science-psychologique", "vert", "🔬", "Science psycho."),
     ("07-emotions", "rose", "❤️", "Émotions"),
     ("22-numerique", "or", "📱", "Numérique"),
 ]
@@ -45,6 +46,7 @@ NOUVEAUTES = [
     ("🎓", "Cours magistraux de 50 min", "Cursus annuel, calendrier, replays YouTube francophones et fiches en direct"),
     ("💬", "Serveur Discord", "Cours, fiches, forums thématiques et entraide — le site reste la source"),
     ("🔔", "Rappels et planches", "Pensées du jour, notifications de cours, cabinet de gravures géométriques"),
+    ("🔭", "Zone de découverte", "Planches d'expériences, vraies images du cerveau, projets ouverts, cave des mythes"),
 ]
 
 # (href, classe couleur, icône, titre, description, compteur)
@@ -109,6 +111,9 @@ OUTILS_V3 = [
     ("rappels.html", "or", "🔔", "Rappels & planches",
      "Citations et questions dans la journée, rappels avant chaque cours de 50 minutes, "
      "et un cabinet de planches de psychologie géométrique.", "Pensées · gravures"),
+    ("decouverte.html", "vert", "🔭", "Zone de découverte",
+     "Planches d'expériences sur le cerveau, galerie d'images libres, techniques, "
+     "projets ouverts (Connectome, OpenNeuro, Allen, BigBrain) et cave des mythes.", "Images · sources"),
 ]
 
 
@@ -329,6 +334,9 @@ def render_home():
     <a class="hub-card or" href="{DISCORD_INVITE}" target="_blank" rel="noopener"><span class="hub-ico">💬</span><h3>Le serveur Discord</h3>
       <p>Prolonger le site : annonces de séance, forums thématiques, fiches et entraide bienveillante.</p>
       <span class="hub-n">Rejoindre</span></a>
+    <a class="hub-card" href="{EB}decouverte.html"><span class="hub-ico">🔭</span><h3>La zone de découverte</h3>
+      <p>Planches d'expériences, vraies images du cerveau, projets ouverts et cave des mythes — avec les sources.</p>
+      <span class="hub-n">Galerie · planches</span></a>
   </div>
 </div>
 

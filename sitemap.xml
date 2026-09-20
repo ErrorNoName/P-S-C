@@ -217,6 +217,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/categories/27-science-psychologique.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/cours/index.html</loc>
     <lastmod>2026-09-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -230,6 +236,12 @@
   </url>
   <url>
     <loc>https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/credits.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/decouverte.html</loc>
     <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -404,6 +416,12 @@
   </url>
   <url>
     <loc>https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/fiches/26-politique.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://errornoname.github.io/P-S-C/livres-psychologie/07-ebook-final/fiches/27-science-psychologique.html</loc>
     <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

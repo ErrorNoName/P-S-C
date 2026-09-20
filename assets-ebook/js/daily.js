@@ -160,14 +160,41 @@
     el.textContent = n > 9 ? "9+" : String(n);
   }
 
-  function toastPlate(title, text, plate, href) {
-    var el = document.getElementById("toast");
-    if (!el) {
-      el = document.createElement("div");
-      el.id = "toast";
-      document.body.appendChild(el);
+  var MAX_TOASTS = 3;
+
+  function toastStack() {
+    var stack = document.getElementById("toast-stack");
+    if (!stack) {
+      stack = document.createElement("div");
+      stack.id = "toast-stack";
+      stack.setAttribute("aria-live", "polite");
+      stack.setAttribute("aria-relevant", "additions");
+      document.body.appendChild(stack);
     }
-    el.className = "toast-plate show";
+    return stack;
+  }
+
+  function pushToast(el) {
+    var stack = toastStack();
+    while (stack.children.length >= MAX_TOASTS) {
+      stack.removeChild(stack.firstChild);
+    }
+    stack.appendChild(el);
+    requestAnimationFrame(function () {
+      el.classList.add("show");
+    });
+    setTimeout(function () {
+      el.classList.remove("show");
+      setTimeout(function () {
+        if (el.parentNode) el.parentNode.removeChild(el);
+      }, 260);
+    }, 6400);
+  }
+
+  function toastPlate(title, text, plate, href) {
+    var el = document.createElement("div");
+    el.className = "toast-item toast-plate";
+    el.setAttribute("role", "status");
     el.innerHTML =
       (plate ? '<img src="' + plateSrc(plate) + '" alt="">' : "") +
       '<div class="toast-body"><div class="toast-k">' + esc(title) + "</div>" +
@@ -175,10 +202,7 @@
     el.onclick = function () {
       if (href) window.location.href = href;
     };
-    clearTimeout(window.__toastTimer);
-    window.__toastTimer = setTimeout(function () {
-      el.classList.remove("show");
-    }, 6400);
+    pushToast(el);
   }
 
   function maybeBrowserNotify(title, body, href) {

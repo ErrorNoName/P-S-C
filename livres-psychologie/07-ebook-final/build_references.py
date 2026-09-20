@@ -10,6 +10,7 @@ from content import (
     THEORIES, CAS, DEBATS,
 )
 from data_courants import COURANTS
+from data_decouverte import GALLERIE
 from data_mythes import MYTHES
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -67,6 +68,8 @@ def render_hub():
          "Les deux camps présentés au meilleur de leurs arguments, puis l'état réel des données."),
         ("courants.html", "🏛️", "or", "Les grands courants", len(COURANTS),
          "Quatorze écoles de pensée, et surtout les raisons pour lesquelles chacune est née contre la précédente."),
+        ("../decouverte.html", "🔭", "vert", "Zone de découverte", len(GALLERIE),
+         "Images libres, planches d'expériences sur le cerveau, techniques, projets ouverts et cave des mythes."),
         ("mythes.html", "🧹", "rose", "Idées reçues et neuromythes", len(MYTHES),
          "Ce que disent réellement les données, d'où vient la croyance, et la part de vérité qu'elle déforme."),
     ]
