@@ -72,6 +72,8 @@ def render_hub():
          "Images libres, planches d'expériences sur le cerveau, techniques, projets ouverts et cave des mythes."),
         ("mythes.html", "🧹", "rose", "Idées reçues et neuromythes", len(MYTHES),
          "Ce que disent réellement les données, d'où vient la croyance, et la part de vérité qu'elle déforme."),
+        ("projectifs.html", "🃏", "gris", "TAT vs Rorschach : ce que ça vaut", 2,
+         "Dossier : ce que les projectifs mesurent vraiment, ce qu'ils n'atteignent pas, et quand s'arrêter."),
     ]
     grid = "".join(
         f'<a class="hub-card {color}" href="{href}"><span class="hub-ico">{ico}</span>'
@@ -417,6 +419,93 @@ def render_chronologie():
                                           description=f"Chronologie de la psychologie en {len(CHRONOLOGIE_TRIEE)} dates clés, de l'Antiquité à aujourd'hui."))
 
 
+def render_projectifs():
+    header = page_header(
+        depth=1, breadcrumb=_crumb("Projectifs"), icon="🃏", color="gris",
+        title="TAT vs Rorschach : ce que ça vaut",
+        subtitle="Deux instruments célèbres, une seule question : que mesurent-ils vraiment ?",
+        chips=["🃏 Deux protocoles", "⚖️ Validité au crible", "📜 Objet historique, pas oracle"],
+    )
+    body = f"""{header}
+<div class="section" style="max-width:820px">
+  <p class="section-desc">Une planche de taches ou une image ambiguë n'est pas une radiographie de l'inconscient.
+  C'est une <em>situation de parole</em>, parfois riche, souvent trop interprétée. Ce dossier compare le
+  <a href="tests.html#rorschach">Rorschach</a> et le <a href="tests.html#tat">TAT</a> comme on compare deux
+  outils : fidélité, validité, usage, dégâts possibles. Il ne permet pas de se tester soi-même.</p>
+
+  <h2>Ce qu'on leur a demandé</h2>
+  <p>Hermann Rorschach (1921) veut un diagnostic différentiel rapide à partir de dix taches. Murray et Morgan
+  (1935) veulent les <em>besoins</em> et les <em>pressions</em> du sujet via des récits. Deux promesses du
+  XX<sup>e</sup> siècle : faire parler ce que l'entretien direct ne dirait pas. La clinique française a beaucoup
+  investi le TAT (école de Shentoub : procédés du discours). L'Amérique clinique a longtemps investi le Rorschach
+  (Exner, puis R-PAS) et le <a href="tests.html#mmpi">MMPI</a>.</p>
+
+  <h2>Ce qui tient</h2>
+  <ul>
+    <li><strong>Une production.</strong> On obtient un discours, des temps de latence, parfois une alliance.
+    Cela peut ouvrir un entretien. Ce n'est déjà pas rien — et ce n'est pas spécifique : une consigne d'histoire
+    libre le fait aussi.</li>
+    <li><strong>Quelques indices formels du Rorschach</strong> (complexité, certaines cotes de forme dans les
+    systèmes standardisés) ont une fidélité acceptable. Ils n'équivalent pas à un portrait de personnalité
+    comparable au <a href="tests.html#big-five">NEO-PI</a>.</li>
+    <li><strong>Le TAT comme matériau narratif</strong> peut éclairer des thèmes relationnels <em>dans un
+    faisceau</em> : entretien, histoire, échelles, observations. Jamais seul.</li>
+  </ul>
+
+  <h2>Ce qui ne tient pas</h2>
+  <ul>
+    <li><strong>La symbolique libre.</strong> « Le rouge, c'est le sang, donc l'agressivité » n'a pas la
+    validité d'un score de névrosisme. C'est une association d'idées du clinicien.</li>
+    <li><strong>La validité incrémentielle.</strong> Une fois l'entretien et des questionnaires solides posés,
+    le projectif ajoute rarement une information qui change la décision — surtout en expertise.</li>
+    <li><strong>L'usage judiciaire.</strong> Présenter une tache comme preuve d'un risque ou d'un abus est
+    particulièrement contesté. Un tribunal n'est pas un atelier d'interprétation.</li>
+    <li><strong>Les versions en ligne.</strong> Une tache sur un écran, un résultat automatique : aucune
+    valeur. Même remarque pour les « MMPI gratuits ».</li>
+  </ul>
+
+  <h2>Tableau utile</h2>
+  <div class="lycee-table-wrap">
+  <table class="lex-table">
+    <thead><tr><th></th><th>Rorschach</th><th>TAT</th><th>NEO-PI / BFI</th></tr></thead>
+    <tbody>
+      <tr><td>Matériel</td><td>Dix taches abstraites</td><td>Scènes figuratives ambiguës</td><td>Items explicites</td></tr>
+      <tr><td>Ce qu'on prétend mesurer</td><td>Organisation, affect, « structure »</td><td>Besoins, relations, récits</td><td>Cinq traits et facettes</td></tr>
+      <tr><td>Standardisation</td><td>Exner / R-PAS : partielle</td><td>Faible, très scolaire</td><td>Haute, normes</td></tr>
+      <tr><td>Fidélité inter-juges</td><td>Variable selon l'indice</td><td>Souvent faible</td><td>Bonne</td></tr>
+      <tr><td>Validité de construit</td><td>Inégale, parfois nulle</td><td>Surtout clinique qualitative</td><td>La mieux répliquée</td></tr>
+      <tr><td>Usage défendable</td><td>Recherche, rare complément formé</td><td>Matériau d'entretien</td><td>Recherche, orientation prudente</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="warn-box">
+    <strong>Ni oracle, ni rien.</strong> Jeter les projectifs à la poubelle de l'histoire serait aussi
+    paresseux que d'en faire la vérité du sujet. On les enseigne comme on enseigne le MMPI : objets
+    historiques, parfois encore en circulation, à connaître pour ne pas s'y laisser prendre — et pour
+    comprendre pourquoi le Big Five a gagné la recherche.
+  </div>
+
+  <div class="note-box">
+    <strong>Trois qualités, toujours.</strong> Fidélité, validité, étalonnage. Un instrument qui n'affiche
+    aucune des trois n'est pas un test : c'est un rituel. La page
+    <a href="tests.html">Tests et instruments</a> applique la même grille au WCST, au Trail Making, à la
+    figure de Rey, au Hayling, à l'Iowa et au Wada.
+  </div>
+
+  <div class="cta-row">
+    <a class="btn btn-primary" href="tests.html#rorschach">📊 Fiche Rorschach</a>
+    <a class="btn btn-secondary" href="tests.html#tat">📊 Fiche TAT</a>
+    <a class="btn btn-secondary" href="tests.html#mmpi">📜 MMPI critiqué</a>
+    <a class="btn btn-secondary" href="auteurs.html#rorschach">👤 Hermann Rorschach</a>
+  </div>
+</div>
+"""
+    _write("projectifs.html", page_shell(
+        "TAT vs Rorschach : ce que ça vaut", body, depth=1, active="Références",
+        description="Dossier pédagogique : validité du Rorschach et du TAT, comparés au NEO-PI — ce que les projectifs valent vraiment."))
+
+
 def render_all():
     render_hub()
     render_experiences()
@@ -425,3 +514,4 @@ def render_all():
     render_biais()
     render_tests()
     render_chronologie()
+    render_projectifs()

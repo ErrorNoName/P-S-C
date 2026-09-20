@@ -82,6 +82,7 @@ def build_index():
         ("Psychologie du développement", "Piaget, Vygotski, Bowlby, attachement, adolescence.", EBOOK + "branches/developpement.html", "piaget vygotski bowlby zpd"),
         ("Psychologie cognitive", "Mémoire, attention, biais, laboratoires jouables.", EBOOK + "branches/cognitive.html", "stroop empan loftus kahneman"),
         ("Assistant de Psyclopédia", "Questions en français, réponses sourcées uniquement à partir du site.", EBOOK + "assistant.html", "ia assistant question reponse corpus"),
+        ("TAT vs Rorschach : ce que ça vaut", "Dossier sur la validité des tests projectifs, comparés au NEO-PI et au MMPI.", EBOOK + "references/projectifs.html", "rorschach tat projectif validite neo-pi mmpi"),
     ]
     for title, desc, url, kw in static_pages:
         entries.append(_entry(title, desc, "page", url, kw))

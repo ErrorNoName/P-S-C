@@ -265,6 +265,10 @@ PLANCHES_EXPERIENCES = [
      "On touche le siphon d'une aplysie, on mesure le réflexe de retrait, on répète, on associe un choc.",
      "L'apprentissage change le nombre et la force des synapses. Nobel 2000. La mémoire a une biologie.",
      "references/experiences.html#kandel-aplysia", "synapse-chimique.jpg"),
+    ("robbers-cave", "XIII", "Deux camps, une canalisation", "1954",
+     "Sherif sépare vingt-deux garçons, les met en compétition, puis casse la conduite d'eau du camp.",
+     "Le trophée fabrique l'ennemi. Seul un but qui exige les deux groupes désarme le « eux ».",
+     "references/experiences.html#robbers-cave", "robbers-cave.svg"),
 ]
 
 TECHNIQUES = [

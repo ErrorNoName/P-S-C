@@ -7,6 +7,8 @@ Rassemble en structures canoniques les 27 catégories (16 fondatrices enrichies
 Aucune génération HTML ici : uniquement de la donnée prête à l'emploi.
 """
 
+import unicodedata
+
 from data_categories import CATEGORIES as _CATS_BASE, DICTIONNAIRE as _DICT_BASE
 from data_categories_plus import CATEGORIES_PLUS as _CATS_PLUS
 from data_enrichissement import EXTRA as _EXTRA
@@ -14,13 +16,24 @@ from data_glossaire import GLOSSAIRE_PLUS as _DICT_PLUS
 from data_quiz import QUIZZES as _QUIZ_BASE
 from data_quiz_plus import QUIZZES_PLUS as _QUIZ_PLUS
 from data_quiz_lycee import QUIZZES_LYCEE as _QUIZ_LYCEE
-from data_experiences import EXPERIENCES
-from data_auteurs import AUTEURS
-from data_troubles import TROUBLES
-from data_biais import BIAIS
-from data_tests import TESTS, CHRONOLOGIE
+from data_experiences import EXPERIENCES as _EXP_BASE
+from data_auteurs import AUTEURS as _AUT_BASE
+from data_troubles import TROUBLES as _TRO_BASE
+from data_biais import BIAIS as _BIA_BASE
+from data_tests import TESTS as _TES_BASE, CHRONOLOGIE as _CHRONO_BASE
 from data_theories import THEORIES
-from data_cas import CAS
+from data_cas import CAS as _CAS_BASE
+from data_references_plus import (
+    EXPERIENCES_PLUS,
+    AUTEURS_PLUS,
+    CAS_PLUS,
+    TROUBLES_PLUS,
+    BIAIS_PLUS,
+    TESTS_PLUS,
+    CHRONOLOGIE_PLUS,
+    GLOSSAIRE_PLUS_REF,
+    EXTRA_PLUS,
+)
 from data_debats import DEBATS
 from data_methodes import CHAPITRES as METHODES_CHAPITRES, NOTIONS as METHODES_NOTIONS
 from data_bilingue import LEXIQUE_EN, FAUX_AMIS
@@ -32,19 +45,54 @@ from data_metiers import METIERS, PARCOURS_ETUDES
 # --------------------------------------------------------------------------
 
 
+def _merge_by_id(base, plus):
+    """Remplace une fiche mince si l'id existe déjà, sinon l'ajoute."""
+    by_id = {row[0]: row for row in base}
+    order = [row[0] for row in base]
+    for row in plus:
+        if row[0] in by_id:
+            by_id[row[0]] = row
+        else:
+            order.append(row[0])
+            by_id[row[0]] = row
+    return [by_id[i] for i in order]
+
+
 def _merge_category(cat):
     """Applique l'enrichissement (sections, mythes, chiffres, flashcards) à une catégorie."""
     extra = _EXTRA.get(cat["id"])
+    plus = EXTRA_PLUS.get(cat["id"])
     merged = dict(cat)
     merged.setdefault("mythes", [])
     merged.setdefault("chiffres", [])
-    if not extra:
-        return merged
-    merged["sections"] = list(cat["sections"]) + list(extra.get("sections", []))
-    merged["mythes"] = list(extra.get("mythes", []))
-    merged["chiffres"] = list(extra.get("chiffres", []))
-    merged["flashcards"] = list(cat.get("flashcards", [])) + list(extra.get("flashcards", []))
+    sections = list(cat["sections"])
+    mythes = list(merged["mythes"])
+    chiffres = list(merged["chiffres"])
+    flashcards = list(cat.get("flashcards", []))
+    if extra:
+        sections = sections + list(extra.get("sections", []))
+        mythes = list(extra.get("mythes", []))
+        chiffres = list(extra.get("chiffres", []))
+        flashcards = flashcards + list(extra.get("flashcards", []))
+    if plus:
+        sections = sections + list(plus.get("sections", []))
+        mythes = mythes + list(plus.get("mythes", []))
+        chiffres = chiffres + list(plus.get("chiffres", []))
+        flashcards = flashcards + list(plus.get("flashcards", []))
+    merged["sections"] = sections
+    merged["mythes"] = mythes
+    merged["chiffres"] = chiffres
+    merged["flashcards"] = flashcards
     return merged
+
+
+EXPERIENCES = _merge_by_id(_EXP_BASE, EXPERIENCES_PLUS)
+AUTEURS = _merge_by_id(_AUT_BASE, AUTEURS_PLUS)
+CAS = _merge_by_id(_CAS_BASE, CAS_PLUS)
+TROUBLES = _merge_by_id(_TRO_BASE, TROUBLES_PLUS)
+BIAIS = _merge_by_id(_BIA_BASE, BIAIS_PLUS)
+TESTS = _merge_by_id(_TES_BASE, TESTS_PLUS)
+CHRONOLOGIE = list(_CHRONO_BASE) + list(CHRONOLOGIE_PLUS)
 
 
 CATEGORIES = [_merge_category(c) for c in _CATS_BASE] + [_merge_category(c) for c in _CATS_PLUS]
@@ -60,7 +108,7 @@ CATEGORY_TITLE = {c["id"]: c["title"] for c in CATEGORIES}
 def _merge_dictionnaire():
     seen = {}
     ordered = []
-    for term, definition, cat_id in list(_DICT_BASE) + list(_DICT_PLUS):
+    for term, definition, cat_id in list(_DICT_BASE) + list(_DICT_PLUS) + list(GLOSSAIRE_PLUS_REF):
         key = term.strip().lower()
         if key in seen:
             continue
@@ -70,7 +118,6 @@ def _merge_dictionnaire():
 
 
 def _sort_key(term):
-    import unicodedata
     txt = unicodedata.normalize("NFD", term.lower())
     return "".join(c for c in txt if unicodedata.category(c) != "Mn")
 
