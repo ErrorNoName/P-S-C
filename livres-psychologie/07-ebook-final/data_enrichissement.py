@@ -196,13 +196,12 @@ EXTRA = {
              "<p>Les <strong>difficultés désirables</strong> (Bjork) formalisent ce paradoxe : ce qui rend l'apprentissage plus "
              "difficile sur le moment — espacer, alterner, se tester, varier les conditions — améliore la rétention à long terme, "
              "au prix d'une performance immédiate plus faible.</p>"),
-            ("Du lycée de Saint-Priest à la L1 cognitive",
-             "<p>À Condorcet, la cognitive se prépare surtout en <strong>SVT</strong> (cerveau, hormones, démarche expérimentale), "
+            ("Préparer cette branche au lycée",
+             "<p>La cognitive se prépare surtout en <strong>SVT</strong> (cerveau, hormones, démarche expérimentale), "
              "en <strong>mathématiques</strong> (probabilités, lecture de courbes — demain les stats de L1) et en "
              "<strong>philosophie de Terminale</strong> (esprit, représentation, illusion). Les laboratoires du site "
-             "(Stroop, empan, temps de réaction) rejouent déjà les TD de Lyon 2.</p>"
-             "<p>Parcours dédié : <a href=\"../branches/cognitive.html\">psychologie cognitive, lycée → L1</a>. "
-             "Assistant : demande « mémoire de travail » ou « charge cognitive ».</p>"),
+             "(Stroop, empan, temps de réaction) rejouent déjà les TD de licence.</p>"
+             "<p>Approfondir : <a href=\"../branches/cognitive.html\">psychologie cognitive</a>.</p>"),
         ],
         "mythes": [
             ("Nous ne retenons que 10 % de ce que nous lisons et 90 % de ce que nous faisons.",
@@ -269,11 +268,11 @@ EXTRA = {
              "<p>Le concept d'<strong>ignorance pluraliste</strong> explique de nombreuses situations paradoxales : chacun désapprouve "
              "en privé une pratique tout en croyant être le seul, parce que personne n'ose l'exprimer. Le silence collectif maintient "
              "alors une norme que presque personne ne soutient réellement.</p>"),
-            ("Du lycée de Saint-Priest à la L1 sociale",
-             "<p>Le pont le plus direct à Condorcet est <strong>SES</strong> (socialisation, groupes, institutions, enquêtes), "
+            ("Préparer cette branche au lycée",
+             "<p>Le pont le plus direct est <strong>SES</strong> (socialisation, groupes, institutions, enquêtes), "
              "complété par <strong>EMC</strong> et <strong>HGGSP</strong>. En L1, on passe de la description à l'expérience : "
              "variable indépendante, éthique, critique de Milgram et d'Asch.</p>"
-             "<p>Parcours dédié : <a href=\"../branches/sociale.html\">psychologie sociale, lycée → L1</a>.</p>"),
+             "<p>Approfondir : <a href=\"../branches/sociale.html\">psychologie sociale</a>.</p>"),
         ],
         "mythes": [
             ("38 témoins ont assisté sans réagir au meurtre de Kitty Genovese.",
@@ -355,11 +354,11 @@ EXTRA = {
              "rappellent que l'influence parentale sur les traits de personnalité est plus faible qu'on ne l'imagine — ce qui est "
              "une bonne nouvelle pour les parents rongés par la culpabilité. Ce qui reste solidement établi : la sécurité affective, "
              "la stabilité, l'absence de violence et la qualité du langage adressé à l'enfant.</p>"),
-            ("Du lycée de Saint-Priest à la L1 développement",
+            ("Préparer cette branche au lycée",
              "<p>En <strong>SVT</strong>, on parle maturation et hormones ; en <strong>SES</strong>, socialisation familiale et "
              "scolaire. La L1 demande les stades de Piaget <em>et</em> leurs limites, Vygotski, l'attachement, et la différence "
              "entre étude longitudinale et transversale.</p>"
-             "<p>Parcours dédié : <a href=\"../branches/developpement.html\">psychologie du développement, lycée → L1</a>.</p>"),
+             "<p>Approfondir : <a href=\"../branches/developpement.html\">psychologie du développement</a>.</p>"),
         ],
         "mythes": [
             ("Les trois premières années déterminent toute la vie.",
@@ -667,11 +666,11 @@ EXTRA = {
              "la perception de dangerosité et d'irréversibilité.</p>"
              "<p>Un chiffre à connaître : les personnes souffrant de troubles psychiques sévères sont bien plus souvent "
              "<strong>victimes</strong> que auteurs de violences.</p>"),
-            ("Du lycée de Saint-Priest à la L1 clinique",
+            ("Préparer cette branche au lycée",
              "<p>HLP et la philo de Terminale entraînent déjà l'écoute d'un texte et la définition d'un sujet. "
              "La clinique de L1 ajoute le <strong>cadre</strong>, l'<strong>éthique</strong> et l'interdiction de "
              "diagnostiquer un camarade. Le titre de psychologue exige le master ; un quiz n'a aucune valeur diagnostique.</p>"
-             "<p>Parcours dédié : <a href=\"../branches/clinique.html\">psychologie clinique, lycée → L1</a>. "
+             "<p>Approfondir : <a href=\"../branches/clinique.html\">psychologie clinique</a>. "
              "En détresse : <a href=\"../aide.html\">Aide</a>, 3114.</p>"),
         ],
         "mythes": [

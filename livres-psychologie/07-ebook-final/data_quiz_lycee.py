@@ -1,26 +1,26 @@
 # -*- coding: utf-8 -*-
-"""Quiz lycée Saint-Priest et socle L1 des quatre branches."""
+"""Quiz du lycée à la L1 et socle des quatre branches."""
 
 QUIZZES_LYCEE = [
     {
         "id": "lycee-orientation", "icon": "🎓", "color": "or",
-        "title": "Lycée Saint-Priest → psychologie",
-        "desc": "Spécialités, Condorcet, Lyon 2, titre de psychologue.",
+        "title": "Du lycée à la L1",
+        "desc": "Spécialités du bac, licence, titre de psychologue.",
         "difficulty": "Facile",
         "questions": [
-            {"q": "Le lycée général et technologique de Saint-Priest s'appelle…",
-             "a": ["Jacques Brel", "Condorcet", "Ella Fitzgerald", "Ampère"], "correct": 1,
-             "explain": "Le lycée Condorcet, rue Edmond Rostand, est l'établissement général et technologique de Saint-Priest."},
-            {"q": "La psychologie est-elle une spécialité du bac à Condorcet ?",
-             "a": ["Oui, depuis 2021", "Oui, en option facultative", "Non : on y prépare la L1 via SES, HLP, SVT, maths, philo…", "Uniquement en STI2D"], "correct": 2,
+            {"q": "Où s'adresser au lycée pour l'orientation vers la psychologie ?",
+             "a": ["Uniquement le proviseur", "Le CIO et les psychologues de l'Éducation nationale", "Uniquement Parcoursup le jour J", "Un forum en ligne"], "correct": 1,
+             "explain": "Les PsyEN du CIO accompagnent les élèves et les familles tout au long de l'année."},
+            {"q": "La psychologie est-elle une spécialité du bac ?",
+             "a": ["Oui, depuis 2021", "Oui, en option facultative", "Non : on prépare la L1 via SES, HLP, SVT, maths, philo…", "Uniquement en STI2D"], "correct": 2,
              "explain": "Aucune spécialité « psychologie » n'existe au bac. On construit le socle avec SES, HLP, SVT, maths, philo et le Grand oral."},
             {"q": "Quelle combinaison est cohérente pour viser une L1 de psychologie ?",
              "a": ["Uniquement NSI + SI", "SES + HLP, ou SES + SVT, ou maths + SVT", "Uniquement théâtre + LCA", "Abandonner toutes les sciences"], "correct": 1,
              "explain": "Parcoursup n'exige pas une doublette unique, mais les stats et la biologie de L1 punissent l'absence de raisonnement scientifique."},
-            {"q": "Où se trouve le CIO de Saint-Priest ?",
-             "a": ["Place de l'Hôtel de Ville uniquement", "5 impasse Jacques Brel", "Sur le campus de Bron", "Il n'y en a pas"], "correct": 1,
-             "explain": "Le CIO, 5 impasse Jacques Brel, accueille élèves et familles ; les PsyEN interviennent aussi dans les établissements."},
-            {"q": "La L1 de psychologie à Lyon 2 contient surtout…",
+            {"q": "À quoi sert un CIO ?",
+             "a": ["Uniquement à noter les élèves", "À informer et conseiller sur l'orientation, avec des PsyEN", "À remplacer la licence", "À diagnostiquer"], "correct": 1,
+             "explain": "Le CIO accueille élèves et familles ; les psychologues de l'Éducation nationale interviennent aussi dans les établissements."},
+            {"q": "La L1 de psychologie contient surtout…",
              "a": ["Uniquement des stages cliniques", "Clinique, sociale, développement, cognitive, plus méthodes, stats et psychobiologie", "Uniquement de la psychanalyse", "Un titre de psychologue au bout d'un an"], "correct": 1,
              "explain": "C'est un socle général. Beaucoup abandonnent en découvrant statistiques et biologie."},
             {"q": "Quand obtient-on le titre de psychologue en France ?",

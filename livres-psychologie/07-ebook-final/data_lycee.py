@@ -1,64 +1,63 @@
 # -*- coding: utf-8 -*-
-"""Parcours lycée Saint-Priest (69, Lyon) et les quatre branches L1 de psychologie.
+"""Du lycée à la licence : spécialités, quatre branches L1, Grand oral.
 
-Sources publiques : Onisep, L'Étudiant, site de la Ville de Saint-Priest,
-fiches Lyon 2 / Institut de psychologie, attendus Parcoursup. Les règles
-d'orientation évoluent : vérifier toujours les pages officielles.
+Sources publiques : Onisep, ministère, fiches licence de psychologie,
+attendus Parcoursup. Le schéma est le même dans tous les lycées français.
+Les règles d'orientation évoluent : vérifier les pages officielles.
 """
 
 # --------------------------------------------------------------------------
-# Établissements et ce qu'on y fait vraiment
+# Ce que font réellement les lycées français (schéma national)
 # --------------------------------------------------------------------------
 
 ETABLISSEMENTS = [
     {
-        "id": "condorcet",
-        "nom": "Lycée Condorcet",
-        "type": "Lycée général et technologique public",
-        "ville": "Saint-Priest (69800)",
-        "academie": "Lyon",
-        "adresse": "29 rue Edmond Rostand",
-        "role": "Établissement pivot pour un projet psychologie : bac général, STI2D, STMG, BTS et CPGE ECT.",
+        "id": "general",
+        "nom": "Lycée général et technologique",
+        "type": "Voie principale vers une L1 de psychologie",
+        "ville": "Toute la France",
+        "academie": "toutes académies",
+        "adresse": "Offre variable selon l'établissement (Onisep)",
+        "role": "Bac général (spécialités) ou technologique (STMG, STI2D, ST2S). C'est le parcours le plus direct vers une licence.",
         "fait": [
-            "Voie générale : 2de, 1re, Terminale.",
-            "Spécialités 1re/Tle : HGGSP, HLP, LLCA, mathématiques, physique-chimie, SI, SVT, SES.",
-            "Voie techno STI2D (innovation, énergie, systèmes d'information).",
-            "Voie techno STMG (ressources humaines, mercatique).",
-            "Sections : européenne, sport, théâtre, Brevet d'initiation aéronautique.",
-            "Langues : anglais, allemand, espagnol, italien, portugais, latin, grec.",
-            "Post-bac sur place : BTS communication, BTS après-vente automobile, CPGE économique et commerciale option technologique.",
-            "Psychologues de l'Éducation nationale du CIO interviennent auprès des élèves.",
+            "Voie générale : 2de, 1re, Terminale, avec 3 puis 2 spécialités.",
+            "Spécialités fréquentes pour la psycho : SES, HLP, SVT, mathématiques, HGGSP.",
+            "Voie techno STMG (ressources humaines, mercatique) : pont vers la psychologie du travail.",
+            "Voie techno ST2S (santé et social, selon les lycées) : pont vers clinique et santé.",
+            "Voie techno STI2D : moins directe, mais la méthode scientifique reste utile.",
+            "Les PsyEN du CIO interviennent dans l'établissement pour l'orientation et l'écoute.",
         ],
-        "lien": "https://www.onisep.fr/ressources/structures-enseignement/auvergne-rhone-alpes/rhone/lycee-condorcet/classe-de-1re-generale",
+        "lien": "https://www.education.gouv.fr/reussir-au-lycee/choisir-ses-enseignements-de-specialite-au-lycee-pour-preparer-ses-etudes-superieures-325475",
     },
     {
-        "id": "forest",
-        "nom": "Lycée professionnel Fernand Forest",
-        "type": "Lycée professionnel public",
-        "ville": "Saint-Priest (69800)",
-        "academie": "Lyon",
-        "adresse": "9 impasse Jacques Brel",
-        "role": "Voie professionnelle : métiers techniques. Un projet psychologie y passe plutôt par le CIO, un bac pro relation/soin, puis une remise à niveau ou une L1 sur dossier.",
+        "id": "pro",
+        "nom": "Lycée professionnel",
+        "type": "Voie professionnelle",
+        "ville": "Toute la France",
+        "academie": "toutes académies",
+        "adresse": "Bac pro, mention complémentaire, BTS",
+        "role": "Un projet psychologie y passe plutôt par le CIO, un bac pro relation/soin, puis une remise à niveau ou une L1 sur dossier.",
         "fait": [
-            "Bac pro à dominante technique (réalisation de produits, métiers de l'industrie).",
-            "Le titre de psychologue reste un cursus licence + master : un bac pro n'interdit pas L1, mais les attendus (rédaction, sciences, stats) demandent un rattrapage ciblé.",
+            "Le titre de psychologue reste un cursus licence + master.",
+            "Un bac pro n'interdit pas la L1, mais les attendus (rédaction, sciences, stats) demandent un rattrapage ciblé.",
+            "Les bacs pro accompagnement, soin et services à la personne sont les plus proches.",
         ],
-        "lien": "https://www.letudiant.fr/lycee/annuaire-des-lycees/fiche/lycee-professionnel-fernand-forest-07.html",
+        "lien": "https://www.onisep.fr/formation/apres-le-bac-les-etudes-superieures",
     },
     {
         "id": "cio",
-        "nom": "CIO de Saint-Priest",
-        "type": "Centre d'information et d'orientation",
-        "ville": "Saint-Priest (69800)",
-        "academie": "Lyon",
-        "adresse": "5 impasse Jacques Brel",
-        "role": "Lieu réel où travaillent les psychologues de l'Éducation nationale : orientation, écoute, Parcoursup.",
+        "nom": "CIO et PsyEN",
+        "type": "Orientation et écoute",
+        "ville": "Toute la France",
+        "academie": "toutes académies",
+        "adresse": "Un CIO par bassin, des PsyEN dans les établissements",
+        "role": "Lieu où travaillent les psychologues de l'Éducation nationale : orientation, écoute, Parcoursup.",
         "fait": [
             "Accueil élèves, familles et adultes.",
-            "Les PsyEN interviennent dans les collèges et lycées publics de la ville.",
+            "Les PsyEN interviennent dans les collèges et lycées publics.",
             "Partenaire naturel pour un Grand oral ou un dossier Parcoursup « psychologie ».",
         ],
-        "lien": "https://ville-saint-priest.fr/ville-a-vivre/enfance-education/colleges-et-lycees",
+        "lien": "https://www.education.gouv.fr/les-centres-d-information-et-d-orientation-cio-11488",
     },
 ]
 
@@ -103,12 +102,12 @@ SPECIALITES = [
      "Question, plan, sources, tenue de l'échange.",
      "Présenter une étude, ses limites, et répondre sans bluffer.",
      "01-fondamentaux"),
-    ("STMG RH", "STMG ressources humaines (Condorcet)",
+    ("STMG RH", "STMG ressources humaines",
      "Organisation, communication, gestion des personnes.",
      "Psychologie du travail, recrutement, risques psychosociaux.",
      "12-travail"),
-    ("ST2S (hors Condorcet)", "Sciences et technologies de la santé et du social",
-     "Santé, protection sociale, biologie humaine — proposée dans d'autres lycées de l'agglomération (ex. Jacques Brel à Vénissieux).",
+    ("ST2S", "Sciences et technologies de la santé et du social",
+     "Santé, protection sociale, biologie humaine — proposée dans de nombreux lycées technologiques.",
      "Clinique, santé, développement, métiers du soin. Accès L1 psychologie possible.",
      "14-sante"),
 ]
@@ -122,9 +121,9 @@ TRONC = [
      "HLP + SVT + maths. Aucune combinaison n'est obligatoire sur Parcoursup, mais les stats de L1 punissent l'absence de raisonnement quantitatif."),
     ("Tle", "Deux spécialités + philo + Grand oral",
      "Garder de préférence SES ou HLP et une science (SVT ou maths). Préparer un Grand oral sur une étude, un métier ou un débat (obéissance, mémoire, attachement). "
-     "Renseigner Parcoursup : Lyon 2, Lyon 1 / autres licences, et un vœu de secours."),
-    ("L1 Lyon 2", "Les quatre branches + stats + psychobiologie",
-     "Semestre 1 : introduction clinique, sociale, développement, cognitive, méthodes, mineure (sciences cognitives, sociologie, anthropologie ou sciences de l'éducation). "
+     "Renseigner Parcoursup : plusieurs licences de psychologie, et un vœu de secours."),
+    ("L1", "Les quatre branches + stats + psychobiologie",
+     "Semestre 1, dans la plupart des licences : introduction clinique, sociale, développement, cognitive, méthodes, parfois une mineure (sciences cognitives, sociologie, anthropologie ou sciences de l'éducation). "
      "Semestre 2 : approfondissement + statistiques descriptives. La licence seule ne donne pas le titre de psychologue."),
 ]
 
@@ -142,12 +141,12 @@ ATTENDUS_L1 = [
 # --------------------------------------------------------------------------
 
 LISTE_COMPLETE = [
-    ("Cartographier le lycée réel", [
-        ("Fiche Condorcet : spécialités, STI2D, STMG, BTS, CPGE, sections", "fait"),
-        ("Fiche lycée pro Fernand Forest et voies alternatives", "fait"),
-        ("Fiche CIO Saint-Priest et rôle des PsyEN", "fait"),
+    ("Du lycée français à la L1", [
+        ("Carte des spécialités du bac vers les quatre branches", "fait"),
+        ("Voie générale, techno (STMG, ST2S, STI2D) et voie pro", "fait"),
+        ("Rôle du CIO et des PsyEN", "fait"),
         ("Ponts matière par matière vers les quatre branches", "fait"),
-        ("Calendrier 2de → 1re → Tle → L1 Lyon 2", "fait"),
+        ("Calendrier 2de → 1re → Tle → L1", "fait"),
         ("Attendus Parcoursup et idées de Grand oral", "fait"),
     ]),
     ("Psychologie clinique", [
@@ -196,8 +195,8 @@ LISTE_COMPLETE = [
         ("Lire un article et un graphique de lycée / L1", "site"),
         ("Crise de la réplication et préenregistrement", "site"),
     ]),
-    ("Outils d'apprentissage lycée → L1", [
-        ("Parcours guidé Saint-Priest", "fait"),
+    ("Outils d'apprentissage", [
+        ("Parcours guidé lycée → L1", "fait"),
         ("Assistant IA ancré dans tout le site", "fait"),
         ("Fiches imprimables des 27 catégories", "site"),
         ("Révision espacée et flashcards", "site"),
@@ -210,8 +209,8 @@ LISTE_COMPLETE = [
     ("Orientation et métiers", [
         ("Licence, master, titre protégé, ADELI / RPPS", "site"),
         ("Métiers : clinicien, PsyEN, neuropsy, travail, recherche, UX", "site"),
-        ("Lyon 2 : L1, mineures, double licence sciences cognitives", "fait"),
-        ("Plan B : PASS/LAS, STAPS, éducation, socio, BTS, CPGE ECT Condorcet", "fait"),
+        ("L1, mineures, double licence sciences cognitives", "fait"),
+        ("Plan B : PASS/LAS, STAPS, éducation, socio, BTS, CPGE", "fait"),
     ]),
 ]
 
@@ -235,7 +234,7 @@ GRAND_ORAL = [
     ("Peut-on « lire » le caractère sur un cerveau ?",
      "Phrénologie, IRMf, limites, science psychologique.", "27-science-psychologique"),
     ("Aider, c'est soigner ? Le titre de psychologue.",
-     "Loi de 1985, métier, éthique, CIO local.", "metiers"),
+     "Loi de 1985, métier, éthique, CIO.", "metiers"),
 ]
 
 DISSERTATION = [
@@ -274,7 +273,7 @@ BRANCHES = [
             ("SES", "Inégalités d'accès aux soins, institutions, protection sociale."),
         ],
         "l1": (
-            "À Lyon 2, la clinique et la psychopathologie occupent un CM dès le semestre 1, "
+            "Dans la plupart des licences, la clinique et la psychopathologie occupent un cours dès le semestre 1, "
             "puis des CM+TD jusqu'en L3. On y apprend à décrire des signes, à situer un modèle, "
             "pas à poser un diagnostic. Le titre de psychologue clinicien exige le master."
         ),
@@ -388,7 +387,7 @@ BRANCHES = [
             ("Grand oral", "Milgram, Asch, stéréotypes : sujets déjà « prêts »."),
         ],
         "l1": (
-            "Lyon 2 place la psychologie sociale en CM dès le S1, puis en CM+TD jusqu'en L3. "
+            "La psychologie sociale est au programme dès le semestre 1, puis en CM+TD jusqu'en L3. "
             "On y apprend à lire une expérience (variable, contrôle, éthique) autant qu'à citer un nom."
         ),
         "notions": [
@@ -490,7 +489,7 @@ BRANCHES = [
             ("Philo Tle", "Devenir sujet, liberté, habitude."),
         ],
         "l1": (
-            "Lyon 2 enseigne le développement en CM dès le S1, puis en CM+TD. On attend les stades de "
+            "Le développement est enseigné dès le semestre 1, puis en CM+TD. On attend les stades de "
             "Piaget <em>et</em> leurs limites, Vygotski, l'attachement, et la distinction transversal / longitudinal."
         ),
         "notions": [
@@ -586,10 +585,10 @@ BRANCHES = [
             ("Maths", "Probabilités, courbes, lecture d'un graphique d'oubli."),
             ("Philo Tle", "Esprit, représentation, vérité, illusion."),
             ("HLP", "Langage, interprétation, mémoire d'une œuvre."),
-            ("NSI / SI (si présente)", "Algorithme, mémoire, interface — cousinage avec les sciences cognitives Lyon 2."),
+            ("NSI / SI (si présente)", "Algorithme, mémoire, interface — cousinage avec les sciences cognitives."),
         ],
         "l1": (
-            "Lyon 2 ouvre la cognitive en S1 et propose une mineure voire une double licence "
+            "La cognitive ouvre dès le semestre 1 ; certaines universités proposent une mineure ou une double licence "
             "sciences cognitives. Les TD mesurent : empan, Stroop, temps de réaction. "
             "Les labs du site rejouent exactement ces épreuves."
         ),
@@ -641,9 +640,9 @@ BRANCHES = [
              "<em>laquelle</em> est en jeu, pas un roman sur « la mémoire ».</p>"),
             ("Réviser comme un cognitician",
              "<p>Rappel actif, espacement, entrelacement, élaboration : le site Apprendre les "
-             "détaille. Un lycéen de Saint-Priest qui prépare HLP et SES avec ces techniques "
+             "détaille. Un lycéen qui prépare HLP et SES avec ces techniques "
              "arrive en L1 déjà armé — c'est le meilleur avantage, plus qu'une spécialité magique.</p>"),
-            ("Du labo du site au TD de Lyon 2",
+            ("Du labo du site au TD de licence",
              "<p>Faire Stroop, empan, temps de réaction, flanker, ancrage. Noter son score, "
              "lire l'explication, citer la limite (échantillon = toi). C'est déjà un compte rendu de TD.</p>"),
         ],
@@ -693,7 +692,7 @@ COMPARAISON = [
      "Moraliser (« les gens sont moutons »)",
      "Croire les stades comme un destin",
      "Croire que mémoire = disque dur"),
-    ("Pont Condorcet",
+    ("Pont lycée",
      "HLP + philo + EMC",
      "SES + EMC + HGGSP",
      "SVT + SES + EMC",
@@ -716,21 +715,19 @@ PLAN_SEMAINES = [
      ["categories/05-developpement.html", "references/theories.html", "quiz/quiz.html?id=developpement-personnalite"]),
     ("Semaine 5", "Clinique", "Cadre, modèles, troubles pédagogiques, aide.",
      ["branches/clinique.html", "categories/09-psychopathologie.html", "aide.html"]),
-    ("Semaine 6", "Orientation", "Métiers, Lyon 2, Grand oral, quiz lycée.",
+    ("Semaine 6", "Orientation", "Métiers, Grand oral, quiz d'orientation.",
      ["metiers.html", "quiz/quiz.html?id=lycee-orientation", "assistant.html"]),
 ]
 
 SOURCES_LYCEE = [
-    ("Onisep — 1re générale Lycée Condorcet",
-     "https://www.onisep.fr/ressources/structures-enseignement/auvergne-rhone-alpes/rhone/lycee-condorcet/classe-de-1re-generale"),
-    ("L'Étudiant — fiche Lycée Condorcet Saint-Priest",
-     "https://www.letudiant.fr/lycee/annuaire-des-lycees/fiche/lycee-general-et-technologique-condorcet-07.html"),
-    ("Ville de Saint-Priest — collèges et lycées, CIO",
-     "https://ville-saint-priest.fr/ville-a-vivre/enfance-education/colleges-et-lycees"),
-    ("Ministère — choisir ses spécialités",
+    ("Ministère — choisir ses spécialités au lycée",
      "https://www.education.gouv.fr/reussir-au-lycee/choisir-ses-enseignements-de-specialite-au-lycee-pour-preparer-ses-etudes-superieures-325475"),
-    ("Université Lyon 2 — Licence 1 Psychologie",
-     "https://www.univ-lyon2.fr/licence-1-psychologie-2"),
-    ("Institut de psychologie de Lyon — licence",
-     "https://psycho.univ-lyon2.fr/formation/licence-de-psychologie/licence-de-psychologie"),
+    ("Onisep — après le bac",
+     "https://www.onisep.fr/formation/apres-le-bac-les-etudes-superieures"),
+    ("Onisep — licence de psychologie",
+     "https://www.onisep.fr/ressources/univers-formation/formations/post-bac/licence-mention-psychologie"),
+    ("Éduscol — programmes de spécialité",
+     "https://eduscol.education.fr/pid36131/cycle-terminal-de-la-voie-generale.html"),
+    ("Ministère — CIO",
+     "https://www.education.gouv.fr/les-centres-d-information-et-d-orientation-cio-11488"),
 ]

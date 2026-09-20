@@ -75,13 +75,13 @@ def build_index():
         ("Lecteur de cours synchronisé", "Vidéo francophone, fiches Psyclopédia en direct, surlignage et quiz flash.", EBOOK + "cours/lecteur.html", "lecteur youtube synchronisation karaoke ressources cinema"),
         ("Rappels, pensées et planches", "Notifications de cours, citations du jour et cabinet de gravures de psychologie géométrique.", EBOOK + "rappels.html", "rappel notification citation pensee planche gravure"),
         ("Zone de découverte", "Planches d'expériences sur le cerveau, galerie d'images libres, techniques, projets ouverts et cave des mythes.", EBOOK + "decouverte.html", "decouverte cerveau planche image cajal broca penfield connectome openneuro irm eeg"),
-        ("Lycée Saint-Priest → psychologie", "Parcours réel du lycée Condorcet (69), CIO, spécialités et pont vers la L1 Lyon 2.", EBOOK + "lycee.html", "lycee saint-priest condorcet ses hlp svt parcoursup grand oral cio"),
-        ("Quatre branches de L1", "Clinique, sociale, développement, cognitive : objets, méthodes, pièges lycéens.", EBOOK + "branches/index.html", "clinique sociale developpement cognitive licence"),
-        ("Psychologie clinique — parcours lycée / L1", "Cadre, entretien, modèles, éthique, sans diagnostic.", EBOOK + "branches/clinique.html", "clinique entretien alliance psychologue psychiatre"),
-        ("Psychologie sociale — parcours lycée / L1", "Normes, conformité, obéissance, identité, dissonance.", EBOOK + "branches/sociale.html", "asch milgram tajfel festinger"),
-        ("Psychologie du développement — parcours lycée / L1", "Piaget, Vygotski, Bowlby, attachement, adolescence.", EBOOK + "branches/developpement.html", "piaget vygotski bowlby zpd"),
-        ("Psychologie cognitive — parcours lycée / L1", "Mémoire, attention, biais, laboratoires jouables.", EBOOK + "branches/cognitive.html", "stroop empan loftus kahneman"),
-        ("Assistant IA de Psyclopédia", "Questions en français, réponses sourcées uniquement à partir du site.", EBOOK + "assistant.html", "ia assistant question reponse corpus"),
+        ("Du lycée à la licence de psychologie", "Spécialités du bac, CIO, quatre branches de L1 et Grand oral.", EBOOK + "lycee.html", "lycee specialites ses hlp svt parcoursup grand oral cio licence"),
+        ("Quatre branches", "Clinique, sociale, développement, cognitive : objets, méthodes, pièges fréquents.", EBOOK + "branches/index.html", "clinique sociale developpement cognitive licence"),
+        ("Psychologie clinique", "Cadre, entretien, modèles, éthique, sans diagnostic.", EBOOK + "branches/clinique.html", "clinique entretien alliance psychologue psychiatre"),
+        ("Psychologie sociale", "Normes, conformité, obéissance, identité, dissonance.", EBOOK + "branches/sociale.html", "asch milgram tajfel festinger"),
+        ("Psychologie du développement", "Piaget, Vygotski, Bowlby, attachement, adolescence.", EBOOK + "branches/developpement.html", "piaget vygotski bowlby zpd"),
+        ("Psychologie cognitive", "Mémoire, attention, biais, laboratoires jouables.", EBOOK + "branches/cognitive.html", "stroop empan loftus kahneman"),
+        ("Assistant de Psyclopédia", "Questions en français, réponses sourcées uniquement à partir du site.", EBOOK + "assistant.html", "ia assistant question reponse corpus"),
     ]
     for title, desc, url, kw in static_pages:
         entries.append(_entry(title, desc, "page", url, kw))

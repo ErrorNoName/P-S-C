@@ -151,6 +151,29 @@ METIERS = [
 
 # (id, titre, contenu_html)
 PARCOURS_ETUDES = [
+    ("lycee", "Du lycée à la licence", """
+<p>Il n'existe pas de spécialité « Psychologie » au bac. Dans tous les lycées français, on prépare
+une licence via <strong>SES, HLP, SVT, mathématiques, HGGSP</strong>, la philosophie de Terminale
+et le Grand oral. Les attendus de L1 (démarche scientifique, données, rédaction) rendent ces
+matières plus confortables, sans qu'aucune combinaison ne soit obligatoire.</p>
+
+<p>Toute licence de psychologie ouvre ensuite les <strong>quatre branches</strong> — clinique,
+sociale, développement, cognitive — plus les statistiques et la psychobiologie. Le détail
+matière par matière, la liste de ce qu'il faut maîtriser, et des sujets de Grand oral sont
+sur la page <a href="lycee.html">Du lycée à la licence</a>.</p>
+
+<div class="hub-grid" style="margin:1rem 0 0">
+  <a class="hub-card vert" href="branches/clinique.html"><span class="hub-ico">🩺</span>
+    <h3>Clinique</h3><p>Cadre, entretien, éthique — sans diagnostic amateur.</p></a>
+  <a class="hub-card or" href="branches/sociale.html"><span class="hub-ico">👥</span>
+    <h3>Sociale</h3><p>Normes, groupes, influence, identités.</p></a>
+  <a class="hub-card rose" href="branches/developpement.html"><span class="hub-ico">🌱</span>
+    <h3>Développement</h3><p>De la petite enfance au vieillissement.</p></a>
+  <a class="hub-card gris" href="branches/cognitive.html"><span class="hub-ico">💭</span>
+    <h3>Cognitive</h3><p>Mémoire, attention, langage, décision.</p></a>
+</div>
+"""),
+
     ("licence", "La licence de psychologie", """
 <p>La licence dure trois ans et couvre l'ensemble des grands domaines : psychologie cognitive, sociale, du
 développement, clinique, différentielle, neurosciences, mais aussi <strong>statistiques et méthodologie</strong>,

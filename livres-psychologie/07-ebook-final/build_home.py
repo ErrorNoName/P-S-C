@@ -47,8 +47,8 @@ NOUVEAUTES = [
     ("💬", "Serveur Discord", "Cours, fiches, forums thématiques et entraide — le site reste la source"),
     ("🔔", "Rappels et planches", "Pensées du jour, notifications de cours, cabinet de gravures géométriques"),
     ("🔭", "Zone de découverte", "Planches d'expériences, vraies images du cerveau, projets ouverts, cave des mythes"),
-    ("🎓", "Lycée Saint-Priest → L1", "Condorcet, CIO, quatre branches, liste complète et Grand oral"),
-    ("🤖", "Assistant IA du site", "Questions en français, réponses sourcées dans tout le corpus"),
+    ("🧭", "Quatre branches de la psychologie", "Clinique, sociale, développement, cognitive — le socle de toute licence"),
+    ("🤖", "Assistant du site", "Questions en français, réponses sourcées dans tout le corpus"),
 ]
 
 # (href, classe couleur, icône, titre, description, compteur)
@@ -116,10 +116,10 @@ OUTILS_V3 = [
     ("decouverte.html", "vert", "🔭", "Zone de découverte",
      "Planches d'expériences sur le cerveau, galerie d'images libres, techniques, "
      "projets ouverts (Connectome, OpenNeuro, Allen, BigBrain) et cave des mythes.", "Images · sources"),
-    ("lycee.html", "or", "🎓", "Lycée Saint-Priest (69)",
-     "Ce que font Condorcet et le CIO, comment chaque spécialité prépare la L1 Lyon 2, "
-     "et la liste complète pour clinique, sociale, développement, cognitive.", "Parcours · liste"),
-    ("assistant.html", "vert", "🤖", "Assistant IA",
+    ("metiers.html", "or", "🎓", "Métiers et études",
+     "Du lycée à la licence, le titre de psychologue, et les quatre branches de L1 "
+     "reliées aux fiches du site.", "Parcours"),
+    ("assistant.html", "vert", "🤖", "Assistant",
      "Une question, une réponse complète tirée uniquement des pages du site, avec les sources.",
      "Ctrl + J"),
 ]
@@ -228,9 +228,7 @@ def render_home():
       <a class="btn btn-primary" href="{EB}parcours.html">🧭 Commencer un parcours</a>
       <a class="btn btn-secondary" href="{EB}emploi-du-temps.html">🎓 Emploi du temps</a>
       <a class="btn btn-secondary" href="{DISCORD_INVITE}" target="_blank" rel="noopener">💬 Rejoindre le Discord</a>
-      <a class="btn btn-secondary" href="{EB}lycee.html">🎓 Lycée Saint-Priest</a>
       <button class="btn btn-secondary" data-search-open="">🔍 Rechercher (Ctrl + K)</button>
-      <button class="btn btn-secondary" data-ai-open="">🤖 Assistant IA (Ctrl + J)</button>
     </div>
   </div>
 </div>
@@ -347,12 +345,12 @@ def render_home():
     <a class="hub-card" href="{EB}decouverte.html"><span class="hub-ico">🔭</span><h3>La zone de découverte</h3>
       <p>Planches d'expériences, vraies images du cerveau, projets ouverts et cave des mythes — avec les sources.</p>
       <span class="hub-n">Galerie · planches</span></a>
-    <a class="hub-card or" href="{EB}lycee.html"><span class="hub-ico">🎓</span><h3>Lycée Saint-Priest</h3>
-      <p>Parcours Condorcet / CIO / Lyon 2 et les quatre branches de la L1, plus la liste complète des études.</p>
-      <span class="hub-n">Hub lycée</span></a>
+    <a class="hub-card or" href="{EB}metiers.html"><span class="hub-ico">🎓</span><h3>Métiers et études</h3>
+      <p>Du lycée à la licence : spécialités, quatre branches, titre de psychologue — dans le même site.</p>
+      <span class="hub-n">Parcours</span></a>
     <a class="hub-card" href="{EB}assistant.html"><span class="hub-ico">🤖</span><h3>L'assistant du site</h3>
       <p>Réponses complètes et sourcées : une question, les pages qui y répondent, sans invention.</p>
-      <span class="hub-n">IA intégrée</span></a>
+      <span class="hub-n">Ctrl + J</span></a>
   </div>
 </div>
 

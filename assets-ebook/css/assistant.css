@@ -69,10 +69,11 @@
   background: rgba(28,30,29,0.45); backdrop-filter: blur(4px);
   display: none; align-items: flex-start; justify-content: center;
   padding: 7vh 1rem 2rem;
+  overflow: auto;
 }
 .ai-overlay.open { display: flex; }
 .ai-modal {
-  width: 100%; max-width: 720px; max-height: 84vh; overflow: auto;
+  width: 100%; max-width: min(720px, 100%); max-height: 84vh; overflow: auto;
   background: var(--card); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg); padding: 1rem 1.15rem 1.3rem;
 }

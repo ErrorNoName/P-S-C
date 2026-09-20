@@ -19,7 +19,6 @@ NAV_ITEMS = [
     ("Accueil", "@root:index.html"),
     ("Catégories", "index.html"),
     ("Découverte", "decouverte.html"),
-    ("Lycée", "lycee.html"),
     ("Références", "references/index.html"),
     ("Méthodes", "methodes.html"),
     ("Pratique", "pratique.html"),
@@ -118,9 +117,6 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
         <span aria-hidden="true">🔔</span><span class="nav-notify-label">Rappels</span>
         <span class="nav-notify-badge" hidden>0</span>
       </button>
-      <button class="nav-ai-btn" type="button" data-ai-open="" aria-label="Assistant du site">
-        <span aria-hidden="true">🤖</span><span class="nav-ai-label">IA</span>
-      </button>
       <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
         <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
       </button>
@@ -133,9 +129,9 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a href="{repo_root(depth)}index.html">Accueil</a>
     <a href="{ebook(depth, 'index.html')}">Catégories</a>
     <a href="{ebook(depth, 'decouverte.html')}">Zone de découverte</a>
-    <a href="{ebook(depth, 'lycee.html')}">Lycée Saint-Priest</a>
+    <a href="{ebook(depth, 'lycee.html')}">Du lycée à la licence</a>
     <a href="{ebook(depth, 'branches/index.html')}">Quatre branches</a>
-    <a href="{ebook(depth, 'assistant.html')}">Assistant IA</a>
+    <a href="{ebook(depth, 'assistant.html')}">Assistant</a>
     <a href="{ebook(depth, 'references/index.html')}">Références</a>
     <a href="{ebook(depth, 'dictionnaire.html')}">Dictionnaire</a>
     <a href="{ebook(depth, 'bibliotheque.html')}">Bibliothèque</a>

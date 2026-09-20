@@ -88,7 +88,7 @@
 
 /* ---------- Métiers ---------- */
 
-.metier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
+.metier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 1.2rem; }
 .metier-card {
   background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
   padding: 1.4rem; border-left: 3px solid var(--vert);
@@ -110,7 +110,7 @@
 
 /* ---------- Laboratoire : mini-expériences ---------- */
 
-.lab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+.lab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 1.2rem; }
 .lab-card {
   background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
   padding: 1.4rem; text-decoration: none; color: inherit; display: block;
@@ -202,7 +202,7 @@
 
 /* ---------- Plan du site ---------- */
 
-.plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.4rem; }
+.plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 1.4rem; }
 .plan-col {
   background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.3rem 1.4rem;
 }
@@ -246,7 +246,7 @@
 .fiche-block ul { padding-left: 1.1rem; }
 .fiche-block li { font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.3rem; color: var(--noir); }
 .fiche-block p { font-size: 0.85rem; line-height: 1.65; color: var(--gris); }
-.fiche-defs { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.6rem; }
+.fiche-defs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr)); gap: 0.6rem; }
 .fiche-def {
   background: var(--bg); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem;
   font-size: 0.8rem; line-height: 1.55;

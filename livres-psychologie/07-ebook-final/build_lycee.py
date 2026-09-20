@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""PSYCLOPÉDIA — Hub lycée Saint-Priest, liste d'études et quatre branches."""
+"""PSYCLOPÉDIA — Du lycée à la licence, et les quatre branches de L1."""
 
 import os
 
@@ -104,21 +104,22 @@ def render_hub():
 
     header = page_header(
         depth=0,
-        breadcrumb=[("Accueil", "../../index.html"), ("Lycée Saint-Priest", None)],
+        breadcrumb=[("Accueil", "../../index.html"), ("Métiers", "metiers.html"),
+                    ("Du lycée à la licence", None)],
         icon="🎓", color="or",
-        title="Lycée Saint-Priest (69) → psychologie",
-        subtitle="Ce qu'on y fait vraiment, comment ça prépare les quatre branches de L1, et tout ce qu'il faut ajouter pour ces études",
-        chips=["📍 Condorcet · Forest · CIO", "🧭 4 branches L1", "✅ Liste complète", "🤖 Assistant IA"],
+        title="Du lycée à la licence de psychologie",
+        subtitle="Ce qu'il faut savoir au lycée pour aborder les quatre branches de L1 — intégré au reste du site",
+        chips=["🧭 4 branches", "✅ Liste de maîtrise", "📝 Grand oral", "🤖 Assistant"],
     )
 
     toc = """<aside class="toc-side"><h4>Sommaire</h4>
-      <a href="#analyse">Ce qu'ils font au lycée</a>
       <a href="#specialites">Spécialités → psycho</a>
-      <a href="#calendrier">2de → L1 Lyon 2</a>
+      <a href="#calendrier">2de → L1</a>
       <a href="#branches">Quatre branches</a>
-      <a href="#liste">Liste complète à maîtriser</a>
+      <a href="#liste">Liste à maîtriser</a>
       <a href="#dissertation">Dissertation &amp; Grand oral</a>
       <a href="#plan">Six semaines</a>
+      <a href="#etablissements">Voies du lycée</a>
       <a href="#sources">Sources</a>
     </aside>"""
 
@@ -128,46 +129,40 @@ def render_hub():
   <div class="content" style="max-width:none">
 
   <div class="note-box">
-    <strong>Il n'existe pas de « spécialité Psychologie » au lycée.</strong> À Saint-Priest, le projet se
-    construit au <a href="#condorcet">lycée Condorcet</a> (voie générale, STI2D, STMG), avec le
-    <a href="#cio">CIO</a> et les psychologues de l'Éducation nationale, puis à
-    <strong>Lyon 2</strong> (Institut de psychologie) : clinique, sociale, développement, cognitive,
-    plus statistiques et psychobiologie. Cette page analyse le parcours réel et relie chaque matière
-    du lycée à une fiche du site.
+    <strong>Il n'existe pas de spécialité « Psychologie » au bac.</strong> Dans tous les lycées
+    français, on prépare une L1 via SES, HLP, SVT, mathématiques, HGGSP, la philosophie de Terminale
+    et le Grand oral. Toute licence de psychologie ouvre ensuite clinique, sociale, développement
+    et cognitive, plus statistiques et psychobiologie. Cette page relie chaque matière du lycée aux
+    fiches déjà présentes sur le site — ce n'est pas une catégorie à part.
   </div>
-
-  <h2 id="analyse">Ce qu'ils font — les établissements</h2>
-  <div class="lycee-grid">{etab}</div>
 
   <h2 id="specialites">De chaque matière du lycée à une branche</h2>
   <p>Le ministère rappelle qu'aucune combinaison n'est obligatoire pour une licence. En pratique, les
   attendus de L1 (démarche scientifique, données, rédaction) rendent certaines spécialités plus
-  confortables. Condorcet offre justement HLP, SES, HGGSP, SVT et maths.</p>
-  <div style="overflow-x:auto">
+  confortables : SES, HLP, SVT, maths.</p>
+  <div class="lycee-table-wrap">
     <table class="lycee-table">
       <thead><tr><th>Matière</th><th>Ce qu'on y fait</th><th>Ce que ça prépare en psycho</th><th></th></tr></thead>
       <tbody>{specs}</tbody>
     </table>
   </div>
 
-  <h2 id="calendrier">De la 2de à la L1 Lyon 2</h2>
+  <h2 id="calendrier">De la 2de à la L1</h2>
   <div class="method-timeline">{tronc}</div>
   <h3>Attendus utiles (sans mythologie Parcoursup)</h3>
   <ul>{attendus}</ul>
-  <p>Plans B depuis Condorcet : BTS sur place, CPGE ECT, licences de socio / éducation / sciences
-  cognitives, métiers du soin si ST2S ailleurs dans l'agglomération. La licence de psychologie n'est
-  pas le seul débouché d'un intérêt pour l'humain.</p>
+  <p>Plans B fréquents : BTS, CPGE, licences de socio / éducation / sciences cognitives, ST2S vers
+  le sanitaire-social. La licence de psychologie n'est pas le seul débouché d'un intérêt pour l'humain.</p>
 
   <h2 id="branches">Les quatre branches de L1</h2>
-  <p>Lyon 2 les enseigne dès le premier semestre. Chaque carte ouvre un parcours complet : objet,
-  ponts lycée, notions, auteurs, expériences, éthique, checklist et quiz.</p>
+  <p>Toute licence de psychologie les enseigne dès le premier semestre. Chaque carte ouvre un
+  parcours : objet, ponts lycée, notions, auteurs, expériences, éthique, checklist et quiz.</p>
   <div class="hub-grid">{branches}</div>
   <p style="margin-top:1rem"><a class="btn btn-secondary" href="branches/index.html">Comparer les quatre branches →</a></p>
 
   <h2 id="liste">Liste complète de ce qu'il faut pour ces études</h2>
-  <p>Tout ce qu'un élève de Saint-Priest devrait trouver ici pour tenir le lycée <em>et</em> le premier
-  semestre de L1. « Ajouté ici » = construit pour ce parcours. « Déjà sur le site » = relié, pas
-  réécrit.</p>
+  <p>Tout ce qu'il faut pour tenir le lycée <em>et</em> le premier semestre de L1.
+  « Ajouté ici » = rédigé pour ce socle. « Déjà sur le site » = déjà dans une fiche, simplement relié.</p>
   <div class="lycee-list">{liste}</div>
 
   <h2 id="dissertation">Dissertation HLP / philo appliquée à une étude</h2>
@@ -187,16 +182,21 @@ def render_hub():
     <a class="btn btn-secondary" href="emploi-du-temps.html">🎓 Cours de 50 min</a>
   </div>
 
+  <h2 id="etablissements">Les voies du lycée, partout en France</h2>
+  <p>Le schéma est national : spécialités, CIO, PsyEN. L'offre exacte (quelles spécialités, ST2S ou
+  non) se lit sur Onisep pour chaque établissement.</p>
+  <div class="lycee-grid">{etab}</div>
+
   <h2 id="sources">Sources</h2>
   <ul>{sources}</ul>
   <p class="muted">Les maquettes universitaires et les spécialités d'un lycée évoluent.
-  Vérifiez Onisep, le site de l'établissement et Lyon 2 avant un choix définitif.</p>
+  Vérifiez Onisep, le site de l'établissement et l'université visée avant un choix définitif.</p>
   </div>
 </div>
 """
     _write("lycee.html", page_shell(
-        "Lycée Saint-Priest et psychologie", body, depth=0, active="Lycée",
-        description="Parcours psychologie pour le lycée Condorcet de Saint-Priest (69) : spécialités, CIO, quatre branches de L1 Lyon 2, liste complète et Grand oral."))
+        "Du lycée à la licence de psychologie", body, depth=0, active="Apprendre",
+        description="Du lycée à la L1 de psychologie : spécialités, quatre branches, Grand oral, liste de maîtrise — intégré au reste de Psyclopédia."))
 
 
 def render_branches_index():
@@ -221,12 +221,12 @@ def render_branches_index():
     header = page_header(
         depth=1,
         breadcrumb=[("Accueil", "../../../index.html"),
-                    ("Lycée", "../lycee.html"),
+                    ("Métiers", "../metiers.html"),
                     ("Quatre branches", None)],
         icon="🧭", color="vert",
         title="Clinique · sociale · développement · cognitive",
-        subtitle="Le socle que Lyon 2 enseigne dès la L1, mis en regard et relié au lycée de Saint-Priest",
-        chips=["4 objets", "4 méthodes", "4 pièges lycéens"],
+        subtitle="Le socle commun de la L1, mis en regard et relié aux matières du lycée",
+        chips=["4 objets", "4 méthodes", "4 pièges fréquents"],
     )
     body = f"""{header}
 <div class="section">
@@ -234,22 +234,23 @@ def render_branches_index():
   <h2>Tableau comparatif — pour une copie claire</h2>
   <p>En L1, une question fréquente est : <em>à quelle branche appartient ce problème, et pourquoi ?</em>
   Ce tableau donne la réponse en une ligne, puis chaque parcours développe.</p>
-  <div style="overflow-x:auto">
+  <div class="lycee-table-wrap">
     <table class="lycee-table lycee-table-wide">
       <thead><tr>{''.join(f'<th>{l}</th>' for l in labels)}</tr></thead>
       <tbody>{rows}</tbody>
     </table>
   </div>
   <div class="cta-row">
-    <a class="btn btn-primary" href="../lycee.html">🎓 Retour au parcours lycée</a>
+    <a class="btn btn-primary" href="../metiers.html">🎓 Métiers et études</a>
+    <a class="btn btn-secondary" href="../lycee.html">Du lycée à la licence</a>
     <a class="btn btn-secondary" href="../quiz/quiz.html?id=branches-l1">🎮 Quiz des quatre branches</a>
     <a class="btn btn-secondary" href="../assistant.html">🤖 Poser une question</a>
   </div>
 </div>
 """
     _write("branches/index.html", page_shell(
-        "Quatre branches de psychologie", body, depth=1, active="Lycée",
-        description="Comparer psychologie clinique, sociale, du développement et cognitive — socle L1 Lyon 2."))
+        "Quatre branches de psychologie", body, depth=1, active="Apprendre",
+        description="Comparer psychologie clinique, sociale, du développement et cognitive — socle de L1."))
 
 
 def render_branche(b):
@@ -300,13 +301,13 @@ def render_branche(b):
     header = page_header(
         depth=1,
         breadcrumb=[("Accueil", "../../../index.html"),
-                    ("Lycée", "../lycee.html"),
+                    ("Métiers", "../metiers.html"),
                     ("Branches", "index.html"),
                     (b["title"], None)],
         icon=b["icon"], color=b["color"],
         title=b["title"],
         subtitle=b["subtitle"],
-        chips=["Lycée → L1", "Checklist", "Quiz"],
+        chips=["Branche de L1", "Checklist", "Quiz"],
     )
 
     body = f"""{header}
@@ -314,7 +315,7 @@ def render_branche(b):
   <aside class="toc-side"><h4>Sommaire</h4>
     <a href="#objet">Objet</a>
     <a href="#lycee">Ponts lycée</a>
-    <a href="#l1">Lyon 2</a>
+    <a href="#l1">En L1</a>
     <a href="#notions">Notions</a>
     {toc_mods}
     <a href="#checklist">Checklist</a>
@@ -325,10 +326,10 @@ def render_branche(b):
     <p>{b['objet']}</p>
     <div class="fun-box">❓ <strong>Question directrice :</strong> {b['question']}</div>
 
-    <h2 id="lycee">Ce que le lycée de Saint-Priest prépare déjà</h2>
+    <h2 id="lycee">Ce que le lycée prépare déjà</h2>
     <ul>{ponts}</ul>
 
-    <h2 id="l1">Ce que Lyon 2 en fait en L1</h2>
+    <h2 id="l1">Ce qu'en fait la L1</h2>
     <p>{b['l1']}</p>
 
     <h2 id="notions">Notions à savoir dire en une phrase</h2>
@@ -371,7 +372,7 @@ def render_branche(b):
 </div>
 """
     _write(f"branches/{b['id']}.html", page_shell(
-        b["title"] + " — parcours lycée / L1", body, depth=1, active="Lycée",
+        b["title"], body, depth=1, active="Apprendre",
         description=b["subtitle"]))
 
 

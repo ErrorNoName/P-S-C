@@ -92,14 +92,13 @@ def build_corpus():
                            f"{famille}. {mission} Formation : {formation} {savoir}", famille))
 
     rows.append(_chunk(
-        "Lycée Condorcet Saint-Priest et psychologie",
+        "Du lycée à la licence de psychologie",
         "lycee", EBOOK + "lycee.html",
-        "Le lycée Condorcet (Saint-Priest, 69) n'offre pas de spécialité Psychologie. "
-        "On y prépare une L1 via SES, HLP, SVT, maths, HGGSP, philo et le Grand oral. "
-        "Le CIO (5 impasse Jacques Brel) accueille les PsyEN. La suite naturelle est "
-        "la licence de psychologie à Lyon 2 : clinique, sociale, développement, cognitive, "
-        "statistiques et psychobiologie. Le titre de psychologue exige un master.",
-        "saint-priest condorcet lyon 2 parcoursup",
+        "Aucune spécialité Psychologie n'existe au bac. On prépare une L1 via SES, HLP, SVT, "
+        "maths, HGGSP, philo et le Grand oral. Le CIO et les PsyEN accompagnent l'orientation. "
+        "La licence ouvre clinique, sociale, développement, cognitive, statistiques et "
+        "psychobiologie. Le titre de psychologue exige un master.",
+        "lycee specialites parcoursup licence",
     ))
     rows.append(_chunk(
         "Attendus d'une L1 de psychologie",
@@ -151,7 +150,7 @@ def write_corpus():
 def render_page():
     exemples = [
         "Quelle est la différence entre conformité et obéissance ?",
-        "Que faut-il comme spécialités à Condorcet pour faire psycho ?",
+        "Quelles spécialités du bac préparent le mieux une licence de psychologie ?",
         "C'est quoi la zone proximale de développement ?",
         "Pourquoi la L1 a-t-elle autant de statistiques ?",
         "Que montre l'expérience de Milgram, et quelles sont ses limites ?",
@@ -163,7 +162,7 @@ def render_page():
     )
     header = page_header(
         depth=0,
-        breadcrumb=[("Accueil", "../../index.html"), ("Assistant IA", None)],
+        breadcrumb=[("Accueil", "../../index.html"), ("Assistant", None)],
         icon="🤖", color="vert",
         title="Assistant Psyclopédia",
         subtitle="Pose une question : la réponse est construite à partir de tout ce que contient le site, avec les pages sources",
@@ -172,14 +171,14 @@ def render_page():
     body = f"""{header}
 <div class="section ai-page">
   <p class="section-desc" style="max-width:760px">Pas un chatbot qui invente. L'assistant cherche
-  dans les catégories, le dictionnaire, les expériences, les quatre branches L1 et le parcours
-  lycée Saint-Priest, puis rédige une réponse claire avec des liens pour aller plus loin.
+  dans les catégories, le dictionnaire, les expériences, les quatre branches et les pages
+  d'études, puis rédige une réponse claire avec des liens pour aller plus loin.
   Raccourci : <kbd>Ctrl</kbd> + <kbd>J</kbd> depuis n'importe quelle page.</p>
 
   <div class="ai-box" data-ai-root>
     <form class="ai-form" data-ai-form>
       <label class="sr-only" for="ai-q">Votre question</label>
-      <textarea id="ai-q" data-ai-input rows="2" placeholder="Ex. : Qu'est-ce que la dissonance cognitive, et quel exemple lycée ?" required></textarea>
+      <textarea id="ai-q" data-ai-input rows="2" placeholder="Ex. : Qu'est-ce que la dissonance cognitive ?" required></textarea>
       <button type="submit" class="btn btn-primary">Répondre</button>
     </form>
     <div class="ai-chips">{chips}</div>
@@ -190,12 +189,12 @@ def render_page():
 
   <div class="note-box">
     <strong>Ce que l'assistant sait faire :</strong> définir, comparer deux notions, relier une
-    matière de Condorcet à une branche, résumer une expérience, orienter vers un quiz ou une fiche.
+    matière du lycée à une branche, résumer une expérience, orienter vers un quiz ou une fiche.
     <strong>Ce qu'il refuse :</strong> poser un diagnostic, conseiller un traitement, citer une
     page qui n'est pas sur Psyclopédia.
   </div>
   <div class="cta-row">
-    <a class="btn btn-secondary" href="lycee.html">🎓 Parcours lycée</a>
+    <a class="btn btn-secondary" href="metiers.html">🎓 Métiers et études</a>
     <a class="btn btn-secondary" href="branches/index.html">🧭 Quatre branches</a>
     <button class="btn btn-secondary" data-search-open="">🔍 Recherche classique (Ctrl + K)</button>
   </div>
@@ -204,7 +203,7 @@ def render_page():
     path = os.path.join(BASE, "assistant.html")
     with open(path, "w", encoding="utf-8") as f:
         f.write(page_shell(
-            "Assistant IA", body, depth=0, active="IA",
+            "Assistant", body, depth=0, active="Aide",
             description="Assistant intégré : réponses complètes et sourcées à partir de tout le contenu de Psyclopédia."))
     return path
 

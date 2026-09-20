@@ -64,7 +64,7 @@
       return "sante";
     }
     if (/(difference|vs|versus|ou bien|distinguer|comparer|plutot)/.test(n)) return "compare";
-    if (/(specialite|condorcet|saint priest|saint-priest|parcoursup|lyon 2|grand oral|cio)/.test(n)) {
+    if (/(specialite|parcoursup|grand oral|cio|licence de psycho|licence psycho)/.test(n)) {
       return "lycee";
     }
     if (/(c est quoi|cest quoi|qu est-ce|quest-ce|definir|definition|signifie)/.test(n)) {
@@ -148,7 +148,7 @@
           "La recherche classique (Ctrl + K) parcourt le même corpus, fiche par fiche.",
         ],
         recap: [],
-        follow: ["Quelles spécialités à Condorcet pour la psycho ?", "C'est quoi la psychologie cognitive ?", "Liste du parcours lycée Saint-Priest"],
+        follow: ["Quelles spécialités préparent une licence de psychologie ?", "C'est quoi la psychologie cognitive ?", "Différence des quatre branches"],
       };
     }
 
@@ -176,7 +176,7 @@
     if (!parts.length) parts.push(firstSentences(top.x || top.d, 3));
 
     if (intent === "lycee") {
-      parts.push("Il n'y a pas de spécialité Psychologie au bac. À Saint-Priest, le lycée Condorcet prépare via SES, HLP, SVT, maths, HGGSP et la philo de Terminale ; le CIO de l'impasse Jacques Brel oriente vers Lyon 2.");
+      parts.push("Il n'y a pas de spécialité Psychologie au bac. On prépare via SES, HLP, SVT, maths, HGGSP et la philo de Terminale ; le CIO et les PsyEN orientent vers une licence.");
     }
 
     var recap = hits.slice(0, 4).map(function (h) {
@@ -186,8 +186,8 @@
     var follow = [];
     if (hits[1]) follow.push("Approfondir : " + hits[1].e.t);
     if (hits[2]) follow.push("Lien : " + hits[2].e.t);
-    follow.push("Ouvre le parcours lycée Saint-Priest");
-    follow.push("Compare les quatre branches de L1");
+    follow.push("Ouvre Métiers et études");
+    follow.push("Compare les quatre branches");
 
     return { lead: lead, parts: parts.slice(0, 4), recap: recap, follow: follow.slice(0, 4) };
   }

@@ -1,8 +1,8 @@
-/* Lycée Saint-Priest + quatre branches */
+/* Du lycée à la licence + quatre branches */
 
 .lycee-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 1.1rem;
   margin: 1.2rem 0 2rem;
 }
@@ -40,7 +40,9 @@
   letter-spacing: 0.04em;
   color: var(--gris);
 }
-.lycee-table-wide td { min-width: 140px; }
+.lycee-table-wide td { min-width: 0; }
+.lycee-table-wrap { overflow-x: auto; max-width: 100%; -webkit-overflow-scrolling: touch; }
+.lycee-table th, .lycee-table td { overflow-wrap: anywhere; }
 .muted { color: var(--gris); font-size: 0.8rem; }
 
 .lycee-list { display: grid; gap: 1rem; }
@@ -56,6 +58,7 @@
   display: flex; gap: 0.6rem; align-items: flex-start;
   padding: 0.35rem 0; font-size: 0.92rem;
   border-bottom: 1px dashed var(--border);
+  min-width: 0;
 }
 .lycee-chip {
   flex-shrink: 0; font-size: 0.68rem; font-weight: 700;

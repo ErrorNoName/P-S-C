@@ -30,7 +30,7 @@ QUIZ_GROUPS = [
      ["vie-quotidienne", "legale-comparee", "interculturelle", "langage", "psychometrie", "sport",
       "consommation", "numerique", "evolutionniste", "vieillissement", "environnementale", "politique",
       "science-psychologique"]),
-    ("Lycée et L1", "Parcours Saint-Priest, clinique de base et distinction des quatre branches.",
+    ("Études et branches", "Spécialités du bac, clinique de base et distinction des quatre branches.",
      ["lycee-orientation", "clinique-l1", "branches-l1"]),
     ("Transversaux et examen", "Vérifie que tu maîtrises les références et l'ensemble du programme.",
      ["experiences-celebres", "biais-cognitifs", "grands-auteurs", "troubles-reconnaitre",
@@ -404,20 +404,20 @@ PARCOURS = [
         ],
     },
     {
-        "id": "lycee-saint-priest", "icon": "🎓", "color": "or",
-        "title": "Lycée Saint-Priest → L1 psychologie",
-        "desc": "Du lycée Condorcet (SES, HLP, SVT, maths) aux quatre branches de Lyon 2 : "
+        "id": "lycee-l1", "icon": "🎓", "color": "or",
+        "title": "Les quatre branches et les études",
+        "desc": "Des spécialités du bac (SES, HLP, SVT, maths) aux quatre branches de licence : "
                 "clinique, sociale, développement, cognitive — plus l'assistant pour réviser vite.",
-        "meta": ["≈ 5 h", "8 étapes", "2de · 1re · Tle · L1"],
+        "meta": ["≈ 5 h", "8 étapes", "Lycée · licence"],
         "steps": [
-            ("lycee.html", "Analyser le parcours Condorcet / CIO / Lyon 2", "Lycée"),
+            ("lycee.html", "Du lycée à la licence : carte et liste", "Études"),
             ("branches/index.html", "Comparer les quatre branches", "L1"),
             ("branches/cognitive.html", "Cognitive : mémoire, attention, labs", "Branche"),
             ("branches/sociale.html", "Sociale : influence et groupes", "Branche"),
             ("branches/developpement.html", "Développement : Piaget à l'attachement", "Branche"),
             ("branches/clinique.html", "Clinique : cadre et éthique", "Branche"),
             ("assistant.html", "Interroger l'assistant sur tout le site", "IA"),
-            ("quiz/quiz.html?id=lycee-orientation", "Quiz lycée Saint-Priest", "Quiz noté"),
+            ("quiz/quiz.html?id=lycee-orientation", "Quiz du lycée à la L1", "Quiz noté"),
         ],
     },
 ]
@@ -466,7 +466,7 @@ def render_parcours():
 </div>
 """
     _write("parcours.html", page_shell("Parcours guidés", body, depth=0, active="Apprendre",
-                                       description="Parcours guidés : débutant, clinique, lycée Saint-Priest, révision d'examen, travail, sujets avancés."))
+                                       description="Parcours guidés : débutant, clinique, lycée vers L1, révision d'examen, travail, sujets avancés."))
 
 
 # --------------------------------------------------------------------------

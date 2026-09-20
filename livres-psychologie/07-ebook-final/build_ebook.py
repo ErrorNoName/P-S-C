@@ -79,8 +79,8 @@ def main():
     print(f"   • Index de recherche : {n_entries} entrées ({size_kb:.0f} Ko)")
     print(f"   • Cursus : {n_cours} séances de 50 min (emploi du temps, archives, lecteur)")
     print(f"   • Rappels : {n_pensees} pensées, {n_plates} planches ({n_svg} gravures SVG)")
-    print(f"   • Lycée Saint-Priest : {n_lycee} pages (hub + 4 branches)")
-    print(f"   • Assistant IA : corpus {n_ai} extraits ({ai_kb:.0f} Ko)")
+    print(f"   • Études + 4 branches : {n_lycee} pages")
+    print(f"   • Assistant : corpus {n_ai} extraits ({ai_kb:.0f} Ko)")
     print(f"   • Découverte : {n_gal} images, {n_xp} planches d'expériences")
     print(f"   • sitemap.xml : {n_pages} pages référencées, robots.txt écrit")
 

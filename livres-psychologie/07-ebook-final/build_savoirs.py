@@ -480,11 +480,17 @@ def render_metiers():
     organisations professionnelles de psychologues ; en Belgique, à la Commission des psychologues ; en Suisse,
     à la loi fédérale sur les professions de la psychologie ; au Québec, à l'Ordre des psychologues.
   </div>
+
+  <div class="cta-row">
+    <a class="btn btn-primary" href="lycee.html">Du lycée à la licence — carte et liste</a>
+    <a class="btn btn-secondary" href="branches/index.html">Comparer les quatre branches</a>
+    <a class="btn btn-secondary" href="quiz/quiz.html?id=lycee-orientation">Quiz d'orientation</a>
+  </div>
 </div>
 """
     _write("metiers.html", page_shell(
-        "Métiers et études", body, depth=0, active="Métiers",
-        description="Métiers et études de psychologie : 20 métiers détaillés, parcours licence-master, titres protégés et cadre déontologique."))
+        "Métiers et études", body, depth=0, active="Aide",
+        description="Métiers et études de psychologie : du lycée à la licence, 20 métiers détaillés, parcours licence-master, titres protégés."))
 
 
 def render_all():
