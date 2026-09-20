@@ -410,3 +410,6 @@
   .ref-toolbar { position: static; }
   .reader-bar { position: static; }
 }
+@media (max-width: 560px) {
+  .nav-search-btn > span:nth-child(2) { display: none; }
+}

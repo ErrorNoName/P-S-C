@@ -94,6 +94,17 @@
     return ROOT + plate.file;
   }
 
+  function displayPlate(plate) {
+    if (!data || !plate) return plate;
+    if (plate.origin && plate.origin !== "svg") return plate;
+    var cats = plate.cats || [];
+    return data.plates.find(function (p) {
+      return p.origin && p.origin !== "svg" && (p.cats || []).some(function (c) {
+        return cats.indexOf(c) !== -1;
+      });
+    }) || plate;
+  }
+
   function hrefOf(pensee) {
     if (!pensee || !pensee.href) return ROOT + "livres-psychologie/07-ebook-final/rappels.html";
     if (/^https?:\/\//i.test(pensee.href)) return pensee.href;
@@ -109,8 +120,25 @@
     return hm >= a || hm < b;
   }
 
+  function hmToMin(hm) {
+    var p = (hm || "00:00").split(":");
+    return parseInt(p[0], 10) * 60 + parseInt(p[1], 10);
+  }
+
+  function minutesSinceSlot(slot, now) {
+    var nowM = hmToMin(parisParts(now).hm);
+    var slotM = hmToMin(slot.time);
+    var delta = nowM - slotM;
+    if (delta < 0) delta += 24 * 60;
+    return delta;
+  }
+
   function slotReached(slot, now) {
     return parisParts(now).hm >= slot.time;
+  }
+
+  function slotJustReached(slot, now) {
+    return slotReached(slot, now) && minutesSinceSlot(slot, now) <= 45;
   }
 
   function shownKey(kind, id, day) {
@@ -176,7 +204,7 @@
 
     if (store.thoughts) {
       data.slots.forEach(function (slot) {
-        if (!slotReached(slot, now)) return;
+        if (!slotJustReached(slot, now)) return;
         var item = pickPensee(slot.id, day);
         if (!item) return;
         var key = shownKey("pensee", slot.id, day);
@@ -239,7 +267,7 @@
     if (!host || !data) return;
     var day = todayKey();
     var item = pickPensee("matin", day);
-    var plate = plateById(item.plate);
+    var plate = displayPlate(plateById(item.plate));
     host.innerHTML =
       figureHtml(plate) +
       '<div class="pensee-copy">' +
