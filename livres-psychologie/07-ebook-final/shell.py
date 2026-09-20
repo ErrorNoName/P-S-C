@@ -98,6 +98,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
 <link rel="stylesheet" href="{asset(depth, 'css/v2.css')}">
 <link rel="stylesheet" href="{asset(depth, 'css/v3.css')}">
 <link rel="stylesheet" href="{asset(depth, 'css/v4.css')}">
+<link rel="stylesheet" href="{asset(depth, 'css/plates.css')}">
 {extra_head}
 </head>
 <body data-root="{repo_root(depth)}"{(' ' + body_attrs) if body_attrs else ''}>
@@ -109,6 +110,10 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
       <a class="nav-discord-btn" href="{DISCORD_INVITE}" target="_blank" rel="noopener" aria-label="Rejoindre le serveur Discord">
         <span aria-hidden="true">💬</span><span class="nav-discord-label">Discord</span>
       </a>
+      <button class="nav-notify-btn" type="button" data-notify-open="" aria-label="Rappels et pensées du jour">
+        <span aria-hidden="true">🔔</span><span class="nav-notify-label">Rappels</span>
+        <span class="nav-notify-badge" hidden>0</span>
+      </button>
       <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
         <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
       </button>
@@ -136,6 +141,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a href="{ebook(depth, 'apprendre.html')}">Apprendre</a>
     <a href="{ebook(depth, 'emploi-du-temps.html')}">Emploi du temps &amp; cours</a>
     <a href="{ebook(depth, 'cours/index.html')}">Cours &amp; archives</a>
+    <a href="{ebook(depth, 'rappels.html')}">Rappels &amp; planches</a>
     <a href="{ebook(depth, 'references/courants.html')}">Grands courants</a>
     <a href="{ebook(depth, 'references/mythes.html')}">Idées reçues</a>
     <a href="{ebook(depth, 'faq.html')}">Questions fréquentes</a>
@@ -156,6 +162,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
 <script src="{asset(depth, 'js/app.js')}"></script>
 <script src="{asset(depth, 'js/ui-v2.js')}"></script>
 <script src="{asset(depth, 'js/search.js')}"></script>
+<script src="{asset(depth, 'js/daily.js')}"></script>
 {extra_scripts}
 </body>
 </html>"""

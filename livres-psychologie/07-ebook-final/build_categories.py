@@ -8,6 +8,7 @@ from content import (
     CATEGORIES, DICTIONNAIRE, QUIZ_FOR_CATEGORY, CATEGORY_TITLE,
     EXPERIENCES, AUTEURS,
 )
+from data_pensees import PLATES_CATEGORIES
 from data_schemas import SCHEMAS
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -36,6 +37,21 @@ def _figures_html(figures):
     return (
         '<h2 id="figures">🖼️ Les visages de ce domaine</h2>'
         f'<div class="figures-people">{"".join(items)}</div>'
+    )
+
+
+def _geo_plate_html(cat_id):
+    spec = next((row for row in PLATES_CATEGORIES if row[0] == cat_id), None)
+    if not spec:
+        return ""
+    _cid, _figure, paper, title = spec
+    return (
+        f'<figure class="geo-plate {paper}" style="max-width:460px;margin:1.5rem 0 1.8rem">'
+        f'<img src="../../../assets-ebook/plates/svg/cat-{cat_id}.svg" alt="{title}">'
+        f'<figcaption><span class="geo-fig">Planche du domaine</span>'
+        f"<strong>{title}</strong>"
+        f"<em>Gravure générée pour illustrer ce cours — cabinet de psychologie géométrique.</em>"
+        f"</figcaption></figure>"
     )
 
 
@@ -219,6 +235,7 @@ def render_category(cat, idx):
       <h3>🎯 À l'issue de cette fiche, tu sauras :</h3>
       <ul>{objectives_html}</ul>
     </div>
+    {_geo_plate_html(cat["id"])}
 
     {sections_html}
     {_chiffres_html(cat.get("chiffres"))}

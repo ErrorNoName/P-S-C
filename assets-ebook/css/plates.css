@@ -1,0 +1,150 @@
+/* ==========================================================================
+   PSYCLOPÉDIA — Planches géométriques, pensées du jour, rappels
+   ========================================================================== */
+
+.nav-notify-btn {
+  position: relative;
+  display: flex; align-items: center; gap: 0.35rem;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 999px; padding: 0.42rem 0.75rem;
+  font-family: var(--sans); font-size: 0.8rem; color: var(--gris);
+  cursor: pointer; white-space: nowrap; transition: all 0.2s;
+}
+.nav-notify-btn:hover { border-color: var(--or); color: var(--noir); background: var(--or-light); }
+.nav-notify-badge {
+  min-width: 1.1rem; height: 1.1rem; padding: 0 0.28rem;
+  border-radius: 999px; background: var(--rose); color: #fff;
+  font-size: 0.65rem; font-weight: 700; display: inline-flex;
+  align-items: center; justify-content: center;
+}
+.nav-notify-badge[hidden] { display: none; }
+
+@media (max-width: 760px) {
+  .nav-notify-label { display: none; }
+}
+
+.notify-overlay {
+  position: fixed; inset: 0; z-index: 860;
+  background: rgba(28,30,29,0.28); display: none;
+}
+.notify-overlay.open { display: block; }
+.notify-panel {
+  position: fixed; top: 0; right: 0; z-index: 870;
+  width: min(420px, 100%); height: 100%;
+  background: var(--card); border-left: 1px solid var(--border);
+  box-shadow: var(--shadow-lg); transform: translateX(104%);
+  transition: transform 0.28s ease; display: flex; flex-direction: column;
+}
+.notify-panel.open { transform: translateX(0); }
+.notify-panel-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 1.2rem 0.8rem; border-bottom: 1px solid var(--border);
+}
+.notify-panel-head h2 { font-family: var(--serif); font-size: 1.15rem; }
+.notify-feed { overflow: auto; padding: 0.8rem 1.1rem 1.4rem; flex: 1; }
+.notify-item {
+  display: grid; grid-template-columns: 72px 1fr; gap: 0.75rem;
+  padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+  text-decoration: none; color: inherit;
+}
+.notify-item img, .notify-item .notify-svg {
+  width: 72px; height: 46px; object-fit: cover; border-radius: 4px;
+  background: var(--or-light);
+}
+.notify-item strong { display: block; font-size: 0.82rem; }
+.notify-item p { font-size: 0.78rem; color: var(--gris); line-height: 1.45; margin-top: 0.2rem; }
+.notify-item .when { font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--or); }
+.notify-empty { color: var(--gris); font-size: 0.85rem; padding: 1rem 0; }
+
+#toast.toast-plate {
+  max-width: min(440px, calc(100vw - 2rem));
+  border-radius: 16px; padding: 0; overflow: hidden;
+  display: flex; align-items: stretch; pointer-events: auto;
+  background: #F3E6C8; color: #1C1914; border: 1px solid #E7D7B0;
+}
+#toast.toast-plate.show { opacity: 1; }
+#toast.toast-plate img { width: 92px; height: 100%; object-fit: cover; }
+#toast.toast-plate .toast-body { padding: 0.7rem 0.9rem; text-align: left; }
+#toast.toast-plate .toast-k { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: #8A6414; }
+#toast.toast-plate .toast-t { font-family: var(--serif); font-size: 0.92rem; line-height: 1.35; }
+
+.pensee-band {
+  max-width: 1180px; margin: 0 auto 2rem; padding: 0 1.5rem;
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 1.5rem; align-items: center;
+}
+.pensee-band .geo-plate { margin: 0; }
+.pensee-copy .section-eyebrow { margin-bottom: 0.4rem; }
+.pensee-copy blockquote {
+  font-family: var(--serif); font-size: 1.25rem; line-height: 1.45;
+  font-weight: 500; margin: 0 0 0.7rem;
+}
+.pensee-copy cite { display: block; color: var(--gris); font-style: normal; font-size: 0.85rem; margin-bottom: 1rem; }
+
+@media (max-width: 860px) {
+  .pensee-band { grid-template-columns: 1fr; }
+}
+
+.geo-plate {
+  margin: 0;
+  background: #F3E6C8;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.geo-plate img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; background: #EFE4C6; }
+.geo-plate figcaption {
+  padding: 0.75rem 0.95rem 0.9rem;
+  font-size: 0.8rem; color: var(--gris); line-height: 1.45;
+}
+.geo-plate figcaption strong { display: block; color: var(--noir); font-family: var(--serif); font-size: 0.95rem; }
+.geo-plate .geo-fig {
+  display: block; font-family: var(--serif); letter-spacing: 0.06em;
+  font-size: 0.72rem; text-transform: uppercase; margin-bottom: 0.2rem; color: #8A6414;
+}
+.geo-plate figcaption em { display: block; font-style: italic; margin: 0.25rem 0; }
+.geo-plate.blue { background: #C4D3EA; }
+.geo-plate.red { background: #D83A48; color: #F6E4C4; }
+.geo-plate.red figcaption, .geo-plate.red figcaption strong, .geo-plate.red .geo-fig { color: #F6E4C4; }
+.geo-plate.peach { background: #E8C39A; }
+.geo-plate.sage { background: #D8D6C4; }
+
+.geo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.1rem;
+}
+
+.pensee-today {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem;
+}
+@media (max-width: 760px) { .pensee-today { grid-template-columns: 1fr; } }
+.pensee-slot {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow);
+}
+.pensee-slot blockquote { font-family: var(--serif); margin: 0.35rem 0 0.4rem; }
+
+.rappels-settings { max-width: 720px; margin: 1.2rem 0 0; }
+.rappels-check { display: flex; gap: 0.6rem; align-items: flex-start; margin: 0.55rem 0; font-size: 0.9rem; }
+.rappels-quiet { display: flex; gap: 1rem; flex-wrap: wrap; margin: 0.8rem 0 1rem; font-size: 0.88rem; }
+.rappels-quiet input[type="time"] {
+  margin-left: 0.35rem; border: 1px solid var(--border); border-radius: 8px; padding: 0.25rem 0.4rem;
+}
+
+.cours-next-card {
+  margin-top: 1.4rem; background: var(--or-light); border: 1px solid #E8D39A;
+  border-radius: var(--radius); padding: 1.1rem 1.2rem;
+}
+
+.cours-plate {
+  margin: 0 0 1rem;
+}
+.cours-plate img { aspect-ratio: 16 / 10; }
+
+.emploi-plate-row {
+  display: grid; grid-template-columns: 160px 1fr; gap: 1rem;
+  align-items: center; margin-top: 1rem;
+}
+@media (max-width: 640px) { .emploi-plate-row { grid-template-columns: 1fr; } }

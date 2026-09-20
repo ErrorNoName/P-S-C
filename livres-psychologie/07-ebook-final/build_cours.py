@@ -80,6 +80,14 @@ def render_emploi(cours):
         <span><b id="cd-s">–</b><small>s</small></span>
       </div>
       <div class="cta-row" id="countdown-actions"></div>
+      <div class="emploi-plate-row">
+        <div data-emploi-plate></div>
+        <div>
+          <p class="tiny-note">Active les <a href="rappels.html">rappels</a> pour être prévenu
+          une heure avant, quinze minutes avant, et à l'heure du cours — tant qu'un onglet
+          du site reste ouvert.</p>
+        </div>
+      </div>
     </div>
     <div class="cours-progress-card" id="cours-progress-card">
       <p class="section-eyebrow">Ta progression</p>
@@ -265,6 +273,7 @@ def render_lecteur():
         <p id="sync-body"></p>
         <p class="karaoke" id="sync-karaoke"></p>
       </div>
+      <div data-cours-plate class="cours-plate-host"></div>
       <div id="res-list" class="res-list"></div>
       <div class="quiz-box" id="quiz-box">
         <h3>Quiz flash</h3>

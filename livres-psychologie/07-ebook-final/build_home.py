@@ -44,6 +44,7 @@ NOUVEAUTES = [
     ("🔁", "Révision espacée", "Un algorithme te représente chaque notion au bon moment"),
     ("🎓", "Cours magistraux de 50 min", "Cursus annuel, calendrier, replays YouTube francophones et fiches en direct"),
     ("💬", "Serveur Discord", "Cours, fiches, forums thématiques et entraide — le site reste la source"),
+    ("🔔", "Rappels et planches", "Pensées du jour, notifications de cours, cabinet de gravures géométriques"),
 ]
 
 # (href, classe couleur, icône, titre, description, compteur)
@@ -105,6 +106,9 @@ OUTILS_V3 = [
     (DISCORD_INVITE, "or", "💬", "Communauté Discord",
      "Annonces de cours, forums par champ, fiches et entraide. Ce n'est pas un soin : "
      "en détresse, ouvrez d'abord la page Aide.", "Rejoindre"),
+    ("rappels.html", "or", "🔔", "Rappels & planches",
+     "Citations et questions dans la journée, rappels avant chaque cours de 50 minutes, "
+     "et un cabinet de planches de psychologie géométrique.", "Pensées · gravures"),
 ]
 
 
@@ -247,6 +251,22 @@ def render_home():
     </div>
   </div>
   <div class="hero-sparkline" id="hero-sparkline">{_sparkline()}</div>
+</div>
+
+<div class="pensee-band" data-pensee-home>
+  <figure class="geo-plate cream">
+    <img src="assets-ebook/plates/hero/plate_frontispice_site.png" alt="Planche de représentation">
+    <figcaption><span class="geo-fig">Fig. A.</span><strong>Planche du jour</strong>
+    <em>Une pensée se charge ici selon la date.</em></figcaption>
+  </figure>
+  <div class="pensee-copy">
+    <p class="section-eyebrow">Planche du jour</p>
+    <blockquote>Une citation, un rappel de cours ou une question qui fait réfléchir — chaque jour une gravure différente.</blockquote>
+    <cite>Psyclopédia</cite>
+    <div class="cta-row">
+      <a class="btn btn-secondary" href="{EB}rappels.html">Ouvrir les rappels</a>
+    </div>
+  </div>
 </div>
 
 <div class="section" style="padding-top:0">

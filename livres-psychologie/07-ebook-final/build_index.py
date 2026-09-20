@@ -73,6 +73,7 @@ def build_index():
         ("Emploi du temps et cours", "Cursus annuel de cours magistraux et travaux dirigés de 50 minutes, calendrier, compte à rebours et progression locale.", EBOOK + "emploi-du-temps.html", "cours emploi du temps calendrier cm td magistral replay countdown"),
         ("Cours et archives", "Médiathèque des séances : replays par catégorie, thème et intervenant, notes exportables.", EBOOK + "cours/index.html", "archives mediatheque replay cours notes"),
         ("Lecteur de cours synchronisé", "Vidéo francophone, fiches Psyclopédia en direct, surlignage et quiz flash.", EBOOK + "cours/lecteur.html", "lecteur youtube synchronisation karaoke ressources cinema"),
+        ("Rappels, pensées et planches", "Notifications de cours, citations du jour et cabinet de gravures de psychologie géométrique.", EBOOK + "rappels.html", "rappel notification citation pensee planche gravure"),
     ]
     for title, desc, url, kw in static_pages:
         entries.append(_entry(title, desc, "page", url, kw))
