@@ -13,6 +13,7 @@ from data_enrichissement import EXTRA as _EXTRA
 from data_glossaire import GLOSSAIRE_PLUS as _DICT_PLUS
 from data_quiz import QUIZZES as _QUIZ_BASE
 from data_quiz_plus import QUIZZES_PLUS as _QUIZ_PLUS
+from data_quiz_lycee import QUIZZES_LYCEE as _QUIZ_LYCEE
 from data_experiences import EXPERIENCES
 from data_auteurs import AUTEURS
 from data_troubles import TROUBLES
@@ -80,7 +81,7 @@ DICTIONNAIRE = _merge_dictionnaire()
 # Quiz
 # --------------------------------------------------------------------------
 
-QUIZZES = list(_QUIZ_BASE) + list(_QUIZ_PLUS)
+QUIZZES = list(_QUIZ_BASE) + list(_QUIZ_PLUS) + list(_QUIZ_LYCEE)
 QUIZ_IDS = {q["id"] for q in QUIZZES}
 
 # Quiz recommandé au bas de chaque fiche de catégorie.

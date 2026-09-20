@@ -196,6 +196,13 @@ EXTRA = {
              "<p>Les <strong>difficultés désirables</strong> (Bjork) formalisent ce paradoxe : ce qui rend l'apprentissage plus "
              "difficile sur le moment — espacer, alterner, se tester, varier les conditions — améliore la rétention à long terme, "
              "au prix d'une performance immédiate plus faible.</p>"),
+            ("Du lycée de Saint-Priest à la L1 cognitive",
+             "<p>À Condorcet, la cognitive se prépare surtout en <strong>SVT</strong> (cerveau, hormones, démarche expérimentale), "
+             "en <strong>mathématiques</strong> (probabilités, lecture de courbes — demain les stats de L1) et en "
+             "<strong>philosophie de Terminale</strong> (esprit, représentation, illusion). Les laboratoires du site "
+             "(Stroop, empan, temps de réaction) rejouent déjà les TD de Lyon 2.</p>"
+             "<p>Parcours dédié : <a href=\"../branches/cognitive.html\">psychologie cognitive, lycée → L1</a>. "
+             "Assistant : demande « mémoire de travail » ou « charge cognitive ».</p>"),
         ],
         "mythes": [
             ("Nous ne retenons que 10 % de ce que nous lisons et 90 % de ce que nous faisons.",
@@ -215,6 +222,7 @@ EXTRA = {
             ("Quelles sont les composantes du modèle de Baddeley ?", "Boucle phonologique, calepin visuo-spatial, administrateur central et buffer épisodique."),
             ("Qu'est-ce qu'une difficulté désirable ?", "Une condition qui rend l'apprentissage plus difficile sur le moment mais améliore la rétention à long terme."),
             ("Pourquoi les étudiants préfèrent-ils la relecture ?", "Parce qu'elle produit une illusion de fluence : la facilité ressentie est confondue avec la maîtrise."),
+            ("Quel pont lycée mène le plus directement à la cognitive ?", "SVT (cerveau), maths (probabilités, graphiques) et philo de Terminale (esprit, représentation)."),
         ],
     },
     "04-sociale": {
@@ -261,6 +269,11 @@ EXTRA = {
              "<p>Le concept d'<strong>ignorance pluraliste</strong> explique de nombreuses situations paradoxales : chacun désapprouve "
              "en privé une pratique tout en croyant être le seul, parce que personne n'ose l'exprimer. Le silence collectif maintient "
              "alors une norme que presque personne ne soutient réellement.</p>"),
+            ("Du lycée de Saint-Priest à la L1 sociale",
+             "<p>Le pont le plus direct à Condorcet est <strong>SES</strong> (socialisation, groupes, institutions, enquêtes), "
+             "complété par <strong>EMC</strong> et <strong>HGGSP</strong>. En L1, on passe de la description à l'expérience : "
+             "variable indépendante, éthique, critique de Milgram et d'Asch.</p>"
+             "<p>Parcours dédié : <a href=\"../branches/sociale.html\">psychologie sociale, lycée → L1</a>.</p>"),
         ],
         "mythes": [
             ("38 témoins ont assisté sans réagir au meurtre de Kitty Genovese.",
@@ -280,6 +293,7 @@ EXTRA = {
             ("Quelles sont les quatre conditions de l'hypothèse du contact ?", "Statut égal, objectifs communs, coopération et soutien institutionnel."),
             ("Quelle norme est la plus efficace pour changer un comportement ?", "La norme descriptive : ce que les gens font réellement."),
             ("Qu'est-ce que l'ignorance pluraliste ?", "Chacun désapprouve une pratique en privé tout en croyant être seul à le faire, ce qui maintient une norme que personne ne soutient."),
+            ("Quel pont lycée mène à la psychologie sociale ?", "SES (socialisation, groupes), EMC (préjugés) et HGGSP (identités, médias)."),
         ],
     },
     "05-developpement": {
@@ -341,6 +355,11 @@ EXTRA = {
              "rappellent que l'influence parentale sur les traits de personnalité est plus faible qu'on ne l'imagine — ce qui est "
              "une bonne nouvelle pour les parents rongés par la culpabilité. Ce qui reste solidement établi : la sécurité affective, "
              "la stabilité, l'absence de violence et la qualité du langage adressé à l'enfant.</p>"),
+            ("Du lycée de Saint-Priest à la L1 développement",
+             "<p>En <strong>SVT</strong>, on parle maturation et hormones ; en <strong>SES</strong>, socialisation familiale et "
+             "scolaire. La L1 demande les stades de Piaget <em>et</em> leurs limites, Vygotski, l'attachement, et la différence "
+             "entre étude longitudinale et transversale.</p>"
+             "<p>Parcours dédié : <a href=\"../branches/developpement.html\">psychologie du développement, lycée → L1</a>.</p>"),
         ],
         "mythes": [
             ("Les trois premières années déterminent toute la vie.",
@@ -360,6 +379,7 @@ EXTRA = {
             ("Pourquoi Piaget a-t-il sous-estimé les bébés ?", "Ses épreuves exigeaient des capacités motrices et langagières que le nourrisson ne possède pas encore."),
             ("Pourquoi les adolescents prennent-ils plus de risques ?", "Le système de récompense mûrit avant le cortex préfrontal, et la présence des pairs amplifie fortement la prise de risque."),
             ("Qu'est-ce que l'attachement acquis-sécure ?", "Le développement d'un fonctionnement sécure malgré une enfance insécure, notamment via une relation stable ou une psychothérapie."),
+            ("Quel pont lycée mène au développement ?", "SVT (maturation), SES (socialisation) et EMC (autonomie, harcèlement)."),
         ],
     },
     "06-personnalite": {
@@ -647,6 +667,12 @@ EXTRA = {
              "la perception de dangerosité et d'irréversibilité.</p>"
              "<p>Un chiffre à connaître : les personnes souffrant de troubles psychiques sévères sont bien plus souvent "
              "<strong>victimes</strong> que auteurs de violences.</p>"),
+            ("Du lycée de Saint-Priest à la L1 clinique",
+             "<p>HLP et la philo de Terminale entraînent déjà l'écoute d'un texte et la définition d'un sujet. "
+             "La clinique de L1 ajoute le <strong>cadre</strong>, l'<strong>éthique</strong> et l'interdiction de "
+             "diagnostiquer un camarade. Le titre de psychologue exige le master ; un quiz n'a aucune valeur diagnostique.</p>"
+             "<p>Parcours dédié : <a href=\"../branches/clinique.html\">psychologie clinique, lycée → L1</a>. "
+             "En détresse : <a href=\"../aide.html\">Aide</a>, 3114.</p>"),
         ],
         "mythes": [
             ("La schizophrénie, c'est le dédoublement de la personnalité.",
@@ -666,6 +692,7 @@ EXTRA = {
             ("Qu'est-ce qu'un facteur transdiagnostique ?", "Un mécanisme commun à plusieurs troubles, comme la rumination, l'évitement expérientiel ou la dysrégulation émotionnelle."),
             ("Parler du suicide augmente-t-il le risque ?", "Non. C'est une idée reçue dangereuse : poser la question directement soulage et ouvre la discussion."),
             ("Quel est le levier le plus efficace contre la stigmatisation ?", "Le contact direct avec des personnes concernées, bien plus que les campagnes d'information."),
+            ("Un lycéen peut-il poser un diagnostic ?", "Non. Écouter et orienter (3114, PsyEN, CMP) ; le diagnostic appartient à un professionnel dans un cadre."),
         ],
     },
     "10-therapies": {

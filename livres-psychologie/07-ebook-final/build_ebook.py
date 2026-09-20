@@ -21,6 +21,8 @@ import build_references
 import build_savoirs
 import build_savoirs2
 import build_sitemap
+import build_lycee
+import build_assistant
 from build_index import write_index
 from content import (
     CATEGORIES, DICTIONNAIRE, QUIZZES, BOOKS, EXPERIENCES, AUTEURS, TROUBLES, BIAIS,
@@ -45,6 +47,8 @@ def main():
     n_evals, n_eval_items = build_autoeval.render_all()
     n_cards, cards_kb, n_index = build_outils.render_all()
     build_pages.render_all()
+    n_lycee = build_lycee.render_all()
+    n_ai, ai_kb = build_assistant.render_all()
     n_gal, n_xp = build_decouverte.render_decouverte()
     n_cours = build_cours.render_all()
     n_svg, n_pensees, n_plates, _n_cat = build_plates.render_all()
@@ -75,6 +79,8 @@ def main():
     print(f"   • Index de recherche : {n_entries} entrées ({size_kb:.0f} Ko)")
     print(f"   • Cursus : {n_cours} séances de 50 min (emploi du temps, archives, lecteur)")
     print(f"   • Rappels : {n_pensees} pensées, {n_plates} planches ({n_svg} gravures SVG)")
+    print(f"   • Lycée Saint-Priest : {n_lycee} pages (hub + 4 branches)")
+    print(f"   • Assistant IA : corpus {n_ai} extraits ({ai_kb:.0f} Ko)")
     print(f"   • Découverte : {n_gal} images, {n_xp} planches d'expériences")
     print(f"   • sitemap.xml : {n_pages} pages référencées, robots.txt écrit")
 

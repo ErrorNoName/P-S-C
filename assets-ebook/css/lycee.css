@@ -1,0 +1,65 @@
+/* Lycée Saint-Priest + quatre branches */
+
+.lycee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.1rem;
+  margin: 1.2rem 0 2rem;
+}
+.lycee-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.2rem 1.3rem;
+}
+.lycee-card h3 { font-family: var(--serif); margin: 0.2rem 0 0.5rem; }
+.lycee-role { color: var(--gris); font-size: 0.92rem; }
+.lycee-addr { font-size: 0.8rem; color: var(--gris); }
+.lycee-card ul { padding-left: 1.1rem; margin: 0.6rem 0; }
+.lycee-card li { margin: 0.28rem 0; font-size: 0.9rem; }
+
+.lycee-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  font-size: 0.88rem;
+}
+.lycee-table th, .lycee-table td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  text-align: left;
+}
+.lycee-table thead th {
+  background: var(--bg);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--gris);
+}
+.lycee-table-wide td { min-width: 140px; }
+.muted { color: var(--gris); font-size: 0.8rem; }
+
+.lycee-list { display: grid; gap: 1rem; }
+.lycee-list-block {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem 1.2rem;
+}
+.lycee-list-block h3 { font-family: var(--serif); margin: 0 0 0.6rem; }
+.lycee-check { list-style: none; padding: 0; margin: 0; }
+.lycee-check li {
+  display: flex; gap: 0.6rem; align-items: flex-start;
+  padding: 0.35rem 0; font-size: 0.92rem;
+  border-bottom: 1px dashed var(--border);
+}
+.lycee-chip {
+  flex-shrink: 0; font-size: 0.68rem; font-weight: 700;
+  border-radius: 999px; padding: 0.15rem 0.5rem; margin-top: 0.15rem;
+}
+.lycee-chip-new { background: var(--vert-light); color: var(--vert); }
+.lycee-chip-site { background: var(--gris-light); color: var(--gris); }

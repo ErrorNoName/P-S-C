@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assistant IA — Psyclopédia</title>
+<meta name="description" content="Assistant intégré : réponses complètes et sourcées à partir de tout le contenu de Psyclopédia.">
+<meta property="og:title" content="Assistant IA — Psyclopédia">
+<meta property="og:description" content="Assistant intégré : réponses complètes et sourcées à partir de tout le contenu de Psyclopédia.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="../../assets-ebook/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets-ebook/css/style.css">
+<link rel="stylesheet" href="../../assets-ebook/css/v2.css">
+<link rel="stylesheet" href="../../assets-ebook/css/v3.css">
+<link rel="stylesheet" href="../../assets-ebook/css/v4.css">
+<link rel="stylesheet" href="../../assets-ebook/css/plates.css">
+<link rel="stylesheet" href="../../assets-ebook/css/lycee.css">
+<link rel="stylesheet" href="../../assets-ebook/css/assistant.css">
+
+</head>
+<body data-root="../../">
+<div class="topbar">
+  <nav class="nav-pill">
+    <a class="brand" href="../../index.html"><span class="brand-mark"></span>Psyclopédia</a>
+    <ul class="nav-links"><a href="../../index.html">Accueil</a><a href="index.html">Catégories</a><a href="decouverte.html">Découverte</a><a href="lycee.html">Lycée</a><a href="references/index.html">Références</a><a href="methodes.html">Méthodes</a><a href="pratique.html">Pratique</a><a href="bibliotheque.html">Bibliothèque</a><a href="quiz/index.html">Quiz</a><a href="apprendre.html">Apprendre</a><a href="emploi-du-temps.html">Cours</a><a href="aide.html">Aide</a></ul>
+    <div class="nav-side">
+      <a class="nav-discord-btn" href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener" aria-label="Rejoindre le serveur Discord">
+        <span aria-hidden="true">💬</span><span class="nav-discord-label">Discord</span>
+      </a>
+      <button class="nav-notify-btn" type="button" data-notify-open="" aria-label="Rappels et pensées du jour">
+        <span aria-hidden="true">🔔</span><span class="nav-notify-label">Rappels</span>
+        <span class="nav-notify-badge" hidden>0</span>
+      </button>
+      <button class="nav-ai-btn" type="button" data-ai-open="" aria-label="Assistant du site">
+        <span aria-hidden="true">🤖</span><span class="nav-ai-label">IA</span>
+      </button>
+      <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
+        <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<div class="page-header">
+  <p class="breadcrumb"><a href="../../index.html">Accueil</a> → Assistant IA</p>
+  <div class="page-hero">
+    <div class="page-hero-icon" style="background:var(--vert-light)">🤖</div>
+    <div>
+      <h1>Assistant Psyclopédia</h1>
+      <p class="subtitle">Pose une question : la réponse est construite à partir de tout ce que contient le site, avec les pages sources</p>
+    </div>
+  </div>
+  <div class="meta-row"><span class="meta-chip">Ancré dans le corpus</span><span class="meta-chip">Réponses complètes</span><span class="meta-chip">Sans diagnostic</span></div>
+</div>
+<div class="section ai-page">
+  <p class="section-desc" style="max-width:760px">Pas un chatbot qui invente. L'assistant cherche
+  dans les catégories, le dictionnaire, les expériences, les quatre branches L1 et le parcours
+  lycée Saint-Priest, puis rédige une réponse claire avec des liens pour aller plus loin.
+  Raccourci : <kbd>Ctrl</kbd> + <kbd>J</kbd> depuis n'importe quelle page.</p>
+
+  <div class="ai-box" data-ai-root>
+    <form class="ai-form" data-ai-form>
+      <label class="sr-only" for="ai-q">Votre question</label>
+      <textarea id="ai-q" data-ai-input rows="2" placeholder="Ex. : Qu'est-ce que la dissonance cognitive, et quel exemple lycée ?" required></textarea>
+      <button type="submit" class="btn btn-primary">Répondre</button>
+    </form>
+    <div class="ai-chips"><button type="button" class="ai-chip" data-ai-q="Quelle est la différence entre conformité et obéissance ?">Quelle est la différence entre conformité et obéissance ?</button><button type="button" class="ai-chip" data-ai-q="Que faut-il comme spécialités à Condorcet pour faire psycho ?">Que faut-il comme spécialités à Condorcet pour faire psycho ?</button><button type="button" class="ai-chip" data-ai-q="C'est quoi la zone proximale de développement ?">C'est quoi la zone proximale de développement ?</button><button type="button" class="ai-chip" data-ai-q="Pourquoi la L1 a-t-elle autant de statistiques ?">Pourquoi la L1 a-t-elle autant de statistiques ?</button><button type="button" class="ai-chip" data-ai-q="Que montre l'expérience de Milgram, et quelles sont ses limites ?">Que montre l'expérience de Milgram, et quelles sont ses limites ?</button><button type="button" class="ai-chip" data-ai-q="Psychologue ou psychiatre ?">Psychologue ou psychiatre ?</button></div>
+    <div class="ai-out" data-ai-out>
+      <div class="ai-empty">Écris une question, ou choisis un exemple. La première recherche charge le corpus du site.</div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <strong>Ce que l'assistant sait faire :</strong> définir, comparer deux notions, relier une
+    matière de Condorcet à une branche, résumer une expérience, orienter vers un quiz ou une fiche.
+    <strong>Ce qu'il refuse :</strong> poser un diagnostic, conseiller un traitement, citer une
+    page qui n'est pas sur Psyclopédia.
+  </div>
+  <div class="cta-row">
+    <a class="btn btn-secondary" href="lycee.html">🎓 Parcours lycée</a>
+    <a class="btn btn-secondary" href="branches/index.html">🧭 Quatre branches</a>
+    <button class="btn btn-secondary" data-search-open="">🔍 Recherche classique (Ctrl + K)</button>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="../../index.html">Accueil</a>
+    <a href="index.html">Catégories</a>
+    <a href="decouverte.html">Zone de découverte</a>
+    <a href="lycee.html">Lycée Saint-Priest</a>
+    <a href="branches/index.html">Quatre branches</a>
+    <a href="assistant.html">Assistant IA</a>
+    <a href="references/index.html">Références</a>
+    <a href="dictionnaire.html">Dictionnaire</a>
+    <a href="bibliotheque.html">Bibliothèque</a>
+    <a href="lecteur.html">Lecteur en ligne</a>
+    <a href="methodes.html">Méthodes</a>
+    <a href="pratique.html">Psychologie pratique</a>
+    <a href="lexique.html">Lexique anglais</a>
+    <a href="metiers.html">Métiers &amp; études</a>
+    <a href="quiz/index.html">Quiz</a>
+    <a href="laboratoire.html">Laboratoire</a>
+    <a href="revision.html">Révision espacée</a>
+    <a href="fiches/index.html">Fiches de révision</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="apprendre.html">Apprendre</a>
+    <a href="emploi-du-temps.html">Emploi du temps &amp; cours</a>
+    <a href="cours/index.html">Cours &amp; archives</a>
+    <a href="rappels.html">Rappels &amp; planches</a>
+    <a href="references/courants.html">Grands courants</a>
+    <a href="references/mythes.html">Idées reçues</a>
+    <a href="faq.html">Questions fréquentes</a>
+    <a href="auto-evaluations.html">Auto-évaluations</a>
+    <a href="aide.html">Aide &amp; ressources</a>
+    <a href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener">Communauté Discord</a>
+    <a href="plan.html">Plan du site</a>
+    <a href="credits.html">Crédits &amp; sources</a>
+  </div>
+  <p>Psyclopédia — encyclopédie pédagogique libre de la psychologie, entièrement en français.
+  Textes de synthèse rédigés pour ce guide ; ouvrages du domaine public hébergés dans
+  <code>06-pdf-domaine-public/</code> avec mention de leur source (Gallica, Internet Archive,
+  Project Gutenberg, Les Classiques des sciences sociales, Darwin Online).
+  Illustrations : Wikimedia Commons (domaine public).</p>
+  <p style="margin-top:0.75rem;font-size:0.78rem">⚠️ Contenu pédagogique de vulgarisation : il ne remplace
+  ni un diagnostic, ni un avis médical, ni un suivi psychologique professionnel.</p>
+</footer>
+<script src="../../assets-ebook/js/app.js"></script>
+<script src="../../assets-ebook/js/ui-v2.js"></script>
+<script src="../../assets-ebook/js/search.js"></script>
+<script src="../../assets-ebook/js/daily.js"></script>
+<script src="../../assets-ebook/js/assistant.js"></script>
+
+</body>
+</html>

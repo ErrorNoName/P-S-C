@@ -30,6 +30,8 @@ QUIZ_GROUPS = [
      ["vie-quotidienne", "legale-comparee", "interculturelle", "langage", "psychometrie", "sport",
       "consommation", "numerique", "evolutionniste", "vieillissement", "environnementale", "politique",
       "science-psychologique"]),
+    ("Lycée et L1", "Parcours Saint-Priest, clinique de base et distinction des quatre branches.",
+     ["lycee-orientation", "clinique-l1", "branches-l1"]),
     ("Transversaux et examen", "Vérifie que tu maîtrises les références et l'ensemble du programme.",
      ["experiences-celebres", "biais-cognitifs", "grands-auteurs", "troubles-reconnaitre",
       "chronologie-quiz", "examen-final"]),
@@ -401,6 +403,23 @@ PARCOURS = [
             ("quiz/quiz.html?id=science-psychologique", "Quiz Science psychologique", "Quiz noté"),
         ],
     },
+    {
+        "id": "lycee-saint-priest", "icon": "🎓", "color": "or",
+        "title": "Lycée Saint-Priest → L1 psychologie",
+        "desc": "Du lycée Condorcet (SES, HLP, SVT, maths) aux quatre branches de Lyon 2 : "
+                "clinique, sociale, développement, cognitive — plus l'assistant pour réviser vite.",
+        "meta": ["≈ 5 h", "8 étapes", "2de · 1re · Tle · L1"],
+        "steps": [
+            ("lycee.html", "Analyser le parcours Condorcet / CIO / Lyon 2", "Lycée"),
+            ("branches/index.html", "Comparer les quatre branches", "L1"),
+            ("branches/cognitive.html", "Cognitive : mémoire, attention, labs", "Branche"),
+            ("branches/sociale.html", "Sociale : influence et groupes", "Branche"),
+            ("branches/developpement.html", "Développement : Piaget à l'attachement", "Branche"),
+            ("branches/clinique.html", "Clinique : cadre et éthique", "Branche"),
+            ("assistant.html", "Interroger l'assistant sur tout le site", "IA"),
+            ("quiz/quiz.html?id=lycee-orientation", "Quiz lycée Saint-Priest", "Quiz noté"),
+        ],
+    },
 ]
 
 
@@ -429,7 +448,7 @@ def render_parcours():
         depth=0,
         breadcrumb=[("Accueil", "../../index.html"), ("Parcours", None)],
         icon="🧭", color="vert", title="Parcours d'apprentissage guidés",
-        subtitle="Six itinéraires balisés selon ton objectif, plutôt que 26 fiches en vrac",
+        subtitle="Itinéraires balisés selon ton objectif, plutôt que 27 fiches en vrac",
         chips=[f"🧭 {len(PARCOURS)} parcours", f"📍 {sum(len(p['steps']) for p in PARCOURS)} étapes", "✅ Progression sauvegardée"],
     )
 
@@ -447,7 +466,7 @@ def render_parcours():
 </div>
 """
     _write("parcours.html", page_shell("Parcours guidés", body, depth=0, active="Apprendre",
-                                       description="Six parcours d'apprentissage guidés en psychologie : débutant, introspection, clinique, révision d'examen, travail, sujets avancés."))
+                                       description="Parcours guidés : débutant, clinique, lycée Saint-Priest, révision d'examen, travail, sujets avancés."))
 
 
 # --------------------------------------------------------------------------

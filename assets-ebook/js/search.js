@@ -45,6 +45,9 @@
     quiz: "Quiz",
     cours: "Cours",
     page: "Page",
+    lycee: "Lycée",
+    branche: "Branche",
+    oral: "Grand oral",
   };
 
   var KIND_ICON = {
@@ -53,6 +56,7 @@
     mythe: "🧹", faq: "❓", aide: "🤝", eval: "📋",
     pratique: "🧰", metier: "💼", labo: "🧪", anglais: "🌍",
     date: "🗓️", livre: "📕", quiz: "🎮", cours: "🎓", page: "🧭",
+    lycee: "🎓", branche: "🧭", oral: "🎤",
   };
 
   var FILTERS = [
@@ -262,6 +266,7 @@
           '<span><kbd>↑</kbd><kbd>↓</kbd> naviguer</span>' +
           '<span><kbd>↵</kbd> ouvrir</span>' +
           '<span><kbd>Échap</kbd> fermer</span>' +
+          '<button type="button" class="search-ai-link" data-search-to-ai>🤖 Réponse complète (IA)</button>' +
           '<span id="psy-search-count"></span>' +
         '</div>' +
       "</div>";
@@ -273,6 +278,16 @@
 
     overlay.addEventListener("click", function (e) { if (e.target === overlay) close(); });
     input.addEventListener("input", function () { render(input.value); });
+
+    var toAi = overlay.querySelector("[data-search-to-ai]");
+    if (toAi) {
+      toAi.addEventListener("click", function () {
+        var q = input.value.trim();
+        close();
+        if (window.PsyAssistant) window.PsyAssistant.open(q);
+        else window.location.href = ROOT + "livres-psychologie/07-ebook-final/assistant.html" + (q ? ("?q=" + encodeURIComponent(q)) : "");
+      });
+    }
 
     overlay.querySelectorAll(".search-filter").forEach(function (btn) {
       btn.addEventListener("click", function () {

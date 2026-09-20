@@ -22,6 +22,15 @@
   transition: all 0.2s;
 }
 .nav-discord-btn:hover { border-color: var(--or); color: var(--noir); background: #F8E6B0; }
+.nav-ai-btn {
+  display: flex; align-items: center; gap: 0.35rem;
+  background: var(--vert-light); border: 1px solid transparent;
+  border-radius: 999px; padding: 0.42rem 0.75rem;
+  font-family: var(--sans); font-size: 0.8rem; font-weight: 600;
+  color: var(--vert); cursor: pointer; white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-ai-btn:hover { border-color: var(--vert); color: var(--noir); }
 .nav-search-btn kbd {
   font-family: var(--sans); font-size: 0.68rem; background: var(--card);
   border: 1px solid var(--border); border-radius: 5px; padding: 0.08rem 0.35rem; color: var(--gris);
@@ -103,6 +112,11 @@
   font-family: var(--sans); background: var(--card); border: 1px solid var(--border);
   border-radius: 4px; padding: 0.05rem 0.3rem; margin-right: 0.25rem;
 }
+.search-ai-link {
+  margin-left: auto; border: 0; background: none; color: var(--vert);
+  font-weight: 600; cursor: pointer; font-size: 0.72rem;
+}
+.search-ai-link:hover { text-decoration: underline; }
 
 /* ---------- Sommaire latéral + progression de lecture ---------- */
 
@@ -407,6 +421,7 @@
 @media (max-width: 760px) {
   .nav-search-btn kbd { display: none; }
   .nav-discord-label { display: none; }
+  .nav-ai-label { display: none; }
   .ref-toolbar { position: static; }
   .reader-bar { position: static; }
 }
