@@ -192,11 +192,12 @@
   }
 
   function toastPlate(title, text, plate, href) {
+    var shown = displayPlate(plate);
     var el = document.createElement("div");
     el.className = "toast-item toast-plate";
     el.setAttribute("role", "status");
     el.innerHTML =
-      (plate ? '<img src="' + plateSrc(plate) + '" alt="">' : "") +
+      (shown ? '<img src="' + plateSrc(shown) + '" alt="">' : "") +
       '<div class="toast-body"><div class="toast-k">' + esc(title) + "</div>" +
       '<div class="toast-t">' + esc(text) + "</div></div>";
     el.onclick = function () {

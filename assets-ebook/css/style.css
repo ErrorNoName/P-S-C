@@ -740,6 +740,7 @@ footer .foot-links { display: flex; gap: 1.5rem; justify-content: center; margin
 #toast-stack .toast-item.show { opacity: 1; transform: translateY(0); }
 #toast-stack .toast-item img {
   width: 56px; height: 56px; object-fit: cover; display: block;
+  background: #D8C89A;
 }
 #toast-stack .toast-item .toast-body {
   padding: 0.4rem 0.7rem 0.45rem; text-align: left; min-width: 0;
