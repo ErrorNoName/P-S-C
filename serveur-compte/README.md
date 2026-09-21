@@ -1,38 +1,65 @@
 # Comptes étudiants — API SQLite
 
-Serveur HTTP en bibliothèque standard Python : base **SQLite** réelle, sessions
-Bearer, hachage **PBKDF2-SHA256** (210 000 itérations), notes de cours, notes de
-quiz et instantané de progression.
+GitHub Pages (`https://errornoname.github.io/P-S-C/`) est un site **statique** :
+il ne peut pas faire tourner SQLite. Sans API, le navigateur utilise IndexedDB
+(un seul appareil).
 
-## Lancer le site avec la base
-
-Depuis la racine du dépôt :
+## Chez toi (base réelle tout de suite)
 
 ```bash
 python3 serveur-compte/compte_server.py --static .
-# http://127.0.0.1:8787/
 ```
 
-Les fichiers de données (`serveur-compte/data/`) ne sont pas versionnés.
+Ouvre **http://127.0.0.1:8787/** (pas github.io). Le bandeau doit dire
+« Base SQLite distante ».
 
-## Variables d'environnement
+## En ligne (sync téléphone + ordinateur)
+
+Il faut une URL HTTPS publique de **cette** API. Le plus rapide :
+
+1. Compte Render : https://dashboard.render.com/register
+2. Nouveau Web Service : https://dashboard.render.com/select-repo?type=web
+3. Branche le dépôt **ErrorNoName/P-S-C**, branche `main`.
+4. Runtime Python, commande de démarrage :
+
+```
+python3 serveur-compte/compte_server.py --host 0.0.0.0 --port $PORT
+```
+
+5. Health check : `/api/health`
+6. Crée le service. Tu obtiens une URL du type `https://psyclopedia-compte.onrender.com`.
+
+Blueprint (même dépôt) : https://dashboard.render.com/blueprint/new
+
+Vérifie : `https://TON-API.onrender.com/api/health` doit renvoyer `{"ok": true, ...}`.
+
+### Google (après l’URL)
+
+Ajoute **l’origine** de l’API (sans chemin) ici :
+
+https://console.cloud.google.com/apis/credentials/oauthclient/340597672237-fscmcisrorgrkh3uppbvtj69848gj6nc.apps.googleusercontent.com?project=vrvaultdatabase
+
+Exemple : `https://psyclopedia-compte.onrender.com`
+
+## Ce qu’il faut renvoyer pour brancher le site
+
+Uniquement l’URL HTTPS de l’API, sans slash final, par exemple :
+
+```
+https://psyclopedia-compte.onrender.com
+```
+
+On la met dans `assets-ebook/js/compte-config.js` (`apiUrl`) et on publie sur `main`.
+Aucun secret n’est nécessaire (l’ID Google est déjà public).
+
+## Variables d’environnement
 
 | Variable | Rôle |
 |----------|------|
-| `PSYCLOPEDIA_GOOGLE_CLIENT_ID` | Identifiant client OAuth Google (public). Défaut : ID du projet Psyclopédia. |
-| `PSYCLOPEDIA_COMPTE_PORT` | Port d'écoute (défaut `8787`). |
+| `PORT` | Port PaaS (Render/Fly). |
+| `PSYCLOPEDIA_GOOGLE_CLIENT_ID` | ID OAuth (défaut : ID Psyclopédia). |
 | `PSYCLOPEDIA_COMPTE_DB` | Chemin du fichier SQLite. |
-| `PSYCLOPEDIA_COMPTE_HOST` | Adresse d'écoute (défaut `127.0.0.1`). |
-
-Aucun secret n'est commité. Un jeton de session est un aléa stocké en base, pas
-un JWT signé avec une clé du dépôt.
-
-## GitHub Pages
-
-Le site public reste statique. Sans API joignable, le navigateur enregistre le
-compte dans **IndexedDB** (même appareil). Dès que `apiUrl` est renseigné dans
-`assets-ebook/js/compte-config.js`, e-mail, notes et notes de quiz synchronisent
-vers cette base SQLite.
+| `PSYCLOPEDIA_COMPTE_HOST` | `0.0.0.0` en production. |
 
 ## Tests
 

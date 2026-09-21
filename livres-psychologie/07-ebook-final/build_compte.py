@@ -63,8 +63,8 @@ def render_compte():
     <div class="note-box" style="margin-top:1.4rem">
       <strong>Ce que le compte retient.</strong> Catégories lues, meilleurs scores de quiz (sur 20),
       présence aux cours de 50 minutes, et tes notes de séance. Rien n'est un dossier médical :
-      c'est un carnet d'apprentissage. Sur GitHub Pages sans API, le carnet reste dans ce navigateur
-      (IndexedDB). Avec le serveur SQLite, le même compte suit l'étudiant d'un appareil à l'autre.
+      c'est un carnet d'apprentissage. Sur GitHub Pages sans API, le carnet reste dans ce navigateur.
+      Pour la base SQLite (sync entre appareils) : <a href="api-compte.html">activer l'API</a>.
     </div>
   </div>
 </div>
@@ -146,10 +146,79 @@ def render_espace():
     ))
 
 
+def render_api():
+    header = page_header(
+        depth=0,
+        breadcrumb=[("Accueil", "../../index.html"), ("Compte", "compte.html"), ("API SQLite", None)],
+        icon="🗄️", color="gris",
+        title="Activer la base SQLite",
+        subtitle="GitHub Pages est statique : la base réelle tourne sur une petite API Python, en local ou en ligne",
+        chips=["Local", "Render", "Google"],
+    )
+    body = f"""{header}
+<div class="section">
+  <div class="compte-wrap wide">
+    <div class="warn-box">
+      <strong>Pourquoi IndexedDB ?</strong> Le site public
+      <a href="https://errornoname.github.io/P-S-C/">errornoname.github.io/P-S-C</a>
+      ne peut pas exécuter Python ni SQLite. Sans API, le compte reste dans ce navigateur.
+    </div>
+
+    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.6rem">1. Chez toi (immédiat)</h2>
+    <p>À la racine du dépôt :</p>
+    <pre style="background:var(--bg);padding:0.8rem 1rem;border-radius:10px;overflow:auto">python3 serveur-compte/compte_server.py --static .</pre>
+    <p>Puis ouvre <strong>cette</strong> adresse (pas github.io) :</p>
+    <p><a class="btn btn-primary" href="http://127.0.0.1:8787/livres-psychologie/07-ebook-final/compte.html">http://127.0.0.1:8787/…/compte.html</a></p>
+    <p class="compte-hint">Le bandeau doit afficher « Base SQLite distante ». Santé de l'API :
+    <a href="http://127.0.0.1:8787/api/health">http://127.0.0.1:8787/api/health</a></p>
+
+    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">2. En ligne (téléphone + ordinateur)</h2>
+    <ol class="compte-steps">
+      <li>Crée un compte Render :
+        <a href="https://dashboard.render.com/register" target="_blank" rel="noopener">dashboard.render.com/register</a></li>
+      <li>Nouveau Web Service :
+        <a href="https://dashboard.render.com/select-repo?type=web" target="_blank" rel="noopener">dashboard.render.com/select-repo?type=web</a></li>
+      <li>Connecte le dépôt <code>ErrorNoName/P-S-C</code>, branche <code>main</code>.</li>
+      <li>Runtime <strong>Python</strong>. Commande de démarrage :<br>
+        <code>python3 serveur-compte/compte_server.py --host 0.0.0.0 --port $PORT</code></li>
+      <li>Health check : <code>/api/health</code>. Crée le service.</li>
+      <li>Copie l'URL HTTPS (ex. <code>https://psyclopedia-compte.onrender.com</code>) et
+        ouvre <code>…/api/health</code> : tu dois voir <code>"ok": true</code>.</li>
+    </ol>
+    <p>Blueprint du dépôt :
+    <a href="https://dashboard.render.com/blueprint/new" target="_blank" rel="noopener">dashboard.render.com/blueprint/new</a>
+    — fichier <code>render.yaml</code> à la racine.</p>
+
+    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">3. Google (même client déjà créé)</h2>
+    <p>Ajoute l'<strong>origine</strong> de l'API (sans chemin) dans le client OAuth :</p>
+    <p><a class="btn btn-secondary" href="https://console.cloud.google.com/apis/credentials/oauthclient/340597672237-fscmcisrorgrkh3uppbvtj69848gj6nc.apps.googleusercontent.com?project=vrvaultdatabase" target="_blank" rel="noopener">Ouvrir le client OAuth Psyclopédia</a></p>
+    <p>Origines JavaScript à avoir :</p>
+    <pre style="background:var(--bg);padding:0.8rem 1rem;border-radius:10px;overflow:auto">https://errornoname.github.io
+http://127.0.0.1:8787
+http://localhost:8787
+https://TON-API.onrender.com</pre>
+
+    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">4. Ce qu'il faut renvoyer</h2>
+    <div class="compte-card">
+      <p style="margin:0 0 0.6rem"><strong>Uniquement l'URL HTTPS de l'API</strong>, sans slash à la fin :</p>
+      <pre style="margin:0">https://psyclopedia-compte.onrender.com</pre>
+      <p style="margin:0.8rem 0 0">On la met dans <code>compte-config.js</code> (<code>apiUrl</code>) et on publie sur
+      <code>main</code>. Pas de secret, pas de mot de passe Render, pas le JSON Google.</p>
+    </div>
+  </div>
+</div>
+"""
+    _write("api-compte.html", page_shell(
+        "Activer l'API SQLite", body, depth=0,
+        description="Activer la base SQLite des comptes étudiants : local, Render, origines Google.",
+    ))
+
+
 def render_all():
     render_compte()
     render_espace()
-    return 2
+    render_api()
+    return 3
 
 
 if __name__ == "__main__":

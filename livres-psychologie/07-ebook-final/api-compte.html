@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Compte étudiant — Psyclopédia</title>
-<meta name="description" content="Créer un compte étudiant Psyclopédia : e-mail et mot de passe ou Google, notes de cours et scores enregistrés.">
-<meta property="og:title" content="Compte étudiant — Psyclopédia">
-<meta property="og:description" content="Créer un compte étudiant Psyclopédia : e-mail et mot de passe ou Google, notes de cours et scores enregistrés.">
+<title>Activer l'API SQLite — Psyclopédia</title>
+<meta name="description" content="Activer la base SQLite des comptes étudiants : local, Render, origines Google.">
+<meta property="og:title" content="Activer l'API SQLite — Psyclopédia">
+<meta property="og:description" content="Activer la base SQLite des comptes étudiants : local, Render, origines Google.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="../../assets-ebook/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="../../assets-ebook/css/compte.css">
 
 </head>
-<body data-root="../../" data-compte-page="login">
+<body data-root="../../">
 <div class="topbar">
   <nav class="nav-pill">
     <a class="brand" href="../../index.html"><span class="brand-mark"></span>Psyclopédia</a>
@@ -46,56 +46,64 @@
 </div>
 
 <div class="page-header">
-  <p class="breadcrumb"><a href="../../index.html">Accueil</a> → Compte étudiant</p>
+  <p class="breadcrumb"><a href="../../index.html">Accueil</a> → <a href="compte.html">Compte</a> → API SQLite</p>
   <div class="page-hero">
-    <div class="page-hero-icon" style="background:var(--vert-light)">👤</div>
+    <div class="page-hero-icon" style="background:var(--gris-light)">🗄️</div>
     <div>
-      <h1>Compte étudiant</h1>
-      <p class="subtitle">Suivre tes cours, tes notes et tes scores — e-mail et mot de passe, ou Google</p>
+      <h1>Activer la base SQLite</h1>
+      <p class="subtitle">GitHub Pages est statique : la base réelle tourne sur une petite API Python, en local ou en ligne</p>
     </div>
   </div>
-  <div class="meta-row"><span class="meta-chip">E-mail / mot de passe</span><span class="meta-chip">Google</span><span class="meta-chip">Notes enregistrées</span><span class="meta-chip">Quiz notés</span></div>
+  <div class="meta-row"><span class="meta-chip">Local</span><span class="meta-chip">Render</span><span class="meta-chip">Google</span></div>
 </div>
 <div class="section">
-  <div class="compte-wrap">
-    <div class="compte-card">
-      <div class="compte-tabs" role="tablist">
-        <button type="button" class="active" data-compte-tab="login">Connexion</button>
-        <button type="button" data-compte-tab="register">Créer un compte</button>
-      </div>
-      <form id="compte-login" class="compte-form" autocomplete="on">
-        <label>E-mail
-          <input type="email" name="email" required maxlength="254" autocomplete="username">
-        </label>
-        <label>Mot de passe
-          <input type="password" name="password" required minlength="8" autocomplete="current-password">
-        </label>
-        <button class="btn btn-primary" type="submit">Se connecter</button>
-      </form>
-      <form id="compte-register" class="compte-form" hidden autocomplete="on">
-        <label>Nom affiché
-          <input type="text" name="name" required maxlength="80" autocomplete="name">
-        </label>
-        <label>E-mail
-          <input type="email" name="email" required maxlength="254" autocomplete="username">
-        </label>
-        <label>Mot de passe (8 caractères minimum)
-          <input type="password" name="password" required minlength="8" autocomplete="new-password">
-        </label>
-        <button class="btn btn-primary" type="submit">Créer le compte</button>
-      </form>
-      <div class="compte-sep">ou</div>
-      <div id="google-btn"></div>
-      <p id="google-hint" class="compte-hint">Le bouton Google se charge ici. En mode test Google Cloud,
-      seuls les comptes ajoutés comme utilisateurs de test peuvent se connecter.</p>
-      <p id="compte-feedback" class="compte-msg" hidden></p>
-      <p id="compte-mode" class="compte-mode"></p>
+  <div class="compte-wrap wide">
+    <div class="warn-box">
+      <strong>Pourquoi IndexedDB ?</strong> Le site public
+      <a href="https://errornoname.github.io/P-S-C/">errornoname.github.io/P-S-C</a>
+      ne peut pas exécuter Python ni SQLite. Sans API, le compte reste dans ce navigateur.
     </div>
-    <div class="note-box" style="margin-top:1.4rem">
-      <strong>Ce que le compte retient.</strong> Catégories lues, meilleurs scores de quiz (sur 20),
-      présence aux cours de 50 minutes, et tes notes de séance. Rien n'est un dossier médical :
-      c'est un carnet d'apprentissage. Sur GitHub Pages sans API, le carnet reste dans ce navigateur.
-      Pour la base SQLite (sync entre appareils) : <a href="api-compte.html">activer l'API</a>.
+
+    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.6rem">1. Chez toi (immédiat)</h2>
+    <p>À la racine du dépôt :</p>
+    <pre style="background:var(--bg);padding:0.8rem 1rem;border-radius:10px;overflow:auto">python3 serveur-compte/compte_server.py --static .</pre>
+    <p>Puis ouvre <strong>cette</strong> adresse (pas github.io) :</p>
+    <p><a class="btn btn-primary" href="http://127.0.0.1:8787/livres-psychologie/07-ebook-final/compte.html">http://127.0.0.1:8787/…/compte.html</a></p>
+    <p class="compte-hint">Le bandeau doit afficher « Base SQLite distante ». Santé de l'API :
+    <a href="http://127.0.0.1:8787/api/health">http://127.0.0.1:8787/api/health</a></p>
+
+    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">2. En ligne (téléphone + ordinateur)</h2>
+    <ol class="compte-steps">
+      <li>Crée un compte Render :
+        <a href="https://dashboard.render.com/register" target="_blank" rel="noopener">dashboard.render.com/register</a></li>
+      <li>Nouveau Web Service :
+        <a href="https://dashboard.render.com/select-repo?type=web" target="_blank" rel="noopener">dashboard.render.com/select-repo?type=web</a></li>
+      <li>Connecte le dépôt <code>ErrorNoName/P-S-C</code>, branche <code>main</code>.</li>
+      <li>Runtime <strong>Python</strong>. Commande de démarrage :<br>
+        <code>python3 serveur-compte/compte_server.py --host 0.0.0.0 --port $PORT</code></li>
+      <li>Health check : <code>/api/health</code>. Crée le service.</li>
+      <li>Copie l'URL HTTPS (ex. <code>https://psyclopedia-compte.onrender.com</code>) et
+        ouvre <code>…/api/health</code> : tu dois voir <code>"ok": true</code>.</li>
+    </ol>
+    <p>Blueprint du dépôt :
+    <a href="https://dashboard.render.com/blueprint/new" target="_blank" rel="noopener">dashboard.render.com/blueprint/new</a>
+    — fichier <code>render.yaml</code> à la racine.</p>
+
+    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">3. Google (même client déjà créé)</h2>
+    <p>Ajoute l'<strong>origine</strong> de l'API (sans chemin) dans le client OAuth :</p>
+    <p><a class="btn btn-secondary" href="https://console.cloud.google.com/apis/credentials/oauthclient/340597672237-fscmcisrorgrkh3uppbvtj69848gj6nc.apps.googleusercontent.com?project=vrvaultdatabase" target="_blank" rel="noopener">Ouvrir le client OAuth Psyclopédia</a></p>
+    <p>Origines JavaScript à avoir :</p>
+    <pre style="background:var(--bg);padding:0.8rem 1rem;border-radius:10px;overflow:auto">https://errornoname.github.io
+http://127.0.0.1:8787
+http://localhost:8787
+https://TON-API.onrender.com</pre>
+
+    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">4. Ce qu'il faut renvoyer</h2>
+    <div class="compte-card">
+      <p style="margin:0 0 0.6rem"><strong>Uniquement l'URL HTTPS de l'API</strong>, sans slash à la fin :</p>
+      <pre style="margin:0">https://psyclopedia-compte.onrender.com</pre>
+      <p style="margin:0.8rem 0 0">On la met dans <code>compte-config.js</code> (<code>apiUrl</code>) et on publie sur
+      <code>main</code>. Pas de secret, pas de mot de passe Render, pas le JSON Google.</p>
     </div>
   </div>
 </div>

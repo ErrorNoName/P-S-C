@@ -722,6 +722,20 @@
     el.className = "compte-msg" + (kind ? " " + kind : "");
   }
 
+  function setModeHint(el) {
+    if (!el) return;
+    el.textContent = "";
+    if (state.mode === "remote") {
+      el.textContent = "Base SQLite distante — tes données suivent le compte.";
+      return;
+    }
+    el.appendChild(document.createTextNode("Enregistrement local (cet appareil). "));
+    var a = document.createElement("a");
+    a.href = compteHref("api-compte.html");
+    a.textContent = "Activer l'API SQLite";
+    el.appendChild(a);
+  }
+
   function bindLoginPage() {
     if (document.body.getAttribute("data-compte-page") !== "login") return;
     if (state.user) {
@@ -777,11 +791,7 @@
       googleHint.hidden = false;
     }
     var modeEl = document.getElementById("compte-mode");
-    if (modeEl) {
-      modeEl.textContent = state.mode === "remote"
-        ? "Base SQLite distante — tes données suivent le compte."
-        : "Enregistrement local (IndexedDB) — active l'API pour synchroniser entre appareils.";
-    }
+    setModeHint(modeEl);
   }
 
   function loadGoogle(mount) {
@@ -838,9 +848,7 @@
     var modeEl = document.getElementById("espace-mode");
     if (nameEl) nameEl.textContent = state.user.name;
     if (mailEl) mailEl.textContent = state.user.email;
-    if (modeEl) {
-      modeEl.textContent = state.mode === "remote" ? "Synchronisé (SQLite)" : "Local (cet appareil)";
-    }
+    setModeHint(modeEl);
     var progress = readProgress();
     var cours = readCours();
     var visited = Object.keys(progress.visited || {}).length;

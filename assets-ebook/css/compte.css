@@ -57,10 +57,9 @@
 .compte-msg.err { color: #9b2c2c; }
 .compte-msg.ok { color: var(--vert); }
 .compte-hint { color: var(--gris); font-size: 0.85rem; margin-top: 0.8rem; }
-.compte-mode {
-  margin-top: 1rem; font-size: 0.8rem; color: var(--gris);
-  background: var(--gris-light); border-radius: 8px; padding: 0.55rem 0.75rem;
-}
+.compte-mode a { color: var(--vert); font-weight: 600; }
+.compte-steps { padding-left: 1.25rem; line-height: 1.55; }
+.compte-steps li { margin: 0.45rem 0; }
 
 .espace-grid {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin: 1rem 0 1.6rem;

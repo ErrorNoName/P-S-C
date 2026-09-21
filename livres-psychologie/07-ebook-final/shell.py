@@ -160,6 +160,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a href="{ebook(depth, 'aide.html')}">Aide &amp; ressources</a>
     <a href="{ebook(depth, 'compte.html')}">Compte étudiant</a>
     <a href="{ebook(depth, 'espace.html')}">Espace d'apprentissage</a>
+    <a href="{ebook(depth, 'api-compte.html')}">Activer l'API SQLite</a>
     <a href="{DISCORD_INVITE}" target="_blank" rel="noopener">Communauté Discord</a>
     <a href="{ebook(depth, 'plan.html')}">Plan du site</a>
     <a href="{ebook(depth, 'credits.html')}">Crédits &amp; sources</a>

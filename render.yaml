@@ -1,0 +1,13 @@
+# Blueprint Render : API SQLite Psyclopédia (sans le site statique).
+# Créer le service : https://dashboard.render.com/blueprint/new
+services:
+  - type: web
+    name: psyclopedia-compte
+    runtime: python
+    plan: free
+    buildCommand: "true"
+    startCommand: python3 serveur-compte/compte_server.py --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"

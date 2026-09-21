@@ -334,6 +334,20 @@ class PasswordHashTests(unittest.TestCase):
         self.assertNotEqual(a, b)
 
 
+class PaasBindTests(unittest.TestCase):
+    def test_port_env_paas(self):
+        old = os.environ.get("PORT")
+        os.environ["PORT"] = "9999"
+        try:
+            self.assertEqual(compte_server._env_port(), 9999)
+            self.assertEqual(compte_server._env_host(), "0.0.0.0")
+        finally:
+            if old is None:
+                os.environ.pop("PORT", None)
+            else:
+                os.environ["PORT"] = old
+
+
 class FrontendConfigTests(unittest.TestCase):
     def test_client_id_public_dans_le_js(self):
         cfg = (HERE.parent / "assets-ebook/js/compte-config.js").read_text(encoding="utf-8")

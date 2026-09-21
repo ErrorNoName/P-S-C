@@ -841,10 +841,21 @@ def make_server(
     return httpd, store
 
 
+def _env_host() -> str:
+    if os.environ.get("PORT"):
+        return os.environ.get("PSYCLOPEDIA_COMPTE_HOST", "0.0.0.0")
+    return os.environ.get("PSYCLOPEDIA_COMPTE_HOST", "127.0.0.1")
+
+
+def _env_port() -> int:
+    raw = os.environ.get("PORT") or os.environ.get("PSYCLOPEDIA_COMPTE_PORT") or str(DEFAULT_PORT)
+    return int(raw)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="API de comptes étudiants Psyclopédia")
-    parser.add_argument("--host", default=os.environ.get("PSYCLOPEDIA_COMPTE_HOST", "127.0.0.1"))
-    parser.add_argument("--port", type=int, default=int(os.environ.get("PSYCLOPEDIA_COMPTE_PORT", DEFAULT_PORT)))
+    parser.add_argument("--host", default=_env_host())
+    parser.add_argument("--port", type=int, default=_env_port())
     parser.add_argument("--db", default=os.environ.get("PSYCLOPEDIA_COMPTE_DB", DEFAULT_DB))
     parser.add_argument("--static", default=os.environ.get("PSYCLOPEDIA_COMPTE_STATIC", ""),
                         help="Racine du site statique (dépôt) pour tout servir sur le même port")
