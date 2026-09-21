@@ -82,9 +82,8 @@ def build_index():
         ("Psychologie du développement", "Piaget, Vygotski, Bowlby, attachement, adolescence.", EBOOK + "branches/developpement.html", "piaget vygotski bowlby zpd"),
         ("Psychologie cognitive", "Mémoire, attention, biais, laboratoires jouables.", EBOOK + "branches/cognitive.html", "stroop empan loftus kahneman"),
         ("Assistant de Psyclopédia", "Questions en français, réponses sourcées uniquement à partir du site.", EBOOK + "assistant.html", "ia assistant question reponse corpus"),
-        ("Compte étudiant", "Connexion e-mail/mot de passe ou Google ; notes de cours et scores enregistrés.", EBOOK + "compte.html", "compte connexion email mot de passe google etudiant notes"),
-        ("Espace d'apprentissage", "Tableau de bord : progression, notes de quiz sur 20, carnet de cours.", EBOOK + "espace.html", "espace notes quiz progression carnet"),
-        ("Activer l'API SQLite", "Héberger la base des comptes : local ou Render, pour synchroniser entre appareils.", EBOOK + "api-compte.html", "api sqlite render indexeddb synchronisation"),
+        ("Compte étudiant", "Connexion e-mail/mot de passe ou Google ; notes, scores et photo enregistrés sur le serveur.", EBOOK + "compte.html", "compte connexion email mot de passe google etudiant notes photo"),
+        ("Espace d'apprentissage", "Tableau de bord : progression, notes de quiz sur 20, carnet de cours, photo de profil.", EBOOK + "espace.html", "espace notes quiz progression carnet photo profil"),
         ("TAT vs Rorschach : ce que ça vaut", "Dossier sur la validité des tests projectifs, comparés au NEO-PI et au MMPI.", EBOOK + "references/projectifs.html", "rorschach tat projectif validite neo-pi mmpi"),
     ]
     for title, desc, url, kw in static_pages:

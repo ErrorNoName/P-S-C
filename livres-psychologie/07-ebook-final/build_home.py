@@ -124,8 +124,8 @@ OUTILS_V3 = [
      "Une question, une réponse complète tirée uniquement des pages du site, avec les sources.",
      "Ctrl + J"),
     ("compte.html", "or", "👤", "Compte étudiant",
-     "Connexion e-mail/mot de passe ou Google. Progression, notes de cours et scores conservés.",
-     "SQLite · IndexedDB"),
+     "Connexion e-mail/mot de passe ou Google. Progression, notes, scores et photo conservés sur le serveur.",
+     "Compte · serveur"),
 ]
 
 

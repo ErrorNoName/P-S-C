@@ -62,9 +62,9 @@ def render_compte():
     </div>
     <div class="note-box" style="margin-top:1.4rem">
       <strong>Ce que le compte retient.</strong> Catégories lues, meilleurs scores de quiz (sur 20),
-      présence aux cours de 50 minutes, et tes notes de séance. Rien n'est un dossier médical :
-      c'est un carnet d'apprentissage. Sur GitHub Pages sans API, le carnet reste dans ce navigateur.
-      Pour la base SQLite (sync entre appareils) : <a href="api-compte.html">activer l'API</a>.
+      présence aux cours de 50 minutes, tes notes de séance et ta photo de profil.
+      Rien n'est un dossier médical : c'est un carnet d'apprentissage, enregistré sur le serveur
+      avec le compte (e-mail ou Google).
     </div>
   </div>
 </div>
@@ -90,11 +90,16 @@ def render_espace():
   <div class="compte-wrap wide">
     <div class="compte-card espace-profile">
       <div class="espace-id">
-        <div class="espace-avatar" aria-hidden="true">✓</div>
+        <div class="espace-avatar" id="espace-avatar" aria-hidden="true"></div>
         <div>
           <h2 id="espace-name" style="margin:0;font-size:1.25rem">Étudiant</h2>
           <p id="espace-email" style="margin:0.2rem 0 0;color:var(--gris)"></p>
           <p id="espace-mode" class="compte-hint" style="margin:0.25rem 0 0"></p>
+          <div class="espace-avatar-actions">
+            <label class="espace-avatar-pick">Changer la photo
+              <input type="file" id="espace-avatar-file" accept="image/jpeg,image/png,image/webp" hidden>
+            </label>
+          </div>
         </div>
       </div>
       <div class="cta-row" style="margin:0">
@@ -146,63 +151,13 @@ def render_espace():
     ))
 
 
-def render_api():
-    header = page_header(
-        depth=0,
-        breadcrumb=[("Accueil", "../../index.html"), ("Compte", "compte.html"), ("API SQLite", None)],
-        icon="🗄️", color="gris",
-        title="Activer la base SQLite",
-        subtitle="GitHub Pages est statique : la base réelle tourne sur une petite API Python, en local ou en ligne",
-        chips=["Local", "Render", "Google"],
-    )
-    body = f"""{header}
-<div class="section">
-  <div class="compte-wrap wide">
-    <div class="warn-box">
-      <strong>Pourquoi IndexedDB ?</strong> Le site public
-      <a href="https://errornoname.github.io/P-S-C/">errornoname.github.io/P-S-C</a>
-      ne peut pas exécuter Python ni SQLite. Sans API, le compte reste dans ce navigateur.
-    </div>
-
-    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.6rem">1. Chez toi (immédiat)</h2>
-    <p>À la racine du dépôt :</p>
-    <pre style="background:var(--bg);padding:0.8rem 1rem;border-radius:10px;overflow:auto">python3 serveur-compte/compte_server.py --static .</pre>
-    <p>Puis ouvre <strong>cette</strong> adresse (pas github.io) :</p>
-    <p><a class="btn btn-primary" href="http://127.0.0.1:8787/livres-psychologie/07-ebook-final/compte.html">http://127.0.0.1:8787/…/compte.html</a></p>
-    <p class="compte-hint">Le bandeau doit afficher « Base SQLite distante ». Santé de l'API :
-    <a href="http://127.0.0.1:8787/api/health">http://127.0.0.1:8787/api/health</a></p>
-
-    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">2. API en ligne (déjà branchée)</h2>
-    <p>Service Render <strong>Psychopédia</strong> :</p>
-    <p><a class="btn btn-primary" href="https://psychopedia.onrender.com/api/health">https://psychopedia.onrender.com/api/health</a></p>
-    <p>Tableau de bord :
-    <a href="https://dashboard.render.com/web/srv-daokmdf40ujc73fmi0og" target="_blank" rel="noopener">dashboard.render.com/web/srv-daokmdf40ujc73fmi0og</a></p>
-    <p>Le site public appelle cette API. Un ping GitHub Actions toutes les 5 minutes empêche
-    l'instance gratuite de s'endormir. Si elle dort quand même, le premier appel peut prendre ~50 s.</p>
-
-    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">3. Google (origine de l'API)</h2>
-    <p>Ajoute cette origine JavaScript dans le client OAuth :</p>
-    <pre style="background:var(--bg);padding:0.8rem 1rem;border-radius:10px;overflow:auto">https://psychopedia.onrender.com</pre>
-    <p><a class="btn btn-secondary" href="https://console.cloud.google.com/apis/credentials/oauthclient/340597672237-fscmcisrorgrkh3uppbvtj69848gj6nc.apps.googleusercontent.com?project=vrvaultdatabase" target="_blank" rel="noopener">Ouvrir le client OAuth Psyclopédia</a></p>
-    <p>Origines JavaScript à avoir :</p>
-    <pre style="background:var(--bg);padding:0.8rem 1rem;border-radius:10px;overflow:auto">https://errornoname.github.io
-http://127.0.0.1:8787
-http://localhost:8787
-https://psychopedia.onrender.com</pre>
-  </div>
-</div>
-"""
-    _write("api-compte.html", page_shell(
-        "Activer l'API SQLite", body, depth=0,
-        description="Activer la base SQLite des comptes étudiants : local, Render, origines Google.",
-    ))
-
-
 def render_all():
     render_compte()
     render_espace()
-    render_api()
-    return 3
+    stale = os.path.join(BASE, "api-compte.html")
+    if os.path.isfile(stale):
+        os.remove(stale)
+    return 2
 
 
 if __name__ == "__main__":

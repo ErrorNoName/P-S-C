@@ -15,6 +15,7 @@ Puis ouvrir http://127.0.0.1:8787/
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import hmac
 import json
@@ -32,6 +33,19 @@ from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any, Callable
 
+try:
+    import psycopg
+    from psycopg.errors import IntegrityError as PgIntegrityError
+    from psycopg.rows import dict_row
+except ImportError:
+    psycopg = None  # type: ignore[assignment]
+    PgIntegrityError = None  # type: ignore[assignment]
+    dict_row = None  # type: ignore[assignment]
+
+INTEGRITY_ERRORS: tuple[type[BaseException], ...] = (sqlite3.IntegrityError,)
+if PgIntegrityError is not None:
+    INTEGRITY_ERRORS = (sqlite3.IntegrityError, PgIntegrityError)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_DB = os.path.join(HERE, "data", "compte.sqlite")
 DEFAULT_PORT = 8787
@@ -42,7 +56,12 @@ PUBLIC_GOOGLE_CLIENT_ID = (
 PBKDF2_ITERS = 210_000
 SESSION_DAYS = 30
 MAX_BODY = 1_048_576
+MAX_AVATAR_CHARS = 350_000
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+AVATAR_DATA_RE = re.compile(
+    r"^data:image/(jpeg|jpg|png|webp);base64,[A-Za-z0-9+/=\s]+$",
+    re.IGNORECASE,
+)
 
 # Vérificateur Google remplaçable par les tests.
 GoogleVerifier = Callable[[str, str], dict]
@@ -143,35 +162,95 @@ def verify_google_token(id_token: str, expected_aud: str) -> dict:
     if not email or not sub:
         raise AuthError("Jeton Google incomplet.")
     name = (data.get("name") or email.split("@")[0])[:80]
-    return {"sub": sub, "email": email, "name": name}
+    picture = validate_google_picture(str(data.get("picture") or ""))
+    return {"sub": sub, "email": email, "name": name, "picture": picture}
+
+
+def validate_google_picture(url: str) -> str:
+    url = (url or "").strip()
+    if not url or len(url) > 512:
+        return ""
+    parsed = urllib.parse.urlparse(url)
+    if parsed.scheme != "https":
+        return ""
+    host = (parsed.hostname or "").lower()
+    if host != "lh3.googleusercontent.com" and not host.endswith(".googleusercontent.com"):
+        return ""
+    return url
+
+
+def validate_custom_avatar(image: str) -> str:
+    image = (image or "").strip()
+    if not image:
+        return ""
+    compact = image.replace("\n", "").replace("\r", "").replace(" ", "")
+    if len(compact) > MAX_AVATAR_CHARS:
+        raise AuthError("Photo trop volumineuse (maximum environ 250 Ko).", 400)
+    if not AVATAR_DATA_RE.match(compact):
+        raise AuthError("Format de photo invalide. JPEG, PNG ou WebP uniquement.", 400)
+    header, b64 = compact.split(",", 1)
+    try:
+        raw = base64.b64decode(b64, validate=True)
+    except Exception as exc:
+        raise AuthError("Photo illisible.", 400) from exc
+    if len(raw) < 32 or len(raw) > 280_000:
+        raise AuthError("Photo trop volumineuse.", 400)
+    jpeg = raw[:3] == b"\xff\xd8\xff"
+    png = raw[:8] == b"\x89PNG\r\n\x1a\n"
+    webp = raw[:4] == b"RIFF" and raw[8:12] == b"WEBP"
+    if not (jpeg or png or webp):
+        raise AuthError("Format de photo invalide.", 400)
+    return header + "," + b64
 
 
 GOOGLE_TOKEN_VERIFIER: GoogleVerifier = verify_google_token
 
 
 class Store:
-    """Base SQLite réelle : utilisateurs, sessions, notes, notes de quiz, instantanés."""
+    """Base réelle : PostgreSQL en production, SQLite en local et dans les tests."""
 
-    def __init__(self, path: str):
-        directory = os.path.dirname(path)
-        if directory:
-            os.makedirs(directory, exist_ok=True)
-        self.path = path
+    def __init__(self, path: str, database_url: str = ""):
         self.lock = threading.RLock()
-        self.conn = sqlite3.connect(path, check_same_thread=False)
-        self.conn.row_factory = sqlite3.Row
-        self.conn.execute("PRAGMA foreign_keys = ON")
-        self.conn.execute("PRAGMA journal_mode = WAL")
+        self.database_url = (database_url or "").strip()
+        if self.database_url:
+            if psycopg is None:
+                raise RuntimeError("Le module psycopg est requis pour PostgreSQL.")
+            self.kind = "postgres"
+            host = self.database_url.split("@")[-1]
+            self.path = "postgres:" + host.split("/")[0]
+            self.conn = psycopg.connect(self.database_url, row_factory=dict_row)
+        else:
+            directory = os.path.dirname(path)
+            if directory:
+                os.makedirs(directory, exist_ok=True)
+            self.kind = "sqlite"
+            self.path = path
+            self.conn = sqlite3.connect(path, check_same_thread=False)
+            self.conn.row_factory = sqlite3.Row
+            self._execute("PRAGMA foreign_keys = ON")
+            self._execute("PRAGMA journal_mode = WAL")
         self._init_schema()
 
     def close(self) -> None:
         with self.lock:
             self.conn.close()
 
+    def _sql(self, sql: str) -> str:
+        if self.kind == "postgres":
+            sql = sql.replace("?", "%s")
+            sql = sql.replace("ON CONFLICT(", "ON CONFLICT (")
+        return sql
+
+    def _execute(self, sql: str, params: tuple[Any, ...] = ()):
+        return self.conn.execute(self._sql(sql), params)
+
+    def _row(self, row: Any) -> dict | None:
+        if row is None:
+            return None
+        return dict(row)
+
     def _init_schema(self) -> None:
-        with self.lock:
-            self.conn.executescript(
-                """
+        schema = """
                 CREATE TABLE IF NOT EXISTS users (
                     id TEXT PRIMARY KEY,
                     email TEXT NOT NULL UNIQUE,
@@ -221,12 +300,31 @@ class Store:
                 CREATE INDEX IF NOT EXISTS idx_notes_user ON notes(user_id);
                 CREATE INDEX IF NOT EXISTS idx_grades_user ON grades(user_id);
                 """
-            )
+        with self.lock:
+            if self.kind == "sqlite":
+                self.conn.executescript(schema)
+            else:
+                for stmt in schema.split(";"):
+                    stmt = stmt.strip()
+                    if stmt:
+                        self._execute(stmt)
+            self._migrate_avatars()
             self.conn.commit()
+
+    def _migrate_avatars(self) -> None:
+        if self.kind == "sqlite":
+            cols = {r[1] for r in self._execute("PRAGMA table_info(users)")}
+            if "avatar_url" not in cols:
+                self._execute("ALTER TABLE users ADD COLUMN avatar_url TEXT")
+            if "avatar_custom" not in cols:
+                self._execute("ALTER TABLE users ADD COLUMN avatar_custom TEXT")
+            return
+        self._execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar_url TEXT")
+        self._execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar_custom TEXT")
 
     def user_count(self) -> int:
         with self.lock:
-            row = self.conn.execute("SELECT COUNT(*) AS n FROM users").fetchone()
+            row = self._execute("SELECT COUNT(*) AS n FROM users").fetchone()
             return int(row["n"])
 
     def create_user(
@@ -235,56 +333,91 @@ class Store:
         name: str,
         password: str | None = None,
         google_sub: str | None = None,
+        avatar_url: str = "",
     ) -> dict:
         uid = uuid.uuid4().hex
         now = iso()
         pw = hash_password(password) if password else None
         with self.lock:
-            self.conn.execute(
-                "INSERT INTO users (id, email, password_hash, google_sub, name, created_at, updated_at) "
-                "VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (uid, email, pw, google_sub, name, now, now),
+            self._execute(
+                "INSERT INTO users (id, email, password_hash, google_sub, name, avatar_url, "
+                "avatar_custom, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (uid, email, pw, google_sub, name, avatar_url or None, None, now, now),
             )
             self.conn.commit()
-        return self.get_user(uid)
+        user = self.get_user(uid)
+        assert user is not None
+        return user
 
     def get_user(self, user_id: str) -> dict | None:
         with self.lock:
-            row = self.conn.execute("SELECT * FROM users WHERE id = ?", (user_id,)).fetchone()
-        return dict(row) if row else None
+            row = self._execute("SELECT * FROM users WHERE id = ?", (user_id,)).fetchone()
+        return self._row(row)
 
     def get_user_by_email(self, email: str) -> dict | None:
         with self.lock:
-            row = self.conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
-        return dict(row) if row else None
+            row = self._execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
+        return self._row(row)
 
     def get_user_by_google(self, sub: str) -> dict | None:
         with self.lock:
-            row = self.conn.execute("SELECT * FROM users WHERE google_sub = ?", (sub,)).fetchone()
-        return dict(row) if row else None
+            row = self._execute("SELECT * FROM users WHERE google_sub = ?", (sub,)).fetchone()
+        return self._row(row)
 
     def link_google(self, user_id: str, sub: str, name: str | None = None) -> dict:
         now = iso()
         with self.lock:
             if name:
-                self.conn.execute(
+                self._execute(
                     "UPDATE users SET google_sub = ?, name = ?, updated_at = ? WHERE id = ?",
                     (sub, name, now, user_id),
                 )
             else:
-                self.conn.execute(
+                self._execute(
                     "UPDATE users SET google_sub = ?, updated_at = ? WHERE id = ?",
                     (sub, now, user_id),
                 )
             self.conn.commit()
-        return self.get_user(user_id)
+        user = self.get_user(user_id)
+        assert user is not None
+        return user
+
+    def set_google_picture(self, user_id: str, url: str) -> dict:
+        url = validate_google_picture(url)
+        if not url:
+            user = self.get_user(user_id)
+            assert user is not None
+            return user
+        now = iso()
+        with self.lock:
+            self._execute(
+                "UPDATE users SET avatar_url = ?, updated_at = ? WHERE id = ?",
+                (url, now, user_id),
+            )
+            self.conn.commit()
+        user = self.get_user(user_id)
+        assert user is not None
+        return user
+
+    def set_custom_avatar(self, user_id: str, image: str | None) -> dict:
+        stored = validate_custom_avatar(image or "") if image else ""
+        now = iso()
+        with self.lock:
+            self._execute(
+                "UPDATE users SET avatar_custom = ?, updated_at = ? WHERE id = ?",
+                (stored or None, now, user_id),
+            )
+            self.conn.commit()
+        user = self.get_user(user_id)
+        assert user is not None
+        return user
 
     def create_session(self, user_id: str) -> dict:
         token = secrets.token_urlsafe(32)
         now = utcnow()
         expires = now + timedelta(days=SESSION_DAYS)
         with self.lock:
-            self.conn.execute(
+            self._execute(
                 "INSERT INTO sessions (token, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)",
                 (token, user_id, iso(now), iso(expires)),
             )
@@ -293,14 +426,14 @@ class Store:
 
     def delete_session(self, token: str) -> None:
         with self.lock:
-            self.conn.execute("DELETE FROM sessions WHERE token = ?", (token,))
+            self._execute("DELETE FROM sessions WHERE token = ?", (token,))
             self.conn.commit()
 
     def user_from_token(self, token: str) -> dict:
         if not token:
             raise AuthError("Session manquante.")
         with self.lock:
-            row = self.conn.execute(
+            row = self._execute(
                 "SELECT u.*, s.expires_at FROM sessions s JOIN users u ON u.id = s.user_id WHERE s.token = ?",
                 (token,),
             ).fetchone()
@@ -310,9 +443,11 @@ class Store:
         if expires < utcnow():
             self.delete_session(token)
             raise AuthError("Session expirée.")
-        return dict(row)
+        return self._row(row)
 
     def public_user(self, user: dict) -> dict:
+        custom = (user.get("avatar_custom") or "").strip()
+        google = (user.get("avatar_url") or "").strip()
         return {
             "id": user["id"],
             "email": user["email"],
@@ -320,11 +455,13 @@ class Store:
             "hasPassword": bool(user.get("password_hash")),
             "google": bool(user.get("google_sub")),
             "createdAt": user["created_at"],
+            "avatarUrl": custom or google,
+            "avatarCustom": bool(custom),
         }
 
     def get_snapshot(self, user_id: str) -> dict:
         with self.lock:
-            row = self.conn.execute(
+            row = self._execute(
                 "SELECT progress_json, cours_json, updated_at FROM snapshots WHERE user_id = ?",
                 (user_id,),
             ).fetchone()
@@ -345,7 +482,7 @@ class Store:
         payload_p = json.dumps(progress, ensure_ascii=False)
         payload_c = json.dumps(cours, ensure_ascii=False)
         with self.lock:
-            self.conn.execute(
+            self._execute(
                 "INSERT INTO snapshots (user_id, progress_json, cours_json, updated_at) VALUES (?, ?, ?, ?) "
                 "ON CONFLICT(user_id) DO UPDATE SET progress_json = excluded.progress_json, "
                 "cours_json = excluded.cours_json, updated_at = excluded.updated_at",
@@ -386,7 +523,7 @@ class Store:
 
     def list_notes(self, user_id: str) -> list[dict]:
         with self.lock:
-            rows = self.conn.execute(
+            rows = self._execute(
                 "SELECT id, course_id, title, body, updated_at FROM notes WHERE user_id = ? ORDER BY updated_at DESC",
                 (user_id,),
             ).fetchall()
@@ -394,7 +531,7 @@ class Store:
 
     def get_note(self, user_id: str, note_id: str) -> dict | None:
         with self.lock:
-            row = self.conn.execute(
+            row = self._execute(
                 "SELECT id, course_id, title, body, updated_at FROM notes WHERE id = ? AND user_id = ?",
                 (note_id, user_id),
             ).fetchone()
@@ -408,12 +545,12 @@ class Store:
         if len(body) > 50_000:
             body = body[:50_000]
         with self.lock:
-            existing = self.conn.execute(
+            existing = self._execute(
                 "SELECT id, title FROM notes WHERE user_id = ? AND course_id = ?",
                 (user_id, course_id),
             ).fetchone()
             if note_id:
-                owned = self.conn.execute(
+                owned = self._execute(
                     "SELECT id, title FROM notes WHERE id = ? AND user_id = ?",
                     (note_id, user_id),
                 ).fetchone()
@@ -421,7 +558,7 @@ class Store:
                     raise AuthError("Note introuvable.", 404)
                 if not title:
                     title = owned["title"] or ""
-                self.conn.execute(
+                self._execute(
                     "UPDATE notes SET course_id = ?, title = ?, body = ?, updated_at = ? WHERE id = ? AND user_id = ?",
                     (course_id, title, body, now, note_id, user_id),
                 )
@@ -430,13 +567,13 @@ class Store:
                 nid = existing["id"]
                 if not title:
                     title = existing["title"] or ""
-                self.conn.execute(
+                self._execute(
                     "UPDATE notes SET title = ?, body = ?, updated_at = ? WHERE id = ?",
                     (title, body, now, nid),
                 )
             else:
                 nid = uuid.uuid4().hex
-                self.conn.execute(
+                self._execute(
                     "INSERT INTO notes (id, user_id, course_id, title, body, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
                     (nid, user_id, course_id, title, body, now),
                 )
@@ -447,7 +584,7 @@ class Store:
 
     def delete_note(self, user_id: str, note_id: str) -> None:
         with self.lock:
-            cur = self.conn.execute(
+            cur = self._execute(
                 "DELETE FROM notes WHERE id = ? AND user_id = ?",
                 (note_id, user_id),
             )
@@ -457,7 +594,7 @@ class Store:
 
     def list_grades(self, user_id: str) -> list[dict]:
         with self.lock:
-            rows = self.conn.execute(
+            rows = self._execute(
                 "SELECT id, quiz_id, score, total, pct, source, at FROM grades "
                 "WHERE user_id = ? ORDER BY at DESC",
                 (user_id,),
@@ -489,32 +626,32 @@ class Store:
         pct = max(0, min(100, pct))
         now = iso()
         with self.lock:
-            row = self.conn.execute(
+            row = self._execute(
                 "SELECT id, pct FROM grades WHERE user_id = ? AND quiz_id = ? AND source = ?",
                 (user_id, quiz_id, source),
             ).fetchone()
             if row:
                 if pct < int(row["pct"]):
                     return self._grade(
-                        self.conn.execute(
+                        self._execute(
                             "SELECT id, quiz_id, score, total, pct, source, at FROM grades WHERE id = ?",
                             (row["id"],),
                         ).fetchone()
                     )
-                self.conn.execute(
+                self._execute(
                     "UPDATE grades SET score = ?, total = ?, pct = ?, at = ? WHERE id = ?",
                     (score, total, pct, now, row["id"]),
                 )
                 gid = row["id"]
             else:
                 gid = uuid.uuid4().hex
-                self.conn.execute(
+                self._execute(
                     "INSERT INTO grades (id, user_id, quiz_id, score, total, pct, source, at) "
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                     (gid, user_id, quiz_id, score, total, pct, source, now),
                 )
             self.conn.commit()
-            out = self.conn.execute(
+            out = self._execute(
                 "SELECT id, quiz_id, score, total, pct, source, at FROM grades WHERE id = ?",
                 (gid,),
             ).fetchone()
@@ -645,7 +782,7 @@ class CompteHandler(BaseHTTPRequestHandler):
             self._json(404, public_error("Introuvable."))
         except AuthError as exc:
             self._json(exc.status, public_error(exc.message))
-        except sqlite3.IntegrityError:
+        except INTEGRITY_ERRORS:
             self._json(409, public_error("Cette adresse est déjà utilisée."))
         except Exception:
             self._json(500, public_error("Erreur interne."))
@@ -654,7 +791,7 @@ class CompteHandler(BaseHTTPRequestHandler):
         if path == "/api/health" and method == "GET":
             self._json(200, {
                 "ok": True,
-                "db": "sqlite",
+                "db": self.store.kind,
                 "users": self.store.user_count(),
                 "google": bool(self.google_client_id),
             })
@@ -691,6 +828,7 @@ class CompteHandler(BaseHTTPRequestHandler):
             self._limited("google", 20)
             body = self._read_json()
             info = GOOGLE_TOKEN_VERIFIER(body.get("credential") or "", self.google_client_id)
+            picture = validate_google_picture(str(info.get("picture") or ""))
             user = self.store.get_user_by_google(info["sub"])
             if not user:
                 existing = self.store.get_user_by_email(info["email"])
@@ -698,8 +836,11 @@ class CompteHandler(BaseHTTPRequestHandler):
                     user = self.store.link_google(existing["id"], info["sub"], info["name"])
                 else:
                     user = self.store.create_user(
-                        info["email"], info["name"], password=None, google_sub=info["sub"]
+                        info["email"], info["name"], password=None, google_sub=info["sub"],
+                        avatar_url=picture,
                     )
+            if picture:
+                user = self.store.set_google_picture(user["id"], picture)
             session = self.store.create_session(user["id"])
             self._json(200, {"user": self.store.public_user(user), "token": session["token"],
                              "expiresAt": session["expiresAt"]})
@@ -712,6 +853,16 @@ class CompteHandler(BaseHTTPRequestHandler):
             return
         if path == "/api/me" and method == "GET":
             user = self._auth()
+            self._json(200, {"user": self.store.public_user(user)})
+            return
+        if path == "/api/me/avatar" and method == "PUT":
+            user = self._auth()
+            body = self._read_json()
+            image = body.get("image")
+            if image is None:
+                user = self.store.set_custom_avatar(user["id"], "")
+            else:
+                user = self.store.set_custom_avatar(user["id"], str(image))
             self._json(200, {"user": self.store.public_user(user)})
             return
         if path == "/api/data" and method == "GET":
@@ -830,8 +981,9 @@ def make_server(
     db_path: str,
     google_client_id: str = "",
     static_root: str | None = None,
+    database_url: str = "",
 ) -> tuple[ThreadingHTTPServer, Store]:
-    store = Store(db_path)
+    store = Store(db_path, database_url=database_url)
     CompteHandler.store = store
     CompteHandler.google_client_id = google_client_id
     CompteHandler.static_root = os.path.abspath(static_root) if static_root else None
@@ -862,8 +1014,9 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     google_id = os.environ.get("PSYCLOPEDIA_GOOGLE_CLIENT_ID", "").strip() or PUBLIC_GOOGLE_CLIENT_ID
     static_root = args.static or None
-    httpd, store = make_server(args.host, args.port, args.db, google_id, static_root)
-    print(f"Psyclopédia comptes — SQLite {store.path}")
+    database_url = os.environ.get("DATABASE_URL", "").strip()
+    httpd, store = make_server(args.host, args.port, args.db, google_id, static_root, database_url)
+    print(f"Psyclopédia comptes — {store.kind} {store.path}")
     print(f"Écoute http://{args.host}:{args.port}/api/health")
     print(f"Google Sign-In : client {google_id[:20]}…")
     if static_root:

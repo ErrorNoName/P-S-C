@@ -80,7 +80,7 @@ def main():
           f"({cards_kb:.0f} Ko), {len(CATEGORIES)} fiches imprimables, index A-Z de {n_index} entrées")
     print(f"   • Index de recherche : {n_entries} entrées ({size_kb:.0f} Ko)")
     print(f"   • Cursus : {n_cours} séances de 50 min (emploi du temps, archives, lecteur)")
-    print(f"   • Compte étudiant : {n_compte} pages (connexion, espace, API SQLite)")
+    print(f"   • Compte étudiant : {n_compte} pages (connexion, espace)")
     print(f"   • Rappels : {n_pensees} pensées, {n_plates} planches ({n_svg} gravures SVG)")
     print(f"   • Études + 4 branches : {n_lycee} pages")
     print(f"   • Assistant : corpus {n_ai} extraits ({ai_kb:.0f} Ko)")

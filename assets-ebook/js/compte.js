@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PSYCLOPÉDIA — Compte étudiant (API SQLite ou IndexedDB)
+   PSYCLOPÉDIA — Compte étudiant (API distante : notes, scores, photo)
    ========================================================================== */
 
 (function () {
@@ -266,6 +266,8 @@
       hasPassword: !!user.passwordHash,
       google: !!user.googleSub,
       createdAt: user.createdAt,
+      avatarUrl: user.avatarUrl || user.picture || "",
+      avatarCustom: !!user.avatarCustom,
     };
   }
 
@@ -331,7 +333,7 @@
     if (location.port === "8000") candidates.push(location.protocol + "//" + location.hostname + ":8787");
     var i = 0;
     function next() {
-      if (i >= candidates.length) return Promise.resolve(null);
+      if (i >= candidates.length) return Promise.resolve(configured || "");
       var base = candidates[i++];
       return pingHealth(base, 4000).then(function (ok) {
         if (ok) return base;
@@ -628,12 +630,17 @@
     var email = String(payload.email).toLowerCase();
     var sub = String(payload.sub);
     var name = payload.name || email.split("@")[0];
+    var picture = payload.picture || "";
     return localGetUserByGoogle(sub).then(function (user) {
-      if (user) return user;
+      if (user) {
+        if (picture && !user.avatarCustom) user.avatarUrl = picture;
+        return localPutUser(user);
+      }
       return localGetUserByEmail(email).then(function (existing) {
         if (existing) {
           existing.googleSub = sub;
           existing.name = existing.name || name;
+          if (picture && !existing.avatarCustom) existing.avatarUrl = picture;
           return localPutUser(existing);
         }
         return localPutUser({
@@ -642,6 +649,7 @@
           name: name,
           passwordHash: "",
           googleSub: sub,
+          avatarUrl: picture,
           createdAt: new Date().toISOString(),
         });
       });
@@ -682,25 +690,29 @@
   function restoreSession() {
     var saved = loadSession();
     if (!saved || !saved.token || !saved.user) return Promise.resolve();
+    if (saved.mode === "local") {
+      state.user = null;
+      state.token = "";
+      saveSession();
+      return Promise.resolve();
+    }
     state.token = saved.token;
     state.user = saved.user;
-    state.mode = saved.mode || state.mode;
-    if (saved.mode === "remote" && state.mode === "remote") {
-      return api("GET", "/api/me").then(function (d) {
-        state.user = d.user;
-        saveSession();
-        return loadRemoteData().then(function (remote) {
-          var mergedP = mergeProgress(readProgress(), remote.progress);
-          var mergedC = mergeCours(readCours(), remote.cours);
-          writeLocal(mergedP, mergedC);
-        });
-      }).catch(function () {
-        state.user = null;
-        state.token = "";
-        saveSession();
+    state.mode = "remote";
+    return api("GET", "/api/me").then(function (d) {
+      state.user = d.user;
+      saveSession();
+      return loadRemoteData().then(function (remote) {
+        var mergedP = mergeProgress(readProgress(), remote.progress);
+        var mergedC = mergeCours(readCours(), remote.cours);
+        writeLocal(mergedP, mergedC);
+        return persistData(mergedP, mergedC);
       });
-    }
-    return Promise.resolve();
+    }).catch(function () {
+      state.user = null;
+      state.token = "";
+      saveSession();
+    });
   }
 
   function compteHref(file) {
@@ -715,24 +727,38 @@
     return (a + b).toUpperCase();
   }
 
+  function paintMark(el, user) {
+    if (!el) return;
+    el.textContent = "";
+    if (user && user.avatarUrl) {
+      var img = document.createElement("img");
+      img.src = user.avatarUrl;
+      img.alt = "";
+      img.referrerPolicy = "no-referrer";
+      img.decoding = "async";
+      el.appendChild(img);
+      return;
+    }
+    el.textContent = user ? initials(user.name) : "👤";
+  }
+
   function paintNav() {
     var btn = document.getElementById("nav-compte");
     if (!btn) return;
     var label = btn.querySelector(".nav-compte-label");
+    var mark = btn.querySelector(".nav-compte-mark");
     if (state.user) {
       btn.href = compteHref("espace.html");
       btn.setAttribute("aria-label", "Espace de " + state.user.name);
       btn.classList.add("is-on");
       if (label) label.textContent = state.user.name.split(" ")[0];
-      var mark = btn.querySelector(".nav-compte-mark");
-      if (mark) mark.textContent = initials(state.user.name);
+      paintMark(mark, state.user);
     } else {
       btn.href = compteHref("compte.html");
       btn.setAttribute("aria-label", "Compte étudiant");
       btn.classList.remove("is-on");
       if (label) label.textContent = "Compte";
-      var mark2 = btn.querySelector(".nav-compte-mark");
-      if (mark2) mark2.textContent = "👤";
+      paintMark(mark, null);
     }
   }
 
@@ -745,16 +771,7 @@
 
   function setModeHint(el) {
     if (!el) return;
-    el.textContent = "";
-    if (state.mode === "remote") {
-      el.textContent = "Base SQLite distante — tes données suivent le compte.";
-      return;
-    }
-    el.appendChild(document.createTextNode("Enregistrement local (cet appareil). "));
-    var a = document.createElement("a");
-    a.href = compteHref("api-compte.html");
-    a.textContent = "Activer l'API SQLite";
-    el.appendChild(a);
+    el.textContent = "Compte enregistré sur le serveur — notes, scores et photo te suivent.";
   }
 
   function bindLoginPage() {
@@ -870,6 +887,27 @@
     if (nameEl) nameEl.textContent = state.user.name;
     if (mailEl) mailEl.textContent = state.user.email;
     setModeHint(modeEl);
+    paintMark(document.getElementById("espace-avatar"), state.user);
+    var file = document.getElementById("espace-avatar-file");
+    if (file && !file.getAttribute("data-bound")) {
+      file.setAttribute("data-bound", "1");
+      file.addEventListener("change", function () {
+        var chosen = file.files && file.files[0];
+        file.value = "";
+        if (!chosen) return;
+        resizeAvatar(chosen).then(function (dataUrl) {
+          return api("PUT", "/api/me/avatar", { image: dataUrl });
+        }).then(function (d) {
+          state.user = d.user;
+          saveSession();
+          paintNav();
+          paintMark(document.getElementById("espace-avatar"), state.user);
+          toast("Photo enregistrée sur le serveur");
+        }).catch(function (err) {
+          toast(err.message || "Photo impossible à enregistrer");
+        });
+      });
+    }
     var progress = readProgress();
     var cours = readCours();
     var visited = Object.keys(progress.visited || {}).length;
@@ -996,33 +1034,66 @@
     paintEspace();
   }
 
+  function resizeAvatar(file) {
+    return new Promise(function (resolve, reject) {
+      if (!file || !file.type || file.type.indexOf("image/") !== 0) {
+        reject(new Error("Choisis une image JPEG, PNG ou WebP."));
+        return;
+      }
+      if (file.size > 8 * 1024 * 1024) {
+        reject(new Error("Image trop lourde."));
+        return;
+      }
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        URL.revokeObjectURL(url);
+        var size = 256;
+        var canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        var ctx = canvas.getContext("2d");
+        var w = img.naturalWidth || img.width;
+        var h = img.naturalHeight || img.height;
+        if (!w || !h) {
+          reject(new Error("Image illisible."));
+          return;
+        }
+        var scale = Math.max(size / w, size / h);
+        var dw = w * scale;
+        var dh = h * scale;
+        ctx.drawImage(img, (size - dw) / 2, (size - dh) / 2, dw, dh);
+        resolve(canvas.toDataURL("image/jpeg", 0.85));
+      };
+      img.onerror = function () {
+        URL.revokeObjectURL(url);
+        reject(new Error("Image illisible."));
+      };
+      img.src = url;
+    });
+  }
+
   function boot() {
     state.googleClientId = (cfg().googleClientId || "").trim();
     return detectApi().then(function (base) {
-      if (base === null || typeof base === "undefined") {
-        state.mode = "local";
-        state.apiUrl = "";
-      } else {
-        state.apiUrl = base;
-        state.mode = "remote";
+      state.apiUrl = base || (cfg().apiUrl || "").replace(/\/$/, "");
+      state.mode = "remote";
+      if (!state.apiUrl) {
+        throw new Error("API indisponible");
       }
     }).then(function () {
-      if (state.mode === "remote") {
-        return fetch((state.apiUrl || "") + "/api/config").then(function (r) { return r.json(); })
-          .then(function (d) {
-            if (d.googleClientId) state.googleClientId = d.googleClientId;
-          }).catch(function () {});
-      }
+      return fetch(state.apiUrl + "/api/config").then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d.googleClientId) state.googleClientId = d.googleClientId;
+        }).catch(function () {});
     }).then(restoreSession).then(function () {
       paintNav();
       paintPages();
-      if (state.mode === "remote" && state.apiUrl) {
-        setInterval(function () {
-          pingHealth(state.apiUrl, 15000);
-        }, 4 * 60 * 1000);
-      }
+      setInterval(function () {
+        pingHealth(state.apiUrl, 15000);
+      }, 4 * 60 * 1000);
     }).catch(function () {
-      state.mode = "local";
+      state.mode = "remote";
       paintNav();
       paintPages();
     });

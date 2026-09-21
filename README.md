@@ -20,14 +20,13 @@ guidés — le tout hébergé sur GitHub Pages.
 
 En local, un simple double-clic sur [`index.html`](index.html) suffit pour la quasi-totalité du site. Seule la
 **recherche globale** a besoin d'un serveur web, car elle charge un index JSON (les navigateurs bloquent
-`fetch` sur le protocole `file://`). Pour le **compte étudiant avec la base SQLite** :
+`fetch` sur le protocole `file://`). Le **compte étudiant** s'enregistre sur l'API
+(`https://psychopedia.onrender.com`) : notes, scores et photo de profil.
 
 ```bash
 python3 serveur-compte/compte_server.py --static .
 # puis ouvrir http://127.0.0.1:8787/
 ```
-
-Sans cette API, `python3 -m http.server 8000` reste possible : le compte s'enregistre alors dans IndexedDB.
 
 ## ✨ Ce que contient le site
 
@@ -148,11 +147,10 @@ sources lisibles en ligne, des flashcards de rappel actif et un quiz noté.
   Démonstration / Cas clinique / Synthèse & quiz flash. Calendrier semaine ou mois, compte à rebours avant
   le prochain cours, assiduité et notes de quiz dans le navigateur.
 - **[Compte étudiant](livres-psychologie/07-ebook-final/compte.html)** — connexion par e-mail et mot de passe
-  (PBKDF2) ou Google. Cours suivis, carnet de notes et meilleurs scores de quiz sont enregistrés. En local
-  avec `python3 serveur-compte/compte_server.py --static .` tout passe par une **base SQLite** réelle ; sur
-  GitHub Pages sans API, le même compte reste dans IndexedDB sur l'appareil.
+  (PBKDF2) ou Google. Cours suivis, carnet de notes, meilleurs scores de quiz et photo de profil
+  (photo Google ou image personnelle) sont enregistrés sur le serveur.
 - **[Espace d'apprentissage](livres-psychologie/07-ebook-final/espace.html)** — tableau de bord : catégories
-  lues, moyenne des quiz, notes sur 20, carnet de séance.
+  lues, moyenne des quiz, notes sur 20, carnet de séance, photo de profil.
 - **[Lecteur de cours](livres-psychologie/07-ebook-final/cours/lecteur.html)** — iframe YouTube 100 %
   francophone (Collège de France, universités, archives), panneau de fiches synchronisé sur une timeline
   JSON, surlignage des notions au moment où elles sont nommées, notes exportables en Markdown ou PDF.
@@ -162,8 +160,8 @@ sources lisibles en ligne, des flashcards de rappel actif et un quiz noté.
 - **[Bibliothèque](livres-psychologie/07-ebook-final/bibliotheque.html)** — 13 ouvrages du domaine public.
 - **[Crédits et sources](livres-psychologie/07-ebook-final/credits.html)** — chaque illustration avec son
   fichier d'origine sur Wikimedia Commons et sa licence exacte, vérifiés un par un via l'API de Commons.
-- **Progression enregistrée** : score de maîtrise, catégories lues, meilleurs scores — dans le compte
-  étudiant (SQLite ou IndexedDB), avec repli localStorage.
+- **Progression enregistrée** : score de maîtrise, catégories lues, meilleurs scores, notes et photo —
+  sur le serveur du compte étudiant, avec cache localStorage.
 
 ## 🗂 Structure du dépôt
 

@@ -60,11 +60,16 @@
   <div class="compte-wrap wide">
     <div class="compte-card espace-profile">
       <div class="espace-id">
-        <div class="espace-avatar" aria-hidden="true">✓</div>
+        <div class="espace-avatar" id="espace-avatar" aria-hidden="true"></div>
         <div>
           <h2 id="espace-name" style="margin:0;font-size:1.25rem">Étudiant</h2>
           <p id="espace-email" style="margin:0.2rem 0 0;color:var(--gris)"></p>
           <p id="espace-mode" class="compte-hint" style="margin:0.25rem 0 0"></p>
+          <div class="espace-avatar-actions">
+            <label class="espace-avatar-pick">Changer la photo
+              <input type="file" id="espace-avatar-file" accept="image/jpeg,image/png,image/webp" hidden>
+            </label>
+          </div>
         </div>
       </div>
       <div class="cta-row" style="margin:0">
@@ -141,7 +146,6 @@
     <a href="aide.html">Aide &amp; ressources</a>
     <a href="compte.html">Compte étudiant</a>
     <a href="espace.html">Espace d'apprentissage</a>
-    <a href="api-compte.html">Activer l'API SQLite</a>
     <a href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener">Communauté Discord</a>
     <a href="plan.html">Plan du site</a>
     <a href="credits.html">Crédits &amp; sources</a>

@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 
+import base64
 import json
 import os
 import sys
@@ -72,9 +73,19 @@ class CompteApiTests(unittest.TestCase):
 
         def fake_google(token: str, aud: str):
             if token == "ok-google":
-                return {"sub": "gid-ada", "email": "ada.google@example.com", "name": "Ada Google"}
+                return {
+                    "sub": "gid-ada",
+                    "email": "ada.google@example.com",
+                    "name": "Ada Google",
+                    "picture": "https://lh3.googleusercontent.com/a/ada-photo",
+                }
             if token == "ok-link":
-                return {"sub": "gid-link", "email": "deja@example.com", "name": "Déjà Inscrite"}
+                return {
+                    "sub": "gid-link",
+                    "email": "deja@example.com",
+                    "name": "Déjà Inscrite",
+                    "picture": "https://lh3.googleusercontent.com/a/deja-photo",
+                }
             raise compte_server.AuthError("Jeton Google invalide.")
 
         compte_server.GOOGLE_TOKEN_VERIFIER = fake_google
@@ -283,6 +294,8 @@ class CompteApiTests(unittest.TestCase):
         self.assertEqual(body["user"]["email"], "ada.google@example.com")
         self.assertTrue(body["user"]["google"])
         self.assertFalse(body["user"]["hasPassword"])
+        self.assertEqual(body["user"]["avatarUrl"], "https://lh3.googleusercontent.com/a/ada-photo")
+        self.assertFalse(body["user"]["avatarCustom"])
         c.call("POST", "/api/auth/register", {
             "email": "deja@example.com", "password": "motdepasse1", "name": "Déjà",
         })
@@ -293,6 +306,38 @@ class CompteApiTests(unittest.TestCase):
         self.assertTrue(linked["user"]["hasPassword"])
         status, bad = c.call("POST", "/api/auth/google", {"credential": "junk"})
         self.assertEqual(status, 401)
+
+    def test_google_photo_and_custom_avatar(self):
+        c = self.client()
+        status, body = c.call("POST", "/api/auth/google", {"credential": "ok-google"})
+        self.assertEqual(status, 200, body)
+        c.token = body["token"]
+        self.assertEqual(body["user"]["avatarUrl"], "https://lh3.googleusercontent.com/a/ada-photo")
+        raw = b"\xff\xd8\xff" + b"\x00" * 64
+        data_url = "data:image/jpeg;base64," + base64.b64encode(raw).decode("ascii")
+        status, updated = c.call("PUT", "/api/me/avatar", {"image": data_url})
+        self.assertEqual(status, 200, updated)
+        self.assertTrue(updated["user"]["avatarCustom"])
+        self.assertTrue(updated["user"]["avatarUrl"].startswith("data:image/jpeg;base64,"))
+        status, me = c.call("GET", "/api/me")
+        self.assertEqual(status, 200)
+        self.assertTrue(me["user"]["avatarCustom"])
+        self.assertTrue(me["user"]["avatarUrl"].startswith("data:image/jpeg"))
+        status, again = c.call("POST", "/api/auth/google", {"credential": "ok-google"})
+        self.assertEqual(status, 200, again)
+        c.token = again["token"]
+        self.assertTrue(again["user"]["avatarCustom"])
+        self.assertTrue(again["user"]["avatarUrl"].startswith("data:image/jpeg"))
+        status, reset = c.call("PUT", "/api/me/avatar", {"image": None})
+        self.assertEqual(status, 200, reset)
+        self.assertFalse(reset["user"]["avatarCustom"])
+        self.assertEqual(reset["user"]["avatarUrl"], "https://lh3.googleusercontent.com/a/ada-photo")
+        status, bad = c.call("PUT", "/api/me/avatar", {"image": "data:image/svg+xml;base64,PHN2Zz4="})
+        self.assertEqual(status, 400)
+        status, evil = c.call("PUT", "/api/me/avatar", {
+            "image": "https://evil.example/x.jpg",
+        })
+        self.assertEqual(status, 400)
 
     def test_login_sql_payload_rejected(self):
         c = self.client()
@@ -355,6 +400,14 @@ class FrontendConfigTests(unittest.TestCase):
         self.assertIn("https://psychopedia.onrender.com", cfg)
         self.assertNotIn("GOCSPX-", cfg)
         self.assertNotIn("client_secret", cfg)
+
+    def test_plus_de_bandeau_local_ni_page_api(self):
+        js = (HERE.parent / "assets-ebook/js/compte.js").read_text(encoding="utf-8")
+        self.assertNotIn("api-compte.html", js)
+        self.assertNotIn("Enregistrement local", js)
+        self.assertNotIn("Activer l'API SQLite", js)
+        page = HERE.parent / "livres-psychologie/07-ebook-final/api-compte.html"
+        self.assertFalse(page.exists(), "api-compte.html ne doit plus être générée")
 
     def test_secret_json_pas_dans_le_depot(self):
         repo = HERE.parent
@@ -470,21 +523,6 @@ class GoogleLiveTests(unittest.TestCase):
         )
         with urllib.request.urlopen(req, timeout=5) as resp:
             self.assertEqual(resp.headers.get("Access-Control-Allow-Origin"), "https://errornoname.github.io")
-
-
-if __name__ == "__main__":
-    unittest.main()
-
-    def test_roundtrip(self):
-        stored = compte_server.hash_password("sésame-12")
-        self.assertTrue(stored.startswith("pbkdf2$sha256$"))
-        self.assertTrue(compte_server.verify_password("sésame-12", stored))
-        self.assertFalse(compte_server.verify_password("autre", stored))
-
-    def test_distinct_salts(self):
-        a = compte_server.hash_password("motdepasse1")
-        b = compte_server.hash_password("motdepasse1")
-        self.assertNotEqual(a, b)
 
 
 if __name__ == "__main__":

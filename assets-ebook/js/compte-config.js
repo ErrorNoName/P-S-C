@@ -1,5 +1,5 @@
 /* Configuration publique du compte étudiant.
-   apiUrl : URL de l'API SQLite (vide = détection /api puis IndexedDB).
+   apiUrl : URL HTTPS de l'API (notes, scores et photo sur le serveur).
    googleClientId : identifiant OAuth public ; laisser vide masque le bouton Google. */
 window.PSYCLOPEDIA_COMPTE = {
   apiUrl: "https://psychopedia.onrender.com",

@@ -1,1 +1,2 @@
-# Aucune dépendance tierce : l'API comptes utilise la bibliothèque standard Python.
+# API comptes : PostgreSQL en production (Render), SQLite pour les tests locaux.
+psycopg[binary]>=3.2,<4

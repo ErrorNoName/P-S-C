@@ -588,7 +588,6 @@ def render_plan():
             ("Cours & archives", "cours/index.html"),
             ("Compte étudiant", "compte.html"),
             ("Espace d'apprentissage", "espace.html"),
-            ("Activer l'API SQLite", "api-compte.html"),
         ]),
         ("Lire les ouvrages", [
             ("Bibliothèque", "bibliotheque.html"),
