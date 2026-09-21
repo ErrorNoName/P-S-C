@@ -153,7 +153,7 @@ a { color: inherit; }
 }
 
 @media (max-width: 1180px) {
-  .nav-discord-label, .nav-notify-label { display: none; }
+  .nav-discord-label, .nav-notify-label, .nav-compte-label { display: none; }
   .nav-search-btn > span:nth-child(2),
   .nav-search-btn kbd { display: none; }
 }

@@ -5,3 +5,5 @@ __pycache__/
 discord/.env
 discord/bot.log
 *.token
+serveur-compte/data/*.sqlite
+serveur-compte/data/*.sqlite-*

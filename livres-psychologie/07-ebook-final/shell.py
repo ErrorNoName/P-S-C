@@ -102,6 +102,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
 <link rel="stylesheet" href="{asset(depth, 'css/plates.css')}">
 <link rel="stylesheet" href="{asset(depth, 'css/lycee.css')}">
 <link rel="stylesheet" href="{asset(depth, 'css/assistant.css')}">
+<link rel="stylesheet" href="{asset(depth, 'css/compte.css')}">
 {extra_head}
 </head>
 <body data-root="{repo_root(depth)}"{(' ' + body_attrs) if body_attrs else ''}>
@@ -110,6 +111,9 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a class="brand" href="{repo_root(depth)}index.html"><span class="brand-mark"></span>Psyclopédia</a>
     <ul class="nav-links">{links_html}</ul>
     <div class="nav-side">
+      <a class="nav-compte-btn" id="nav-compte" href="{ebook(depth, 'compte.html')}" aria-label="Compte étudiant">
+        <span class="nav-compte-mark" aria-hidden="true">👤</span><span class="nav-compte-label">Compte</span>
+      </a>
       <a class="nav-discord-btn" href="{DISCORD_INVITE}" target="_blank" rel="noopener" aria-label="Rejoindre le serveur Discord">
         <span aria-hidden="true">💬</span><span class="nav-discord-label">Discord</span>
       </a>
@@ -154,6 +158,8 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a href="{ebook(depth, 'faq.html')}">Questions fréquentes</a>
     <a href="{ebook(depth, 'auto-evaluations.html')}">Auto-évaluations</a>
     <a href="{ebook(depth, 'aide.html')}">Aide &amp; ressources</a>
+    <a href="{ebook(depth, 'compte.html')}">Compte étudiant</a>
+    <a href="{ebook(depth, 'espace.html')}">Espace d'apprentissage</a>
     <a href="{DISCORD_INVITE}" target="_blank" rel="noopener">Communauté Discord</a>
     <a href="{ebook(depth, 'plan.html')}">Plan du site</a>
     <a href="{ebook(depth, 'credits.html')}">Crédits &amp; sources</a>
@@ -171,6 +177,8 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
 <script src="{asset(depth, 'js/search.js')}"></script>
 <script src="{asset(depth, 'js/daily.js')}"></script>
 <script src="{asset(depth, 'js/assistant.js')}"></script>
+<script src="{asset(depth, 'js/compte-config.js')}"></script>
+<script src="{asset(depth, 'js/compte.js')}"></script>
 {extra_scripts}
 </body>
 </html>"""

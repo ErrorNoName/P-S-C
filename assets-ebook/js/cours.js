@@ -45,6 +45,9 @@
 
   function saveStore(data) {
     localStorage.setItem(STORE, JSON.stringify(data));
+    if (window.PsycCompte && typeof window.PsycCompte.queueSync === "function") {
+      window.PsycCompte.queueSync();
+    }
   }
 
   function markAttendance(id, seconds, completed) {
@@ -492,6 +495,9 @@
     var s = loadStore();
     s.quizzes[course.id] = { score: ok, total: items.length, at: new Date().toISOString() };
     saveStore(s);
+    if (window.PsycCompte && typeof window.PsycCompte.recordGrade === "function") {
+      window.PsycCompte.recordGrade(course.id, ok, items.length, "cours");
+    }
     showQuizResult(course, ok);
     markAttendance(course.id, session.t, true);
   }

@@ -19,8 +19,8 @@
 }
 .nav-notify-badge[hidden] { display: none; }
 
-@media (max-width: 760px) {
-  .nav-notify-label { display: none; }
+@media (max-width: 1180px) {
+  .nav-discord-label, .nav-notify-label, .nav-compte-label { display: none; }
 }
 
 .notify-overlay {

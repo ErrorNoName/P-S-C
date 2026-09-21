@@ -6,7 +6,8 @@ Un site d'apprentissage complet et autonome : 26 catégories rédigées, plus de
 (références, théories, courants, cas cliniques, débats, méthodes, pratique, métiers), 13 ouvrages du domaine
 public lisibles directement en ligne, une recherche globale instantanée, 26 quiz notés avec corrigés, un
 laboratoire d'expériences jouables, un système de révision espacée, un **cursus annuel de 60 cours**
-de 50 minutes (emploi du temps, replays YouTube francophones, fiches synchronisées) et des parcours
+de 50 minutes (emploi du temps, replays YouTube francophones, fiches synchronisées), un **compte étudiant**
+(e-mail/mot de passe ou Google, notes et scores enregistrés) et des parcours
 guidés — le tout hébergé sur GitHub Pages.
 
 ## 🚀 Accéder au site
@@ -19,12 +20,14 @@ guidés — le tout hébergé sur GitHub Pages.
 
 En local, un simple double-clic sur [`index.html`](index.html) suffit pour la quasi-totalité du site. Seule la
 **recherche globale** a besoin d'un serveur web, car elle charge un index JSON (les navigateurs bloquent
-`fetch` sur le protocole `file://`) :
+`fetch` sur le protocole `file://`). Pour le **compte étudiant avec la base SQLite** :
 
 ```bash
-python3 -m http.server 8000
-# puis ouvrir http://localhost:8000/
+python3 serveur-compte/compte_server.py --static .
+# puis ouvrir http://127.0.0.1:8787/
 ```
+
+Sans cette API, `python3 -m http.server 8000` reste possible : le compte s'enregistre alors dans IndexedDB.
 
 ## ✨ Ce que contient le site
 
@@ -144,6 +147,12 @@ sources lisibles en ligne, des flashcards de rappel actif et un quiz noté.
   2026-2027 (2 semestres × 15 semaines × CM + TD) : 60 séances de 50 minutes découpées en Exposition /
   Démonstration / Cas clinique / Synthèse & quiz flash. Calendrier semaine ou mois, compte à rebours avant
   le prochain cours, assiduité et notes de quiz dans le navigateur.
+- **[Compte étudiant](livres-psychologie/07-ebook-final/compte.html)** — connexion par e-mail et mot de passe
+  (PBKDF2) ou Google. Cours suivis, carnet de notes et meilleurs scores de quiz sont enregistrés. En local
+  avec `python3 serveur-compte/compte_server.py --static .` tout passe par une **base SQLite** réelle ; sur
+  GitHub Pages sans API, le même compte reste dans IndexedDB sur l'appareil.
+- **[Espace d'apprentissage](livres-psychologie/07-ebook-final/espace.html)** — tableau de bord : catégories
+  lues, moyenne des quiz, notes sur 20, carnet de séance.
 - **[Lecteur de cours](livres-psychologie/07-ebook-final/cours/lecteur.html)** — iframe YouTube 100 %
   francophone (Collège de France, universités, archives), panneau de fiches synchronisé sur une timeline
   JSON, surlignage des notions au moment où elles sont nommées, notes exportables en Markdown ou PDF.
@@ -153,7 +162,8 @@ sources lisibles en ligne, des flashcards de rappel actif et un quiz noté.
 - **[Bibliothèque](livres-psychologie/07-ebook-final/bibliotheque.html)** — 13 ouvrages du domaine public.
 - **[Crédits et sources](livres-psychologie/07-ebook-final/credits.html)** — chaque illustration avec son
   fichier d'origine sur Wikimedia Commons et sa licence exacte, vérifiés un par un via l'API de Commons.
-- **Progression enregistrée** localement (localStorage) : score de maîtrise, catégories lues, meilleurs scores.
+- **Progression enregistrée** : score de maîtrise, catégories lues, meilleurs scores — dans le compte
+  étudiant (SQLite ou IndexedDB), avec repli localStorage.
 
 ## 🗂 Structure du dépôt
 
@@ -205,7 +215,8 @@ Deux vérifications utiles après une modification :
 
 ```bash
 python3 -c "import json; print(len(json.load(open('search-index.json'))))"   # index de recherche
-node --check ../../assets-ebook/js/autoeval.js                               # syntaxe d'un script
+node --check ../../assets-ebook/js/compte.js                                 # syntaxe du compte
+python3 ../../serveur-compte/test_compte.py                                  # API SQLite (auth, notes, isolation)
 ```
 
 ## 📖 Déploiement

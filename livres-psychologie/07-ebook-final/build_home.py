@@ -49,6 +49,7 @@ NOUVEAUTES = [
     ("🔭", "Zone de découverte", "Planches d'expériences, vraies images du cerveau, projets ouverts, cave des mythes"),
     ("🧭", "Quatre branches de la psychologie", "Clinique, sociale, développement, cognitive — le socle de toute licence"),
     ("🤖", "Assistant du site", "Questions en français, réponses sourcées dans tout le corpus"),
+    ("👤", "Compte étudiant", "E-mail ou Google, notes de cours et scores enregistrés"),
 ]
 
 # (href, classe couleur, icône, titre, description, compteur)
@@ -122,6 +123,9 @@ OUTILS_V3 = [
     ("assistant.html", "vert", "🤖", "Assistant",
      "Une question, une réponse complète tirée uniquement des pages du site, avec les sources.",
      "Ctrl + J"),
+    ("compte.html", "or", "👤", "Compte étudiant",
+     "Connexion e-mail/mot de passe ou Google. Progression, notes de cours et scores conservés.",
+     "SQLite · IndexedDB"),
 ]
 
 
@@ -228,6 +232,7 @@ def render_home():
       <a class="btn btn-primary" href="{EB}parcours.html">🧭 Commencer un parcours</a>
       <a class="btn btn-secondary" href="{EB}emploi-du-temps.html">🎓 Emploi du temps</a>
       <a class="btn btn-secondary" href="{DISCORD_INVITE}" target="_blank" rel="noopener">💬 Rejoindre le Discord</a>
+      <a class="btn btn-secondary" href="{EB}compte.html">👤 Compte étudiant</a>
       <button class="btn btn-secondary" data-search-open="">🔍 Rechercher (Ctrl + K)</button>
     </div>
   </div>
@@ -351,6 +356,9 @@ def render_home():
     <a class="hub-card" href="{EB}assistant.html"><span class="hub-ico">🤖</span><h3>L'assistant du site</h3>
       <p>Réponses complètes et sourcées : une question, les pages qui y répondent, sans invention.</p>
       <span class="hub-n">Ctrl + J</span></a>
+    <a class="hub-card or" href="{EB}compte.html"><span class="hub-ico">👤</span><h3>Compte étudiant</h3>
+      <p>E-mail et mot de passe, ou Google. Cours suivis, notes de séance et scores de quiz enregistrés.</p>
+      <span class="hub-n">Connexion</span></a>
   </div>
 </div>
 

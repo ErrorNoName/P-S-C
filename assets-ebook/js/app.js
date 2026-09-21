@@ -18,6 +18,9 @@ function loadProgress() {
 
 function saveProgress(p) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+  if (window.PsycCompte && typeof window.PsycCompte.queueSync === "function") {
+    window.PsycCompte.queueSync();
+  }
 }
 
 function markVisited(categoryId) {
@@ -33,6 +36,9 @@ function recordQuizScore(quizId, score, total) {
     p.quizBest[quizId] = { score, total, pct };
   }
   saveProgress(p);
+  if (window.PsycCompte && typeof window.PsycCompte.recordGrade === "function") {
+    window.PsycCompte.recordGrade(quizId, score, total, "quiz");
+  }
 }
 
 function getMasteryPct() {

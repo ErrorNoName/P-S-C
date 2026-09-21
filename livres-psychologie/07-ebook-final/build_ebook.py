@@ -11,6 +11,7 @@ d'apprentissage, puis l'index de recherche.
 
 import build_autoeval
 import build_categories
+import build_compte
 import build_cours
 import build_decouverte
 import build_home
@@ -51,6 +52,7 @@ def main():
     n_ai, ai_kb = build_assistant.render_all()
     n_gal, n_xp = build_decouverte.render_decouverte()
     n_cours = build_cours.render_all()
+    n_compte = build_compte.render_all()
     n_svg, n_pensees, n_plates, _n_cat = build_plates.render_all()
     build_home.render_home()
 
@@ -78,6 +80,7 @@ def main():
           f"({cards_kb:.0f} Ko), {len(CATEGORIES)} fiches imprimables, index A-Z de {n_index} entrées")
     print(f"   • Index de recherche : {n_entries} entrées ({size_kb:.0f} Ko)")
     print(f"   • Cursus : {n_cours} séances de 50 min (emploi du temps, archives, lecteur)")
+    print(f"   • Compte étudiant : {n_compte} pages (connexion, espace, API SQLite)")
     print(f"   • Rappels : {n_pensees} pensées, {n_plates} planches ({n_svg} gravures SVG)")
     print(f"   • Études + 4 branches : {n_lycee} pages")
     print(f"   • Assistant : corpus {n_ai} extraits ({ai_kb:.0f} Ko)")

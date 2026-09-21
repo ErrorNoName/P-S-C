@@ -586,6 +586,8 @@ def render_plan():
             ("Apprendre efficacement", "apprendre.html"),
             ("Emploi du temps & cours", "emploi-du-temps.html"),
             ("Cours & archives", "cours/index.html"),
+            ("Compte étudiant", "compte.html"),
+            ("Espace d'apprentissage", "espace.html"),
         ]),
         ("Lire les ouvrages", [
             ("Bibliothèque", "bibliotheque.html"),

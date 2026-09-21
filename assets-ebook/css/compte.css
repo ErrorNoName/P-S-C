@@ -1,0 +1,107 @@
+/* ==========================================================================
+   PSYCLOPÉDIA — Compte étudiant
+   ========================================================================== */
+
+.nav-compte-btn {
+  display: flex; align-items: center; gap: 0.4rem;
+  background: var(--vert-light); border: 1px solid transparent;
+  border-radius: 999px; padding: 0.42rem 0.75rem;
+  font-family: var(--sans); font-size: 0.8rem; font-weight: 600;
+  color: var(--vert); text-decoration: none; white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-compte-btn:hover { border-color: var(--vert); color: var(--noir); }
+.nav-compte-btn.is-on { background: var(--noir); color: #fff; border-color: var(--noir); }
+.nav-compte-mark { font-size: 0.85rem; line-height: 1; }
+
+.compte-wrap { max-width: 720px; margin: 0 auto; }
+.compte-wrap.wide { max-width: 960px; }
+
+.compte-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 1.6rem 1.4rem 1.8rem;
+}
+
+.compte-tabs {
+  display: flex; gap: 0.4rem; margin-bottom: 1.2rem;
+}
+.compte-tabs button {
+  flex: 1; border: 1px solid var(--border); background: var(--bg);
+  border-radius: 999px; padding: 0.55rem 0.9rem;
+  font-family: var(--sans); font-weight: 600; color: var(--gris); cursor: pointer;
+}
+.compte-tabs button.active { background: var(--noir); color: #fff; border-color: var(--noir); }
+
+.compte-form { display: grid; gap: 0.75rem; }
+.compte-form label { display: grid; gap: 0.28rem; font-size: 0.88rem; font-weight: 600; color: var(--noir); }
+.compte-form input, .compte-form textarea {
+  font-family: var(--sans); font-size: 1rem; font-weight: 400;
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 0.55rem 0.75rem; background: var(--bg); color: var(--noir);
+}
+.compte-form textarea { min-height: 8rem; resize: vertical; }
+.compte-form .btn { justify-self: start; }
+
+.compte-sep {
+  display: flex; align-items: center; gap: 0.8rem;
+  color: var(--gris); font-size: 0.82rem; margin: 1.1rem 0;
+}
+.compte-sep::before, .compte-sep::after {
+  content: ""; flex: 1; height: 1px; background: var(--border);
+}
+
+.compte-msg { margin-top: 0.9rem; font-size: 0.9rem; }
+.compte-msg.err { color: #9b2c2c; }
+.compte-msg.ok { color: var(--vert); }
+.compte-hint { color: var(--gris); font-size: 0.85rem; margin-top: 0.8rem; }
+.compte-mode {
+  margin-top: 1rem; font-size: 0.8rem; color: var(--gris);
+  background: var(--gris-light); border-radius: 8px; padding: 0.55rem 0.75rem;
+}
+
+.espace-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin: 1rem 0 1.6rem;
+}
+.espace-stat {
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 0.9rem 1rem;
+}
+.espace-stat .n { font-size: 1.6rem; font-weight: 700; }
+.espace-stat .l { font-size: 0.78rem; color: var(--gris); }
+
+.espace-profile {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+.espace-id { display: flex; align-items: center; gap: 0.9rem; }
+.espace-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--vert), var(--or));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; color: #fff;
+}
+
+.notes-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.notes-table th, .notes-table td {
+  text-align: left; padding: 0.55rem 0.4rem; border-bottom: 1px solid var(--border); vertical-align: top;
+}
+.notes-table th { font-size: 0.78rem; color: var(--gris); font-weight: 600; }
+
+.note-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 0.9rem 1rem; margin-bottom: 0.8rem;
+}
+.note-card h3 { margin: 0 0 0.2rem; font-size: 1rem; }
+.note-meta { margin: 0 0 0.5rem; font-size: 0.78rem; color: var(--gris); }
+.note-card pre {
+  white-space: pre-wrap; font-family: var(--sans); font-size: 0.92rem;
+  margin: 0 0 0.6rem; background: var(--bg); padding: 0.6rem; border-radius: 8px;
+}
+.compte-empty { color: var(--gris); }
+
+#google-btn { min-height: 40px; }
+
+@media (max-width: 720px) {
+  .espace-grid { grid-template-columns: 1fr 1fr; }
+}
