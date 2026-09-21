@@ -299,23 +299,44 @@
     });
   }
 
+  function pingHealth(base, timeoutMs) {
+    var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, timeoutMs || 20000) : null;
+    return fetch(base + "/api/health", { method: "GET", signal: ctrl ? ctrl.signal : undefined })
+      .then(function (resp) { return resp.ok; })
+      .catch(function () { return false; })
+      .then(function (ok) {
+        if (timer) clearTimeout(timer);
+        return ok;
+      });
+  }
+
+  function wakeApi(base) {
+    function attempt(n) {
+      return pingHealth(base, n === 0 ? 25000 : 80000).then(function (ok) {
+        if (ok) return true;
+        if (n >= 4) return false;
+        return attempt(n + 1);
+      });
+    }
+    return attempt(0);
+  }
+
   function detectApi() {
     var configured = (cfg().apiUrl || "").replace(/\/$/, "");
-    var candidates = [];
-    if (configured) candidates.push(configured);
-    if (!configured) {
-      candidates.push("");
-      if (location.port === "8000") candidates.push(location.protocol + "//" + location.hostname + ":8787");
+    if (configured) {
+      return wakeApi(configured).then(function () { return configured; });
     }
+    var candidates = [""];
+    if (location.port === "8000") candidates.push(location.protocol + "//" + location.hostname + ":8787");
     var i = 0;
     function next() {
       if (i >= candidates.length) return Promise.resolve(null);
       var base = candidates[i++];
-      var url = base + "/api/health";
-      return fetch(url, { method: "GET" }).then(function (resp) {
-        if (resp.ok) return base;
+      return pingHealth(base, 4000).then(function (ok) {
+        if (ok) return base;
         return next();
-      }).catch(function () { return next(); });
+      });
     }
     return next();
   }
@@ -995,6 +1016,11 @@
     }).then(restoreSession).then(function () {
       paintNav();
       paintPages();
+      if (state.mode === "remote" && state.apiUrl) {
+        setInterval(function () {
+          pingHealth(state.apiUrl, 15000);
+        }, 4 * 60 * 1000);
+      }
     }).catch(function () {
       state.mode = "local";
       paintNav();

@@ -352,6 +352,7 @@ class FrontendConfigTests(unittest.TestCase):
     def test_client_id_public_dans_le_js(self):
         cfg = (HERE.parent / "assets-ebook/js/compte-config.js").read_text(encoding="utf-8")
         self.assertIn(compte_server.PUBLIC_GOOGLE_CLIENT_ID, cfg)
+        self.assertIn("https://psychopedia.onrender.com", cfg)
         self.assertNotIn("GOCSPX-", cfg)
         self.assertNotIn("client_secret", cfg)
 

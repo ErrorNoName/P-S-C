@@ -72,39 +72,23 @@
     <p class="compte-hint">Le bandeau doit afficher « Base SQLite distante ». Santé de l'API :
     <a href="http://127.0.0.1:8787/api/health">http://127.0.0.1:8787/api/health</a></p>
 
-    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">2. En ligne (téléphone + ordinateur)</h2>
-    <ol class="compte-steps">
-      <li>Crée un compte Render :
-        <a href="https://dashboard.render.com/register" target="_blank" rel="noopener">dashboard.render.com/register</a></li>
-      <li>Nouveau Web Service :
-        <a href="https://dashboard.render.com/select-repo?type=web" target="_blank" rel="noopener">dashboard.render.com/select-repo?type=web</a></li>
-      <li>Connecte le dépôt <code>ErrorNoName/P-S-C</code>, branche <code>main</code>.</li>
-      <li>Runtime <strong>Python</strong>. Commande de démarrage :<br>
-        <code>python3 serveur-compte/compte_server.py --host 0.0.0.0 --port $PORT</code></li>
-      <li>Health check : <code>/api/health</code>. Crée le service.</li>
-      <li>Copie l'URL HTTPS (ex. <code>https://psyclopedia-compte.onrender.com</code>) et
-        ouvre <code>…/api/health</code> : tu dois voir <code>"ok": true</code>.</li>
-    </ol>
-    <p>Blueprint du dépôt :
-    <a href="https://dashboard.render.com/blueprint/new" target="_blank" rel="noopener">dashboard.render.com/blueprint/new</a>
-    — fichier <code>render.yaml</code> à la racine.</p>
+    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">2. API en ligne (déjà branchée)</h2>
+    <p>Service Render <strong>Psychopédia</strong> :</p>
+    <p><a class="btn btn-primary" href="https://psychopedia.onrender.com/api/health">https://psychopedia.onrender.com/api/health</a></p>
+    <p>Tableau de bord :
+    <a href="https://dashboard.render.com/web/srv-daokmdf40ujc73fmi0og" target="_blank" rel="noopener">dashboard.render.com/web/srv-daokmdf40ujc73fmi0og</a></p>
+    <p>Le site public appelle cette API. Un ping GitHub Actions toutes les 5 minutes empêche
+    l'instance gratuite de s'endormir. Si elle dort quand même, le premier appel peut prendre ~50 s.</p>
 
-    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">3. Google (même client déjà créé)</h2>
-    <p>Ajoute l'<strong>origine</strong> de l'API (sans chemin) dans le client OAuth :</p>
+    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">3. Google (origine de l'API)</h2>
+    <p>Ajoute cette origine JavaScript dans le client OAuth :</p>
+    <pre style="background:var(--bg);padding:0.8rem 1rem;border-radius:10px;overflow:auto">https://psychopedia.onrender.com</pre>
     <p><a class="btn btn-secondary" href="https://console.cloud.google.com/apis/credentials/oauthclient/340597672237-fscmcisrorgrkh3uppbvtj69848gj6nc.apps.googleusercontent.com?project=vrvaultdatabase" target="_blank" rel="noopener">Ouvrir le client OAuth Psyclopédia</a></p>
     <p>Origines JavaScript à avoir :</p>
     <pre style="background:var(--bg);padding:0.8rem 1rem;border-radius:10px;overflow:auto">https://errornoname.github.io
 http://127.0.0.1:8787
 http://localhost:8787
-https://TON-API.onrender.com</pre>
-
-    <h2 class="section-title" style="font-size:1.25rem;margin-top:1.8rem">4. Ce qu'il faut renvoyer</h2>
-    <div class="compte-card">
-      <p style="margin:0 0 0.6rem"><strong>Uniquement l'URL HTTPS de l'API</strong>, sans slash à la fin :</p>
-      <pre style="margin:0">https://psyclopedia-compte.onrender.com</pre>
-      <p style="margin:0.8rem 0 0">On la met dans <code>compte-config.js</code> (<code>apiUrl</code>) et on publie sur
-      <code>main</code>. Pas de secret, pas de mot de passe Render, pas le JSON Google.</p>
-    </div>
+https://psychopedia.onrender.com</pre>
   </div>
 </div>
 
