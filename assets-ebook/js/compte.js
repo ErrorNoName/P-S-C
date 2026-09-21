@@ -789,6 +789,9 @@
       if (!window.google || !google.accounts || !google.accounts.id) return;
       google.accounts.id.initialize({
         client_id: state.googleClientId,
+        ux_mode: "popup",
+        auto_select: false,
+        cancel_on_tap_outside: true,
         callback: function (resp) {
           loginGoogle(resp.credential).then(function () {
             toast("Connexion Google réussie");
@@ -803,6 +806,7 @@
         size: "large",
         locale: "fr",
         text: "continue_with",
+        shape: "pill",
         width: 320,
       });
     }

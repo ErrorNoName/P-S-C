@@ -7,3 +7,5 @@ discord/bot.log
 *.token
 serveur-compte/data/*.sqlite
 serveur-compte/data/*.sqlite-*
+client_secret*.json
+**/client_secret*.json

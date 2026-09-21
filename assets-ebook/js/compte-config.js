@@ -3,5 +3,5 @@
    googleClientId : identifiant OAuth public ; laisser vide masque le bouton Google. */
 window.PSYCLOPEDIA_COMPTE = {
   apiUrl: "",
-  googleClientId: ""
+  googleClientId: "340597672237-fscmcisrorgrkh3uppbvtj69848gj6nc.apps.googleusercontent.com"
 };

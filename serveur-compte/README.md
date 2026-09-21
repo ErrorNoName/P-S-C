@@ -19,7 +19,7 @@ Les fichiers de données (`serveur-compte/data/`) ne sont pas versionnés.
 
 | Variable | Rôle |
 |----------|------|
-| `PSYCLOPEDIA_GOOGLE_CLIENT_ID` | Identifiant client OAuth Google (public). Sans lui, seule la connexion e-mail/mot de passe est active. |
+| `PSYCLOPEDIA_GOOGLE_CLIENT_ID` | Identifiant client OAuth Google (public). Défaut : ID du projet Psyclopédia. |
 | `PSYCLOPEDIA_COMPTE_PORT` | Port d'écoute (défaut `8787`). |
 | `PSYCLOPEDIA_COMPTE_DB` | Chemin du fichier SQLite. |
 | `PSYCLOPEDIA_COMPTE_HOST` | Adresse d'écoute (défaut `127.0.0.1`). |

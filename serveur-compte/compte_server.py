@@ -35,6 +35,10 @@ from typing import Any, Callable
 HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_DB = os.path.join(HERE, "data", "compte.sqlite")
 DEFAULT_PORT = 8787
+# Identifiant OAuth public (pas un secret). Surcharge possible via PSYCLOPEDIA_GOOGLE_CLIENT_ID.
+PUBLIC_GOOGLE_CLIENT_ID = (
+    "340597672237-fscmcisrorgrkh3uppbvtj69848gj6nc.apps.googleusercontent.com"
+)
 PBKDF2_ITERS = 210_000
 SESSION_DAYS = 30
 MAX_BODY = 1_048_576
@@ -405,16 +409,18 @@ class Store:
             body = body[:50_000]
         with self.lock:
             existing = self.conn.execute(
-                "SELECT id FROM notes WHERE user_id = ? AND course_id = ?",
+                "SELECT id, title FROM notes WHERE user_id = ? AND course_id = ?",
                 (user_id, course_id),
             ).fetchone()
             if note_id:
                 owned = self.conn.execute(
-                    "SELECT id FROM notes WHERE id = ? AND user_id = ?",
+                    "SELECT id, title FROM notes WHERE id = ? AND user_id = ?",
                     (note_id, user_id),
                 ).fetchone()
                 if not owned:
                     raise AuthError("Note introuvable.", 404)
+                if not title:
+                    title = owned["title"] or ""
                 self.conn.execute(
                     "UPDATE notes SET course_id = ?, title = ?, body = ?, updated_at = ? WHERE id = ? AND user_id = ?",
                     (course_id, title, body, now, note_id, user_id),
@@ -422,9 +428,11 @@ class Store:
                 nid = note_id
             elif existing:
                 nid = existing["id"]
+                if not title:
+                    title = existing["title"] or ""
                 self.conn.execute(
                     "UPDATE notes SET title = ?, body = ?, updated_at = ? WHERE id = ?",
-                    (title or "", body, now, nid),
+                    (title, body, now, nid),
                 )
             else:
                 nid = uuid.uuid4().hex
@@ -841,15 +849,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--static", default=os.environ.get("PSYCLOPEDIA_COMPTE_STATIC", ""),
                         help="Racine du site statique (dépôt) pour tout servir sur le même port")
     args = parser.parse_args(argv)
-    google_id = os.environ.get("PSYCLOPEDIA_GOOGLE_CLIENT_ID", "").strip()
+    google_id = os.environ.get("PSYCLOPEDIA_GOOGLE_CLIENT_ID", "").strip() or PUBLIC_GOOGLE_CLIENT_ID
     static_root = args.static or None
     httpd, store = make_server(args.host, args.port, args.db, google_id, static_root)
     print(f"Psyclopédia comptes — SQLite {store.path}")
     print(f"Écoute http://{args.host}:{args.port}/api/health")
-    if google_id:
-        print("Google Sign-In : identifiant client chargé depuis l'environnement")
-    else:
-        print("Google Sign-In : inactif (définir PSYCLOPEDIA_GOOGLE_CLIENT_ID)")
+    print(f"Google Sign-In : client {google_id[:20]}…")
     if static_root:
         print(f"Fichiers statiques : {os.path.abspath(static_root)}")
     try:

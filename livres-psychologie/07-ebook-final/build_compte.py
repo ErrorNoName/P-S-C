@@ -55,8 +55,8 @@ def render_compte():
       </form>
       <div class="compte-sep">ou</div>
       <div id="google-btn"></div>
-      <p id="google-hint" class="compte-hint">La connexion Google s'affiche dès qu'un identifiant OAuth
-      public est configuré sur le serveur (<code>PSYCLOPEDIA_GOOGLE_CLIENT_ID</code>).</p>
+      <p id="google-hint" class="compte-hint">Le bouton Google se charge ici. En mode test Google Cloud,
+      seuls les comptes ajoutés comme utilisateurs de test peuvent se connecter.</p>
       <p id="compte-feedback" class="compte-msg" hidden></p>
       <p id="compte-mode" class="compte-mode"></p>
     </div>

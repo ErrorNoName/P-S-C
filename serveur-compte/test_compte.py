@@ -233,6 +233,26 @@ class CompteApiTests(unittest.TestCase):
         notes = c.call("GET", "/api/notes")[1]["notes"]
         self.assertEqual(len(notes), 1)
         self.assertIn("Stroop", notes[0]["body"])
+        self.assertEqual(notes[0]["courseId"], "s01")
+
+    def test_snapshot_keeps_note_title(self):
+        c = self.client()
+        _, body = c.call("POST", "/api/auth/register", {
+            "email": "titre@example.com", "password": "motdepasse1", "name": "T",
+        })
+        c.token = body["token"]
+        c.call("POST", "/api/notes", {
+            "courseId": "s01", "title": "Courant de conscience", "body": "James 1890",
+        })
+        c.call("PUT", "/api/data", {
+            "progress": {"visited": {}, "quizBest": {}},
+            "cours": {"watched": {}, "attendance": {}, "quizzes": {},
+                      "notes": {"s01": "James 1890, chapitre 9."}},
+        })
+        notes = c.call("GET", "/api/notes")[1]["notes"]
+        self.assertEqual(len(notes), 1)
+        self.assertEqual(notes[0]["title"], "Courant de conscience")
+        self.assertIn("chapitre", notes[0]["body"])
 
     def test_user_isolation(self):
         a = self.client()
@@ -302,6 +322,144 @@ class CompteApiTests(unittest.TestCase):
 
 
 class PasswordHashTests(unittest.TestCase):
+    def test_roundtrip(self):
+        stored = compte_server.hash_password("sésame-12")
+        self.assertTrue(stored.startswith("pbkdf2$sha256$"))
+        self.assertTrue(compte_server.verify_password("sésame-12", stored))
+        self.assertFalse(compte_server.verify_password("autre", stored))
+
+    def test_distinct_salts(self):
+        a = compte_server.hash_password("motdepasse1")
+        b = compte_server.hash_password("motdepasse1")
+        self.assertNotEqual(a, b)
+
+
+class FrontendConfigTests(unittest.TestCase):
+    def test_client_id_public_dans_le_js(self):
+        cfg = (HERE.parent / "assets-ebook/js/compte-config.js").read_text(encoding="utf-8")
+        self.assertIn(compte_server.PUBLIC_GOOGLE_CLIENT_ID, cfg)
+        self.assertNotIn("GOCSPX-", cfg)
+        self.assertNotIn("client_secret", cfg)
+
+    def test_secret_json_pas_dans_le_depot(self):
+        repo = HERE.parent
+        leaks = list(repo.rglob("client_secret*.json"))
+        leaks = [p for p in leaks if ".git" not in p.parts]
+        self.assertEqual(leaks, [])
+
+
+class GoogleLiveTests(unittest.TestCase):
+    """Vérifie tokeninfo Google réel + /api/config, sans mock."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.TemporaryDirectory()
+        cls.db = str(Path(cls.tmp.name) / "google.sqlite")
+        root = str(HERE.parent)
+        httpd, store = compte_server.make_server(
+            "127.0.0.1", 0, cls.db,
+            google_client_id=compte_server.PUBLIC_GOOGLE_CLIENT_ID,
+            static_root=root,
+        )
+        cls.httpd = httpd
+        cls.store = store
+        cls.port = httpd.server_address[1]
+        thread = threading.Thread(target=httpd.serve_forever, daemon=True)
+        thread.start()
+        deadline = time.time() + 3
+        while time.time() < deadline:
+            try:
+                urllib.request.urlopen(f"http://127.0.0.1:{cls.port}/api/health", timeout=0.3)
+                break
+            except OSError:
+                time.sleep(0.05)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.httpd.shutdown()
+        cls.httpd.server_close()
+        cls.store.close()
+        cls.tmp.cleanup()
+
+    def client(self) -> ApiClient:
+        return ApiClient(self.port)
+
+    def test_config_expose_l_id_public(self):
+        status, body = self.client().call("GET", "/api/config")
+        self.assertEqual(status, 200)
+        self.assertEqual(body["googleClientId"], compte_server.PUBLIC_GOOGLE_CLIENT_ID)
+        health = self.client().call("GET", "/api/health")[1]
+        self.assertTrue(health["google"])
+
+    def test_jeton_google_invalide_rejete_par_tokeninfo(self):
+        status, body = self.client().call("POST", "/api/auth/google", {"credential": "pas.un.jwt"})
+        self.assertEqual(status, 401)
+        self.assertIn("error", body)
+
+    def test_page_compte_et_script_config(self):
+        html = urllib.request.urlopen(
+            f"http://127.0.0.1:{self.port}/livres-psychologie/07-ebook-final/compte.html",
+            timeout=5,
+        ).read().decode("utf-8")
+        self.assertIn('id="google-btn"', html)
+        self.assertIn("compte-config.js", html)
+        js = urllib.request.urlopen(
+            f"http://127.0.0.1:{self.port}/assets-ebook/js/compte-config.js",
+            timeout=5,
+        ).read().decode("utf-8")
+        self.assertIn(compte_server.PUBLIC_GOOGLE_CLIENT_ID, js)
+
+    def test_parcours_complet_email_notes_notes_de_quiz(self):
+        c = self.client()
+        status, body = c.call("POST", "/api/auth/register", {
+            "email": "integration@univ.fr",
+            "password": "psychology1",
+            "name": "Lina Martin",
+        })
+        self.assertEqual(status, 201, body)
+        c.token = body["token"]
+        self.assertEqual(c.call("POST", "/api/notes", {
+            "courseId": "s01",
+            "title": "Courant de conscience",
+            "body": "James 1890 : le courant n'est pas un train de wagons.",
+        })[0], 201)
+        self.assertEqual(c.call("POST", "/api/grades", {
+            "quizId": "03-cognitive", "score": 18, "total": 20, "source": "quiz",
+        })[0], 201)
+        self.assertEqual(c.call("PUT", "/api/data", {
+            "progress": {
+                "visited": {"03-cognitive": True},
+                "quizBest": {"03-cognitive": {"score": 18, "total": 20, "pct": 90}},
+            },
+            "cours": {
+                "watched": {"s01": {"seconds": 50, "completed": True}},
+                "attendance": {"s01": True},
+                "quizzes": {},
+                "notes": {"s01": "James 1890 : le courant n'est pas un train de wagons."},
+            },
+        })[0], 200)
+        login = c.call("POST", "/api/auth/login", {
+            "email": "integration@univ.fr", "password": "psychology1",
+        })
+        self.assertEqual(login[0], 200)
+        c.token = login[1]["token"]
+        notes = c.call("GET", "/api/notes")[1]["notes"]
+        self.assertEqual(notes[0]["title"], "Courant de conscience")
+        grades = c.call("GET", "/api/grades")[1]["grades"]
+        self.assertTrue(any(g["quizId"] == "03-cognitive" and g["pct"] == 90 for g in grades))
+
+    def test_cors_origine_pages(self):
+        req = urllib.request.Request(
+            f"http://127.0.0.1:{self.port}/api/health",
+            headers={"Origin": "https://errornoname.github.io"},
+        )
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            self.assertEqual(resp.headers.get("Access-Control-Allow-Origin"), "https://errornoname.github.io")
+
+
+if __name__ == "__main__":
+    unittest.main()
+
     def test_roundtrip(self):
         stored = compte_server.hash_password("sésame-12")
         self.assertTrue(stored.startswith("pbkdf2$sha256$"))
