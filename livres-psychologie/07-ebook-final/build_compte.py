@@ -21,7 +21,7 @@ def render_compte():
         breadcrumb=[("Accueil", "../../index.html"), ("Compte étudiant", None)],
         icon="👤", color="vert",
         title="Compte étudiant",
-        subtitle="Suivre tes cours, tes notes et tes scores — e-mail et mot de passe, ou Google",
+        subtitle="Suivre tes cours, tes notes et tes scores — e-mail et mot de passe, ou Google. Le cahier Drive demande Google.",
         chips=["E-mail / mot de passe", "Google", "Notes enregistrées", "Quiz notés"],
     )
     body = f"""{header}
@@ -103,6 +103,7 @@ def render_espace():
         </div>
       </div>
       <div class="cta-row" style="margin:0">
+        <a class="btn btn-primary" href="cahier.html">Cahier Google</a>
         <a class="btn btn-secondary" href="emploi-du-temps.html">Emploi du temps</a>
         <a class="btn btn-secondary" href="quiz/index.html">Quiz notés</a>
         <button class="btn btn-ghost" type="button" id="espace-logout">Se déconnecter</button>

@@ -362,8 +362,23 @@
     }).then(function () {
       paintNav();
       paintPages();
+      notifyCompte();
       return state.user;
     });
+  }
+
+  function notifyCompte() {
+    try {
+      document.dispatchEvent(new CustomEvent("psyc-compte-ready"));
+    } catch (e) { /* document absent */ }
+  }
+
+  function nextAfterLogin() {
+    var back = "";
+    try { back = sessionStorage.getItem("psyc_retour") || ""; } catch (e) { /* ignore */ }
+    try { sessionStorage.removeItem("psyc_retour"); } catch (e2) { /* ignore */ }
+    if (back === "cahier") return compteHref("cahier.html");
+    return compteHref("espace.html");
   }
 
   function loadRemoteData() {
@@ -675,6 +690,7 @@
         location.href = compteHref("compte.html");
       } else {
         paintPages();
+        notifyCompte();
       }
     };
     if (state.mode === "remote" && token) {
@@ -777,7 +793,7 @@
   function bindLoginPage() {
     if (document.body.getAttribute("data-compte-page") !== "login") return;
     if (state.user) {
-      location.replace(compteHref("espace.html"));
+      location.replace(nextAfterLogin());
       return;
     }
     var formIn = document.getElementById("compte-login");
@@ -800,7 +816,7 @@
         var password = formIn.querySelector('[name="password"]').value;
         login(email, password).then(function () {
           toast("Connexion réussie");
-          location.href = compteHref("espace.html");
+          location.href = nextAfterLogin();
         }).catch(function (err) {
           setMsg(msg, err.message || "Connexion impossible", "err");
         });
@@ -814,7 +830,7 @@
         var password = formUp.querySelector('[name="password"]').value;
         register(email, password, name).then(function () {
           toast("Compte créé");
-          location.href = compteHref("espace.html");
+          location.href = nextAfterLogin();
         }).catch(function (err) {
           setMsg(msg, err.message || "Inscription impossible", "err");
         });
@@ -843,7 +859,7 @@
         callback: function (resp) {
           loginGoogle(resp.credential).then(function () {
             toast("Connexion Google réussie");
-            location.href = compteHref("espace.html");
+            location.href = nextAfterLogin();
           }).catch(function (err) {
             setMsg(document.getElementById("compte-feedback"), err.message, "err");
           });
@@ -1089,6 +1105,7 @@
     }).then(restoreSession).then(function () {
       paintNav();
       paintPages();
+      notifyCompte();
       setInterval(function () {
         pingHealth(state.apiUrl, 15000);
       }, 4 * 60 * 1000);
@@ -1096,6 +1113,7 @@
       state.mode = "remote";
       paintNav();
       paintPages();
+      notifyCompte();
     });
   }
 

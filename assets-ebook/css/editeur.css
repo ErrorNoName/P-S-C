@@ -1,0 +1,289 @@
+/* Cahier : page blanche, barre d'outils, note orale en capsule. */
+
+.cahier { position: relative; margin: 0 auto 2rem; max-width: 1180px; padding: 0 1rem 3rem; }
+
+.cahier-gate { display: flex; justify-content: center; padding: 2.5rem 0 1rem; }
+.cahier-gate[hidden],
+.cahier-work[hidden] { display: none; }
+.cahier-gate-card {
+  width: min(100%, 440px);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.6rem 1.4rem 1.4rem;
+  box-shadow: var(--shadow);
+}
+.cahier-kicker {
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1F6B4C;
+  font-weight: 700;
+}
+.cahier-gate-card h1 { margin: 0 0 0.6rem; font-size: 1.55rem; }
+.cahier-gate-card p { color: var(--gris); margin: 0 0 1rem; }
+.cahier-msg { color: #9b2c2c; font-size: 0.9rem; }
+
+.cahier-work {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+.cahier-side {
+  position: sticky;
+  top: 5.2rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 0.85rem;
+  max-height: calc(100vh - 6.5rem);
+  overflow: auto;
+}
+.cahier-side-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+.cahier-textbtn {
+  border: 0; background: transparent; color: var(--gris); font: inherit; cursor: pointer; display: none;
+}
+.cahier-side-actions { display: flex; flex-direction: column; gap: 0.4rem; }
+.cahier-side-actions .btn { width: 100%; }
+.cahier-list { list-style: none; margin: 0.8rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+.cahier-list button {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  border-radius: 10px;
+  padding: 0.45rem 0.55rem;
+  font: inherit;
+  cursor: pointer;
+}
+.cahier-list button strong { display: block; font-size: 0.92rem; }
+.cahier-list button span { color: var(--gris); font-size: 0.75rem; }
+.cahier-list button.is-on { background: var(--vert-light); }
+.cahier-sync { margin: 0.8rem 0 0; font-size: 0.78rem; color: var(--gris); }
+
+.cahier-editor { min-width: 0; }
+.cahier-mobilebar { display: none; align-items: center; justify-content: space-between; margin-bottom: 0.45rem; }
+.cahier-toolbar {
+  position: sticky;
+  top: 4.6rem;
+  z-index: 30;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  padding: 0.45rem;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+.cahier-toolbar button, .cahier-size select {
+  border: 1px solid transparent;
+  background: #f6f7f4;
+  border-radius: 9px;
+  min-height: 36px;
+  padding: 0.2rem 0.55rem;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  color: inherit;
+}
+.cahier-toolbar button:hover, .cahier-size select:hover { border-color: #cfe3d8; }
+.cahier-toolbar button.is-on, #cahier-listen[aria-pressed="true"] {
+  background: var(--vert-light);
+  color: #1F6B4C;
+  border-color: #b7e0cb;
+}
+.cahier-size { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.78rem; color: var(--gris); }
+.cahier-danger { color: #9b2c2c !important; }
+
+.cahier-sheet {
+  margin-top: 0.8rem;
+  background: #fff;
+  border-radius: 18px;
+  min-height: 68vh;
+  padding: 1.3rem 1.4rem 2rem;
+  box-shadow: 0 10px 30px rgba(28, 40, 32, 0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.cahier-title-label { display: block; font-size: 0.75rem; color: var(--gris); }
+.cahier-title-label input {
+  display: block;
+  width: 100%;
+  border: 0;
+  font: inherit;
+  font-family: "Noto Serif JP", Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin: 0.15rem 0 0.8rem;
+  padding: 0;
+  background: transparent;
+}
+.cahier-title-label input:focus { outline: none; }
+.cahier-body {
+  min-height: 48vh;
+  font-family: "Noto Serif JP", Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  outline: none;
+}
+.cahier-body:empty:before {
+  content: attr(data-placeholder);
+  color: #9aa59e;
+}
+.cahier-body h2 { font-size: 1.35rem; margin: 1rem 0 0.4rem; }
+.cahier-body blockquote {
+  margin: 0.6rem 0;
+  padding-left: 0.8rem;
+  border-left: 3px solid #b7e0cb;
+  color: #3d4a44;
+}
+.cahier-body font[size="2"] { font-size: 0.9rem; }
+.cahier-body font[size="3"] { font-size: 1.05rem; }
+.cahier-body font[size="4"] { font-size: 1.2rem; }
+.cahier-body font[size="5"] { font-size: 1.45rem; }
+.cahier-body font[size="6"] { font-size: 1.8rem; }
+
+.voix-bulle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0.15rem;
+  padding: 0.12rem 0.55rem 0.12rem 0.4rem;
+  border-radius: 999px;
+  background: #e7f6ee;
+  border: 1px solid #b7e0cb;
+  color: #1c6b49;
+  font-family: Inter, sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  cursor: pointer;
+  vertical-align: middle;
+  user-select: none;
+}
+.voix-bulle.is-playing { background: #d7f0e3; }
+.voix-onde {
+  width: 2.1rem;
+  height: 0.72rem;
+  background: repeating-linear-gradient(90deg, #50A67E 0 2px, transparent 2px 5px);
+  border-radius: 4px;
+}
+.voix-bulle.is-playing .voix-onde { animation: voix-pulse 0.8s ease-in-out infinite; }
+@keyframes voix-pulse { 50% { opacity: 0.35; } }
+
+.cahier-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.45rem;
+  color: var(--gris);
+  font-size: 0.8rem;
+}
+
+.cahier-mic {
+  position: fixed;
+  z-index: 260;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.45rem 0.7rem;
+  background: #1F6B4C;
+  color: #fff;
+  font: inherit;
+  font-size: 0.82rem;
+  box-shadow: 0 8px 20px rgba(31, 107, 76, 0.28);
+  cursor: pointer;
+}
+.cahier-mic[hidden] { display: none; }
+.cahier-mic.is-rec { background: #9b2c2c; }
+.cahier-mic-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #fff;
+}
+.cahier-mic.is-rec .cahier-mic-dot { animation: voix-pulse 0.7s ease-in-out infinite; background: #ffd0d0; }
+
+.voix-menu {
+  position: fixed;
+  z-index: 270;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.45rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  gap: 0.35rem;
+}
+.voix-menu[hidden] { display: none; }
+.voix-menu button {
+  border: 0;
+  background: #f4f7f5;
+  border-radius: 10px;
+  min-height: 40px;
+  padding: 0.35rem 0.7rem;
+  font: inherit;
+  cursor: pointer;
+}
+.voix-menu button:hover { background: var(--vert-light); }
+
+.cahier-suggest {
+  position: fixed;
+  z-index: 260;
+  right: 1rem;
+  bottom: 5.2rem;
+  width: min(320px, calc(100vw - 1.5rem));
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #d5eadf;
+  box-shadow: 0 16px 40px rgba(20, 40, 30, 0.16);
+  padding: 0.85rem 0.9rem 0.75rem;
+}
+.cahier-suggest[hidden] { display: none; }
+.cahier-suggest .k {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1F6B4C;
+  font-weight: 700;
+}
+.cahier-suggest strong { display: block; margin: 0.2rem 0; font-size: 1.05rem; }
+.cahier-suggest p { margin: 0 0 0.7rem; color: var(--gris); font-size: 0.88rem; }
+.cahier-suggest .row { display: flex; gap: 0.4rem; }
+.cahier-suggest a, .cahier-suggest button {
+  border-radius: 999px;
+  min-height: 36px;
+  padding: 0.3rem 0.75rem;
+  font: inherit;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+.cahier-suggest a { background: #1F6B4C; color: #fff; }
+.cahier-suggest button { border: 1px solid var(--border); background: #fff; cursor: pointer; }
+
+@media (max-width: 800px) {
+  .cahier { padding: 0 0.55rem 5rem; }
+  .cahier-work { display: block; }
+  .cahier-side {
+    display: none;
+    position: fixed;
+    z-index: 240;
+    inset: auto 0.5rem 0.5rem 0.5rem;
+    top: auto;
+    max-height: 70vh;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.16);
+  }
+  .cahier-side.is-open { display: block; }
+  .cahier-textbtn { display: inline; }
+  .cahier-mobilebar { display: flex; }
+  .cahier-toolbar { top: 4.2rem; flex-wrap: nowrap; overflow-x: auto; }
+  .cahier-toolbar button, .cahier-size { flex: 0 0 auto; }
+  .cahier-sheet { padding: 1rem 0.85rem 1.4rem; min-height: 60vh; }
+  .cahier-title-label input { font-size: 1.35rem; }
+  .cahier-mic { min-height: 44px; }
+  .cahier-suggest { left: 0.6rem; right: 0.6rem; width: auto; bottom: 4.6rem; }
+}

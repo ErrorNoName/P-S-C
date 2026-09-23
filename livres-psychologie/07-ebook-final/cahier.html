@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cahier — Psyclopédia</title>
+<meta name="description" content="Cahier Psyclopédia : éditeur de texte relié à Google Drive, notes orales au curseur et suggestions de fiches.">
+<meta property="og:title" content="Cahier — Psyclopédia">
+<meta property="og:description" content="Cahier Psyclopédia : éditeur de texte relié à Google Drive, notes orales au curseur et suggestions de fiches.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="../../assets-ebook/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets-ebook/css/style.css">
+<link rel="stylesheet" href="../../assets-ebook/css/v2.css">
+<link rel="stylesheet" href="../../assets-ebook/css/v3.css">
+<link rel="stylesheet" href="../../assets-ebook/css/v4.css">
+<link rel="stylesheet" href="../../assets-ebook/css/plates.css">
+<link rel="stylesheet" href="../../assets-ebook/css/lycee.css">
+<link rel="stylesheet" href="../../assets-ebook/css/assistant.css">
+<link rel="stylesheet" href="../../assets-ebook/css/compte.css">
+<link rel="stylesheet" href="../../assets-ebook/css/editeur.css">
+</head>
+<body data-root="../../" data-compte-page="cahier">
+<div class="topbar">
+  <nav class="nav-pill">
+    <a class="brand" href="../../index.html"><span class="brand-mark"></span>Psyclopédia</a>
+    <ul class="nav-links"><a href="../../index.html">Accueil</a><a href="index.html">Catégories</a><a href="decouverte.html">Découverte</a><a href="references/index.html">Références</a><a href="methodes.html">Méthodes</a><a href="pratique.html">Pratique</a><a href="bibliotheque.html">Bibliothèque</a><a href="quiz/index.html">Quiz</a><a href="apprendre.html">Apprendre</a><a href="emploi-du-temps.html">Cours</a><a href="cahier.html" class="active">Cahier</a><a href="aide.html">Aide</a></ul>
+    <div class="nav-side">
+      <a class="nav-compte-btn" id="nav-compte" href="compte.html" aria-label="Compte étudiant">
+        <span class="nav-compte-mark" aria-hidden="true">👤</span><span class="nav-compte-label">Compte</span>
+      </a>
+      <a class="nav-discord-btn" href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener" aria-label="Rejoindre le serveur Discord">
+        <span aria-hidden="true">💬</span><span class="nav-discord-label">Discord</span>
+      </a>
+      <button class="nav-notify-btn" type="button" data-notify-open="" aria-label="Rappels et pensées du jour">
+        <span aria-hidden="true">🔔</span><span class="nav-notify-label">Rappels</span>
+        <span class="nav-notify-badge" hidden>0</span>
+      </button>
+      <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
+        <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<div class="cahier" id="cahier-app">
+  <div class="cahier-gate" id="cahier-gate">
+    <div class="cahier-gate-card">
+      <p class="cahier-kicker">Cahier</p>
+      <h1>Écrire avec ton compte Google</h1>
+      <p id="cahier-gate-text">Le cahier enregistre tes textes dans Google Drive. Il faut un compte Google connecté à Psyclopédia.</p>
+      <div id="cahier-google"></div>
+      <p id="cahier-gate-msg" class="cahier-msg" hidden></p>
+    </div>
+  </div>
+  <div class="cahier-work" id="cahier-work" hidden>
+    <aside class="cahier-side" id="cahier-side">
+      <div class="cahier-side-head">
+        <strong>Tes cahiers</strong>
+        <button type="button" class="cahier-textbtn" id="cahier-side-close">Fermer</button>
+      </div>
+      <div class="cahier-side-actions">
+        <button type="button" class="btn btn-primary" id="cahier-new">Nouveau</button>
+        <button type="button" class="btn btn-secondary" id="cahier-import">Importer .docx</button>
+        <input type="file" id="cahier-file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+      </div>
+      <ul class="cahier-list" id="cahier-list"></ul>
+      <p class="cahier-sync" id="cahier-sync">Connexion à Drive…</p>
+    </aside>
+    <div class="cahier-editor">
+      <div class="cahier-mobilebar">
+        <button type="button" class="btn btn-secondary" id="cahier-side-open">Cahiers</button>
+        <span id="cahier-sync-mobile"></span>
+      </div>
+      <div class="cahier-toolbar" role="toolbar" aria-label="Mise en forme">
+        <button type="button" data-cmd="bold" title="Gras"><b>G</b></button>
+        <button type="button" data-cmd="italic" title="Italique"><i>I</i></button>
+        <button type="button" data-cmd="underline" title="Souligné"><u>S</u></button>
+        <button type="button" data-cmd="strikeThrough" title="Barré"><s>B</s></button>
+        <label class="cahier-size">Taille
+          <select id="cahier-size" aria-label="Taille du texte">
+            <option value="2">Petit</option>
+            <option value="3" selected>Normal</option>
+            <option value="4">Grand</option>
+            <option value="5">Titre</option>
+            <option value="6">Très grand</option>
+          </select>
+        </label>
+        <button type="button" data-cmd="justifyLeft" title="Aligner à gauche">Gauche</button>
+        <button type="button" data-cmd="justifyCenter" title="Centrer">Centre</button>
+        <button type="button" data-cmd="justifyRight" title="Aligner à droite">Droite</button>
+        <button type="button" data-cmd="justifyFull" title="Justifier">Justifier</button>
+        <button type="button" data-cmd="insertUnorderedList" title="Liste">Liste</button>
+        <button type="button" data-cmd="insertOrderedList" title="Liste numérotée">1.</button>
+        <button type="button" data-cmd="hiliteColor" title="Surligner">Surligner</button>
+        <button type="button" data-block="h2" title="Intertitre">Intertitre</button>
+        <button type="button" data-block="blockquote" title="Citation">Citation</button>
+        <button type="button" data-cmd="undo" title="Annuler">Annuler</button>
+        <button type="button" data-cmd="redo" title="Rétablir">Rétablir</button>
+        <button type="button" id="cahier-export" title="Télécharger un .docx">.docx</button>
+        <button type="button" id="cahier-listen" aria-pressed="false" title="Écoute continue : propose une fiche Psyclopédia quand un terme est reconnu">Écoute</button>
+        <button type="button" class="cahier-danger" id="cahier-delete" title="Mettre ce cahier à la corbeille">Supprimer</button>
+      </div>
+      <div class="cahier-sheet">
+        <label class="cahier-title-label">Titre
+          <input id="cahier-title" maxlength="140" placeholder="Titre du cahier" autocomplete="off">
+        </label>
+        <div id="cahier-body" class="cahier-body" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" data-placeholder="Écris ici. Le micro sous le curseur pose une note orale."></div>
+      </div>
+      <div class="cahier-status">
+        <span id="cahier-words">0 mot</span>
+        <span id="cahier-save">Brouillon</span>
+      </div>
+    </div>
+  </div>
+  <button type="button" id="cahier-mic" class="cahier-mic" hidden aria-label="Enregistrer une note orale sous le curseur">
+    <span class="cahier-mic-dot" aria-hidden="true"></span>
+    <span id="cahier-mic-label">Note orale</span>
+  </button>
+  <div id="cahier-pop" class="voix-menu" hidden role="dialog" aria-label="Note orale"></div>
+  <aside id="cahier-suggest" class="cahier-suggest" hidden></aside>
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="../../index.html">Accueil</a>
+    <a href="index.html">Catégories</a>
+    <a href="decouverte.html">Zone de découverte</a>
+    <a href="lycee.html">Du lycée à la licence</a>
+    <a href="branches/index.html">Quatre branches</a>
+    <a href="assistant.html">Assistant</a>
+    <a href="references/index.html">Références</a>
+    <a href="dictionnaire.html">Dictionnaire</a>
+    <a href="bibliotheque.html">Bibliothèque</a>
+    <a href="lecteur.html">Lecteur en ligne</a>
+    <a href="methodes.html">Méthodes</a>
+    <a href="pratique.html">Psychologie pratique</a>
+    <a href="lexique.html">Lexique anglais</a>
+    <a href="metiers.html">Métiers &amp; études</a>
+    <a href="quiz/index.html">Quiz</a>
+    <a href="laboratoire.html">Laboratoire</a>
+    <a href="revision.html">Révision espacée</a>
+    <a href="fiches/index.html">Fiches de révision</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="apprendre.html">Apprendre</a>
+    <a href="emploi-du-temps.html">Emploi du temps &amp; cours</a>
+    <a href="cours/index.html">Cours &amp; archives</a>
+    <a href="rappels.html">Rappels &amp; planches</a>
+    <a href="references/courants.html">Grands courants</a>
+    <a href="references/mythes.html">Idées reçues</a>
+    <a href="faq.html">Questions fréquentes</a>
+    <a href="auto-evaluations.html">Auto-évaluations</a>
+    <a href="aide.html">Aide &amp; ressources</a>
+    <a href="l1-psychologie.html">Psychologie de licence</a>
+    <a href="cahier.html">Cahier</a>
+    <a href="compte.html">Compte étudiant</a>
+    <a href="espace.html">Espace d'apprentissage</a>
+    <a href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener">Communauté Discord</a>
+    <a href="plan.html">Plan du site</a>
+    <a href="credits.html">Crédits &amp; sources</a>
+  </div>
+  <p>Psyclopédia — encyclopédie pédagogique libre de la psychologie, entièrement en français.
+  Textes de synthèse rédigés pour ce guide ; ouvrages du domaine public hébergés dans
+  <code>06-pdf-domaine-public/</code> avec mention de leur source (Gallica, Internet Archive,
+  Project Gutenberg, Les Classiques des sciences sociales, Darwin Online).
+  Illustrations : Wikimedia Commons (domaine public).</p>
+  <p style="margin-top:0.75rem;font-size:0.78rem">⚠️ Contenu pédagogique de vulgarisation : il ne remplace
+  ni un diagnostic, ni un avis médical, ni un suivi psychologique professionnel.</p>
+</footer>
+<script src="../../assets-ebook/js/app.js"></script>
+<script src="../../assets-ebook/js/ui-v2.js"></script>
+<script src="../../assets-ebook/js/search.js"></script>
+<script src="../../assets-ebook/js/daily.js"></script>
+<script src="../../assets-ebook/js/assistant.js"></script>
+<script src="../../assets-ebook/js/compte-config.js"></script>
+<script src="../../assets-ebook/js/compte.js"></script>
+<script src="../../assets-ebook/js/editeur-format.js"></script>
+<script src="../../assets-ebook/js/editeur.js"></script>
+</body>
+</html>

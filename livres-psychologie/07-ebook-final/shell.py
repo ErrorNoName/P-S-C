@@ -26,6 +26,7 @@ NAV_ITEMS = [
     ("Quiz", "quiz/index.html"),
     ("Apprendre", "apprendre.html"),
     ("Cours", "emploi-du-temps.html"),
+    ("Cahier", "cahier.html"),
     ("Aide", "aide.html"),
 ]
 
@@ -159,6 +160,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
     <a href="{ebook(depth, 'auto-evaluations.html')}">Auto-évaluations</a>
     <a href="{ebook(depth, 'aide.html')}">Aide &amp; ressources</a>
     <a href="{ebook(depth, 'l1-psychologie.html')}">Psychologie de licence</a>
+    <a href="{ebook(depth, 'cahier.html')}">Cahier</a>
     <a href="{ebook(depth, 'compte.html')}">Compte étudiant</a>
     <a href="{ebook(depth, 'espace.html')}">Espace d'apprentissage</a>
     <a href="{DISCORD_INVITE}" target="_blank" rel="noopener">Communauté Discord</a>

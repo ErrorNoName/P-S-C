@@ -25,6 +25,7 @@ import build_sitemap
 import build_l1
 import build_lycee
 import build_assistant
+import build_editeur
 from build_index import write_index
 from content import (
     CATEGORIES, DICTIONNAIRE, QUIZZES, BOOKS, EXPERIENCES, AUTEURS, TROUBLES, BIAIS,
@@ -54,6 +55,7 @@ def main():
     n_gal, n_xp = build_decouverte.render_decouverte()
     n_cours = build_cours.render_all()
     n_compte = build_compte.render_all()
+    build_editeur.render()
     n_l1 = build_l1.render()
     n_svg, n_pensees, n_plates, _n_cat = build_plates.render_all()
     build_home.render_home()
