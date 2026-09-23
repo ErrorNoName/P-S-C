@@ -513,7 +513,7 @@ L1_EXTRA = {
              "<p>Les terrains sont nombreux, et tous exigent le cadre : soin, psychiatrie, justice, "
              "éducation spécialisée, petite enfance, prévention, gérontologie, travail social. Une page "
              "qui décrit ces lieux ne vous y autorise pas. Si une souffrance vous concerne, les numéros "
-             "de la page d'aide du site sont le bon relais, pas un chapitre de cours.</p>"),
+             "de la page d'aide du site sont le bon relais.</p>"),
             ("Un vocabulaire métapsychologique, parmi d'autres",
              "<p>En licence francophone, un référentiel fréquent est celui de la métapsychologie. C'est "
              "une langue théorique, héritée de Freud et retravaillée après lui. Ce n'est pas le seul "
@@ -537,13 +537,13 @@ L1_EXTRA = {
              "orale, anale, phallique, latence, génitale sont une chronologie théorique de l'investissement, "
              "pas un calendrier à appliquer à un enfant. L'objet et l'entourage comptent : un psychisme, "
              "dans ce cadre, ne se fabrique pas seul.</p>"
-             "<p>Tout ce paragraphe est un lexique. Il aide à ne pas être perdu dans un cours. Il ne dit "
+             "<p>Tout ce paragraphe est un lexique. Il aide à lire ce vocabulaire sans se perdre. Il ne dit "
              "pas ce que vous êtes, ni ce qu'il faudrait entreprendre. D'autres fiches du site présentent "
              "d'autres langues, avec d'autres preuves. Les comparer est déjà le travail de la licence.</p>"),
         ],
         "mythes": [
             ("Psychologue et psychiatre font le même métier.",
-             "Le titre de psychologue est protégé par la loi du 25 juillet 1985 et suppose un diplôme universitaire de psychologie. Le psychiatre est un médecin. Les deux ne se remplacent pas, et une page de cours ne remplace ni l'un ni l'autre."),
+             "Le titre de psychologue est protégé par la loi du 25 juillet 1985 et suppose un diplôme universitaire de psychologie. Le psychiatre est un médecin. Les deux ne se remplacent pas, et une page de ce site ne remplace ni l'un ni l'autre."),
             ("Faire de la clinique, c'est d'abord poser une étiquette.",
              "La méthode clinique cherche à comprendre une personne singulière. Classer peut venir dans un cadre de soin. Ce site ne le fait pas."),
             ("Le vocabulaire freudien décrit des pièces du cerveau.",
