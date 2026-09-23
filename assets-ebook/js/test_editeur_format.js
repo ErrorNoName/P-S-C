@@ -14,6 +14,20 @@ assert.strictEqual(fmt.matchUtterance(lex, "je parle de la mémoire de travail a
 assert.strictEqual(fmt.matchUtterance(lex, "l'expérience de milgram").t, "Stanley Milgram");
 assert.strictEqual(fmt.matchUtterance(lex, "rien à voir xyzzy"), null);
 assert.strictEqual(fmt.matchUtterance(lex, "le mot mémoire tout seul"), null);
+assert.strictEqual(fmt.matchUtterance(lex, "memoire de traval et puis autre chose").t, "Mémoire de travail");
+assert.strictEqual(fmt.matchUtterance(lex, "stanley milgrame").t, "Stanley Milgram");
+assert.strictEqual(fmt.matchUtterance(lex, "psychologie sociale au lycée").t, "Psychologie sociale");
+
+var ramp = new Float32Array([0, 0.25, 0.5, 1]);
+var down = fmt.resampleLinear(ramp, 4, 2);
+assert.strictEqual(down.length, 2);
+assert.ok(down[0] < down[1], "le rééchantillonnage garde l'ordre du temps");
+var wav = fmt.encodeWav(ramp, 16000);
+var pcm = fmt.wavPcm(wav);
+assert.strictEqual(pcm.rate, 16000);
+assert.strictEqual(pcm.samples.length, 4);
+assert.ok(pcm.samples[0] < pcm.samples[3], "le WAV se lit dans le sens de l'enregistrement");
+assert.ok(pcm.samples[3] > 0.9);
 
 var html = '<p style="text-align:center"><strong>Bonjour</strong> le <font size="5">monde</font></p>' +
   '<p><voix data-voix="a1" data-sec="8"></voix></p>';

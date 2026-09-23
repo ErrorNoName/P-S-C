@@ -235,6 +235,7 @@ def render_home():
     </p>
     <div class="cta-row" style="justify-content:center">
       <a class="btn btn-primary" href="{EB}parcours.html">🧭 Commencer un parcours</a>
+      <a class="btn btn-primary" href="{EB}cahier.html">📝 Cahier</a>
       <a class="btn btn-secondary" href="{EB}emploi-du-temps.html">🎓 Emploi du temps</a>
       <a class="btn btn-secondary" href="{DISCORD_INVITE}" target="_blank" rel="noopener">💬 Rejoindre le Discord</a>
       <a class="btn btn-secondary" href="{EB}compte.html">👤 Compte étudiant</a>

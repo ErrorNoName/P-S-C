@@ -21,7 +21,7 @@ def render_compte():
         breadcrumb=[("Accueil", "../../index.html"), ("Compte étudiant", None)],
         icon="👤", color="vert",
         title="Compte étudiant",
-        subtitle="Suivre tes cours, tes notes et tes scores — e-mail et mot de passe, ou Google. Le cahier Drive demande Google.",
+        subtitle="Suivre tes cours, tes notes et tes scores — e-mail et mot de passe, ou Google. Le cahier s'ouvre sans compte.",
         chips=["E-mail / mot de passe", "Google", "Notes enregistrées", "Quiz notés"],
     )
     body = f"""{header}
@@ -55,8 +55,7 @@ def render_compte():
       </form>
       <div class="compte-sep">ou</div>
       <div id="google-btn"></div>
-      <p id="google-hint" class="compte-hint">Le bouton Google se charge ici. En mode test Google Cloud,
-      seuls les comptes ajoutés comme utilisateurs de test peuvent se connecter.</p>
+      <p id="google-hint" class="compte-hint">Si Google affiche « Accès bloqué » et l'erreur 403, l'application est encore en mode test : seul un Gmail ajouté comme utilisateur test peut se lier. Le cahier, lui, s'ouvre sans Google.</p>
       <p id="compte-feedback" class="compte-msg" hidden></p>
       <p id="compte-mode" class="compte-mode"></p>
     </div>
@@ -103,7 +102,7 @@ def render_espace():
         </div>
       </div>
       <div class="cta-row" style="margin:0">
-        <a class="btn btn-primary" href="cahier.html">Cahier Google</a>
+        <a class="btn btn-primary" href="cahier.html">Cahier</a>
         <a class="btn btn-secondary" href="emploi-du-temps.html">Emploi du temps</a>
         <a class="btn btn-secondary" href="quiz/index.html">Quiz notés</a>
         <button class="btn btn-ghost" type="button" id="espace-logout">Se déconnecter</button>

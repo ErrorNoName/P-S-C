@@ -90,11 +90,29 @@
   color: inherit;
 }
 .cahier-toolbar button:hover, .cahier-size select:hover { border-color: #cfe3d8; }
-.cahier-toolbar button.is-on, #cahier-listen[aria-pressed="true"] {
+.cahier-toolbar button.is-on, #cahier-listen[aria-pressed="true"], #cahier-dictate[aria-pressed="true"] {
   background: var(--vert-light);
   color: #1F6B4C;
   border-color: #b7e0cb;
 }
+.cahier-live {
+  margin-top: 0.55rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 12px;
+  background: #f4faf6;
+  border: 1px solid #d5eadf;
+  min-height: 2.5rem;
+}
+.cahier-live[hidden] { display: none; }
+.cahier-live-k {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1F6B4C;
+  font-weight: 700;
+}
+#cahier-live-text { display: block; margin-top: 0.15rem; }
 .cahier-size { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.78rem; color: var(--gris); }
 .cahier-danger { color: #9b2c2c !important; }
 

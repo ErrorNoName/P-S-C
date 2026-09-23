@@ -840,10 +840,8 @@
     var googleHint = document.getElementById("google-hint");
     if (state.googleClientId && googleMount) {
       loadGoogle(googleMount);
-      if (googleHint) googleHint.hidden = true;
-    } else if (googleHint) {
-      googleHint.hidden = false;
     }
+    if (googleHint) googleHint.hidden = false;
     var modeEl = document.getElementById("compte-mode");
     setModeHint(modeEl);
   }

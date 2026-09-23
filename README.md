@@ -5,7 +5,7 @@
 Un site d'apprentissage complet et autonome : 27 catégories rédigées, plus de 1 100 fiches consultables
 (références, théories, courants, cas cliniques, débats, méthodes, pratique, métiers), 13 ouvrages du domaine
 public lisibles directement en ligne, une recherche globale instantanée, un **assistant** qui retrouve une
-fiche malgré une faute ou un synonyme, un **cahier** relié à Google Drive, 31 quiz notés avec corrigés, un
+fiche malgré une faute ou un synonyme, un **cahier** enregistré sur l'appareil (Google Drive en plus), 31 quiz notés avec corrigés, un
 laboratoire d'expériences jouables, un système de révision espacée, un **cursus annuel de 60 cours**
 de 50 minutes (emploi du temps, replays YouTube francophones, fiches synchronisées), un **compte étudiant**
 (e-mail/mot de passe ou Google, notes et scores enregistrés) et des parcours
@@ -156,9 +156,9 @@ sources lisibles en ligne, des flashcards de rappel actif et un quiz noté.
   (photo Google ou image personnelle) sont enregistrés sur le serveur.
 - **[Espace d'apprentissage](livres-psychologie/07-ebook-final/espace.html)** — tableau de bord : catégories
   lues, moyenne des quiz, notes sur 20, carnet de séance, photo de profil.
-- **[Cahier](livres-psychologie/07-ebook-final/cahier.html)** — éditeur réservé à un compte Google : mise en
-  forme, import et export `.docx`, enregistrement dans le dossier Drive `Psyclopédia — cahiers`, note orale
-  en capsule sous le curseur (lire ou mettre en texte), et écoute qui propose une fiche quand un terme de
+- **[Cahier](livres-psychologie/07-ebook-final/cahier.html)** — éditeur ouvert sans compte : mise en
+  forme, import et export `.docx`, dictée en direct, note orale WAV en capsule sous le curseur
+  (lire ou mettre en texte), copie facultative dans le dossier Drive `Psyclopédia — cahiers`, et écoute qui propose une fiche quand un terme de
   l'encyclopédie est reconnu.
 - **[Assistant](livres-psychologie/07-ebook-final/assistant.html)** — répond à partir du corpus du site.
   Il ignore les formules vides (« je voudrais savoir »), tolère les fautes, suit les synonymes (obéissance →

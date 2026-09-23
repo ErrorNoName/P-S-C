@@ -462,7 +462,59 @@
     return String(text || "")
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
+      .replace(/œ/g, "oe")
+      .replace(/æ/g, "ae")
       .toLowerCase();
+  }
+
+  function editDistance(a, b, max) {
+    if (a === b) return 0;
+    if (Math.abs(a.length - b.length) > max) return max + 1;
+    var prev = new Array(b.length + 1);
+    var cur = new Array(b.length + 1);
+    var j, i, k;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      cur[0] = i;
+      var best = cur[0];
+      for (k = 1; k <= b.length; k++) {
+        var cost = a.charCodeAt(i - 1) === b.charCodeAt(k - 1) ? 0 : 1;
+        cur[k] = Math.min(cur[k - 1] + 1, prev[k] + 1, prev[k - 1] + cost);
+        if (cur[k] < best) best = cur[k];
+      }
+      if (best > max) return max + 1;
+      var tmp = prev;
+      prev = cur;
+      cur = tmp;
+    }
+    return prev[b.length];
+  }
+
+  function wordDistanceOk(spoken, known) {
+    if (!spoken || !known) return false;
+    if (spoken === known) return true;
+    var len = Math.max(spoken.length, known.length);
+    var tol = len >= 8 ? 2 : (len >= 6 ? 1 : 0);
+    if (!tol || Math.abs(spoken.length - known.length) > tol) return false;
+    return editDistance(spoken, known, tol) <= tol;
+  }
+
+  function phraseFuzzy(phrase, parts) {
+    var words = phrase.split(" ").filter(function (word) {
+      return word.length >= 4 && !STOP[word];
+    });
+    if (words.length < 2) return false;
+    var from = 0;
+    var w, p, found;
+    for (w = 0; w < words.length; w++) {
+      found = -1;
+      for (p = from; p < parts.length; p++) {
+        if (wordDistanceOk(parts[p], words[w])) { found = p; break; }
+      }
+      if (found < 0) return false;
+      from = found + 1;
+    }
+    return true;
   }
 
   function buildLexicon(entries) {
@@ -488,22 +540,134 @@
 
   function matchUtterance(lex, utterance) {
     if (!lex) return null;
-    var text = fold(utterance).replace(/[^a-z0-9]+/g, " ").trim();
+    var text = fold(utterance).replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim();
     if (!text) return null;
     var padded = " " + text + " ";
+    var parts = text.split(" ").filter(Boolean);
+    var best = null;
+    var bestScore = 0;
     var i;
     for (i = 0; i < lex.phrases.length; i++) {
       var phrase = lex.phrases[i].phrase;
-      if (phrase.length < 8 && padded.indexOf(" " + phrase + " ") === -1) continue;
-      if (padded.indexOf(" " + phrase + " ") !== -1 || (phrase.length >= 12 && text.indexOf(phrase) !== -1)) {
-        return lex.phrases[i].entry;
+      var score = 0;
+      if (padded.indexOf(" " + phrase + " ") !== -1) score = 120 + phrase.length;
+      else if (phrase.length >= 12 && text.indexOf(phrase) !== -1) score = 110 + phrase.length;
+      else if (phraseFuzzy(phrase, parts)) score = 80 + phrase.length;
+      if (score > bestScore) {
+        bestScore = score;
+        best = lex.phrases[i].entry;
       }
     }
-    var parts = text.split(" ");
+    if (bestScore >= 80) return best;
     for (i = 0; i < parts.length; i++) {
-      if (lex.words[parts[i]]) return lex.words[parts[i]];
+      if (STOP[parts[i]]) continue;
+      if (lex.words[parts[i]] && bestScore < 50) {
+        bestScore = 50;
+        best = lex.words[parts[i]];
+      }
     }
-    return null;
+    if (bestScore >= 50) return best;
+    var keys = Object.keys(lex.words);
+    for (i = 0; i < parts.length; i++) {
+      if (parts[i].length < 6 || STOP[parts[i]]) continue;
+      var k;
+      for (k = 0; k < keys.length; k++) {
+        if (keys[k].length < 6) continue;
+        if (wordDistanceOk(parts[i], keys[k]) && bestScore < 40) {
+          bestScore = 40;
+          best = lex.words[keys[k]];
+        }
+      }
+    }
+    return bestScore >= 40 ? best : null;
+  }
+
+  function prepareVoice(samples) {
+    var n = samples ? samples.length : 0;
+    if (!n) return new Float32Array(0);
+    var sum = 0;
+    var i;
+    for (i = 0; i < n; i++) sum += samples[i];
+    var mean = sum / n;
+    var out = new Float32Array(n);
+    var peak = 0;
+    for (i = 0; i < n; i++) {
+      var v = samples[i] - mean;
+      out[i] = v;
+      var a = v < 0 ? -v : v;
+      if (a > peak) peak = a;
+    }
+    if (peak >= 0.05 && peak < 0.55) {
+      var gain = 0.82 / peak;
+      for (i = 0; i < n; i++) {
+        var s = out[i] * gain;
+        if (s > 1) s = 1;
+        if (s < -1) s = -1;
+        out[i] = s;
+      }
+    }
+    return out;
+  }
+
+  function resampleLinear(input, fromRate, toRate) {
+    if (!input || !input.length) return new Float32Array(0);
+    if (!fromRate || !toRate || fromRate === toRate) return input;
+    var ratio = fromRate / toRate;
+    var n = Math.max(1, Math.round(input.length / ratio));
+    var out = new Float32Array(n);
+    var last = input.length - 1;
+    var i;
+    for (i = 0; i < n; i++) {
+      var x = i * ratio;
+      if (x >= last) { out[i] = input[last]; continue; }
+      var i0 = Math.floor(x);
+      var t = x - i0;
+      out[i] = input[i0] * (1 - t) + input[i0 + 1] * t;
+    }
+    return out;
+  }
+
+  function encodeWav(samples, sampleRate) {
+    var n = samples ? samples.length : 0;
+    var rate = sampleRate || 22050;
+    var bytes = new Uint8Array(44 + n * 2);
+    var view = new DataView(bytes.buffer);
+    function str(offset, text) {
+      var i;
+      for (i = 0; i < text.length; i++) bytes[offset + i] = text.charCodeAt(i);
+    }
+    str(0, "RIFF");
+    view.setUint32(4, 36 + n * 2, true);
+    str(8, "WAVE");
+    str(12, "fmt ");
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, rate, true);
+    view.setUint32(28, rate * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    str(36, "data");
+    view.setUint32(40, n * 2, true);
+    var offset = 44;
+    var i;
+    for (i = 0; i < n; i++) {
+      var s = samples[i];
+      if (s > 1) s = 1;
+      if (s < -1) s = -1;
+      view.setInt16(offset, s < 0 ? Math.round(s * 32768) : Math.round(s * 32767), true);
+      offset += 2;
+    }
+    return bytes;
+  }
+
+  function wavPcm(bytes) {
+    var view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    var n = view.getUint32(40, true) / 2;
+    var out = new Float32Array(n);
+    var i;
+    for (i = 0; i < n; i++) out[i] = view.getInt16(44 + i * 2, true) / 32768;
+    return { rate: view.getUint32(24, true), samples: out };
   }
 
   return {
@@ -518,6 +682,10 @@
     fold: fold,
     buildLexicon: buildLexicon,
     matchUtterance: matchUtterance,
+    prepareVoice: prepareVoice,
+    resampleLinear: resampleLinear,
+    encodeWav: encodeWav,
+    wavPcm: wavPcm,
     utf8Decode: utf8Decode
   };
 });

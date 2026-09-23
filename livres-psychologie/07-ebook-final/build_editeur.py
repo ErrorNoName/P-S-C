@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""PSYCLOPÉDIA — Cahier : éditeur relié au Drive Google."""
+"""PSYCLOPÉDIA — Cahier : éditeur local, Drive facultatif, dictée et notes orales."""
 
 import os
 
@@ -11,16 +11,7 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 def render():
     body = """
 <div class="cahier" id="cahier-app">
-  <div class="cahier-gate" id="cahier-gate">
-    <div class="cahier-gate-card">
-      <p class="cahier-kicker">Cahier</p>
-      <h1>Écrire avec ton compte Google</h1>
-      <p id="cahier-gate-text">Le cahier enregistre tes textes dans Google Drive. Il faut un compte Google connecté à Psyclopédia.</p>
-      <div id="cahier-google"></div>
-      <p id="cahier-gate-msg" class="cahier-msg" hidden></p>
-    </div>
-  </div>
-  <div class="cahier-work" id="cahier-work" hidden>
+  <div class="cahier-work" id="cahier-work">
     <aside class="cahier-side" id="cahier-side">
       <div class="cahier-side-head">
         <strong>Tes cahiers</strong>
@@ -29,10 +20,12 @@ def render():
       <div class="cahier-side-actions">
         <button type="button" class="btn btn-primary" id="cahier-new">Nouveau</button>
         <button type="button" class="btn btn-secondary" id="cahier-import">Importer .docx</button>
+        <button type="button" class="btn btn-secondary" id="cahier-drive">Google Drive</button>
         <input type="file" id="cahier-file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
       </div>
       <ul class="cahier-list" id="cahier-list"></ul>
-      <p class="cahier-sync" id="cahier-sync">Connexion à Drive…</p>
+      <p class="cahier-sync" id="cahier-sync">Enregistré sur cet appareil. Google Drive est facultatif.</p>
+      <p id="cahier-drive-msg" class="cahier-msg" hidden></p>
     </aside>
     <div class="cahier-editor">
       <div class="cahier-mobilebar">
@@ -65,14 +58,19 @@ def render():
         <button type="button" data-cmd="undo" title="Annuler">Annuler</button>
         <button type="button" data-cmd="redo" title="Rétablir">Rétablir</button>
         <button type="button" id="cahier-export" title="Télécharger un .docx">.docx</button>
+        <button type="button" id="cahier-dictate" aria-pressed="false" title="Écrit dans le cahier, en direct, ce qui est dit">Dicter</button>
         <button type="button" id="cahier-listen" aria-pressed="false" title="Écoute continue : propose une fiche Psyclopédia quand un terme est reconnu">Écoute</button>
         <button type="button" class="cahier-danger" id="cahier-delete" title="Mettre ce cahier à la corbeille">Supprimer</button>
+      </div>
+      <div id="cahier-live" class="cahier-live" hidden>
+        <span class="cahier-live-k">En direct</span>
+        <span id="cahier-live-text"></span>
       </div>
       <div class="cahier-sheet">
         <label class="cahier-title-label">Titre
           <input id="cahier-title" maxlength="140" placeholder="Titre du cahier" autocomplete="off">
         </label>
-        <div id="cahier-body" class="cahier-body" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" data-placeholder="Écris ici. Le micro sous le curseur pose une note orale."></div>
+        <div id="cahier-body" class="cahier-body" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" data-placeholder="Écris ici, ou dicte. Le micro sous le curseur pose une note orale."></div>
       </div>
       <div class="cahier-status">
         <span id="cahier-words">0 mot</span>
@@ -98,7 +96,7 @@ def render():
         body,
         depth=0,
         active="Cahier",
-        description="Cahier Psyclopédia : éditeur de texte relié à Google Drive, notes orales au curseur et suggestions de fiches.",
+        description="Cahier Psyclopédia : éditeur sur cet appareil, dictée en direct, notes orales et, si tu le veux, copie dans Google Drive.",
         extra_head=f'<link rel="stylesheet" href="{css}">',
         extra_scripts=scripts,
         body_attrs='data-compte-page="cahier"',
