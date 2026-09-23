@@ -6,7 +6,10 @@ services:
     runtime: python
     plan: free
     buildCommand: "pip install -r requirements.txt"
-    startCommand: python3 serveur-compte/compte_server.py --host 0.0.0.0 --port $PORT
+    # Le port vient de la variable PORT (lue par le processus). Ne pas passer
+    # --port $PORT : si le shell ne développe pas la variable, le processus
+    # quitte avant d'écouter.
+    startCommand: python3 serveur-compte/compte_server.py --host 0.0.0.0
     healthCheckPath: /api/health
     envVars:
       - key: PYTHONUNBUFFERED

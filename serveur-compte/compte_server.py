@@ -206,19 +206,56 @@ def validate_custom_avatar(image: str) -> str:
 GOOGLE_TOKEN_VERIFIER: GoogleVerifier = verify_google_token
 
 
+def prepare_database_url(url: str) -> str:
+    """Normalise l'URL Postgres sans jamais l'afficher.
+
+    `postgres://` devient `postgresql://`. L'hôte externe Render (*.render.com)
+    exige SSL ; l'hôte interne du même compte n'en a pas.
+    """
+    raw = (url or "").strip()
+    if raw.startswith("postgres://"):
+        raw = "postgresql://" + raw[len("postgres://"):]
+    parts = urllib.parse.urlsplit(raw)
+    host = (parts.hostname or "").lower()
+    query = urllib.parse.parse_qsl(parts.query, keep_blank_values=True)
+    keys = {key for key, _ in query}
+    if host.endswith(".render.com") and "sslmode" not in keys:
+        query.append(("sslmode", "require"))
+    return urllib.parse.urlunsplit((parts.scheme, parts.netloc, parts.path, urllib.parse.urlencode(query), parts.fragment))
+
+
+def database_host_label(url: str) -> str:
+    """Hôte seul, sans identifiants, pour les journaux."""
+    raw = (url or "").strip()
+    if raw.startswith("postgres://"):
+        raw = "postgresql://" + raw[len("postgres://"):]
+    parts = urllib.parse.urlsplit(raw)
+    host = parts.hostname or "inconnu"
+    if parts.port:
+        return f"{host}:{parts.port}"
+    return host
+
+
 class Store:
     """Base réelle : PostgreSQL en production, SQLite en local et dans les tests."""
 
-    def __init__(self, path: str, database_url: str = ""):
+    def __init__(self, path: str, database_url: str = "", *, connect: bool = True):
         self.lock = threading.RLock()
         self.database_url = (database_url or "").strip()
+        self.ready = False
+        self.last_error = ""
+        self._closed = False
+        self._dial: threading.Thread | None = None
+        self.conn = None
         if self.database_url:
             if psycopg is None:
                 raise RuntimeError("Le module psycopg est requis pour PostgreSQL.")
             self.kind = "postgres"
-            host = self.database_url.split("@")[-1]
-            self.path = "postgres:" + host.split("/")[0]
-            self.conn = psycopg.connect(self.database_url, row_factory=dict_row)
+            self.path = "postgres:" + database_host_label(self.database_url)
+            if connect:
+                self.connect_with_retry(forever=False)
+                if not self.ready:
+                    raise RuntimeError(f"PostgreSQL injoignable ({self.last_error or 'timeout'}).")
         else:
             directory = os.path.dirname(path)
             if directory:
@@ -229,11 +266,91 @@ class Store:
             self.conn.row_factory = sqlite3.Row
             self._execute("PRAGMA foreign_keys = ON")
             self._execute("PRAGMA journal_mode = WAL")
-        self._init_schema()
+            self._init_schema()
+            self.ready = True
+
+    def connect_with_retry(self, forever: bool = False, attempts: int = 4) -> None:
+        """Ouvre Postgres. `forever` retente tant que le processus tourne."""
+        delay = 1.0
+        n = 0
+        while not self.ready and not self._closed:
+            n += 1
+            if not forever and n > attempts:
+                return
+            try:
+                conn = self._open_postgres()
+            except Exception as exc:
+                self.last_error = type(exc).__name__
+                print(
+                    f"Postgres {self.path} tentative {n} : {self.last_error}",
+                    flush=True,
+                )
+                time.sleep(delay)
+                delay = min(delay * 2, 15.0)
+                continue
+            try:
+                with self.lock:
+                    if self._closed:
+                        conn.close()
+                        return
+                    self.conn = conn
+                    self._init_schema()
+                    self.ready = True
+                    self.last_error = ""
+            except Exception as exc:
+                self.last_error = type(exc).__name__
+                try:
+                    conn.close()
+                except Exception:
+                    pass
+                with self.lock:
+                    if self.conn is conn:
+                        self.conn = None
+                    self.ready = False
+                print(
+                    f"Postgres {self.path} schéma : {self.last_error}",
+                    flush=True,
+                )
+                if not forever:
+                    return
+                time.sleep(delay)
+                delay = min(delay * 2, 15.0)
+                continue
+            print(f"Postgres prêt ({self.path}).", flush=True)
+            return
+
+    def _open_postgres(self):
+        """Connexion bornée : un DNS ou un TCP bloqué ne fige pas le serveur."""
+        if self._dial is not None and self._dial.is_alive():
+            raise TimeoutError("connexion en cours")
+        url = prepare_database_url(self.database_url)
+        box: dict[str, Any] = {}
+
+        def dial() -> None:
+            try:
+                box["conn"] = psycopg.connect(url, row_factory=dict_row, connect_timeout=15)
+            except Exception as exc:
+                box["error"] = exc
+
+        self._dial = threading.Thread(target=dial, name="postgres-dial", daemon=True)
+        self._dial.start()
+        self._dial.join(20)
+        if self._dial.is_alive():
+            raise TimeoutError("connexion Postgres trop longue")
+        if "error" in box:
+            raise box["error"]
+        conn = box.get("conn")
+        if conn is None:
+            raise TimeoutError("connexion Postgres vide")
+        return conn
 
     def close(self) -> None:
         with self.lock:
-            self.conn.close()
+            self._closed = True
+            self.ready = False
+            if self.conn is not None:
+                self.conn.close()
+                self.conn = None
 
     def _sql(self, sql: str) -> str:
         if self.kind == "postgres":
@@ -789,6 +906,13 @@ class CompteHandler(BaseHTTPRequestHandler):
 
     def _api(self, method: str, path: str) -> None:
         if path == "/api/health" and method == "GET":
+            if not self.store.ready:
+                self._json(503, {
+                    "ok": False,
+                    "db": "starting",
+                    "error": self.store.last_error,
+                })
+                return
             self._json(200, {
                 "ok": True,
                 "db": self.store.kind,
@@ -798,6 +922,9 @@ class CompteHandler(BaseHTTPRequestHandler):
             return
         if path == "/api/config" and method == "GET":
             self._json(200, {"googleClientId": self.google_client_id or ""})
+            return
+        if not self.store.ready:
+            self._json(503, public_error("Le service démarre, réessayez dans un instant."))
             return
         if path == "/api/auth/register" and method == "POST":
             self._limited("register", 10)
@@ -982,8 +1109,11 @@ def make_server(
     google_client_id: str = "",
     static_root: str | None = None,
     database_url: str = "",
+    connect_db: bool = True,
 ) -> tuple[ThreadingHTTPServer, Store]:
-    store = Store(db_path, database_url=database_url)
+    # Le socket est ouvert avant Postgres : un connect lent ne doit pas
+    # laisser Render sans port (scan « No open ports »).
+    store = Store(db_path, database_url=database_url, connect=connect_db)
     CompteHandler.store = store
     CompteHandler.google_client_id = google_client_id
     CompteHandler.static_root = os.path.abspath(static_root) if static_root else None
@@ -1015,12 +1145,25 @@ def main(argv: list[str] | None = None) -> int:
     google_id = os.environ.get("PSYCLOPEDIA_GOOGLE_CLIENT_ID", "").strip() or PUBLIC_GOOGLE_CLIENT_ID
     static_root = args.static or None
     database_url = os.environ.get("DATABASE_URL", "").strip()
-    httpd, store = make_server(args.host, args.port, args.db, google_id, static_root, database_url)
-    print(f"Psyclopédia comptes — {store.kind} {store.path}")
-    print(f"Écoute http://{args.host}:{args.port}/api/health")
-    print(f"Google Sign-In : client {google_id[:20]}…")
+    print(f"Démarrage Psyclopédia comptes sur {args.host}:{args.port}", flush=True)
+    # Postgres est branché après listen() : Render exige un port ouvert
+    # même si la base met quelques secondes à répondre.
+    httpd, store = make_server(
+        args.host, args.port, args.db, google_id, static_root, database_url,
+        connect_db=not bool(database_url),
+    )
+    print(f"Psyclopédia comptes — {store.kind} {store.path}", flush=True)
+    print(f"Écoute http://{args.host}:{args.port}/api/health", flush=True)
+    print(f"Google Sign-In : client {google_id[:20]}…", flush=True)
     if static_root:
-        print(f"Fichiers statiques : {os.path.abspath(static_root)}")
+        print(f"Fichiers statiques : {os.path.abspath(static_root)}", flush=True)
+    if database_url and not store.ready:
+        threading.Thread(
+            target=store.connect_with_retry,
+            kwargs={"forever": True},
+            name="postgres-connect",
+            daemon=True,
+        ).start()
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

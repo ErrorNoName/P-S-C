@@ -392,6 +392,57 @@ class PaasBindTests(unittest.TestCase):
             else:
                 os.environ["PORT"] = old
 
+    def test_prepare_database_url_ssl_externe_seulement(self):
+        internal = compte_server.prepare_database_url(
+            "postgres://compte:secret@dpg-abc-a/psyclopedia"
+        )
+        self.assertTrue(internal.startswith("postgresql://"))
+        self.assertNotIn("sslmode", internal)
+        self.assertIn("secret", internal)
+        external = compte_server.prepare_database_url(
+            "postgresql://compte:secret@dpg-abc-a.frankfurt-postgres.render.com/psyclopedia"
+        )
+        self.assertIn("sslmode=require", external)
+        kept = compte_server.prepare_database_url(
+            "postgresql://compte:secret@dpg-abc-a.frankfurt-postgres.render.com/psyclopedia?sslmode=prefer"
+        )
+        self.assertIn("sslmode=prefer", kept)
+        self.assertNotIn("sslmode=require", kept)
+
+    def test_database_host_label_sans_secret(self):
+        label = compte_server.database_host_label(
+            "postgres://compte:secret@dpg-abc-a:5432/psyclopedia"
+        )
+        self.assertEqual(label, "dpg-abc-a:5432")
+        self.assertNotIn("secret", label)
+        self.assertNotIn("compte", label)
+
+    def test_health_503_tant_que_la_base_nest_pas_prete(self):
+        tmp = tempfile.TemporaryDirectory()
+        db = str(Path(tmp.name) / "wait.sqlite")
+        httpd, store, port = _start(db)
+        try:
+            store.ready = False
+            store.last_error = "TimeoutError"
+            status, body = ApiClient(port).call("GET", "/api/health")
+            self.assertEqual(status, 503)
+            self.assertFalse(body["ok"])
+            self.assertEqual(body["db"], "starting")
+            self.assertNotIn("secret", json.dumps(body))
+            status, blocked = ApiClient(port).call("POST", "/api/auth/login", {
+                "email": "a@b.co", "password": "motdepasse1",
+            })
+            self.assertEqual(status, 503)
+            store.ready = True
+            status, body = ApiClient(port).call("GET", "/api/health")
+            self.assertEqual(status, 200)
+            self.assertTrue(body["ok"])
+        finally:
+            httpd.shutdown()
+            httpd.server_close()
+            store.close()
+            tmp.cleanup()
+
 
 class FrontendConfigTests(unittest.TestCase):
     def test_client_id_public_dans_le_js(self):
