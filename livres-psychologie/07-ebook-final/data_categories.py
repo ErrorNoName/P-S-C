@@ -504,8 +504,11 @@ CATEGORIES = [
         "icon": "🩺", "color": "rose", "num": "09",
         "title": "Psychopathologie & Troubles mentaux",
         "subtitle": "Comprendre la souffrance psychique sans stigmatiser",
-        "read_time": "26 min",
+        "read_time": "38 min",
         "objectives": [
+            "Dire pourquoi la psychologie clinique est une spécialité de la psychologie, pas une discipline séparée",
+            "Distinguer le soin au chevet, l'explication par les causes et la compréhension du sens",
+            "Situer Witmer, Janet et Lagache, et ne pas confondre psychologue et psychiatre",
             "Distinguer les grandes familles de troubles mentaux",
             "Comprendre les apports historiques de Ribot, Janet et Charcot",
             "Identifier les principaux troubles anxieux et de l'humeur",
@@ -530,6 +533,144 @@ CATEGORIES = [
              "contrôle conscient et fonctionnent de manière dissociée. Ses travaux sont aujourd'hui reconnus "
              "comme précurseurs de la compréhension moderne du <strong>psychotraumatisme</strong> et des "
              "troubles dissociatifs.</p>"),
+            ("La clinique, une spécialité dans la psychologie",
+             "<p>Ce chapitre remet au propre un cours enregistré d'introduction (transcription automatique "
+             "d'environ 70 minutes, très abîmée, corrigée et complétée). Les apartés de salle de classe n'y "
+             "figurent pas. Rien ici ne permet de poser un diagnostic.</p>"
+             "<p>La psychologie clinique n'est pas une discipline à côté de la psychologie. C'est une "
+             "<strong>spécialité</strong>, une manière de travailler à l'intérieur de la discipline "
+             "psychologique. Neuropsychologues, psychiatres et psychologues se réclament tous d'un « regard "
+             "clinique » : le mot circule, les objets non. Le regard change avec la théorie. L'observation "
+             "d'un service hospitalier n'est pas celle d'un entretien de psychologie clinique.</p>"
+             "<p>Comme spécialité universitaire, elle s'installe tard, surtout après la Seconde Guerre "
+             "mondiale. En France, <strong>Daniel Lagache</strong> en fixe le programme en 1949. Les prémisses, "
+             "elles, sont bien plus anciennes.</p>"),
+            ("Klinike technè : l'art au chevet",
+             "<p>En grec, <em>klinikē technē</em> (κλινικὴ τέχνη) désigne l'art du médecin. <em>Klinē</em>, "
+             "c'est le lit. La technique clinique est d'abord un soin <strong>au chevet</strong>, auprès de "
+             "la personne, pas une leçon donnée de loin.</p>"
+             "<p>Au sens littéral, le clinicien est à côté du malade alité. Au sens figuré, qui est celui de "
+             "la psychologie, la même sollicitude s'adresse à un sujet qui n'est pas forcément malade, ni "
+             "couché. Il consulte. On le reçoit en face à face. Le « soin » est ici une attention, une "
+             "démarche auprès de quelqu'un, pas une ordonnance.</p>"
+             "<p>La psychologie clinique a donc des racines médicales sans se confondre avec la médecine. "
+             "À la fin du XVIII<sup>e</sup> siècle et au début du XIX<sup>e</sup>, l'école clinique parisienne "
+             "apprend à regarder le malade lui-même, pas seulement une maladie abstraite. C'est de là que "
+             "part le geste : aller vers l'autre, s'intéresser à ce sujet-là.</p>"),
+            ("Pinel, Esquirol, et l'histoire de la folie",
+             "<p>Au XIX<sup>e</sup> siècle, la psychiatrie clinique se détache de l'enfermement punitif. "
+             "<strong>Philippe Pinel</strong>, médecin aliéniste, fait ôter les chaînes à Bicêtre en 1793 et "
+             "propose un <strong>traitement moral</strong> : parler, occuper, observer, plutôt que châtier. "
+             "<strong>Jean-Étienne Esquirol</strong>, son élève, poursuit cette clinique des « aliénés » "
+             "(<em>Des maladies mentales</em>, 1838). Le cours cite aussi Foucault, "
+             "<em>Histoire de la folie à l'âge classique</em> (1961) : non comme un manuel de soin, mais "
+             "comme une histoire de la manière dont on a nommé, enfermé et soigné la folie.</p>"
+             "<p>Cette psychiatrie s'intéresse au <strong>sens</strong> du symptôme chez une personne "
+             "singulière. L'individualité devient un objet de connaissance, là où une médecine seulement "
+             "mesurante compare des moyennes. Singularité et mesure ne s'annulent pas : elles ne répondent "
+             "pas à la même question.</p>"
+             "<p>Le cours distingue ensuite le mot <strong>santé mentale</strong>, vocabulaire de santé "
+             "publique et d'administration, de la psychiatrie et de la psychopathologie. Décrire une "
+             "population n'est pas rencontrer un sujet. Le glissement de mots, en France comme ailleurs en "
+             "Europe, a pu élargir l'accès aux soins et, en même temps, inquiéter les cliniciens : à force "
+             "de catégories générales, le soin humaniste au cas par cas s'amincit. Les deux risques sont "
+             "réels. Aucun des deux ne se règle par un slogan.</p>"),
+            ("Expliquer n'est pas comprendre",
+             "<p><strong>Expliquer</strong>, c'est chercher des causes, parfois plusieurs. "
+             "<strong>Comprendre</strong>, c'est dégager un sens, une raison vécue, pas seulement décrire "
+             "un symptôme ou une conduite. La distinction vient de <strong>Wilhelm Dilthey</strong> "
+             "(expliquer les sciences de la nature, comprendre les sciences de l'esprit) et "
+             "<strong>Karl Jaspers</strong> la place au centre de la psychopathologie "
+             "(<em>Psychopathologie générale</em>, 1913). Le cours l'enseigne sans toujours nommer ces "
+             "auteurs : on la rattache ici à ses sources.</p>"
+             "<p>Un exemple du cours : les conseils de santé sont rationnels (ne pas fumer, dormir, manger). "
+             "Beaucoup de gens les connaissent et ne les suivent pas. La raison ne suffit donc pas à "
+             "produire une conduite. D'autres forces agissent. Les expliquer par une cause et comprendre "
+             "ce qu'elles veulent dire pour cette personne sont deux opérations.</p>"),
+            ("Psychologue et psychiatre",
+             "<p>Le psychiatre est un <strong>médecin</strong>, spécialisé dans les troubles mentaux. "
+             "Le psychologue ne l'est pas, sauf le cas rare d'une double formation. Il ne prescrit pas de "
+             "médicament : c'est un acte médical. En France, le titre de psychologue est protégé "
+             "(loi du 25 juillet 1985, usage professionnel précisé en 2002) et encadré par le "
+             "code de déontologie des psychologues.</p>"
+             "<p>Le diagnostic <em>médical</em> relève du médecin. Le psychologue clinicien réalise des "
+             "<strong>bilans</strong>, formule des hypothèses psychologiques, propose un suivi. Dans un "
+             "service, le chef de service est souvent un médecin : il organise le travail de l'équipe. "
+             "Ce partage varie selon les lieux. Il ne s'efface pas.</p>"
+             "<p>Les images de chaînes et de douches froides datent d'un autre siècle. L'isolement et la "
+             "contention existent encore, de façon encadrée et contestée, lorsque la personne est un danger "
+             "pour elle-même ou pour autrui. Ce ne sont pas des punitions, ni une curiosité de cours. "
+             "Ce site n'explique pas comment les mettre en œuvre.</p>"),
+            ("Witmer, 1896 : la première clinique psychologique",
+             "<p><strong>Lightner Witmer</strong> (1867-1956), élève de Wundt, ouvre en 1896 à "
+             "l'université de Pennsylvanie la première <strong>clinique psychologique</strong>. Il y reçoit "
+             "des enfants d'école en difficulté de langage, d'apprentissage ou de comportement, souvent "
+             "amenés par un enseignant ou un parent. On évalue la situation, puis on propose un "
+             "entraînement adapté. On n'applique pas le même plan à chaque enfant.</p>"
+             "<p>Dès 1896 il parle de méthode clinique devant l'American Psychological Association. "
+             "En 1907, dans la revue <em>The Psychological Clinic</em>, il définit la psychologie clinique "
+             "comme l'étude d'individus, par l'observation ou l'expérimentation, <strong>en vue d'un "
+             "changement</strong>. L'écho en France est d'abord faible.</p>"
+             "<p>En 1919, l'APA ouvre une section de psychologie clinique. Le cours en retient quatre "
+             "tâches, qui structurent encore la formation : étude des cas individuels ; contribution à "
+             "l'évaluation ; bilans ; prises en charge individuelle et collective. Aux États-Unis, la "
+             "conférence de Boulder (1949) ajoutera le modèle scientifique-praticien. En France, "
+             "l'évaluation psychologique n'est pas un diagnostic médical : les conceptions seulement "
+             "neurobiologiques de la souffrance, dit le cours, manquent la personne.</p>"),
+            ("Janet : penser la maladie, pas seulement la panser",
+             "<p><strong>Pierre Janet</strong> (1859-1947), médecin et philosophe, parle de psychologie "
+             "clinique dans un sens encore proche de la clinique médicale, à destination des médecins qui "
+             "voient des malades mentaux. Le cours joue sur deux verbes : <strong>penser</strong> la "
+             "maladie, pas seulement la <strong>panser</strong>. Janet n'est pas le fondateur de la "
+             "médecine psychosomatique ; l'idée du cours est plus limitée, et juste : former le médecin "
+             "à une lecture psychologique, appuyée sur la philosophie, pas sur la seule lésion.</p>"
+             "<p>Trois apports, tels que le cours les développe :</p>"
+             "<ul><li>La réflexion psychologique se décolle d'une approche seulement organique.</li>"
+             "<li>Le fonctionnement psychique n'est pas qu'un calcul rationnel. Il y a de l'imaginaire "
+             "agissant. Les conduites « irrationnelles » ont une logique à retrouver.</li>"
+             "<li>Un savoir sur une personne naît de l'étude aussi complète que possible de <strong>ce "
+             "cas</strong>. Une moyenne et un écart-type décrivent un ensemble. Ils ne sont pas cette "
+             "personne. Janet se méfie d'une statistique qui efface le singulier.</li></ul>"),
+            ("Le cas, le laboratoire et le milieu de vie",
+             "<p>Le laboratoire isole des variables. C'est sa force, et sa limite : le milieu est "
+             "artificiel, et le fait d'être observé change déjà le sujet. Le cours oppose à cela une "
+             "observation dans la vie ordinaire, qui cherche des <strong>raisons</strong> autant que des "
+             "causes. Les deux démarches sont utiles. Elles ne décrivent pas le même objet. La psychologie "
+             "clinique, dans cette leçon, choisit d'abord la seconde.</p>"),
+            ("Normal et pathologique : une différence de degré",
+             "<p>Le cours refuse la coupure nette entre un « homme sain » et un « homme malade ». "
+             "Entre un état psychique ordinaire et un état très douloureux, il y a souvent une différence "
+             "d'<strong>intensité</strong>, pas une autre espèce d'humanité. "
+             "<strong>Georges Canguilhem</strong>, <em>Le normal et le pathologique</em> (1943, repris en "
+             "1966), donne à cette idée sa forme philosophique. Le cours l'illustre avec Janet, puis avec "
+             "un exemple à manier prudemment : le <strong>spectre de l'autisme</strong>. Il n'y a pas une "
+             "seule forme. Certaines personnes aménagent travail, liens et quotidien et vivent de façon "
+             "adaptée. Un mot posé trop tôt sur un enfant en plein développement peut figer ce qui bouge "
+             "encore. Cette page ne dit pas si un enfant « est autiste ». Elle dit seulement qu'une "
+             "étiquette n'est ni une condamnation, ni un destin, ni un outil de cour de récréation.</p>"
+             "<p>Continuité ne veut pas dire mêmes processus. Le cours prend le rêve. Éveillée, une "
+             "personne ne vole pas et ne se soustrait pas à la pesanteur ni aux interdits sociaux. "
+             "Dans le rêve, la même personne peut voler ou franchir un interdit. L'état onirique n'obéit "
+             "pas au même <strong>principe de réalité</strong>. Deux fonctionnements, une seule vie.</p>"),
+            ("La personne totale en situation",
+             "<p>La fin du cours, très abîmée par la transcription, revient à une exigence : recevoir "
+             "la personne dans sa globalité, corps et histoire, et dans les systèmes où elle vit "
+             "(famille, travail, école, soin). On n'étudie pas un fragment découpé pour les besoins "
+             "d'une variable. On repère comment les éléments agissent ensemble.</p>"
+             "<p>La formule qui fixe cet objet en France est celle de <strong>Lagache</strong> (1949) : "
+             "la psychologie clinique étudie la conduite individuelle et ses conditions — hérédité, "
+             "maturation, état du corps, histoire de vie — autrement dit la <strong>personne totale en "
+             "situation</strong>. Elle concerne aussi l'homme qui n'est pas malade. Un soignant pressé "
+             "peut ne plus voir que l'organe ou le symptôme. Le cours demande l'inverse : la personne "
+             "qui souffre a aussi un métier, des liens, un âge, un monde.</p>"
+             "<p>Pour prolonger, hors de ce site : Witmer et l'histoire américaine de la clinique ; "
+             "Lagache, <em>L'unité de la psychologie</em> (PUF, 1949) ; Jaspers, "
+             "<em>Psychopathologie générale</em> (1913) ; Canguilhem, <em>Le normal et le pathologique</em> ; "
+             "Foucault, <em>Histoire de la folie à l'âge classique</em> ; le "
+             "<a href=\"https://psychologues.org/la-deontologie\" target=\"_blank\" rel=\"noopener\">code "
+             "de déontologie des psychologues</a> ; l'article ouvert de Kumazaki sur les racines diltheyennes "
+             "de Jaspers (<a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC4995496\" target=\"_blank\" "
+             "rel=\"noopener\">PMC</a>).</p>"),
             ("Les grandes familles de troubles",
              "<p>Les classifications actuelles (DSM-5, CIM-11) organisent les troubles mentaux en grandes "
              "catégories :</p>"
@@ -570,6 +711,10 @@ CATEGORIES = [
             ("Quelle est la triade cognitive de Beck dans la dépression ?", "Une vision négative de soi, du monde et de l'avenir."),
             ("Qu'est-ce que le modèle bio-psycho-social ?", "Un modèle expliquant les troubles mentaux par l'interaction de facteurs biologiques, psychologiques et sociaux."),
             ("Quels sont les symptômes typiques d'un trouble anxieux ?", "Pensées d'inquiétude, tension physique et comportements d'évitement."),
+            ("Que signifie klinike technè ?", "L'art du médecin au chevet : une attention auprès de la personne, pas une leçon à distance."),
+            ("Qui ouvre la première clinique psychologique, et quand ?", "Lightner Witmer, à l'université de Pennsylvanie, en 1896."),
+            ("Expliquer et comprendre, quelle différence ?", "Expliquer cherche des causes. Comprendre dégage un sens vécu. Dilthey, puis Jaspers."),
+            ("Quelle formule Lagache donne-t-il en 1949 ?", "La personne totale en situation : la conduite individuelle et ses conditions."),
         ],
     },
     {

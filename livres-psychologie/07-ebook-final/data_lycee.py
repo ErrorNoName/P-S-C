@@ -288,7 +288,10 @@ BRANCHES = [
             ("Secret professionnel", "Obligation légale et déontologique : ce qui se dit ne circule pas."),
         ],
         "auteurs": [
+            ("Lightner Witmer", "Première clinique psychologique, Pennsylvanie, 1896.", "categories/09-psychopathologie.html"),
             ("Pierre Janet", "Automatisme, dissociation, névroses — livre dans la bibliothèque.", "references/auteurs.html"),
+            ("Daniel Lagache", "1949 : la personne totale en situation.", "categories/09-psychopathologie.html"),
+            ("Karl Jaspers", "Expliquer par les causes, comprendre le sens.", "categories/09-psychopathologie.html"),
             ("Sigmund Freud", "Inconscient, rêve, transfert — à lire comme document historique et théorique.", "references/auteurs.html"),
             ("Carl Rogers", "Écoute, congruence, regard positif inconditionnel.", "references/auteurs.html"),
             ("Aaron Beck", "Pensées automatiques, thérapie cognitive.", "references/theories.html"),
@@ -336,6 +339,16 @@ BRANCHES = [
              "<li><strong>Humaniste</strong> — actualisation, congruence, conditions de la croissance.</li>"
              "<li><strong>Systémique</strong> — la souffrance comme nœud dans une famille ou une institution.</li></ul>"
              "<p>L1 demande de les exposer et de les comparer, pas d'en « choisir un pour la vie ».</p>"),
+            ("D'où vient le mot clinique",
+             "<p>Un cours d'introduction, enregistré puis remis au propre sur la fiche psychopathologie, "
+             "tient en quelques repères. <em>Klinike technè</em> : l'art au chevet. Pinel et Esquirol "
+             "sortent la folie du seul châtiment. Witmer ouvre en 1896 une clinique pour enfants en "
+             "difficulté. Janet demande de penser la maladie, pas seulement de la panser, et de ne pas "
+             "confondre une personne avec une moyenne. Jaspers sépare expliquer et comprendre. "
+             "Lagache, en 1949, nomme l'objet : la personne totale en situation.</p>"
+             "<p>Le psychologue n'est pas médecin : il ne prescrit pas. Le titre est protégé. "
+             "Le cours enregistré mélangeait ces idées à du bruit de salle ; la fiche garde les idées "
+             "et laisse tomber le bruit.</p>"),
             ("Éthique, dès le lycée",
              "<p>Consentement, secret, compétence limitée, non-nuisance. Un élève qui « diagnostique » un camarade "
              "sort de l'éthique. Un site pédagogique qui propose un quiz clinique doit écrire noir sur blanc : "
@@ -356,6 +369,7 @@ BRANCHES = [
         ],
         "liens": [
             ("Fiche psychopathologie", "categories/09-psychopathologie.html", "Fiche"),
+            ("Cours remis au propre", "categories/09-psychopathologie.html#la-clinique-une-specialite-dans-la-psychologie", "Cours"),
             ("Clinique à mains nues", "categories/09-psychopathologie.html#mains-nues-et-clinique-armee", "Chapitre"),
             ("Titre protégé", "categories/09-psychopathologie.html#titre-diplome-et-deontologie", "Chapitre"),
             ("Fiche thérapies", "categories/10-therapies.html", "Fiche"),
