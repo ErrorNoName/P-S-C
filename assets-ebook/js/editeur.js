@@ -27,6 +27,12 @@
   var speechMode = "";
   var listenRec = null;
   var speechState = null;
+  var speechRunning = false;
+  var speechStarting = false;
+  var speechStartedAt = 0;
+  var speechShort = 0;
+  var speechTimer = null;
+  var micStream = null;
   var lexicon = null;
   var shownAt = {};
   var player = null;
@@ -612,11 +618,12 @@
     if (!mic || !body) return;
     if ($("cahier-work").hidden) { mic.hidden = true; return; }
     var sel = window.getSelection();
-    if (!recording && (!sel || !sel.rangeCount || !body.contains(sel.anchorNode))) {
+    var useSaved = (recording || speechMode) && savedRange && body.contains(savedRange.startContainer);
+    if (!useSaved && (!sel || !sel.rangeCount || !body.contains(sel.anchorNode))) {
       mic.hidden = true;
       return;
     }
-    var range = recording && savedRange ? savedRange : sel.getRangeAt(0).cloneRange();
+    var range = useSaved ? savedRange.cloneRange() : sel.getRangeAt(0).cloneRange();
     if (!recording) range.collapse(false);
     var rects = range.getClientRects();
     var rect = rects.length ? rects[rects.length - 1] : body.getBoundingClientRect();
@@ -709,29 +716,52 @@
     el.textContent = value;
   }
 
+  function writingBlock(body) {
+    var el = body.lastElementChild;
+    if (!el || !/^(P|DIV|H1|H2|H3|LI|BLOCKQUOTE)$/.test(el.tagName)) {
+      el = document.createElement("p");
+      body.appendChild(el);
+    }
+    var br = el.querySelector("br");
+    if (br && (el.textContent || "").trim() === "") br.remove();
+    return el;
+  }
+
+  function rememberInserted(node, offset) {
+    var range = document.createRange();
+    range.setStart(node, offset);
+    range.collapse(true);
+    savedRange = range;
+  }
+
   function insertPlainText(text) {
     var value = String(text || "");
     if (!value) return;
     var body = $("cahier-body");
     if (!body) return;
-    if (document.activeElement !== body) body.focus();
     var range = savedRange;
-    var live = window.getSelection();
-    if ((!range || !body.contains(range.startContainer)) && live && live.rangeCount && body.contains(live.anchorNode)) {
-      range = live.getRangeAt(0).cloneRange();
-    }
-    if (!range || !body.contains(range.startContainer)) {
-      body.appendChild(document.createTextNode(value));
+    var node = null;
+    var at = 0;
+    if (range && range.startContainer.nodeType === 3 && body.contains(range.startContainer)) {
+      node = range.startContainer;
+      at = Math.min(range.startOffset, node.length);
+      node.insertData(at, value);
+      at += value.length;
     } else {
-      range.collapse(false);
-      var node = document.createTextNode(value);
-      range.insertNode(node);
-      range.setStartAfter(node);
-      range.collapse(true);
+      var block = writingBlock(body);
+      node = block.lastChild && block.lastChild.nodeType === 3 ? block.lastChild : null;
+      if (!node) {
+        node = document.createTextNode("");
+        block.appendChild(node);
+      }
+      node.appendData(value);
+      at = node.length;
+    }
+    rememberInserted(node, at);
+    if (!speechMode) {
       var sel = window.getSelection();
       sel.removeAllRanges();
-      sel.addRange(range);
-      savedRange = range.cloneRange();
+      sel.addRange(savedRange);
     }
     scheduleSave();
     placeMic();
@@ -748,11 +778,83 @@
     return rec;
   }
 
+  function clearSpeechTimer() {
+    if (!speechTimer) return;
+    clearTimeout(speechTimer);
+    speechTimer = null;
+  }
+
+  function micLive() {
+    return !!(micStream && micStream.getAudioTracks().some(function (track) {
+      return track.readyState === "live";
+    }));
+  }
+
+  function openMic() {
+    if (micLive()) return Promise.resolve(micStream);
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      return Promise.reject(new Error("mic"));
+    }
+    return navigator.mediaDevices.getUserMedia({
+      audio: {
+        echoCancellation: true,
+        noiseSuppression: false,
+        autoGainControl: true
+      }
+    }).then(function (stream) {
+      micStream = stream;
+      return stream;
+    });
+  }
+
+  function closeMic() {
+    if (recording || desiredSpeech()) return;
+    if (!micStream) return;
+    try { micStream.getTracks().forEach(function (track) { track.stop(); }); } catch (e) { /* ignore */ }
+    micStream = null;
+  }
+
   function stopSpeech() {
     speechMode = "";
-    if (!listenRec) return;
-    try { listenRec.onend = null; listenRec.stop(); } catch (e) { /* ignore */ }
-    listenRec = null;
+    speechRunning = false;
+    speechStarting = false;
+    clearSpeechTimer();
+    if (listenRec) {
+      var rec = listenRec;
+      listenRec = null;
+      try {
+        rec.onstart = null;
+        rec.onend = null;
+        rec.onerror = null;
+        rec.onresult = null;
+        rec.stop();
+      } catch (e) { /* ignore */ }
+    }
+    closeMic();
+    if (!recording) restoreCaret();
+  }
+
+  function restoreCaret() {
+    var body = $("cahier-body");
+    if (!savedRange || !body || !body.contains(savedRange.startContainer)) return;
+    try {
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(savedRange);
+    } catch (e) { /* curseur déjà perdu */ }
+  }
+
+  function kickSpeech(rec, mode) {
+    clearSpeechTimer();
+    if (listenRec !== rec || speechMode !== mode || desiredSpeech() !== mode) return;
+    if (speechRunning || speechStarting) return;
+    speechStarting = true;
+    try {
+      rec.start();
+    } catch (e) {
+      speechStarting = false;
+      speechTimer = setTimeout(function () { kickSpeech(rec, mode); }, 350);
+    }
   }
 
   function desiredSpeech() {
@@ -781,6 +883,7 @@
     }
     speechMode = mode;
     speechState = FMT.speechState();
+    speechShort = 0;
     rec.onresult = function (ev) {
       if (speechMode !== mode || !speechState) return;
       var step = FMT.applySpeechEvent(speechState, ev, Date.now());
@@ -792,22 +895,36 @@
       else if (step.live && step.live.length > 10) considerUtterance(step.live);
       showLive(mode === "listen" ? step.preview : step.live);
     };
+    var speechError = "";
+    rec.onstart = function () {
+      if (listenRec !== rec) return;
+      speechStarting = false;
+      speechRunning = true;
+      speechStartedAt = Date.now();
+      speechError = "";
+    };
     rec.onerror = function (ev) {
-      if (!ev || ev.error === "no-speech" || ev.error === "aborted") return;
-      if (ev.error === "not-allowed") toast("Micro refusé pour la dictée.");
+      speechError = (ev && ev.error) || "";
+      if (speechError === "not-allowed") toast("Micro refusé pour la dictée.");
     };
     rec.onend = function () {
-      if (speechMode === mode && desiredSpeech() === mode) {
-        try { rec.start(); } catch (e) { /* relance occupée */ }
-      }
+      if (listenRec !== rec) return;
+      var lasted = speechStartedAt ? Date.now() - speechStartedAt : 0;
+      var failed = speechError;
+      speechError = "";
+      speechRunning = false;
+      speechStarting = false;
+      if (lasted > 0 && lasted < 400) speechShort += 1;
+      else speechShort = 0;
+      if (speechMode !== mode || desiredSpeech() !== mode) return;
+      if (failed === "audio-capture" && mode === "note" && recording) return;
+      if (speechShort >= 8) return;
+      clearSpeechTimer();
+      var wait = speechShort >= 3 ? 800 : 80;
+      speechTimer = setTimeout(function () { kickSpeech(rec, mode); }, wait);
     };
-    try {
-      rec.start();
-      listenRec = rec;
-    } catch (e) {
-      speechMode = "";
-      toast("La dictée n'a pas pu démarrer.");
-    }
+    listenRec = rec;
+    kickSpeech(rec, mode);
   }
 
   function syncSpeech() {
@@ -825,13 +942,13 @@
     try { rec.processor.disconnect(); } catch (e1) { /* ignore */ }
     try { rec.source.disconnect(); } catch (e2) { /* ignore */ }
     try { rec.mute.disconnect(); } catch (e3) { /* ignore */ }
-    try { rec.stream.getTracks().forEach(function (track) { track.stop(); }); } catch (e4) { /* ignore */ }
     try { rec.ctx.close(); } catch (e5) { /* ignore */ }
     clearInterval(rec.timer);
     $("cahier-mic").classList.remove("is-rec");
     $("cahier-mic-label").textContent = "Note orale";
     showLive("");
     if (speechMode === "note") stopSpeech();
+    else closeMic();
     var raw = concatFloats(rec.chunks);
     var prepared = FMT.prepareVoice(raw);
     var samples = FMT.resampleLinear(prepared, rate, VOICE_RATE);
@@ -866,13 +983,7 @@
       return;
     }
     stopSpeech();
-    navigator.mediaDevices.getUserMedia({
-      audio: {
-        echoCancellation: true,
-        noiseSuppression: false,
-        autoGainControl: true
-      }
-    }).then(function (stream) {
+    openMic().then(function (stream) {
       var ctx = new Ctx();
       var ready = ctx.resume ? ctx.resume() : Promise.resolve();
       return ready.then(function () {
@@ -1228,6 +1339,7 @@
       openPop(cap);
     });
     document.addEventListener("selectionchange", function () {
+      if (speechMode) return;
       if (document.activeElement === body || body.contains(document.activeElement)) {
         rememberRange();
         placeMic();

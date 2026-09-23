@@ -684,8 +684,50 @@
     return (" " + hay.join(" ") + " ").indexOf(" " + needle.join(" ") + " ") !== -1;
   }
 
+  function collapseConsecutive(words) {
+    var out = [];
+    var i;
+    for (i = 0; i < words.length; i++) {
+      if (out.length && speechKey(out[out.length - 1]) === speechKey(words[i])) continue;
+      out.push(words[i]);
+    }
+    return out;
+  }
+
+  function dedupeAdjacentPhrases(words) {
+    var keys = [];
+    var guard = 0;
+    var i;
+    for (i = 0; i < words.length; i++) keys.push(speechKey(words[i]));
+    while (guard++ < 16) {
+      var removed = false;
+      var maxN = Math.min(12, Math.floor(keys.length / 2));
+      var n, j, same;
+      for (n = maxN; n >= 2; n--) {
+        for (i = 0; i + n * 2 <= keys.length; i++) {
+          same = true;
+          for (j = 0; j < n; j++) {
+            if (keys[i + j] !== keys[i + n + j]) { same = false; break; }
+          }
+          if (!same) continue;
+          words.splice(i + n, n);
+          keys.splice(i + n, n);
+          removed = true;
+          break;
+        }
+        if (removed) break;
+      }
+      if (!removed) break;
+    }
+    return words;
+  }
+
+  function cleanTranscript(text) {
+    return dedupeAdjacentPhrases(collapseConsecutive(speechWords(text))).join(" ");
+  }
+
   function speechDelta(already, incoming) {
-    var raw = speechWords(incoming);
+    var raw = dedupeAdjacentPhrases(collapseConsecutive(speechWords(incoming)));
     var b = raw.map(speechKey);
     var a = speechWords(speechKey(already));
     if (!b.length) return "";
@@ -711,14 +753,14 @@
   }
 
   function commitSpeech(state, raw, now) {
-    var text = cleanSpeech(raw);
+    var text = cleanTranscript(raw);
     if (!text || !state) return "";
     var delta = speechDelta(state.tail, text);
     if (!delta) {
       var tailWords = speechWords(speechKey(state.tail));
       var incoming = speechWords(speechKey(text));
-      var sameAsLast = speechKey(text) === speechKey(state.lastRaw);
-      var sameAsTailEnd = incoming.length && tailWords.slice(-incoming.length).join(" ") === incoming.join(" ");
+      var sameAsLast = incoming.length <= 3 && speechKey(text) === speechKey(state.lastRaw);
+      var sameAsTailEnd = incoming.length && incoming.length <= 3 && tailWords.slice(-incoming.length).join(" ") === incoming.join(" ");
       if ((sameAsLast || sameAsTailEnd) && now - state.lastAt >= 900) delta = text;
       else return "";
     }

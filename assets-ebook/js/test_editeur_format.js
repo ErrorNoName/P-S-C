@@ -77,7 +77,19 @@ assert.strictEqual(feedSpeech([
   { t: 0, items: [{ text: "non", final: true }] },
   { t: 200, items: [{ text: "non non", final: true }] },
   { t: 400, items: [{ text: "non non non", final: true }] }
-]), "non non non");
+]), "non");
+assert.strictEqual(feedSpeech([
+  { t: 0, items: [{ text: "plus plus complexe avec des règles qui qui qui qui organise qui organise des qui organise des relations", final: true }] }
+]), "plus complexe avec des règles qui organise des relations");
+assert.strictEqual(feedSpeech([
+  { t: 0, items: [{ text: "plus", final: true }] },
+  { t: 140, items: [{ text: "plus plus", final: true }] },
+  { t: 280, items: [{ text: "plus plus complexe avec des règles", final: true }] },
+  { t: 420, items: [{ text: "qui qui qui qui organise", final: true }] },
+  { t: 560, items: [{ text: "qui organise des", final: true }] },
+  { t: 700, items: [{ text: "qui organise des relations", final: true }] },
+  { t: 1600, items: [{ text: "plus plus complexe avec des règles qui qui qui qui organise qui organise des qui organise des relations", final: true }] }
+]), "plus complexe avec des règles qui organise des relations");
 var liveState = fmt.speechState();
 fmt.commitSpeech(liveState, "bonjour tout", 0);
 assert.strictEqual(fmt.speechLive(liveState.tail, "bonjour tout le monde"), "le monde");
