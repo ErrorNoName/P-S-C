@@ -6,7 +6,8 @@
 (function () {
   "use strict";
 
-  var ROOT = document.body.getAttribute("data-root") || "./";
+  var hasDom = typeof document !== "undefined" && document.body;
+  var ROOT = hasDom ? (document.body.getAttribute("data-root") || "./") : "./";
   var CORPUS_URL = ROOT + "livres-psychologie/07-ebook-final/ai-corpus.json";
   var INDEX_URL = ROOT + "livres-psychologie/07-ebook-final/search-index.json";
   var ASSIST_PAGE = ROOT + "livres-psychologie/07-ebook-final/assistant.html";
@@ -27,7 +28,74 @@
     comment:1, pourquoi:1, quel:1, quelle:1, quels:1, quelles:1, cest:1,
     qu:1, se:1, sa:1, son:1, ses:1, leur:1, leurs:1, je:1, tu:1, il:1,
     elle:1, on:1, nous:1, vous:1, ils:1, elles:1, y:1, ca:1, cela:1,
-    etre:1, avoir:1, faire:1, peut:1, peuton:1,
+    etre:1, avoir:1, faire:1, peut:1, peuton:1, veux:1, veut:1, voulais:1,
+    voudrais:1, savoir:1, sais:1, cherche:1, chercher:1, trouve:1, trouver:1,
+    donne:1, donner:1, explique:1, expliquer:1, parle:1, parler:1, dis:1,
+    dire:1, montre:1, montrer:1, besoin:1, aimerais:1, peux:1, pourrais:1,
+    merci:1, bonjour:1, salut:1, stp:1, svp:1, juste:1, vraiment:1, aussi:1,
+    bien:1, mal:1, fait:1, suis:1, vais:1, aller:1, moi:1, me:1, te:1,
+    concernant:1, propos:1, sujet:1, info:1, infos:1, resultat:1, resultats:1,
+    contenu:1, page:1, pages:1, site:1, encyclopedie:1, psyclopedia:1,
+    psychopedia:1, sil:1, plait:1, tout:1, toute:1, toutes:1, tous:1,
+    quelque:1, quelques:1, chose:1, choses:1, c:1, j:1, l:1, n:1, m:1, t:1,
+    ai:1, as:1, es:1, ouvrir:1, voir:1, dit:1, rien:1, vrai:1, faux:1,
+    entre:1, selon:1, chez:1, apres:1, avant:1, sous:1, vers:1, lors:1,
+    quand:1, lorsque:1, afin:1, ainsi:1, puis:1, encore:1, seulement:1,
+    depuis:1, pendant:1, chaque:1, autre:1, autres:1, meme:1, ici:1,
+  };
+
+  var WEAK = { psychologie:1, psycho:1, psychologique:1, humain:1, humaine:1, personne:1, gens:1 };
+
+  var SYN = {
+    memoire: ["souvenir", "rappel", "oubli", "mnesique", "empan"],
+    souvenir: ["memoire", "rappel"],
+    oubli: ["memoire", "ebbinghaus"],
+    attention: ["selective", "cocktail", "dichotique"],
+    bebe: ["nourrisson", "enfant"],
+    nourrisson: ["bebe", "enfant"],
+    enfant: ["developpement", "piaget", "bebe"],
+    piaget: ["stade", "developpement", "conservation"],
+    stade: ["piaget", "developpement"],
+    milgram: ["obeissance", "autorite"],
+    obeissance: ["milgram", "autorite"],
+    asch: ["conformite", "conformisme"],
+    conformite: ["asch"],
+    freud: ["psychanalyse", "inconscient", "reve"],
+    psychanalyse: ["freud", "inconscient"],
+    inconscient: ["freud", "psychanalyse"],
+    bowlby: ["attachement", "ainsworth"],
+    ainsworth: ["attachement", "bowlby"],
+    attachement: ["bowlby", "ainsworth"],
+    baddeley: ["memoire", "empan", "travail"],
+    empan: ["memoire", "miller", "baddeley"],
+    miller: ["empan", "memoire"],
+    biais: ["heuristique", "kahneman"],
+    heuristique: ["biais", "kahneman"],
+    kahneman: ["biais", "heuristique"],
+    cerveau: ["neurone", "lobe", "hippocampe"],
+    emotion: ["sentiment", "peur"],
+    personnalite: ["ocean", "trait"],
+    clinique: ["entretien", "psychologue"],
+    psychologue: ["clinique", "titre"],
+    therapie: ["tcc", "beck", "rogers"],
+    tcc: ["beck", "therapie", "cognitif"],
+    variable: ["independante", "dependante", "hypothese"],
+    hypothese: ["methode", "variable", "scientifique"],
+    scientifique: ["methode", "experience", "protocole"],
+    sommeil: ["reve"],
+    reve: ["freud", "sommeil"],
+    langage: ["broca", "wernicke"],
+    intelligence: ["binet", "qi"],
+    stress: ["anxiete", "yerkes"],
+    anxiete: ["stress", "peur"],
+    groupe: ["social", "foule", "conformite"],
+    apprentissage: ["conditionnement", "skinner", "pavlov"],
+    conditionnement: ["pavlov", "skinner"],
+    pavlov: ["conditionnement", "chien"],
+    skinner: ["conditionnement", "renforcement"],
+    cours: ["seance", "cm", "td"],
+    notification: ["rappel", "alerte"],
+    discord: ["communaute"],
   };
 
   var corpus = null;
@@ -49,9 +117,65 @@
   }
 
   function tokens(s) {
+    var seen = {};
     return norm(s).split(" ").filter(function (w) {
-      return w.length > 1 && !STOP[w];
+      if (w.length < 2 || STOP[w] || seen[w]) return false;
+      seen[w] = 1;
+      return true;
     });
+  }
+
+  function editDistance(a, b, max) {
+    if (a === b) return 0;
+    if (Math.abs(a.length - b.length) > max) return max + 1;
+    var prev = new Array(b.length + 1);
+    var cur = new Array(b.length + 1);
+    var j, i, k;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      cur[0] = i;
+      var best = cur[0];
+      for (k = 1; k <= b.length; k++) {
+        var cost = a.charCodeAt(i - 1) === b.charCodeAt(k - 1) ? 0 : 1;
+        cur[k] = Math.min(cur[k - 1] + 1, prev[k] + 1, prev[k - 1] + cost);
+        if (cur[k] < best) best = cur[k];
+      }
+      if (best > max) return max + 1;
+      var tmp = prev; prev = cur; cur = tmp;
+    }
+    return prev[b.length];
+  }
+
+  function tolerance(len) {
+    if (len < 5) return 0;
+    if (len < 8) return 1;
+    return 2;
+  }
+
+  function prefixHit(word, term) {
+    if (WEAK[word] || WEAK[term]) return false;
+    var n = 0;
+    var m = Math.min(word.length, term.length);
+    var longer = Math.max(word.length, term.length);
+    for (var i = 0; i < m; i++) {
+      if (word.charCodeAt(i) !== term.charCodeAt(i)) break;
+      n++;
+    }
+    if (n < 5) return false;
+    return n / longer >= 0.8;
+  }
+
+  function wordHit(words, term) {
+    var tol = tolerance(term.length);
+    for (var i = 0; i < words.length; i++) {
+      var w = words[i];
+      if (!w || w.length < 3 || WEAK[w]) continue;
+      if (w === term) return 40;
+      if (term.length >= 5 && (w.indexOf(term) === 0 || (term.indexOf(w) === 0 && w.length >= 5))) return 28;
+      if (prefixHit(w, term)) return 24;
+      if (tol > 0 && Math.abs(w.length - term.length) <= tol && editDistance(w, term, tol) <= tol) return 22;
+    }
+    return 0;
   }
 
   function esc(s) {
@@ -76,22 +200,64 @@
     return "explain";
   }
 
-  function scoreDoc(doc, terms) {
+  function fieldWords(doc) {
+    if (doc._words) return doc._words;
+    var title = doc._nt || (doc._nt = norm(doc.t));
+    var keys = doc._nk || (doc._nk = norm(doc.g || ""));
+    doc._words = (title + " " + keys).split(" ").filter(Boolean);
+    return doc._words;
+  }
+
+  function hasWord(hay, term) {
+    if (!hay || !term) return false;
+    if (term.length >= 6) return hay.indexOf(term) !== -1;
+    return (" " + hay + " ").indexOf(" " + term + " ") !== -1;
+  }
+
+  function termScore(doc, term) {
     var title = doc._nt || (doc._nt = norm(doc.t));
     var body = doc._nx || (doc._nx = norm((doc.x || doc.d || "") + " " + (doc.g || "")));
-    var total = 0;
-    for (var i = 0; i < terms.length; i++) {
-      var t = terms[i];
-      var best = 0;
-      if (title === t) best = 130;
-      else if (title.indexOf(t) === 0) best = 95;
-      else if (title.indexOf(t) !== -1) best = 70;
-      else if (body.indexOf(t) !== -1) best = 22;
-      if (best === 0) return 0;
-      total += best;
+    var best = 0;
+    if (title === term) best = 140;
+    else if (hasWord(title, term) && title.indexOf(term) === 0) best = 100;
+    else if (hasWord(title, term)) best = 78;
+    else if (hasWord(body, term)) best = 26;
+    if (best < 40) {
+      var fuzzy = wordHit(fieldWords(doc), term);
+      if (fuzzy > best) best = fuzzy;
     }
-    if (doc.k === "notion" || doc.k === "branche" || doc.k === "categorie") total += 8;
-    if (doc.k === "lycee") total += 6;
+    var alts = SYN[term] || [];
+    for (var i = 0; i < alts.length && best < 70; i++) {
+      var alt = alts[i];
+      var altScore = 0;
+      if (hasWord(title, alt)) altScore = 48;
+      else if (hasWord(body, alt)) altScore = 18;
+      if (altScore > best) best = altScore;
+    }
+    if (WEAK[term]) best = Math.min(best, 12);
+    return best;
+  }
+
+  function scoreDoc(doc, terms) {
+    var total = 0;
+    var matched = 0;
+    for (var j = 0; j < terms.length; j++) {
+      var sc = termScore(doc, terms[j]);
+      if (sc > 0) matched += 1;
+      total += sc;
+    }
+    if (!matched) return 0;
+    var coverage = matched / terms.length;
+    total = total * coverage;
+    if (coverage === 1) total += 28;
+    if (doc.k === "notion" || doc.k === "experience" || doc.k === "mythe" || doc.k === "branche") total += 6;
+    if (doc.k === "categorie" || doc.k === "section") total += 4;
+    var phrase = terms.join(" ");
+    var title = doc._nt || "";
+    if (phrase.length > 6 && title.indexOf(phrase) !== -1) total += 36;
+    for (var k = 0; k < terms.length; k++) {
+      if (title === terms[k]) total += 48;
+    }
     return total;
   }
 
@@ -99,17 +265,55 @@
     var terms = tokens(query);
     if (!terms.length || !corpus) return [];
     var out = [];
+    var seen = {};
     for (var i = 0; i < corpus.length; i++) {
       var sc = scoreDoc(corpus[i], terms);
-      if (sc > 0) out.push({ e: corpus[i], s: sc });
+      if (sc < 18) continue;
+      var key = norm(corpus[i].t) || corpus[i].u;
+      if (seen[key] && seen[key] >= sc) continue;
+      seen[key] = sc;
+      out.push({ e: corpus[i], s: sc });
     }
-    out.sort(function (a, b) { return b.s - a.s; });
-    return out.slice(0, limit || 8);
+    var bestBy = {};
+    out.forEach(function (h) {
+      var key = norm(h.e.t) || h.e.u;
+      if (!bestBy[key] || bestBy[key].s < h.s) bestBy[key] = h;
+    });
+    var uniq = [];
+    Object.keys(bestBy).forEach(function (k) { uniq.push(bestBy[k]); });
+    uniq.sort(function (a, b) { return b.s - a.s; });
+    return uniq.slice(0, limit || 8);
+  }
+
+  function sentences(text) {
+    return (text || "").replace(/([.!?])\s+/g, "$1|").split("|").map(function (s) {
+      return s.trim();
+    }).filter(Boolean);
   }
 
   function firstSentences(text, n) {
-    var parts = (text || "").replace(/([.!?])\s+/g, "$1|").split("|");
-    return parts.slice(0, n || 2).join(" ");
+    return sentences(text).slice(0, n || 2).join(" ");
+  }
+
+  function bestSentence(doc, terms) {
+    var parts = sentences(doc.x || doc.d || "");
+    if (!parts.length) return firstSentences(doc.x || doc.d || "", 2);
+    var best = parts[0];
+    var bestSc = -1;
+    parts.forEach(function (p) {
+      var n = norm(p);
+      var sc = 0;
+      terms.forEach(function (t) {
+        if (n.indexOf(t) !== -1) sc += 3;
+        var alts = SYN[t] || [];
+        for (var i = 0; i < alts.length; i++) {
+          if (n.indexOf(alts[i]) !== -1) sc += 1;
+        }
+      });
+      if (p.length > 280) sc -= 1;
+      if (sc > bestSc) { bestSc = sc; best = p; }
+    });
+    return best;
   }
 
   function uniqueByTitle(hits) {
@@ -153,10 +357,11 @@
     }
 
     hits = uniqueByTitle(hits);
+    var qTerms = tokens(query);
     var top = hits[0].e;
-    var lead = firstSentences(top.x || top.d, 2);
+    var lead = bestSentence(top, qTerms);
     if (intent === "define") {
-      lead = top.t + " — " + firstSentences(top.x || top.d, 2);
+      lead = top.t + " — " + bestSentence(top, qTerms);
     }
     if (intent === "compare" && hits.length > 1) {
       lead = "Pour distinguer clairement : " + hits[0].e.t + " n'est pas " + hits[1].e.t + ".";
@@ -168,7 +373,7 @@
       var key = norm(h.e.t);
       if (used[key]) return;
       used[key] = 1;
-      var bit = firstSentences(h.e.x || h.e.d, 2);
+      var bit = bestSentence(h.e, qTerms);
       if (bit && bit !== lead) {
         parts.push(h.e.t + ". " + bit);
       }
@@ -240,7 +445,25 @@
       var idx = (pair[1] || []).map(function (e) {
         return { t: e.t, k: e.k, u: e.u, x: e.d, g: e.g || "" };
       });
-      corpus = rich.concat(idx);
+      var byUrl = {};
+      var order = [];
+      function absorb(e) {
+        if (!e || !e.t) return;
+        var key = e.u || e.t;
+        if (!byUrl[key]) {
+          byUrl[key] = e;
+          order.push(key);
+          return;
+        }
+        var prev = byUrl[key];
+        var prevLen = (prev.x || prev.d || "").length;
+        var nextLen = (e.x || e.d || "").length;
+        if (nextLen > prevLen) byUrl[key] = e;
+        if (e.g && byUrl[key] && !byUrl[key].g) byUrl[key].g = e.g;
+      }
+      rich.forEach(absorb);
+      idx.forEach(absorb);
+      corpus = order.map(function (k) { return byUrl[k]; });
       loading = false;
       cb();
     }).catch(function () {
@@ -346,24 +569,36 @@
     document.body.appendChild(a);
   }
 
-  window.addEventListener("keydown", function (e) {
-    var isJ = e.key === "j" || e.key === "J" || e.code === "KeyJ";
-    if ((e.ctrlKey || e.metaKey) && isJ && !e.altKey) {
-      e.preventDefault();
-      e.stopPropagation();
-      openOverlay("");
-    }
-  }, true);
+  if (hasDom) {
+    window.addEventListener("keydown", function (e) {
+      var isJ = e.key === "j" || e.key === "J" || e.code === "KeyJ";
+      if ((e.ctrlKey || e.metaKey) && isJ && !e.altKey) {
+        e.preventDefault();
+        e.stopPropagation();
+        openOverlay("");
+      }
+    }, true);
 
-  document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-ai-open]");
-    if (t) {
-      e.preventDefault();
-      openOverlay(t.getAttribute("data-ai-open") || "");
-    }
-  });
+    document.addEventListener("click", function (e) {
+      var t = e.target.closest("[data-ai-open]");
+      if (t) {
+        e.preventDefault();
+        openOverlay(t.getAttribute("data-ai-open") || "");
+      }
+    });
 
-  injectFab();
-  mountPage();
-  window.PsyAssistant = { ask: function (q) { openOverlay(q || ""); }, open: openOverlay };
+    injectFab();
+    mountPage();
+    window.PsyAssistant = { ask: function (q) { openOverlay(q || ""); }, open: openOverlay };
+  }
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = {
+      searchWith: function (docs, q, limit) {
+        corpus = docs;
+        return search(q, limit || 5);
+      },
+      tokens: function (q) { return tokens(q); },
+    };
+  }
 })();

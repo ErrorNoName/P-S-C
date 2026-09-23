@@ -93,6 +93,12 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="{asset(depth, 'favicon.svg')}">
+<link rel="manifest" href="{repo_root(depth)}manifest.webmanifest">
+<meta name="theme-color" content="#50A67E">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Psyclopédia">
+<link rel="apple-touch-icon" href="{repo_root(depth)}assets-ebook/icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -179,6 +185,7 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
 <script src="{asset(depth, 'js/ui-v2.js')}"></script>
 <script src="{asset(depth, 'js/search.js')}"></script>
 <script src="{asset(depth, 'js/daily.js')}"></script>
+<script src="{asset(depth, 'js/pwa.js')}"></script>
 <script src="{asset(depth, 'js/assistant.js')}"></script>
 <script src="{asset(depth, 'js/compte-config.js')}"></script>
 <script src="{asset(depth, 'js/compte.js')}"></script>

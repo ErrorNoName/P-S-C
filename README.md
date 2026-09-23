@@ -2,9 +2,10 @@
 
 **L'encyclopédie vivante et illustrée de la psychologie, en français.**
 
-Un site d'apprentissage complet et autonome : 26 catégories rédigées, plus de 1 100 fiches consultables
+Un site d'apprentissage complet et autonome : 27 catégories rédigées, plus de 1 100 fiches consultables
 (références, théories, courants, cas cliniques, débats, méthodes, pratique, métiers), 13 ouvrages du domaine
-public lisibles directement en ligne, une recherche globale instantanée, 26 quiz notés avec corrigés, un
+public lisibles directement en ligne, une recherche globale instantanée, un **assistant** qui retrouve une
+fiche malgré une faute ou un synonyme, un **cahier** relié à Google Drive, 31 quiz notés avec corrigés, un
 laboratoire d'expériences jouables, un système de révision espacée, un **cursus annuel de 60 cours**
 de 50 minutes (emploi du temps, replays YouTube francophones, fiches synchronisées), un **compte étudiant**
 (e-mail/mot de passe ou Google, notes et scores enregistrés) et des parcours
@@ -13,6 +14,10 @@ guidés — le tout hébergé sur GitHub Pages.
 ## 🚀 Accéder au site
 
 ➡️ **[Ouvrir Psyclopédia](https://errornoname.github.io/P-S-C/)** — en ligne, mis à jour automatiquement à chaque push sur `main`.
+
+La barre du haut reste lisible sur ordinateur et sur téléphone : les liens défilent, et Compte, Discord,
+Rappels et Recherche sont des boutons icône. Le menu **Cahier** ouvre l'éditeur. L'assistant s'ouvre avec
+<kbd>Ctrl</kbd> + <kbd>J</kbd>.
 
 💬 **[Rejoindre le Discord](https://discord.gg/sX3TAqH4pD)** — cours, forums thématiques et entraide (ce n'est pas un soin).
 
@@ -151,6 +156,13 @@ sources lisibles en ligne, des flashcards de rappel actif et un quiz noté.
   (photo Google ou image personnelle) sont enregistrés sur le serveur.
 - **[Espace d'apprentissage](livres-psychologie/07-ebook-final/espace.html)** — tableau de bord : catégories
   lues, moyenne des quiz, notes sur 20, carnet de séance, photo de profil.
+- **[Cahier](livres-psychologie/07-ebook-final/cahier.html)** — éditeur réservé à un compte Google : mise en
+  forme, import et export `.docx`, enregistrement dans le dossier Drive `Psyclopédia — cahiers`, note orale
+  en capsule sous le curseur (lire ou mettre en texte), et écoute qui propose une fiche quand un terme de
+  l'encyclopédie est reconnu.
+- **[Assistant](livres-psychologie/07-ebook-final/assistant.html)** — répond à partir du corpus du site.
+  Il ignore les formules vides (« je voudrais savoir »), tolère les fautes, suit les synonymes (obéissance →
+  Milgram) et choisit la phrase de la fiche qui parle vraiment du sujet.
 - **[Lecteur de cours](livres-psychologie/07-ebook-final/cours/lecteur.html)** — iframe YouTube 100 %
   francophone (Collège de France, universités, archives), panneau de fiches synchronisé sur une timeline
   JSON, surlignage des notions au moment où elles sont nommées, notes exportables en Markdown ou PDF.
@@ -170,22 +182,25 @@ sources lisibles en ligne, des flashcards de rappel actif et un quiz noté.
 ├── index.html                          Accueil (généré par build_home.py)
 ├── sitemap.xml, robots.txt             Générés par build_sitemap.py
 ├── assets-ebook/
-│   ├── css/style.css + v2 v3 v4 + cours.css
+│   ├── css/style.css + v2 v3 v4 + cours.css + compte.css + editeur.css
+│   ├── icons/                          Icônes de l'application
 │   └── js/app.js, search.js,           Progression, recherche, lecteur, interface,
-│          lecteur.js, ui-v2.js,        laboratoire, révision, auto-évaluations, cours
-│          quiz-engine.js, laboratoire.js,
-│          revision.js, autoeval.js, cours.js
+│          lecteur.js, ui-v2.js,        laboratoire, révision, auto-évaluations, cours,
+│          quiz-engine.js, laboratoire.js, assistant, rappels, compte, cahier, application
+│          revision.js, autoeval.js, cours.js,
+│          assistant.js, daily.js, compte.js, editeur.js, pwa.js
+├── manifest.webmanifest, sw.js         Application installable et alertes de cours
 └── livres-psychologie/
     ├── 07-ebook-final/                 ★ LE SITE ★
     │   ├── build_ebook.py              Point d'entrée du générateur
     │   ├── shell.py, content.py        Coque commune, fusion des données
     │   ├── build_*.py                  Générateurs (catégories, références, pages, accueil, index)
     │   ├── data_*.py                   Toutes les données du site
-│   ├── categories/, references/,   Pages générées
-│   │   quiz/, fiches/, laboratoire/,
-│   │   auto-evaluations/, *.html
-│   ├── search-index.json           Index de recherche généré
-│   └── revision-cards.json         Cartes de révision espacée générées
+    │   ├── categories/, references/,   Pages générées
+    │   │   quiz/, fiches/, laboratoire/,
+    │   │   auto-evaluations/, *.html
+    │   ├── search-index.json           Index de recherche généré
+    │   └── revision-cards.json         Cartes de révision espacée générées
     ├── 06-pdf-domaine-public/          13 ouvrages, classés par thème
     ├── 05-larousse-illustre-complet/   Version précédente + bibliothèque d'illustrations
     ├── 04-guide-enrichi-illustre/      Guide original 10 chapitres
@@ -202,7 +217,7 @@ cd livres-psychologie/07-ebook-final
 python3 build_ebook.py
 ```
 
-Le script régénère l'intégralité du site — 98 pages : les 26 fiches de catégorie, le dictionnaire, les onze
+Le script régénère l'intégralité du site — 117 pages au sitemap : les fiches de catégorie, le dictionnaire, les onze
 pages de références, les pages de savoirs (méthodes, pratique, lexique, métiers), les repères (courants, idées
 reçues, questions fréquentes, aide), les auto-évaluations, le laboratoire, la révision espacée, les fiches
 imprimables, les quiz, la bibliothèque, le lecteur, les parcours, le guide d'apprentissage, les crédits, le plan
@@ -219,9 +234,13 @@ python3 ../../serveur-compte/test_compte.py                                  # A
 
 ## 📖 Déploiement
 
-GitHub Pages est actif sur ce dépôt (déploiement depuis `main`, racine `/`). Le workflow
-[`.github/workflows/pages.yml`](.github/workflows/pages.yml) redéploie également à chaque push. Aucune action
-manuelle n'est nécessaire : le site est à jour une à deux minutes après un `git push`.
+GitHub Pages sert **uniquement** la branche `main` (racine `/`). Le workflow
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) redéploie à chaque push. Le site public
+est à jour une à deux minutes après `git push origin main`.
+
+Tout correctif utile — assistant, barre du haut, cahier, pages — se commit **sur `main`** et s'y pousse.
+Une autre branche ne change pas https://errornoname.github.io/P-S-C/. On n'écrase pas `main` avec une
+branche plus ancienne : le travail manquant s'ajoute par-dessus.
 
 ## ⚖️ Licences et avertissement
 

@@ -1,0 +1,10 @@
+---
+description: Publier Psyclopédia directement sur main pour que GitHub Pages reste à jour
+alwaysApply: true
+---
+
+Le site https://errornoname.github.io/P-S-C/ est servi depuis la branche `main` uniquement.
+
+- Commit et pousse sur `main`. Ne crée pas de branche parallèle pour un correctif du site.
+- N'écrase pas `main` avec une branche plus ancienne. Ajoute le travail manquant par-dessus.
+- Après le push, vérifie que la page en ligne contient le changement.

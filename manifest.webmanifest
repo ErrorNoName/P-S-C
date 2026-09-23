@@ -1,0 +1,25 @@
+{
+  "name": "Psyclopédia",
+  "short_name": "Psyclopédia",
+  "description": "Encyclopédie illustrée de la psychologie, en français.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F7F6F3",
+  "theme_color": "#50A67E",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "assets-ebook/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets-ebook/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

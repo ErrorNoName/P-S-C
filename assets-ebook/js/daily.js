@@ -206,15 +206,32 @@
     pushToast(el);
   }
 
+  function absUrl(url) {
+    if (window.PsyPwa && typeof window.PsyPwa.abs === "function") return window.PsyPwa.abs(url);
+    try { return new URL(url, location.href).href; } catch (e) { return url; }
+  }
+
   function maybeBrowserNotify(title, body, href) {
     var store = loadStore();
     if (!store.browser || typeof Notification === "undefined") return;
     if (Notification.permission !== "granted") return;
+    var target = absUrl(href || (ROOT + "livres-psychologie/07-ebook-final/emploi-du-temps.html"));
+    var icon = absUrl(ROOT + "assets-ebook/icons/icon-192.png");
+    var payload = { body: body, icon: icon, data: { href: target }, tag: "psy-" + title };
+    if (navigator.serviceWorker && navigator.serviceWorker.ready) {
+      navigator.serviceWorker.ready.then(function (reg) {
+        if (reg && reg.showNotification) return reg.showNotification(title, payload);
+        return null;
+      }).catch(function () {
+        try { new Notification(title, payload); } catch (e) {}
+      });
+      return;
+    }
     try {
-      var n = new Notification(title, { body: body, silent: false });
+      var n = new Notification(title, payload);
       n.onclick = function () {
         window.focus();
-        if (href) window.location.href = href;
+        if (target) window.location.href = target;
         n.close();
       };
     } catch (e) {}
@@ -429,7 +446,8 @@
       '<div class="notify-panel-head"><h2>Rappels du jour</h2>' +
       '<button type="button" class="pill-link" data-notify-close>Fermer</button></div>' +
       '<div class="notify-feed" data-notify-feed></div>' +
-      '<div style="padding:0.8rem 1.1rem 1.2rem">' +
+      '<div class="notify-panel-actions">' +
+        '<button type="button" class="btn btn-primary" data-cours-alerts>Alertes de cours</button>' +
         '<a class="btn btn-secondary" href="' + ROOT +
         'livres-psychologie/07-ebook-final/rappels.html">Ouvrir le cabinet</a>' +
       "</div>";
