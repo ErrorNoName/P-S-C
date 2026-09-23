@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" width="760" height="240" role="img" aria-labelledby="t">
+  <title id="t">Habituation puis regard vers la nouveauté</title>
+  <rect width="760" height="240" rx="12" fill="#f6f1e6"/>
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#1c2b24">
+    <text x="48" y="36" font-size="15">Temps de regard du nourrisson</text>
+    <line x1="70" y1="50" x2="70" y2="190" stroke="#1c2b24" stroke-width="1.5"/>
+    <line x1="70" y1="190" x2="700" y2="190" stroke="#1c2b24" stroke-width="1.5"/>
+    <text x="58" y="60" font-size="11" transform="rotate(-90 40 120)">regard</text>
+    <polyline points="90,70 170,110 250,140 330,160 410,172" fill="none" stroke="#1b4332" stroke-width="3"/>
+    <polyline points="410,172 520,78" fill="none" stroke="#9b2226" stroke-width="3"/>
+    <circle cx="90" cy="70" r="5" fill="#1b4332"/>
+    <circle cx="170" cy="110" r="5" fill="#1b4332"/>
+    <circle cx="250" cy="140" r="5" fill="#1b4332"/>
+    <circle cx="330" cy="160" r="5" fill="#1b4332"/>
+    <circle cx="410" cy="172" r="5" fill="#1b4332"/>
+    <circle cx="520" cy="78" r="6" fill="#9b2226"/>
+    <text x="200" y="214" font-size="13" fill="#1b4332">essais familiers : le regard baisse</text>
+    <text x="470" y="214" font-size="13" fill="#9b2226">stimulus nouveau : le regard repart</text>
+    <text x="380" y="232" text-anchor="middle" font-size="12" fill="#3d4a44">S'il discrimine, la nouveauté relance l'intérêt. Ce n'est pas encore une phrase sur ce qu'il « pense ».</text>
+  </g>
+</svg>

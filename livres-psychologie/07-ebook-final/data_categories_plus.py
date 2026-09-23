@@ -491,7 +491,7 @@ CATEGORIES_PLUS = [
         "icon": "📱", "color": "vert", "num": "22",
         "title": "Psychologie du Numérique",
         "subtitle": "Écrans, réseaux sociaux, attention et santé mentale",
-        "read_time": "16 min",
+        "read_time": "20 min",
         "objectives": [
             "Comprendre les mécanismes de captation de l'attention des plateformes",
             "Faire le tri entre les effets démontrés et les paniques morales",

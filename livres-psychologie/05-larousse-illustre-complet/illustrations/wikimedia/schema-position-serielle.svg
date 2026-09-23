@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" width="760" height="250" role="img" aria-labelledby="t">
+  <title id="t">Courbe de position sérielle en rappel libre</title>
+  <rect width="760" height="250" rx="12" fill="#f6f1e6"/>
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#1c2b24">
+    <text x="40" y="34" font-size="15">Rappel libre d'une liste (Murdock, 1962)</text>
+    <line x1="80" y1="48" x2="80" y2="190" stroke="#1c2b24" stroke-width="1.5"/>
+    <line x1="80" y1="190" x2="700" y2="190" stroke="#1c2b24" stroke-width="1.5"/>
+    <text x="390" y="222" text-anchor="middle" font-size="13">position dans la liste ’</text>
+    <text x="28" y="120" font-size="12" transform="rotate(-90 28 120)">rappel</text>
+    <path d="M100 80 C 160 80, 180 150, 280 160 C 420 172, 500 168, 560 150 C 620 120, 650 70, 680 58" fill="none" stroke="#1b4332" stroke-width="3"/>
+    <text x="130" y="70" font-size="13" fill="#1b4332">primauté</text>
+    <text x="600" y="48" font-size="13" fill="#9b2226">récence</text>
+    <text x="330" y="150" font-size="12" fill="#3d4a44">milieu, moins rappelé</text>
+    <text x="380" y="242" text-anchor="middle" font-size="12" fill="#3d4a44">Début et fin ressortent. Un délai occupé abaisse surtout la récence (Glanzer et Cunitz, 1966).</text>
+  </g>
+</svg>

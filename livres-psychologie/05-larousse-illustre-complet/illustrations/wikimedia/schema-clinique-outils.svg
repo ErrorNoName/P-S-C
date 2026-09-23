@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" width="760" height="220" role="img" aria-labelledby="t">
+  <title id="t">Clinique à mains nues et clinique armée</title>
+  <rect width="760" height="220" rx="12" fill="#f6f1e6"/>
+  <g font-family="Georgia, 'Times New Roman', serif">
+    <rect x="24" y="24" width="340" height="150" rx="10" fill="#1b4332"/>
+    <text x="194" y="54" text-anchor="middle" fill="#d8c9a3" font-size="13">Clinique à mains nues</text>
+    <text x="194" y="78" text-anchor="middle" fill="#f6f1e6" font-size="15">Favez-Boutonnier</text>
+    <text x="194" y="112" text-anchor="middle" fill="#f6f1e6" font-size="14">observation</text>
+    <text x="194" y="134" text-anchor="middle" fill="#f6f1e6" font-size="14">entretien semi-directif</text>
+    <text x="194" y="156" text-anchor="middle" fill="#d8c9a3" font-size="12">la relation est l'instrument</text>
+    <rect x="396" y="24" width="340" height="150" rx="10" fill="#c4a35a"/>
+    <text x="566" y="54" text-anchor="middle" fill="#1c2b24" font-size="13">Clinique armée</text>
+    <text x="566" y="78" text-anchor="middle" fill="#1c2b24" font-size="15">Lagache</text>
+    <text x="566" y="112" text-anchor="middle" fill="#1c2b24" font-size="14">tests, échelles, médiations</text>
+    <text x="566" y="134" text-anchor="middle" fill="#1c2b24" font-size="14">un objet entre les deux</text>
+    <text x="566" y="156" text-anchor="middle" fill="#1c2b24" font-size="12">la relation reste le cadre</text>
+    <text x="380" y="202" text-anchor="middle" fill="#3d4a44" font-size="13">Deux boîtes à outils. Ni l'une ni l'autre ne remplace un diplôme et une déontologie.</text>
+  </g>
+</svg>

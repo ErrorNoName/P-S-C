@@ -85,7 +85,11 @@ def _merge_category(cat):
     l1 = L1_EXTRA.get(cat["id"])
     if l1:
         sections = sections + list(l1.get("sections", []))
+        mythes = mythes + list(l1.get("mythes", []))
+        chiffres = chiffres + list(l1.get("chiffres", []))
         flashcards = flashcards + list(l1.get("flashcards", []))
+        if l1.get("objectives"):
+            merged["objectives"] = list(cat.get("objectives", [])) + list(l1["objectives"])
     merged["sections"] = sections
     merged["mythes"] = mythes
     merged["chiffres"] = chiffres

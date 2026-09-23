@@ -10,7 +10,7 @@ CATEGORIES = [
         "icon": "🧩", "color": "vert", "num": "01",
         "title": "Fondamentaux & Méthodes",
         "subtitle": "Qu'est-ce que la psychologie et comment la étudie-t-on ?",
-        "read_time": "12 min",
+        "read_time": "22 min",
         "objectives": [
             "Définir la psychologie et distinguer ses grandes branches",
             "Comprendre les méthodes scientifiques utilisées (expérimentation, observation, étude de cas)",
@@ -134,7 +134,7 @@ CATEGORIES = [
         "icon": "💭", "color": "vert", "num": "03",
         "title": "Psychologie Cognitive",
         "subtitle": "Comment le cerveau perçoit, mémorise et raisonne",
-        "read_time": "15 min",
+        "read_time": "25 min",
         "objectives": [
             "Comprendre les grands systèmes de mémoire",
             "Expliquer pourquoi notre perception peut nous tromper",
@@ -194,7 +194,7 @@ CATEGORIES = [
         "icon": "👥", "color": "or", "num": "04",
         "title": "Psychologie Sociale",
         "subtitle": "Comment le groupe transforme la pensée et l'action",
-        "read_time": "14 min",
+        "read_time": "18 min",
         "objectives": [
             "Comprendre les mécanismes de conformité et d'obéissance",
             "Expliquer l'effet du témoin et la diffusion de responsabilité",
@@ -259,7 +259,7 @@ CATEGORIES = [
         "icon": "🌱", "color": "vert", "num": "05",
         "title": "Psychologie du Développement",
         "subtitle": "De la petite enfance au grand âge : une vie de transformations",
-        "read_time": "13 min",
+        "read_time": "24 min",
         "objectives": [
             "Décrire les 4 stades du développement cognitif de Piaget",
             "Comprendre les styles d'attachement et leurs conséquences",
@@ -504,7 +504,7 @@ CATEGORIES = [
         "icon": "🩺", "color": "rose", "num": "09",
         "title": "Psychopathologie & Troubles mentaux",
         "subtitle": "Comprendre la souffrance psychique sans stigmatiser",
-        "read_time": "16 min",
+        "read_time": "26 min",
         "objectives": [
             "Distinguer les grandes familles de troubles mentaux",
             "Comprendre les apports historiques de Ribot, Janet et Charcot",
@@ -951,7 +951,7 @@ CATEGORIES = [
         "icon": "🐾", "color": "or", "num": "16",
         "title": "Psychologie Comparée & Éthologie",
         "subtitle": "Ce que les animaux nous apprennent sur l'esprit",
-        "read_time": "12 min",
+        "read_time": "16 min",
         "objectives": [
             "Comprendre l'apport de Darwin à la psychologie comparée",
             "Découvrir les expériences fondatrices de Pavlov",

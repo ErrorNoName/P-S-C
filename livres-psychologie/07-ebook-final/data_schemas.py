@@ -20,6 +20,10 @@ SCHEMAS = {
          "vingt ans avant le laboratoire de Wundt."),
     ],
     "03-cognitive": [
+        ("schema-position-serielle.svg", "La courbe de position sérielle",
+         "En rappel libre, Murdock (1962) obtient un U : le début et la fin d'une liste reviennent, "
+         "le milieu beaucoup moins. Glanzer et Cunitz (1966) montrent qu'un délai occupé abaisse surtout "
+         "la récence. Les deux bosses ne sont pas la même mémoire."),
         ("courbe-oubli-ebbinghaus.svg", "La courbe de l'oubli d'Ebbinghaus (1885)",
          "Ebbinghaus a mémorisé des milliers de syllabes sans signification puis mesuré ce qu'il en restait "
          "après quelques minutes, heures et jours. La chute est brutale au début puis se stabilise : on perd "
@@ -46,6 +50,10 @@ SCHEMAS = {
          "absolu — un principe qu'on retrouve dans l'effet d'ancrage en économie comportementale."),
     ],
     "05-developpement": [
+        ("schema-habituation.svg", "Habituation puis nouveauté",
+         "Le regard du nourrisson baisse quand la même scène se répète, puis repart si la scène change. "
+         "La reprise indique une discrimination. Elle ne se traduit pas en une phrase d'adulte sur ce "
+         "que le bébé « pense »."),
         ("portrait-piaget.jpg", "Jean Piaget (1896-1980)",
          "Piaget observe ses propres enfants et découvre que leurs erreurs ne sont pas aléatoires : elles "
          "suivent une logique cohérente, propre à chaque stade. L'enfant n'est pas un adulte incomplet, "
@@ -128,6 +136,10 @@ SCHEMAS = {
          "produit un discours vide de sens. Deux aires, deux déficits, un même réseau du langage."),
     ],
     "09-psychopathologie": [
+        ("schema-clinique-outils.svg", "Clinique à mains nues et clinique armée",
+         "À gauche, l'observation et l'entretien (Favez-Boutonnier). À droite, les tests et les médiations "
+         "(Lagache). Les deux supposent un diplôme et un cadre déontologique. Le score ne remplace pas "
+         "la personne, et l'impression ne remplace pas l'épreuve quand une comparaison est nécessaire."),
         ("portrait-pinel.jpg", "Philippe Pinel (1745-1826)",
          "Figure du « traitement moral » : écouter les patients, tenir des observations écrites, remplacer la "
          "contention par une relation. Le geste fondateur n'est pas tant d'avoir ôté les chaînes que d'avoir "
@@ -166,6 +178,14 @@ SCHEMAS = {
          "d'une intelligence fixe et mesurable par un nombre unique."),
     ],
     "01-fondamentaux": [
+        ("schema-cycle-recherche.svg", "Le cycle d'une recherche",
+         "Cinq temps : observer, formuler des hypothèses (théorique, opérationnelle, statistique), "
+         "vérifier en manipulant une variable, traiter les données, discuter ce qui ne se généralise pas. "
+         "La flèche n'interdit pas de revenir en arrière. Une étude est un processus."),
+        ("schema-variables.svg", "Variable indépendante et variable dépendante",
+         "À gauche, ce que l'on fait varier. À droite, ce que l'on mesure. Les modalités de la variable "
+         "indépendante doivent rester comparables. La standardisation — mêmes consignes, même matériel, "
+         "même durée — est ce qui rend la comparaison possible."),
         ("portrait-wundt.jpg", "Wilhelm Wundt (1832-1920)",
          "Fonde à Leipzig en 1879 le premier laboratoire de psychologie expérimentale. Sa conviction "
          "fondatrice : les processus mentaux élémentaires peuvent être mesurés avec la rigueur de la "
@@ -176,6 +196,10 @@ SCHEMAS = {
          "donc il est mesurable."),
     ],
     "04-sociale": [
+        ("schema-memoire-transactive.svg", "La mémoire transactive",
+         "Personne A, personne B, et un support externe : chacun détient une partie du savoir, "
+         "et le lien est de savoir qui détient quoi (Wegner, 1985). Le moteur de recherche prolonge "
+         "ce schéma : on retient le chemin plus que le fait (Sparrow, Liu et Wegner, 2011)."),
         ("portrait-le-bon.jpg", "Gustave Le Bon (1841-1931)",
          "Sa Psychologie des foules (1895) popularise l'idée que l'individu en groupe perd son jugement "
          "critique. Théorie datée, souvent élitiste et sans base expérimentale, mais premier effort "
@@ -248,5 +272,11 @@ SCHEMAS = {
          "Les deux pôles du langage. Un schéma moderne pour relier Tan et l'aphasie fluide."),
         ("premier-eeg.png", "Premier tracé EEG",
          "Ce que Berger a finalement rendu visible : l'électricité du cerveau, millisecondes après millisecondes."),
+    ],
+    "22-numerique": [
+        ("schema-memoire-transactive.svg", "Du proche au moteur de recherche",
+         "Le troisième cercle n'est plus une personne : c'est un dossier ou un moteur. Sparrow, Liu et Wegner "
+         "(2011) montrent que l'on retient mieux cet emplacement que le fait, dès lors que l'on croit pouvoir "
+         "le retrouver. La mémoire se réorganise. Elle ne s'éteint pas."),
     ],
 }

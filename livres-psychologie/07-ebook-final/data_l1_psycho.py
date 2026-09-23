@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Synthèse pédagogique des quatre UE de psychologie d'une L1.
+"""Quiz, glossaire, chronologie et expériences des UE de psychologie.
 
-Textes rédigés pour Psyclopédia à partir des plans et des lectures
-(démarche scientifique, clinique, développement, corpus cognitif).
-Ce n'est pas un polycopié universitaire : les articles et manuels
-restent chez leurs auteurs. Aucun diagnostic, aucun conseil de soin.
+Les chapitres eux-mêmes vivent dans les fiches de catégorie
+(data_l1_chapitres.L1_EXTRA). Cette page-module ne duplique plus le cours.
 """
+
+from data_l1_chapitres import L1_EXTRA
 
 L1_QUIZ = {
     "id": "l1-psychologie",
@@ -117,11 +117,29 @@ L1_GLOSSAIRE = [
     ("Oubli dirigé",
      "Consigne d'oublier un matériel qui réduit ensuite son interférence sur ce qu'il faut retenir (Bjork). Oublier peut être une fonction, pas seulement une panne.",
      "03-cognitive"),
+    ("Effet de primauté",
+     "Meilleur rappel des premiers éléments d'une liste, en rappel libre. Ils ont été davantage répétés (Murdock, 1962).",
+     "03-cognitive"),
+    ("Effet de récence",
+     "Meilleur rappel des derniers éléments d'une liste. Un délai occupé l'abaisse, contrairement à la primauté (Glanzer et Cunitz, 1966).",
+     "03-cognitive"),
+    ("Préférence visuelle",
+     "Paradigme de Fantz : on présente deux images à un nourrisson et l'on mesure où son regard reste. Une différence de temps montre qu'il distingue.",
+     "05-developpement"),
+    ("Clinique armée",
+     "Clinique qui ajoute des tests, des échelles ou des médiations à l'entretien et à l'observation (Lagache). Elle ne remplace pas la relation.",
+     "09-psychopathologie"),
+    ("Mémoire de type épisodique",
+     "Mémoire comportementale du quoi, du où et du quand, décrite chez le geai (Clayton et Dickinson, 1998). Le mot « type » évite de prêter à l'animal un récit humain.",
+     "16-comparee"),
 ]
 
 L1_CHRONO = [
     ("1946", "Le raccourci de Tolman",
      "Tolman, Ritchie et Kalish montrent qu'un rat peut rejoindre un but par un chemin nouveau : l'apprentissage spatial n'est pas qu'une chaîne de réponses.",
+     "cognitive"),
+    ("1962", "La courbe en U de Murdock",
+     "En rappel libre, le début et la fin d'une liste de mots reviennent mieux que le milieu. Glanzer et Cunitz montreront en 1966 que la récence cède à un délai occupé.",
      "cognitive"),
     ("1953", "L'écoute dichotique de Cherry",
      "Colin Cherry fait répéter un message à une oreille pendant qu'un autre arrive à l'autre oreille : on suit une voix, et l'on rate presque tout le reste.",
@@ -147,6 +165,18 @@ L1_CHRONO = [
 ]
 
 L1_EXPERIENCES = [
+    ("position-serielle-murdock", "La courbe de position sérielle", "Bennet Murdock", "1962", "03-cognitive",
+     "En rappel libre, on restitue mieux le début et la fin d'une liste que son milieu.",
+     "Des listes de mots sont présentées, puis rappelées dans n'importe quel ordre. Murdock fait varier la longueur et le rythme.",
+     "La courbe a la forme d'un U : effet de primauté au début, effet de récence à la fin. Le milieu est le moins rappelé.",
+     "Montre que la position n'est pas neutre. La primauté et la récence ne raconteront pas la même mémoire.",
+     "La courbe décrit un rappel immédiat de listes sans lien. Elle ne dit pas comment l'on retient un cours déjà organisé."),
+    ("recence-glanzer", "Primauté et récence dissociées", "Murray Glanzer & Anita Cunitz", "1966", "03-cognitive",
+     "Un délai occupé avant le rappel abaisse la fin de la liste, pas son début.",
+     "Après une liste de mots, le rappel est immédiat ou précédé d'une tâche de comptage à rebours.",
+     "La récence s'effondre avec le délai. La primauté reste. Les deux bosses de la courbe de Murdock se séparent.",
+     "Argument pour un registre encore actif (les derniers mots) et une trace déjà travaillée (les premiers).",
+     "Compter à rebours n'est pas la vie ordinaire. La dissociation vaut pour ce matériel verbal, pas pour toute mémoire."),
     ("raccourci-tolman", "Le raccourci et la carte cognitive", "Edward Tolman, Ritchie & Kalish", "1946", "03-cognitive",
      "Le rat n'apprend pas seulement à tourner : il se construit une attente sur la disposition des lieux.",
      "Des rats s'entraînent dans un labyrinthe en croix à trouver de la nourriture toujours au même endroit. On les fait ensuite partir d'un bras nouveau.",
@@ -220,132 +250,3 @@ L1_EXPERIENCES = [
      "Relie deux cours souvent séparés : le social (fausses croyances) et le cognitif (surveiller sa mémoire).",
      "Prédiction n'est pas destin. Beaucoup d'autres facteurs (école, stratégies enseignées) pèsent sur la métamémoire."),
 ]
-
-# Sections ajoutées aux catégories existantes. Le dossier complet est la page l1-psychologie.html.
-L1_EXTRA = {
-    "01-fondamentaux": {
-        "sections": [
-            ("Ce qui rend une psychologie scientifique",
-             "<p>Une psychologie de comptoir donne des causes à tout, sans dire comment on pourrait la contredire. "
-             "Une psychologie scientifique s'oblige à trois critères : elle est <strong>systématique</strong> "
-             "(une procédure organisée, pas une intuition isolée), <strong>précise</strong> "
-             "(assez détaillée pour qu'une autre équipe la refasse) et <strong>communicable</strong> "
-             "(colloque, article, critique). S'il en manque un, on a quitté la science.</p>"
-             "<p>Le modèle <strong>biopsychosocial</strong> (Engel, 1977) rappelle qu'une conduite se tient "
-             "au croisement du corps, de l'histoire personnelle et du milieu. Les courants ne s'opposent pas "
-             "comme des camps qui auraient « raison » : ils choisissent quoi expliquer, quelles données compter, "
-             "et quel type de cause privilégier. La question utile est : que voit cette approche, et que laisse-t-elle dans l'ombre ?</p>"
-             "<p>Le cycle d'une recherche enchaîne une observation, des hypothèses "
-             "(théorique, puis opérationnelle, puis statistique), une vérification, un traitement des données "
-             "et une discussion. La <strong>variable indépendante</strong> est ce que l'on manipule ; "
-             "la <strong>variable dépendante</strong> est ce que l'on mesure. La <strong>standardisation</strong> "
-             "— mêmes consignes, même matériel, même durée — rend les comparaisons possibles.</p>"
-             "<p>Ce cadre a des limites connues : l'éthique (on ne refait pas Milgram pour « voir »), "
-             "l'artificialité du laboratoire, la difficulté de généraliser, le fait qu'un comportement a plusieurs causes. "
-             "La recherche est aussi une pratique sociale : l'observateur a une histoire et des biais. "
-             "Les analyses peuvent être quantitatives ou qualitatives selon la question, pas selon une mode.</p>"
-             "<p>Le dossier <a href=\"../l1-psychologie.html\">Psychologie de licence</a> reprend ce cycle, "
-             "la clinique, le développement et les lectures cognitives.</p>"),
-        ],
-        "flashcards": [
-            ("Quels sont les trois critères d'une méthode scientifique ?",
-             "Systématique, précise (réplicable), communicable et discutable."),
-            ("Quelle est la différence entre VI et VD ?",
-             "La variable indépendante est manipulée ; la variable dépendante est mesurée."),
-        ],
-    },
-    "09-psychopathologie": {
-        "sections": [
-            ("La psychologie clinique : une personne, pas une étiquette",
-             "<p>La psychologie clinique a pour objet la <strong>subjectivité</strong> : une personne singulière, "
-             "ses liens, son histoire infantile et familiale, sa vie affective — du fonctionnement ordinaire "
-             "jusqu'à la souffrance. « Du normal au pathologique » veut dire un continuum à comprendre, "
-             "pas une case à cocher depuis un article.</p>"
-             "<p>La <strong>méthode clinique</strong> vise à saisir cette singularité. Ses outils se répartissent "
-             "entre la <strong>clinique à mains nues</strong> (observation, entretien semi-directif ; "
-             "Favez-Boutonnier) et la <strong>clinique armée</strong> (tests, médiations ; Lagache). "
-             "Aucun des deux ne remplace une formation, un diplôme et le code de déontologie. "
-             "En France, le titre de psychologue est protégé. Ce site ne fait pas ce métier.</p>"
-             "<p>Les lieux d'exercice sont nombreux : soin, psychiatrie, justice, éducation spécialisée, "
-             "petite enfance, prévention, gérontologie, travail social. Un référentiel théorique fréquent "
-             "en licence, celui de la métapsychologie, regarde le psychisme sous plusieurs angles : "
-             "un appareil (les topiques), des conflits et des défenses, une vie pulsionnelle "
-             "(source, poussée, but, objet) réglée par des principes, et une construction au fil du développement. "
-             "D'autres modèles existent. Un seul angle, pris seul, appauvrit.</p>"),
-        ],
-        "flashcards": [
-            ("Que distingue la clinique « à mains nues » de la clinique « armée » ?",
-             "Observation et entretien, d'un côté ; tests et médiations, de l'autre."),
-        ],
-    },
-    "05-developpement": {
-        "sections": [
-            ("Tout au long de la vie, à trois vitesses",
-             "<p>La psychologie du développement répond à une question : <strong>comment devient-on qui l'on est</strong>, "
-             "et qu'est-ce qui demeure malgré le changement. Elle ne s'arrête pas à l'enfance. "
-             "Chaque âge a sa forme d'adaptation, pas une montée unique vers un sommet adulte puis une chute.</p>"
-             "<p>Trois temporalités s'emboîtent. La <strong>phylogenèse</strong> est celle de l'espèce. "
-             "L'<strong>ontogenèse</strong> est celle d'une vie. La <strong>microgenèse</strong> est celle "
-             "d'un apprentissage précis (la marche, un mot, une stratégie), sur des jours ou des mois. "
-             "Le cours ordinaire porte sur l'ontogenèse, éclairée parfois par les deux autres.</p>"
-             "<p>Le mythe de l'enfant sauvage (Victor de l'Aveyron, élevé par Itard) a fait croire qu'un humain "
-             "pourrait se construire hors de toute relation. Les observations d'<strong>hospitalisme</strong> "
-             "(Spitz) montrent l'inverse : un nourrisson nourri mais privé d'un lien stable se retire et son "
-             "développement se grippe. Le soin n'est pas qu'une ration.</p>"),
-            ("Comment étudier un bébé qui ne parle pas",
-             "<p>On ne fait pas passer un questionnaire à un nourrisson. On lit son regard, sa succion, "
-             "son rythme cardiaque, son orientation. Quatre paradigmes reviennent.</p>"
-             "<ul>"
-             "<li><strong>Préférence visuelle</strong> : il regarde plus longtemps l'un des deux stimuli.</li>"
-             "<li><strong>Habituation</strong> : le regard baisse quand la scène se répète ; il remonte si la scène change. Il a discriminé.</li>"
-             "<li><strong>Transgression des attentes</strong> : il regarde plus longtemps un événement « impossible » s'il avait une attente.</li>"
-             "<li><strong>Conditionnement</strong> : une réponse motrice (succion, tête tournée) est renforcée, puis sert de réponse oui/non.</li>"
-             "</ul>"
-             "<p>Ces mesures disent une discrimination ou une attente. Elles ne disent pas ce que le bébé « pense » en mots d'adulte.</p>"
-             "<p>Deux héritages éthologiques éclairent le début de la vie sociale. L'<strong>empreinte</strong> de Lorenz "
-             "et les singes de Harlow (le contact compte plus que le lait) montrent un besoin de lien. "
-             "Le couple <strong>CONSPEC / CONLERN</strong> (Johnson et Morton) propose un biais précoce vers "
-             "une configuration de visage, puis un apprentissage des visages réels. "
-             "La <a href=\"../l1-psychologie.html#lectures\">page des lectures</a> poursuit avec la pédagogie naturelle, "
-             "la théorie de l'esprit et la métamémoire.</p>"),
-        ],
-        "flashcards": [
-            ("Quelle est la différence entre ontogenèse et microgenèse ?",
-             "L'ontogenèse est le temps d'une vie ; la microgenèse est le temps d'un apprentissage précis."),
-            ("À quoi sert l'habituation chez le nourrisson ?",
-             "À montrer qu'il distingue un stimulus nouveau d'un stimulus devenu familier, via le regard."),
-        ],
-    },
-    "03-cognitive": {
-        "sections": [
-            ("Un corpus de lectures : de la carte cognitive à l'effet Google",
-             "<p>Un semestre de psychologie cognitive s'appuie souvent sur des articles qui ont changé la question, "
-             "pas sur une liste de « lois ». En voici le fil, rédigé ici sans remplacer la lecture.</p>"
-             "<ul>"
-             "<li><strong>Tolman, 1946.</strong> Le rat qui prend un raccourci a une attente spatiale, pas seulement un virage appris.</li>"
-             "<li><strong>Cherry, 1953.</strong> À une fête, on suit une voix et l'on perd l'autre : l'attention sélectionne.</li>"
-             "<li><strong>Murdock, 1962.</strong> En rappel libre, le début et la fin d'une liste ressortent (position sérielle).</li>"
-             "<li><strong>Bjork, 1968.</strong> Consigne d'oublier : l'oubli peut protéger ce qu'il faut retenir.</li>"
-             "<li><strong>Goodwin, 1969.</strong> On retrouve mieux un souvenir dans l'état où on l'a encodé.</li>"
-             "<li><strong>Flavell, 1970 et 1979.</strong> Les enfants apprennent à estimer et à conduire leur mémoire.</li>"
-             "<li><strong>Tulving, Schacter et Stark, 1982.</strong> L'amorçage d'un fragment survit à l'oubli de l'épisode.</li>"
-             "<li><strong>Baron-Cohen, Leslie et Frith, 1985.</strong> La fausse croyance (Sally et Anne) comme épreuve de théorie de l'esprit.</li>"
-             "<li><strong>Wegner, 1985.</strong> Dans un couple, la mémoire se répartit.</li>"
-             "<li><strong>Clayton et Dickinson, 1998.</strong> Le geai retrouve quoi, où, quand.</li>"
-             "<li><strong>Mulcahy et Call, 2006.</strong> Un grand singe garde un outil pour plus tard.</li>"
-             "<li><strong>Herrmann et al., 2007.</strong> L'enfant se distingue du singe surtout sur le social.</li>"
-             "<li><strong>Lockl et Schneider, 2007.</strong> La théorie de l'esprit précoce annonce une partie de la métamémoire.</li>"
-             "<li><strong>Csibra et Gergely, 2009.</strong> Montrer, c'est transmettre un savoir général.</li>"
-             "<li><strong>Sparrow, Liu et Wegner, 2011.</strong> On retient où chercher quand le Web garde le fait.</li>"
-             "</ul>"
-             "<p>Chaque étude est détaillée dans les <a href=\"../references/experiences.html\">expériences</a> "
-             "et réunie dans le <a href=\"../l1-psychologie.html\">dossier de licence</a>.</p>"),
-        ],
-        "flashcards": [
-            ("Que reste-t-il quand la reconnaissance a chuté, dans l'étude de Tulving (1982) ?",
-             "L'amorçage : on complète mieux un fragment de mot déjà vu, sans le reconnaître."),
-            ("Que montre le raccourci de Tolman ?",
-             "Un apprentissage spatial de type carte, pas seulement une chaîne de réponses."),
-        ],
-    },
-}

@@ -356,6 +356,8 @@ BRANCHES = [
         ],
         "liens": [
             ("Fiche psychopathologie", "categories/09-psychopathologie.html", "Fiche"),
+            ("Clinique à mains nues", "categories/09-psychopathologie.html#mains-nues-et-clinique-armee", "Chapitre"),
+            ("Titre protégé", "categories/09-psychopathologie.html#titre-diplome-et-deontologie", "Chapitre"),
             ("Fiche thérapies", "categories/10-therapies.html", "Fiche"),
             ("Troubles (pédagogie)", "references/troubles.html", "Références"),
             ("Cas cliniques", "references/cas.html", "Références"),
@@ -561,6 +563,8 @@ BRANCHES = [
         ],
         "liens": [
             ("Fiche développement", "categories/05-developpement.html", "Fiche"),
+            ("Étudier un nourrisson", "categories/05-developpement.html#comment-interroger-un-nourrisson", "Chapitre"),
+            ("Vie entière", "categories/05-developpement.html#changement-et-continuite-tout-au-long-de-la-vie", "Chapitre"),
             ("Vieillissement", "categories/24-vieillissement.html", "Fiche"),
             ("Éducation", "categories/13-education.html", "Fiche"),
             ("Théories (Piaget, Vygotski…)", "references/theories.html", "Références"),
@@ -660,6 +664,9 @@ BRANCHES = [
         ],
         "liens": [
             ("Fiche cognitive", "categories/03-cognitive.html", "Fiche"),
+            ("Position sérielle", "categories/03-cognitive.html#le-debut-et-la-fin-dune-liste", "Chapitre"),
+            ("Amorçage de Tulving", "categories/03-cognitive.html#une-trace-qui-survit-au-souvenir", "Chapitre"),
+            ("Démarche scientifique", "categories/01-fondamentaux.html#trois-criteres-dune-psychologie-scientifique", "Chapitre"),
             ("Neurosciences", "categories/08-neurosciences.html", "Fiche"),
             ("Science psychologique", "categories/27-science-psychologique.html", "Fiche"),
             ("Laboratoire", "laboratoire.html", "Labo"),

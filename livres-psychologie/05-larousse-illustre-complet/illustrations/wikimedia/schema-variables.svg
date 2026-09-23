@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 210" width="760" height="210" role="img" aria-labelledby="t">
+  <title id="t">Variable indépendante et variable dépendante</title>
+  <rect width="760" height="210" rx="12" fill="#f6f1e6"/>
+  <g font-family="Georgia, 'Times New Roman', serif">
+    <rect x="28" y="28" width="250" height="130" rx="10" fill="#1b4332"/>
+    <text x="153" y="62" text-anchor="middle" fill="#d8c9a3" font-size="13">Variable indépendante</text>
+    <text x="153" y="92" text-anchor="middle" fill="#f6f1e6" font-size="18">ce que l'on manipule</text>
+    <text x="153" y="122" text-anchor="middle" fill="#f6f1e6" font-size="13">mêmes dimensions,</text>
+    <text x="153" y="140" text-anchor="middle" fill="#f6f1e6" font-size="13">modalités comparables</text>
+    <path d="M290 93 H360" stroke="#1c2b24" stroke-width="2"/>
+    <polygon points="360,86 376,93 360,100" fill="#1c2b24"/>
+    <text x="333" y="78" text-anchor="middle" fill="#1c2b24" font-size="12">effet ?</text>
+    <rect x="388" y="28" width="250" height="130" rx="10" fill="#c4a35a"/>
+    <text x="513" y="62" text-anchor="middle" fill="#1c2b24" font-size="13">Variable dépendante</text>
+    <text x="513" y="92" text-anchor="middle" fill="#1c2b24" font-size="18">ce que l'on mesure</text>
+    <text x="513" y="122" text-anchor="middle" fill="#1c2b24" font-size="13">regard, rappel, temps,</text>
+    <text x="513" y="140" text-anchor="middle" fill="#1c2b24" font-size="13">réponse, score&</text>
+    <text x="380" y="190" text-anchor="middle" fill="#3d4a44" font-size="13">La standardisation (consignes, matériel, durée, lieu) rend les participants comparables.</text>
+  </g>
+</svg>
