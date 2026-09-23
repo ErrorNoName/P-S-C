@@ -277,8 +277,10 @@ class Store:
             n += 1
             if not forever and n > attempts:
                 return
+            print(f"Connexion Postgres {self.path} (tentative {n})…", flush=True)
             try:
                 conn = self._open_postgres()
+                print(f"Connexion Postgres établie ({self.path}).", flush=True)
             except Exception as exc:
                 self.last_error = type(exc).__name__
                 print(
@@ -328,7 +330,9 @@ class Store:
 
         def dial() -> None:
             try:
-                box["conn"] = psycopg.connect(url, row_factory=dict_row, connect_timeout=15)
+                box["conn"] = psycopg.connect(
+                    url, row_factory=dict_row, connect_timeout=15, autocommit=True,
+                )
             except Exception as exc:
                 box["error"] = exc
 
@@ -352,6 +356,13 @@ class Store:
                 self.conn.close()
                 self.conn = None
 
+    def _commit(self) -> None:
+        # Postgres est en autocommit : pas de transaction oisive qui bloquerait
+        # le CREATE TABLE du prochain déploiement.
+        if self.kind == "postgres":
+            return
+        self.conn.commit()
+
     def _sql(self, sql: str) -> str:
         if self.kind == "postgres":
             sql = sql.replace("?", "%s")
@@ -367,6 +378,25 @@ class Store:
         return dict(row)
 
     def _init_schema(self) -> None:
+        print("Vérification du schéma…", flush=True)
+        if self.kind == "postgres":
+            # L'instance encore en service peut tenir un verrou de lecture.
+            # On n'attend pas : si les tables existent, on sert quand même.
+            self._execute("SET lock_timeout = '4s'")
+        try:
+            self._apply_schema()
+        except Exception as exc:
+            if self.kind != "postgres":
+                raise
+            print(f"Migration reportée ({type(exc).__name__}).", flush=True)
+            self._execute("SET lock_timeout = '0'")
+            self._execute("SELECT 1 FROM users LIMIT 1").fetchone()
+            print("Tables déjà présentes, service utilisable.", flush=True)
+            return
+        if self.kind == "postgres":
+            self._execute("SET lock_timeout = '0'")
+
+    def _apply_schema(self) -> None:
         schema = """
                 CREATE TABLE IF NOT EXISTS users (
                     id TEXT PRIMARY KEY,
@@ -426,7 +456,7 @@ class Store:
                     if stmt:
                         self._execute(stmt)
             self._migrate_avatars()
-            self.conn.commit()
+            self._commit()
 
     def _migrate_avatars(self) -> None:
         if self.kind == "sqlite":
@@ -461,7 +491,7 @@ class Store:
                 "avatar_custom, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (uid, email, pw, google_sub, name, avatar_url or None, None, now, now),
             )
-            self.conn.commit()
+            self._commit()
         user = self.get_user(uid)
         assert user is not None
         return user
@@ -494,7 +524,7 @@ class Store:
                     "UPDATE users SET google_sub = ?, updated_at = ? WHERE id = ?",
                     (sub, now, user_id),
                 )
-            self.conn.commit()
+            self._commit()
         user = self.get_user(user_id)
         assert user is not None
         return user
@@ -511,7 +541,7 @@ class Store:
                 "UPDATE users SET avatar_url = ?, updated_at = ? WHERE id = ?",
                 (url, now, user_id),
             )
-            self.conn.commit()
+            self._commit()
         user = self.get_user(user_id)
         assert user is not None
         return user
@@ -524,7 +554,7 @@ class Store:
                 "UPDATE users SET avatar_custom = ?, updated_at = ? WHERE id = ?",
                 (stored or None, now, user_id),
             )
-            self.conn.commit()
+            self._commit()
         user = self.get_user(user_id)
         assert user is not None
         return user
@@ -538,13 +568,13 @@ class Store:
                 "INSERT INTO sessions (token, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)",
                 (token, user_id, iso(now), iso(expires)),
             )
-            self.conn.commit()
+            self._commit()
         return {"token": token, "expiresAt": iso(expires)}
 
     def delete_session(self, token: str) -> None:
         with self.lock:
             self._execute("DELETE FROM sessions WHERE token = ?", (token,))
-            self.conn.commit()
+            self._commit()
 
     def user_from_token(self, token: str) -> dict:
         if not token:
@@ -605,7 +635,7 @@ class Store:
                 "cours_json = excluded.cours_json, updated_at = excluded.updated_at",
                 (user_id, payload_p, payload_c, now),
             )
-            self.conn.commit()
+            self._commit()
         self._ingest_snapshot(user_id, progress, cours)
         return self.get_snapshot(user_id)
 
@@ -694,7 +724,7 @@ class Store:
                     "INSERT INTO notes (id, user_id, course_id, title, body, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
                     (nid, user_id, course_id, title, body, now),
                 )
-            self.conn.commit()
+            self._commit()
         note = self.get_note(user_id, nid)
         assert note is not None
         return note
@@ -705,7 +735,7 @@ class Store:
                 "DELETE FROM notes WHERE id = ? AND user_id = ?",
                 (note_id, user_id),
             )
-            self.conn.commit()
+            self._commit()
             if cur.rowcount == 0:
                 raise AuthError("Note introuvable.", 404)
 
@@ -767,7 +797,7 @@ class Store:
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                     (gid, user_id, quiz_id, score, total, pct, source, now),
                 )
-            self.conn.commit()
+            self._commit()
             out = self._execute(
                 "SELECT id, quiz_id, score, total, pct, source, at FROM grades WHERE id = ?",
                 (gid,),
