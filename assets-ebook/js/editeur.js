@@ -26,7 +26,7 @@
   var dictateOn = false;
   var speechMode = "";
   var listenRec = null;
-  var heardRecent = "";
+  var speechState = null;
   var lexicon = null;
   var shownAt = {};
   var player = null;
@@ -748,26 +748,6 @@
     return rec;
   }
 
-  function speechPieces(ev) {
-    var finals = "";
-    var interim = "";
-    var start = typeof ev.resultIndex === "number" ? ev.resultIndex : 0;
-    var i;
-    for (i = start; i < ev.results.length; i++) {
-      var piece = ev.results[i][0] ? ev.results[i][0].transcript : "";
-      if (ev.results[i].isFinal) finals += piece + " ";
-      else interim += piece + " ";
-    }
-    return { finals: finals.trim(), interim: interim.trim() };
-  }
-
-  function rememberHeard(text) {
-    heardRecent = (heardRecent + " " + text).replace(/\s+/g, " ").trim();
-    var words = heardRecent.split(" ");
-    if (words.length > 28) heardRecent = words.slice(-28).join(" ");
-    considerUtterance(heardRecent);
-  }
-
   function stopSpeech() {
     speechMode = "";
     if (!listenRec) return;
@@ -800,21 +780,17 @@
       return;
     }
     speechMode = mode;
+    speechState = FMT.speechState();
     rec.onresult = function (ev) {
-      if (speechMode !== mode) return;
-      var parts = speechPieces(ev);
-      if (mode === "dictate" && parts.finals) insertPlainText(parts.finals + " ");
-      if (mode === "note" && recording && parts.finals) {
-        recording.said = (recording.said + " " + parts.finals).replace(/\s+/g, " ").trim();
-        insertPlainText(parts.finals + " ");
+      if (speechMode !== mode || !speechState) return;
+      var step = FMT.applySpeechEvent(speechState, ev, Date.now());
+      if (step.added && (mode === "dictate" || (mode === "note" && recording))) {
+        insertPlainText(step.added + " ");
       }
-      var live = "";
-      if (mode === "note" && recording) live = (recording.said + " " + parts.interim).trim();
-      else if (mode === "dictate") live = parts.interim;
-      else live = parts.interim || parts.finals;
-      showLive(live);
-      if (parts.finals) rememberHeard(parts.finals);
-      else if (parts.interim && parts.interim.length > 10) considerUtterance(parts.interim);
+      if (mode === "note" && recording) recording.said = speechState.tail;
+      if (step.added) considerUtterance(speechState.tail);
+      else if (step.live && step.live.length > 10) considerUtterance(step.live);
+      showLive(mode === "listen" ? step.preview : step.live);
     };
     rec.onerror = function (ev) {
       if (!ev || ev.error === "no-speech" || ev.error === "aborted") return;

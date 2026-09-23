@@ -661,6 +661,115 @@
     return bytes;
   }
 
+  function cleanSpeech(text) {
+    return String(text || "").replace(/\s+/g, " ").trim();
+  }
+
+  function speechWords(text) {
+    var value = cleanSpeech(text);
+    return value ? value.split(" ") : [];
+  }
+
+  function speechKey(text) {
+    return cleanSpeech(text)
+      .toLowerCase()
+      .replace(/['’]/g, "'")
+      .replace(/[.,!?;:…]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function wordsInside(hay, needle) {
+    if (!needle.length || !hay.length) return false;
+    return (" " + hay.join(" ") + " ").indexOf(" " + needle.join(" ") + " ") !== -1;
+  }
+
+  function speechDelta(already, incoming) {
+    var raw = speechWords(incoming);
+    var b = raw.map(speechKey);
+    var a = speechWords(speechKey(already));
+    if (!b.length) return "";
+    if (!a.length) return raw.join(" ");
+    if (wordsInside(a, b)) return "";
+    var joinedA = a.join(" ");
+    var joinedB = b.join(" ");
+    if (joinedB.indexOf(joinedA) === 0) return raw.slice(a.length).join(" ");
+    var max = Math.min(a.length, b.length);
+    var n, i, same;
+    for (n = max; n > 0; n--) {
+      same = true;
+      for (i = 0; i < n; i++) {
+        if (a[a.length - n + i] !== b[i]) { same = false; break; }
+      }
+      if (same) return raw.slice(n).join(" ");
+    }
+    return raw.join(" ");
+  }
+
+  function speechState() {
+    return { tail: "", lastRaw: "", lastAt: 0 };
+  }
+
+  function commitSpeech(state, raw, now) {
+    var text = cleanSpeech(raw);
+    if (!text || !state) return "";
+    var delta = speechDelta(state.tail, text);
+    if (!delta) {
+      var tailWords = speechWords(speechKey(state.tail));
+      var incoming = speechWords(speechKey(text));
+      var sameAsLast = speechKey(text) === speechKey(state.lastRaw);
+      var sameAsTailEnd = incoming.length && tailWords.slice(-incoming.length).join(" ") === incoming.join(" ");
+      if ((sameAsLast || sameAsTailEnd) && now - state.lastAt >= 900) delta = text;
+      else return "";
+    }
+    state.tail = speechWords(state.tail + " " + delta).slice(-32).join(" ");
+    state.lastRaw = text;
+    state.lastAt = now;
+    return delta;
+  }
+
+  function speechView(ev) {
+    var finals = [];
+    var interim = "";
+    var results = ev && ev.results;
+    var i;
+    if (!results) return { finals: finals, interim: "" };
+    for (i = 0; i < results.length; i++) {
+      var alt = results[i][0];
+      var text = alt ? alt.transcript : "";
+      if (results[i].isFinal) finals.push(text);
+      else interim = text;
+    }
+    return { finals: finals, interim: interim };
+  }
+
+  function speechLive(tail, interim) {
+    return speechDelta(tail, interim);
+  }
+
+  function speechPreview(tail, interim) {
+    var base = speechWords(tail).slice(-12).join(" ");
+    var extra = speechDelta(tail, interim);
+    if (!extra) return base;
+    if (!base) return extra;
+    return (base + " " + extra).trim();
+  }
+
+  function applySpeechEvent(state, ev, now) {
+    var view = speechView(ev);
+    var added = [];
+    var i;
+    for (i = 0; i < view.finals.length; i++) {
+      var delta = commitSpeech(state, view.finals[i], now);
+      if (delta) added.push(delta);
+    }
+    return {
+      added: added.join(" "),
+      live: speechLive(state.tail, view.interim),
+      preview: speechPreview(state.tail, view.interim)
+    };
+  }
+
   function wavPcm(bytes) {
     var view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
     var n = view.getUint32(40, true) / 2;
@@ -685,6 +794,11 @@
     prepareVoice: prepareVoice,
     resampleLinear: resampleLinear,
     encodeWav: encodeWav,
+    speechState: speechState,
+    commitSpeech: commitSpeech,
+    applySpeechEvent: applySpeechEvent,
+    speechLive: speechLive,
+    speechPreview: speechPreview,
     wavPcm: wavPcm,
     utf8Decode: utf8Decode
   };

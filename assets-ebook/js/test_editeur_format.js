@@ -29,6 +29,60 @@ assert.strictEqual(pcm.samples.length, 4);
 assert.ok(pcm.samples[0] < pcm.samples[3], "le WAV se lit dans le sens de l'enregistrement");
 assert.ok(pcm.samples[3] > 0.9);
 
+function fakeSpeech(items) {
+  return {
+    results: items.map(function (item) {
+      var result = { isFinal: !!item.final };
+      result[0] = { transcript: item.text };
+      return result;
+    })
+  };
+}
+function feedSpeech(events) {
+  var state = fmt.speechState();
+  var wrote = [];
+  events.forEach(function (event) {
+    var step = fmt.applySpeechEvent(state, fakeSpeech(event.items), event.t);
+    if (step.added) wrote.push(step.added);
+  });
+  return wrote.join(" ");
+}
+assert.strictEqual(feedSpeech([
+  { t: 0, items: [{ text: "bonjour", final: true }] },
+  { t: 200, items: [{ text: "bonjour", final: true }, { text: "tout le monde", final: true }] },
+  { t: 350, items: [{ text: "bonjour", final: true }, { text: "tout le monde", final: true }] }
+]), "bonjour tout le monde");
+assert.strictEqual(feedSpeech([
+  { t: 0, items: [{ text: "je vais", final: true }] },
+  { t: 180, items: [{ text: "je vais bien", final: true }] },
+  { t: 260, items: [{ text: "je vais bien", final: true }] }
+]), "je vais bien");
+assert.strictEqual(feedSpeech([
+  { t: 0, items: [{ text: "bonjour tout", final: true }] },
+  { t: 300, items: [{ text: "tout le monde", final: true }] }
+]), "bonjour tout le monde");
+assert.strictEqual(feedSpeech([
+  { t: 0, items: [{ text: "bonjour tout le monde", final: true }] },
+  { t: 500, items: [{ text: "merci beaucoup", final: true }] }
+]), "bonjour tout le monde merci beaucoup");
+assert.strictEqual(feedSpeech([
+  { t: 0, items: [{ text: "non", final: true }] },
+  { t: 120, items: [{ text: "non", final: true }] }
+]), "non");
+assert.strictEqual(feedSpeech([
+  { t: 0, items: [{ text: "non", final: true }] },
+  { t: 1200, items: [{ text: "non", final: true }] }
+]), "non non");
+assert.strictEqual(feedSpeech([
+  { t: 0, items: [{ text: "non", final: true }] },
+  { t: 200, items: [{ text: "non non", final: true }] },
+  { t: 400, items: [{ text: "non non non", final: true }] }
+]), "non non non");
+var liveState = fmt.speechState();
+fmt.commitSpeech(liveState, "bonjour tout", 0);
+assert.strictEqual(fmt.speechLive(liveState.tail, "bonjour tout le monde"), "le monde");
+assert.strictEqual(fmt.speechLive(liveState.tail, "bonjour tout"), "");
+
 var html = '<p style="text-align:center"><strong>Bonjour</strong> le <font size="5">monde</font></p>' +
   '<p><voix data-voix="a1" data-sec="8"></voix></p>';
 var audios = { a1: { duration: 8, transcript: "mémoire de travail" } };
