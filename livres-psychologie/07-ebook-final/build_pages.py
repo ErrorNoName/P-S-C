@@ -31,7 +31,7 @@ QUIZ_GROUPS = [
       "consommation", "numerique", "evolutionniste", "vieillissement", "environnementale", "politique",
       "science-psychologique"]),
     ("Études et branches", "Spécialités du bac, clinique de base et distinction des quatre branches.",
-     ["lycee-orientation", "clinique-l1", "branches-l1"]),
+     ["lycee-orientation", "clinique-l1", "branches-l1", "l1-psychologie"]),
     ("Transversaux et examen", "Vérifie que tu maîtrises les références et l'ensemble du programme.",
      ["experiences-celebres", "biais-cognitifs", "grands-auteurs", "troubles-reconnaitre",
       "chronologie-quiz", "examen-final"]),

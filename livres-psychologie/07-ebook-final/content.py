@@ -39,6 +39,9 @@ from data_methodes import CHAPITRES as METHODES_CHAPITRES, NOTIONS as METHODES_N
 from data_bilingue import LEXIQUE_EN, FAUX_AMIS
 from data_pratique import PRATIQUES
 from data_metiers import METIERS, PARCOURS_ETUDES
+from data_l1_psycho import (
+    L1_EXTRA, L1_EXPERIENCES, L1_QUIZ, L1_GLOSSAIRE, L1_CHRONO,
+)
 
 # --------------------------------------------------------------------------
 # Catégories : fusion + enrichissement
@@ -79,6 +82,10 @@ def _merge_category(cat):
         mythes = mythes + list(plus.get("mythes", []))
         chiffres = chiffres + list(plus.get("chiffres", []))
         flashcards = flashcards + list(plus.get("flashcards", []))
+    l1 = L1_EXTRA.get(cat["id"])
+    if l1:
+        sections = sections + list(l1.get("sections", []))
+        flashcards = flashcards + list(l1.get("flashcards", []))
     merged["sections"] = sections
     merged["mythes"] = mythes
     merged["chiffres"] = chiffres
@@ -86,13 +93,13 @@ def _merge_category(cat):
     return merged
 
 
-EXPERIENCES = _merge_by_id(_EXP_BASE, EXPERIENCES_PLUS)
+EXPERIENCES = _merge_by_id(_merge_by_id(_EXP_BASE, EXPERIENCES_PLUS), L1_EXPERIENCES)
 AUTEURS = _merge_by_id(_AUT_BASE, AUTEURS_PLUS)
 CAS = _merge_by_id(_CAS_BASE, CAS_PLUS)
 TROUBLES = _merge_by_id(_TRO_BASE, TROUBLES_PLUS)
 BIAIS = _merge_by_id(_BIA_BASE, BIAIS_PLUS)
 TESTS = _merge_by_id(_TES_BASE, TESTS_PLUS)
-CHRONOLOGIE = list(_CHRONO_BASE) + list(CHRONOLOGIE_PLUS)
+CHRONOLOGIE = list(_CHRONO_BASE) + list(CHRONOLOGIE_PLUS) + list(L1_CHRONO)
 
 
 CATEGORIES = [_merge_category(c) for c in _CATS_BASE] + [_merge_category(c) for c in _CATS_PLUS]
@@ -108,7 +115,7 @@ CATEGORY_TITLE = {c["id"]: c["title"] for c in CATEGORIES}
 def _merge_dictionnaire():
     seen = {}
     ordered = []
-    for term, definition, cat_id in list(_DICT_BASE) + list(_DICT_PLUS) + list(GLOSSAIRE_PLUS_REF):
+    for term, definition, cat_id in list(_DICT_BASE) + list(_DICT_PLUS) + list(GLOSSAIRE_PLUS_REF) + list(L1_GLOSSAIRE):
         key = term.strip().lower()
         if key in seen:
             continue
@@ -128,7 +135,7 @@ DICTIONNAIRE = _merge_dictionnaire()
 # Quiz
 # --------------------------------------------------------------------------
 
-QUIZZES = list(_QUIZ_BASE) + list(_QUIZ_PLUS) + list(_QUIZ_LYCEE)
+QUIZZES = list(_QUIZ_BASE) + list(_QUIZ_PLUS) + list(_QUIZ_LYCEE) + [L1_QUIZ]
 QUIZ_IDS = {q["id"] for q in QUIZZES}
 
 # Quiz recommandé au bas de chaque fiche de catégorie.

@@ -49,6 +49,7 @@ NOUVEAUTES = [
     ("🔭", "Zone de découverte", "Planches d'expériences, vraies images du cerveau, projets ouverts, cave des mythes"),
     ("🧭", "Quatre branches de la psychologie", "Clinique, sociale, développement, cognitive — le socle de toute licence"),
     ("🤖", "Assistant du site", "Questions en français, réponses sourcées dans tout le corpus"),
+    ("🎓", "Psychologie de licence", "Méthode, clinique, développement et lectures cognitives"),
     ("👤", "Compte étudiant", "E-mail ou Google, notes de cours et scores enregistrés"),
 ]
 
@@ -123,6 +124,10 @@ OUTILS_V3 = [
     ("assistant.html", "vert", "🤖", "Assistant",
      "Une question, une réponse complète tirée uniquement des pages du site, avec les sources.",
      "Ctrl + J"),
+    ("l1-psychologie.html", "vert", "🎓", "Psychologie de licence",
+     "Démarche scientifique, clinique, développement du nourrisson à la vie entière, "
+     "et les lectures cognitives (Tolman, Cherry, Tulving, Sparrow).",
+     "Méthode · lectures"),
     ("compte.html", "or", "👤", "Compte étudiant",
      "Connexion e-mail/mot de passe ou Google. Progression, notes, scores et photo conservés sur le serveur.",
      "Compte · serveur"),

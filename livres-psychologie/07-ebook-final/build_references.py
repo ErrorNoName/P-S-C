@@ -123,7 +123,7 @@ def render_experiences():
     for i, (eid, titre, chercheur, annee, cat_id, resume, protocole, resultat, portee, critique) in enumerate(EXPERIENCES, 1):
         color = COLORS[i % len(COLORS)]
         fam = CATEGORY_TITLE.get(cat_id, cat_id)
-        cards += f"""<div class="ref-card {color}" data-ref-id="{eid}" data-famille="{fam}" data-search="{titre} {chercheur} {annee} {strip_html(resume)}">
+        cards += f"""<div class="ref-card {color}" id="{eid}" data-ref-id="{eid}" data-famille="{fam}" data-search="{titre} {chercheur} {annee} {strip_html(resume)}">
           <div class="ref-card-head">
             <span class="ref-n">{i:02d}</span>
             <div class="ref-h"><h3>{titre}</h3><p class="ref-sub">{chercheur} · {annee} · {fam}</p></div>
