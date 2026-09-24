@@ -90,6 +90,12 @@ assert.strictEqual(feedSpeech([
   { t: 700, items: [{ text: "qui organise des relations", final: true }] },
   { t: 1600, items: [{ text: "plus plus complexe avec des règles qui qui qui qui organise qui organise des qui organise des relations", final: true }] }
 ]), "plus complexe avec des règles qui organise des relations");
+var phrase = "bonjour j'espère que vous allez bien aujourd'hui on se retrouve pour un nouveau cours je vais parler un petit peu de tout ce qui est la psychologie sociale et inversé donc du coup";
+assert.strictEqual(feedSpeech([
+  { t: 0, items: [{ text: phrase, final: true }] },
+  { t: 4000, items: [{ text: phrase, final: true }] },
+  { t: 8000, items: [{ text: phrase + " " + phrase, final: true }] }
+]), phrase);
 var liveState = fmt.speechState();
 fmt.commitSpeech(liveState, "bonjour tout", 0);
 assert.strictEqual(fmt.speechLive(liveState.tail, "bonjour tout le monde"), "le monde");

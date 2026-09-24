@@ -25,6 +25,7 @@
   var listenOn = false;
   var dictateOn = false;
   var speechMode = "";
+  var noteHold = false;
   var listenRec = null;
   var speechState = null;
   var speechRunning = false;
@@ -858,7 +859,7 @@
   }
 
   function desiredSpeech() {
-    if (recording) return "note";
+    if (recording || noteHold) return "note";
     if (dictateOn) return "dictate";
     if (listenOn) return "listen";
     return "";
@@ -887,10 +888,8 @@
     rec.onresult = function (ev) {
       if (speechMode !== mode || !speechState) return;
       var step = FMT.applySpeechEvent(speechState, ev, Date.now());
-      if (step.added && (mode === "dictate" || (mode === "note" && recording))) {
-        insertPlainText(step.added + " ");
-      }
-      if (mode === "note" && recording) recording.said = speechState.tail;
+      if (step.added && mode === "dictate") insertPlainText(step.added + " ");
+      if (mode === "note" && recording) recording.said = speechState.log || speechState.tail;
       if (step.added) considerUtterance(speechState.tail);
       else if (step.live && step.live.length > 10) considerUtterance(step.live);
       showLive(mode === "listen" ? step.preview : step.live);
@@ -917,7 +916,11 @@
       if (lasted > 0 && lasted < 400) speechShort += 1;
       else speechShort = 0;
       if (speechMode !== mode || desiredSpeech() !== mode) return;
-      if (failed === "audio-capture" && mode === "note" && recording) return;
+      if (failed === "audio-capture" && mode === "note" && recording) {
+        clearSpeechTimer();
+        speechTimer = setTimeout(function () { kickSpeech(rec, mode); }, 700);
+        return;
+      }
       if (speechShort >= 8) return;
       clearSpeechTimer();
       var wait = speechShort >= 3 ? 800 : 80;
@@ -935,6 +938,7 @@
 
   function stopRecording() {
     if (!recording) return;
+    noteHold = false;
     var rec = recording;
     recording = null;
     var rate = rec.sampleRate || VOICE_RATE;
@@ -947,6 +951,7 @@
     $("cahier-mic").classList.remove("is-rec");
     $("cahier-mic-label").textContent = "Note orale";
     showLive("");
+    if (speechState && speechState.log) rec.said = speechState.log;
     if (speechMode === "note") stopSpeech();
     else closeMic();
     var raw = concatFloats(rec.chunks);
@@ -976,13 +981,15 @@
 
   function startRecording() {
     if (recording) { stopRecording(); return; }
+    if (noteHold) { noteHold = false; stopSpeech(); return; }
     rememberRange();
     var Ctx = window.AudioContext || window.webkitAudioContext;
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !Ctx) {
       toast("Ce navigateur ne peut pas enregistrer le micro.");
       return;
     }
-    stopSpeech();
+    noteHold = true;
+    startSpeech("note");
     openMic().then(function (stream) {
       var ctx = new Ctx();
       var ready = ctx.resume ? ctx.resume() : Promise.resolve();
@@ -1020,7 +1027,7 @@
           stream: stream,
           chunks: chunks,
           sampleRate: ctx.sampleRate || 48000,
-          said: "",
+          said: (speechState && speechState.log) || "",
           timer: setInterval(function () {
             var sec = Math.round((Date.now() - started) / 1000);
             $("cahier-mic-label").textContent = FMT.formatSec(sec);
@@ -1029,9 +1036,11 @@
         };
         $("cahier-mic").classList.add("is-rec");
         placeMic();
-        startSpeech("note");
+        if (speechMode !== "note") startSpeech("note");
       });
     }).catch(function () {
+      noteHold = false;
+      stopSpeech();
       toast("Micro refusé. Autorise-le pour poser une note orale.");
       syncSpeech();
     });
@@ -1057,17 +1066,33 @@
     play.addEventListener("click", function () { togglePlay(capsule, play); });
     stt.addEventListener("click", function () {
       var text = ((audios[id] && audios[id].transcript) || meta.transcript || "").trim();
-      if (!text) {
-        toast("Aucun mot reconnu. Réenregistre en parlant près du micro.");
-        return;
-      }
-      var range = document.createRange();
-      range.setStartAfter(capsule);
-      range.collapse(true);
-      var node = document.createTextNode(" " + text + " ");
-      range.insertNode(node);
-      closePop();
-      scheduleSave();
+      var old = pop.querySelector(".voix-transcript");
+      if (old) old.remove();
+      var box = document.createElement("div");
+      box.className = "voix-transcript";
+      var area = document.createElement("textarea");
+      area.readOnly = true;
+      area.value = text || "Aucun mot reconnu pendant l'enregistrement.";
+      var copy = document.createElement("button");
+      copy.type = "button";
+      copy.textContent = "Copier";
+      copy.addEventListener("click", function () {
+        area.focus();
+        area.select();
+        var done = function () { toast("Texte copié."); };
+        if (navigator.clipboard && navigator.clipboard.writeText && text) {
+          navigator.clipboard.writeText(text).then(done).catch(function () {
+            try { document.execCommand("copy"); done(); } catch (e) { /* sélection visible */ }
+          });
+        } else {
+          try { document.execCommand("copy"); if (text) done(); } catch (e2) { /* sélection visible */ }
+        }
+      });
+      box.appendChild(area);
+      box.appendChild(copy);
+      pop.appendChild(box);
+      area.focus();
+      area.select();
     });
     pop.appendChild(play);
     pop.appendChild(stt);

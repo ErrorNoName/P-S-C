@@ -701,7 +701,7 @@
     for (i = 0; i < words.length; i++) keys.push(speechKey(words[i]));
     while (guard++ < 16) {
       var removed = false;
-      var maxN = Math.min(12, Math.floor(keys.length / 2));
+      var maxN = Math.floor(keys.length / 2);
       var n, j, same;
       for (n = maxN; n >= 2; n--) {
         for (i = 0; i + n * 2 <= keys.length; i++) {
@@ -749,22 +749,26 @@
   }
 
   function speechState() {
-    return { tail: "", lastRaw: "", lastAt: 0 };
+    return { tail: "", log: "", lastRaw: "", lastAt: 0 };
   }
 
   function commitSpeech(state, raw, now) {
     var text = cleanTranscript(raw);
     if (!text || !state) return "";
-    var delta = speechDelta(state.tail, text);
+    var base = state.log || "";
+    var delta = speechDelta(base, text);
     if (!delta) {
-      var tailWords = speechWords(speechKey(state.tail));
+      var tailWords = speechWords(speechKey(base));
       var incoming = speechWords(speechKey(text));
       var sameAsLast = incoming.length <= 3 && speechKey(text) === speechKey(state.lastRaw);
       var sameAsTailEnd = incoming.length && incoming.length <= 3 && tailWords.slice(-incoming.length).join(" ") === incoming.join(" ");
       if ((sameAsLast || sameAsTailEnd) && now - state.lastAt >= 900) delta = text;
       else return "";
     }
-    state.tail = speechWords(state.tail + " " + delta).slice(-32).join(" ");
+    var deltaKeys = speechWords(speechKey(delta));
+    if (deltaKeys.length >= 6 && wordsInside(speechWords(speechKey(base)), deltaKeys)) return "";
+    state.log = speechWords(base + " " + delta).slice(-500).join(" ");
+    state.tail = speechWords(state.log).slice(-32).join(" ");
     state.lastRaw = text;
     state.lastAt = now;
     return delta;
@@ -807,8 +811,8 @@
     }
     return {
       added: added.join(" "),
-      live: speechLive(state.tail, view.interim),
-      preview: speechPreview(state.tail, view.interim)
+      live: speechLive(state.log || state.tail, view.interim),
+      preview: speechPreview(state.log || state.tail, view.interim)
     };
   }
 
