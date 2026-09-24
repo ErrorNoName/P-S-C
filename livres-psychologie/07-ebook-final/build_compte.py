@@ -55,7 +55,7 @@ def render_compte():
       </form>
       <div class="compte-sep">ou</div>
       <div id="google-btn"></div>
-      <p id="google-hint" class="compte-hint">Si Google affiche « Accès bloqué » et l'erreur 403, l'application est encore en mode test : seul un Gmail ajouté comme utilisateur test peut se lier. Le cahier, lui, s'ouvre sans Google.</p>
+      <p id="google-hint" class="compte-hint">Si Google affiche « Accès bloqué » et l'erreur 403, l'application est encore en test. Ouvre l'écran de consentement du projet, ajoute ce Gmail comme utilisateur test, ou clique sur Publier l'application. Le cahier s'ouvre sans Google.</p>
       <p id="compte-feedback" class="compte-msg" hidden></p>
       <p id="compte-mode" class="compte-mode"></p>
     </div>

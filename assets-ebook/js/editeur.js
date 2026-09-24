@@ -559,8 +559,9 @@
     var code = String(err && (err.message || err.error) || err || "");
     if (code.indexOf("access_denied") !== -1 || code.indexOf("403") !== -1) {
       return "Google bloque le lien (erreur 403 : l'application est encore en test). " +
-        "Le cahier reste enregistré sur cet appareil. Pour autoriser Drive, publie l'écran de " +
-        "consentement OAuth du projet Google, ou ajoute cette adresse Gmail comme utilisateur test.";
+        "Le cahier reste sur cet appareil. Dans Google Cloud, écran de consentement OAuth : " +
+        "ajoute ce Gmail comme utilisateur test, ou publie l'application. " +
+        "Le site ne peut pas lever ce blocage tout seul.";
     }
     if (code.indexOf("popup") !== -1) return "Fenêtre Google fermée. Le cahier reste sur cet appareil.";
     return "Drive n'a pas autorisé le cahier. Le texte reste enregistré sur cet appareil.";
