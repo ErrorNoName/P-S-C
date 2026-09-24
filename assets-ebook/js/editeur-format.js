@@ -772,7 +772,7 @@
     }
     var deltaKeys = speechWords(speechKey(delta));
     if (deltaKeys.length >= 6 && wordsInside(speechWords(speechKey(base)), deltaKeys)) return "";
-    state.log = speechWords(base + " " + delta).slice(-500).join(" ");
+    state.log = cleanSpeech(base + " " + delta);
     state.tail = speechWords(state.log).slice(-32).join(" ");
     state.lastRaw = text;
     state.lastAt = now;

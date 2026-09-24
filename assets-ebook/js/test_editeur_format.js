@@ -96,6 +96,14 @@ assert.strictEqual(feedSpeech([
   { t: 4000, items: [{ text: phrase, final: true }] },
   { t: 8000, items: [{ text: phrase + " " + phrase, final: true }] }
 ]), phrase);
+var longWords = [];
+var w;
+for (w = 0; w < 640; w++) longWords.push("mot" + w);
+var longState = fmt.speechState();
+fmt.commitSpeech(longState, longWords.join(" "), 0);
+assert.strictEqual(fmt.speechWords ? longState.log.split(" ").length : longState.log.split(" ").length, 640);
+assert.ok(longState.log.indexOf("mot0") === 0, "la transcription garde le début");
+assert.ok(longState.log.indexOf("mot639") !== -1, "la transcription garde la fin");
 var liveState = fmt.speechState();
 fmt.commitSpeech(liveState, "bonjour tout", 0);
 assert.strictEqual(fmt.speechLive(liveState.tail, "bonjour tout le monde"), "le monde");

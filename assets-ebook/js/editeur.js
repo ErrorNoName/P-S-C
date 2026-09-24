@@ -442,9 +442,9 @@
     var wrap = document.createElement("div");
     wrap.innerHTML = raw;
     var allowed = {
-      P: 1, H1: 1, H2: 1, H3: 1, BLOCKQUOTE: 1, UL: 1, OL: 1, LI: 1, BR: 1,
+      P: 1, H1: 1, H2: 1, H3: 1, BLOCKQUOTE: 1, UL: 1, OL: 1, LI: 1, BR: 1, HR: 1,
       STRONG: 1, B: 1, EM: 1, I: 1, U: 1, S: 1, STRIKE: 1, DEL: 1, MARK: 1,
-      FONT: 1, SPAN: 1, VOIX: 1
+      FONT: 1, SPAN: 1, VOIX: 1, A: 1, SUB: 1, SUP: 1
     };
     function clean(node) {
       var child = node.firstChild;
@@ -468,6 +468,8 @@
           }
           if (name === "align" && /^(left|center|right|justify)$/i.test(attr.value)) keep = true;
           else if (name === "size" && child.tagName === "FONT" && /^[1-7]$/.test(attr.value)) keep = true;
+          else if (name === "color" && child.tagName === "FONT" && /^#[0-9a-f]{3,8}$/i.test(attr.value)) keep = true;
+          else if (name === "href" && child.tagName === "A" && /^https?:\/\//i.test(attr.value)) keep = true;
           else if ((name === "data-voix" || name === "data-sec") && child.tagName === "VOIX" && /^[a-z0-9_-]{1,40}$/i.test(attr.value)) keep = true;
           if (!keep) child.removeAttribute(attr.name);
         });
@@ -1482,6 +1484,31 @@
     return count;
   }
 
+  function pointAt(root, pos) {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    var current;
+    var left = pos;
+    while ((current = walker.nextNode())) {
+      if (current.parentElement && current.parentElement.closest(".psy-star")) continue;
+      if (left <= current.nodeValue.length) return { node: current, offset: Math.max(0, left) };
+      left -= current.nodeValue.length;
+    }
+    return null;
+  }
+
+  function placeRange(root, start, end) {
+    var a = pointAt(root, Math.min(start, end));
+    var b = pointAt(root, Math.max(start, end));
+    if (!a || !b) return;
+    var range = document.createRange();
+    var sel = window.getSelection();
+    range.setStart(a.node, a.offset);
+    range.setEnd(b.node, b.offset);
+    sel.removeAllRanges();
+    sel.addRange(range);
+    savedRange = range.cloneRange();
+  }
+
   function placePos(root, pos) {
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     var current;
@@ -1528,8 +1555,11 @@
     if (!lexicon || !root || speechMode) return;
     var sel = window.getSelection();
     var mark = null;
-    if (sel && sel.rangeCount && root.contains(sel.anchorNode)) {
-      mark = textPos(root, sel.anchorNode, sel.anchorOffset);
+    if (sel && sel.rangeCount && root.contains(sel.anchorNode) && root.contains(sel.focusNode)) {
+      mark = {
+        a: textPos(root, sel.anchorNode, sel.anchorOffset),
+        b: textPos(root, sel.focusNode, sel.focusOffset)
+      };
     }
     unwrapMarks(root);
     var rows = lexicon.phrases || [];
@@ -1593,7 +1623,7 @@
         node = after;
       }
     });
-    if (mark != null) placePos(root, mark);
+    if (mark) placeRange(root, mark.a, mark.b);
   }
 
   function showNoteText(id, meta) {
@@ -1831,25 +1861,83 @@
     syncSpeech();
   }
 
-  function command(cmd) {
-    $("cahier-body").focus();
-    document.execCommand("styleWithCSS", false, false);
-    if (cmd === "hiliteColor") document.execCommand("hiliteColor", false, "#fff3bf");
-    else document.execCommand(cmd, false, null);
+  function restoreRange() {
+    var body = $("cahier-body");
+    if (!savedRange || !body || !body.contains(savedRange.startContainer)) return false;
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(savedRange);
+    return true;
+  }
+
+  function withSelection(fn) {
+    var body = $("cahier-body");
+    rememberRange();
+    body.focus();
+    restoreRange();
+    fn();
+    rememberRange();
     scheduleSave();
+  }
+
+  function currentBlock() {
+    var body = $("cahier-body");
+    var sel = window.getSelection();
+    var node = sel && sel.rangeCount ? sel.anchorNode : null;
+    if (!node || !body.contains(node)) return null;
+    var el = node.nodeType === 1 ? node : node.parentElement;
+    while (el && el !== body) {
+      if (/^(P|H1|H2|H3|LI|BLOCKQUOTE|DIV)$/.test(el.tagName)) return el;
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  function alignBlock(align) {
+    withSelection(function () {
+      var block = currentBlock();
+      if (!block) {
+        document.execCommand("formatBlock", false, "p");
+        block = currentBlock();
+      }
+      if (!block) return;
+      block.style.textAlign = align === "left" ? "" : align;
+    });
+  }
+
+  function command(cmd) {
+    if (cmd === "justifyLeft") { alignBlock("left"); return; }
+    if (cmd === "justifyCenter") { alignBlock("center"); return; }
+    if (cmd === "justifyRight") { alignBlock("right"); return; }
+    if (cmd === "justifyFull") { alignBlock("justify"); return; }
+    withSelection(function () {
+      document.execCommand("styleWithCSS", false, false);
+      if (cmd === "hiliteColor") document.execCommand("hiliteColor", false, "#fff3bf");
+      else if (cmd === "foreColor") document.execCommand("foreColor", false, "#6a355c");
+      else document.execCommand(cmd, false, null);
+    });
   }
 
   function applySize(value) {
-    $("cahier-body").focus();
-    document.execCommand("styleWithCSS", false, false);
-    document.execCommand("fontSize", false, value);
-    scheduleSave();
+    withSelection(function () {
+      document.execCommand("styleWithCSS", false, false);
+      document.execCommand("fontSize", false, value);
+    });
   }
 
   function applyBlock(tag) {
-    $("cahier-body").focus();
-    document.execCommand("formatBlock", false, tag);
-    scheduleSave();
+    withSelection(function () {
+      document.execCommand("formatBlock", false, tag);
+    });
+  }
+
+  function insertLink() {
+    var url = window.prompt("Adresse du lien", "https://");
+    if (!url) return;
+    if (!/^https?:\/\//i.test(url)) return;
+    withSelection(function () {
+      document.execCommand("createLink", false, url);
+    });
   }
 
   function downloadDocx() {
@@ -2050,7 +2138,7 @@
     if (!el) return;
     var text = (reelTranscript || "").trim();
     el.hidden = false;
-    el.textContent = text ? text.slice(-320) : "La transcription s'écrit ici pendant la séance.";
+    el.textContent = text ? text : "La transcription s'écrit ici pendant la séance.";
   }
 
   function paintReelLock() {
@@ -2260,7 +2348,7 @@
     }
     if (reelPhase === "run") reel.elapsed += Date.now() - reel.tick;
     var chunks = reel.chunks.slice();
-    var said = (speechState && (speechState.log || speechState.tail)) || reelTranscript || "";
+    var said = reelTranscript || (speechState && speechState.log) || "";
     stopReelGraph();
     reel = null;
     reelPhase = "idle";
@@ -2408,7 +2496,7 @@
       clearTimeout(body._markTimer);
       body._markTimer = setTimeout(function () {
         if (!speechMode) decorateLinks(body);
-      }, 400);
+      }, 900);
     });
     document.addEventListener("pointerdown", function (e) {
       var pop = document.getElementById("psy-pop");
@@ -2446,11 +2534,29 @@
       e.preventDefault();
       openPop(cap);
     });
+    function placeBubble() {
+      var bubble = $("cahier-bubble");
+      if (!bubble) return;
+      var sel = window.getSelection();
+      if (!sel || sel.isCollapsed || !sel.rangeCount || !body.contains(sel.anchorNode)) {
+        bubble.hidden = true;
+        return;
+      }
+      var rect = sel.getRangeAt(0).getBoundingClientRect();
+      if (!rect || !rect.width) { bubble.hidden = true; return; }
+      bubble.hidden = false;
+      var left = Math.max(8, Math.min(rect.left, window.innerWidth - bubble.offsetWidth - 8));
+      var top = rect.top - bubble.offsetHeight - 8;
+      if (top < 8) top = rect.bottom + 8;
+      bubble.style.left = left + "px";
+      bubble.style.top = top + "px";
+    }
     document.addEventListener("selectionchange", function () {
       if (speechMode) return;
       if (document.activeElement === body || body.contains(document.activeElement)) {
         rememberRange();
         placeMic();
+        placeBubble();
       }
     });
     window.addEventListener("scroll", placeMic, true);
@@ -2465,8 +2571,11 @@
     });
     $("cahier-mic").addEventListener("mousedown", function (e) { e.preventDefault(); rememberRange(); });
     $("cahier-mic").addEventListener("click", startRecording);
-    document.querySelectorAll(".cahier-toolbar [data-cmd]").forEach(function (btn) {
-      btn.addEventListener("mousedown", function (e) { e.preventDefault(); });
+    document.querySelectorAll(".cahier-toolbar [data-cmd], .cahier-bubble [data-cmd]").forEach(function (btn) {
+      btn.addEventListener("pointerdown", function (e) {
+        rememberRange();
+        e.preventDefault();
+      });
       btn.addEventListener("click", function () { command(btn.getAttribute("data-cmd")); });
     });
     document.querySelectorAll(".cahier-toolbar [data-block]").forEach(function (btn) {
@@ -2521,6 +2630,11 @@
     if (drivePick) drivePick.addEventListener("click", listDriveChoices);
     var driveGo = $("import-drive-go");
     if (driveGo) driveGo.addEventListener("click", importDriveSelection);
+    var linkBtn = $("cahier-link");
+    if (linkBtn) {
+      linkBtn.addEventListener("pointerdown", function (e) { rememberRange(); e.preventDefault(); });
+      linkBtn.addEventListener("click", insertLink);
+    }
     var saveDrive = $("cahier-save-drive");
     if (saveDrive) saveDrive.addEventListener("click", function () {
       snapshot();

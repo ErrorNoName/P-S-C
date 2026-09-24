@@ -84,7 +84,15 @@
 }
 .cahier-gate-card h1 { margin: 0 0 0.6rem; font-size: 1.55rem; }
 .cahier-gate-card p { color: var(--gris); margin: 0 0 1rem; }
-.cahier-msg { color: #9b2c2c; font-size: 0.9rem; }
+.cahier-msg {
+  margin: 0.55rem 0 0;
+  padding: 0.45rem 0.7rem;
+  color: #9b2c2c;
+  font-size: 0.86rem;
+  line-height: 1.35;
+  background: #fff4f0;
+  border-radius: 10px;
+}
 
 .cahier-work {
   display: grid;
@@ -132,13 +140,43 @@
   z-index: 30;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3rem;
-  padding: 0.45rem;
-  background: rgba(255,255,255,0.96);
-  border: 1px solid var(--border);
+  gap: 0.35rem;
+  padding: 0.4rem;
+  background: #fffaf3;
+  border: 1px solid #e4d8c8;
   border-radius: 14px;
   box-shadow: var(--shadow);
 }
+.tool-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  align-items: center;
+  padding-right: 0.35rem;
+  border-right: 1px solid #e4d8c8;
+}
+.tool-group-file { border-right: 0; }
+.cahier-bubble {
+  position: fixed;
+  z-index: 80;
+  display: flex;
+  gap: 0.2rem;
+  padding: 0.25rem;
+  background: #1c1915;
+  border-radius: 999px;
+}
+.cahier-bubble[hidden] { display: none; }
+.cahier-bubble button {
+  border: 0;
+  background: transparent;
+  color: #fffaf3;
+  border-radius: 999px;
+  min-height: 32px;
+  padding: 0.15rem 0.5rem;
+  font: inherit;
+  cursor: pointer;
+}
+.rec-live { max-height: 9rem; overflow: auto; }
 .cahier-toolbar button, .cahier-size select {
   border: 1px solid transparent;
   background: #f6f7f4;
@@ -377,7 +415,8 @@
   .cahier-side.is-open { display: block; }
   .cahier-textbtn { display: inline; }
   .cahier-mobilebar { display: flex; }
-  .cahier-toolbar { top: 4.2rem; flex-wrap: nowrap; overflow-x: auto; }
+  .cahier-toolbar { top: 4.2rem; }
+  .tool-group { border-right: 0; }
   .cahier-toolbar button, .cahier-size { flex: 0 0 auto; }
   .cahier-sheet { padding: 1rem 0.85rem 1.4rem; min-height: 60vh; }
   .cahier-title-label input { font-size: 1.35rem; }

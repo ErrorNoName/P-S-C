@@ -55,36 +55,63 @@ def render():
         <span id="cahier-sync-mobile"></span>
       </div>
       <div class="cahier-toolbar" role="toolbar" aria-label="Mise en forme">
-        <button type="button" data-cmd="bold" title="Gras"><b>G</b></button>
-        <button type="button" data-cmd="italic" title="Italique"><i>I</i></button>
-        <button type="button" data-cmd="underline" title="Souligné"><u>S</u></button>
-        <button type="button" data-cmd="strikeThrough" title="Barré"><s>B</s></button>
-        <label class="cahier-size">Taille
-          <select id="cahier-size" aria-label="Taille du texte">
-            <option value="2">Petit</option>
-            <option value="3" selected>Normal</option>
-            <option value="4">Grand</option>
-            <option value="5">Titre</option>
-            <option value="6">Très grand</option>
-          </select>
-        </label>
-        <button type="button" data-cmd="justifyLeft" title="Aligner à gauche">Gauche</button>
-        <button type="button" data-cmd="justifyCenter" title="Centrer">Centre</button>
-        <button type="button" data-cmd="justifyRight" title="Aligner à droite">Droite</button>
-        <button type="button" data-cmd="justifyFull" title="Justifier">Justifier</button>
-        <button type="button" data-cmd="insertUnorderedList" title="Liste">Liste</button>
-        <button type="button" data-cmd="insertOrderedList" title="Liste numérotée">1.</button>
-        <button type="button" data-cmd="hiliteColor" title="Surligner">Surligner</button>
-        <button type="button" data-block="h2" title="Intertitre">Intertitre</button>
-        <button type="button" data-block="blockquote" title="Citation">Citation</button>
-        <button type="button" data-cmd="undo" title="Annuler">Annuler</button>
-        <button type="button" data-cmd="redo" title="Rétablir">Rétablir</button>
-        <button type="button" id="cahier-export" title="Télécharger un .docx">.docx</button>
-        <button type="button" id="cahier-save-drive" title="Enregistrer cette note en .docx dans Google Drive">Dans Drive</button>
-        <button type="button" id="rec-open" title="Ouvrir l'enregistrement constant">Enregistrer</button>
-        <button type="button" id="cahier-dictate" aria-pressed="false" title="Écrit dans le cahier, en direct, ce qui est dit">Dicter</button>
-        <button type="button" id="cahier-listen" aria-pressed="false" title="Écoute continue : propose une fiche Psyclopédia quand un terme est reconnu">Écoute</button>
-        <button type="button" class="cahier-danger" id="cahier-delete" title="Mettre ce cahier à la corbeille">Supprimer</button>
+        <div class="tool-group">
+          <button type="button" data-cmd="bold" title="Gras (Ctrl+B)"><b>G</b></button>
+          <button type="button" data-cmd="italic" title="Italique (Ctrl+I)"><i>I</i></button>
+          <button type="button" data-cmd="underline" title="Souligné (Ctrl+U)"><u>S</u></button>
+          <button type="button" data-cmd="strikeThrough" title="Barré"><s>B</s></button>
+          <button type="button" data-cmd="hiliteColor" title="Surligner">Surligneur</button>
+          <button type="button" data-cmd="removeFormat" title="Enlever la mise en forme">Effacer</button>
+        </div>
+        <div class="tool-group">
+          <label class="cahier-size">Taille
+            <select id="cahier-size" aria-label="Taille du texte">
+              <option value="2">Petit</option>
+              <option value="3" selected>Normal</option>
+              <option value="4">Grand</option>
+              <option value="5">Titre</option>
+              <option value="6">Très grand</option>
+            </select>
+          </label>
+          <button type="button" data-block="p" title="Paragraphe">Texte</button>
+          <button type="button" data-block="h2" title="Intertitre">Titre</button>
+          <button type="button" data-block="h3" title="Sous-titre">Sous-titre</button>
+          <button type="button" data-block="blockquote" title="Citation">Citation</button>
+        </div>
+        <div class="tool-group">
+          <button type="button" data-cmd="justifyLeft" title="Aligner à gauche">Gauche</button>
+          <button type="button" data-cmd="justifyCenter" title="Centrer">Centre</button>
+          <button type="button" data-cmd="justifyRight" title="Aligner à droite">Droite</button>
+          <button type="button" data-cmd="justifyFull" title="Justifier">Justifier</button>
+        </div>
+        <div class="tool-group">
+          <button type="button" data-cmd="insertUnorderedList" title="Liste">Liste</button>
+          <button type="button" data-cmd="insertOrderedList" title="Liste numérotée">1.</button>
+          <button type="button" data-cmd="indent" title="Augmenter le retrait">Retrait</button>
+          <button type="button" data-cmd="outdent" title="Réduire le retrait">Retour</button>
+          <button type="button" id="cahier-link" title="Lien">Lien</button>
+          <button type="button" data-cmd="insertHorizontalRule" title="Séparateur">Ligne</button>
+        </div>
+        <div class="tool-group">
+          <button type="button" data-cmd="subscript" title="Indice">Indice</button>
+          <button type="button" data-cmd="superscript" title="Exposant">Exposant</button>
+          <button type="button" data-cmd="undo" title="Annuler">Annuler</button>
+          <button type="button" data-cmd="redo" title="Rétablir">Rétablir</button>
+        </div>
+        <div class="tool-group tool-group-file">
+          <button type="button" id="cahier-export" title="Télécharger un .docx">.docx</button>
+          <button type="button" id="cahier-save-drive" title="Enregistrer cette note en .docx dans Google Drive">Drive</button>
+          <button type="button" id="rec-open" title="Ouvrir l'enregistrement constant">Enregistrer</button>
+          <button type="button" id="cahier-dictate" aria-pressed="false" title="Écrit dans le cahier, en direct, ce qui est dit">Dicter</button>
+          <button type="button" id="cahier-listen" aria-pressed="false" title="Écoute continue : propose une fiche Psyclopédia quand un terme est reconnu">Écoute</button>
+          <button type="button" class="cahier-danger" id="cahier-delete" title="Mettre ce cahier à la corbeille">Supprimer</button>
+        </div>
+      </div>
+      <div id="cahier-bubble" class="cahier-bubble" hidden>
+        <button type="button" data-cmd="bold"><b>G</b></button>
+        <button type="button" data-cmd="italic"><i>I</i></button>
+        <button type="button" data-cmd="underline"><u>S</u></button>
+        <button type="button" data-cmd="hiliteColor">Surligneur</button>
       </div>
       <div id="cahier-live" class="cahier-live" hidden>
         <span class="cahier-live-k">En direct</span>
@@ -145,11 +172,11 @@ def render():
   <aside id="cahier-suggest" class="cahier-suggest" hidden></aside>
 </div>
 """
-    css = asset(0, "css/editeur.css") + "?v=float8"
+    css = asset(0, "css/editeur.css") + "?v=float9"
     scripts = (
-        f'<script src="{asset(0, "js/lame.min.js")}?v=float8"></script>\n'
-        f'<script src="{asset(0, "js/editeur-format.js")}?v=float8"></script>\n'
-        f'<script src="{asset(0, "js/editeur.js")}?v=float8"></script>'
+        f'<script src="{asset(0, "js/lame.min.js")}?v=float9"></script>\n'
+        f'<script src="{asset(0, "js/editeur-format.js")}?v=float9"></script>\n'
+        f'<script src="{asset(0, "js/editeur.js")}?v=float9"></script>'
     )
     html = page_shell(
         "Cahier",
