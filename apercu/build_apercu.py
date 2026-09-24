@@ -85,7 +85,7 @@ def nav(active):
             cls = ' class="is-on"' if flag == active else ""
             bits.append('<a href="%s"%s%s>%s%s</a>' % (href, cls, extra, icon(img), label))
         groups.append('<div class="nav-group"><p>%s</p>%s</div>' % (title, "".join(bits)))
-    return """<div class="banner">Essai de mise en page. Le site actuel reste en place. <a href="../index.html">Revenir à l'accueil publié</a></div>
+    return """<div class="banner">La même mise en page est publiée sur <a href="../index.html">l'accueil</a>.</div>
 <header class="desk">
   <div class="desk-bar">
     <a class="mark" href="index.html">%s<span>Psyclopédia</span></a>
@@ -105,8 +105,7 @@ def page(name, title, active, body):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>%s — essai Psyclopédia</title>
-<meta name="robots" content="noindex">
+<title>%s — Psyclopédia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,620&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
@@ -117,7 +116,7 @@ def page(name, title, active, body):
 <main class="wrap">
 %s
 </main>
-<p class="foot">Essai visuel à valider avant de l'étendre au reste de Psyclopédia. Les textes restent ceux du site. Les images sont des découpes du pack de collages. <a href="../index.html">Site actuel</a></p>
+<p class="foot">Même collage que le site publié. <a href="../index.html">Accueil</a></p>
 <script>
 document.querySelector(".menu-btn").addEventListener("click", function (e) {
   var sheet = document.getElementById("sheet");

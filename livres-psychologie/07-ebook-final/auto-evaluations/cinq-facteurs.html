@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Les cinq grands facteurs — Psyclopédia</title>
+<title>Autour — Psyclopédia</title>
 <meta name="description" content="Les cinq grands facteurs : auto-évaluation pédagogique en français. Le modèle de personnalité le mieux validé, illustré sur vous-même en 25 affirmations. Sans valeur diagnostique.">
-<meta property="og:title" content="Les cinq grands facteurs — Psyclopédia">
+<meta property="og:title" content="Autour — Psyclopédia">
 <meta property="og:description" content="Les cinq grands facteurs : auto-évaluation pédagogique en français. Le modèle de personnalité le mieux validé, illustré sur vous-même en 25 affirmations. Sans valeur diagnostique.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="../../../assets-ebook/favicon.svg">
 <link rel="manifest" href="../../../manifest.webmanifest">
-<meta name="theme-color" content="#50A67E">
+<meta name="theme-color" content="#1c1915">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Psyclopédia">
 <link rel="apple-touch-icon" href="../../../assets-ebook/icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,620&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../assets-ebook/css/style.css">
 <link rel="stylesheet" href="../../../assets-ebook/css/v2.css">
 <link rel="stylesheet" href="../../../assets-ebook/css/v3.css">
@@ -26,41 +26,41 @@
 <link rel="stylesheet" href="../../../assets-ebook/css/lycee.css">
 <link rel="stylesheet" href="../../../assets-ebook/css/assistant.css">
 <link rel="stylesheet" href="../../../assets-ebook/css/compte.css">
+<link rel="stylesheet" href="../../../assets-ebook/css/collage.css">
 
 </head>
 <body data-root="../../../">
-<div class="topbar">
-  <nav class="nav-pill">
-    <a class="brand" href="../../../index.html"><span class="brand-mark"></span>Psyclopédia</a>
-    <ul class="nav-links"><a href="../../../index.html">Accueil</a><a href="../index.html">Catégories</a><a href="../decouverte.html">Découverte</a><a href="../references/index.html">Références</a><a href="../methodes.html">Méthodes</a><a href="../pratique.html">Pratique</a><a href="../bibliotheque.html">Bibliothèque</a><a href="../quiz/index.html">Quiz</a><a href="../apprendre.html" class="active">Apprendre</a><a href="../emploi-du-temps.html">Cours</a><a href="../cahier.html">Cahier</a><a href="../aide.html">Aide</a></ul>
-    <div class="nav-side">
-      <a class="nav-compte-btn" id="nav-compte" href="../compte.html" aria-label="Compte étudiant">
-        <span class="nav-compte-mark" aria-hidden="true">👤</span><span class="nav-compte-label">Compte</span>
-      </a>
-      <a class="nav-discord-btn" href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener" aria-label="Rejoindre le serveur Discord">
-        <span aria-hidden="true">💬</span><span class="nav-discord-label">Discord</span>
-      </a>
-      <button class="nav-notify-btn" type="button" data-notify-open="" aria-label="Rappels et pensées du jour">
-        <span aria-hidden="true">🔔</span><span class="nav-notify-label">Rappels</span>
+<header class="desk">
+  <div class="desk-bar">
+    <a class="mark" href="../../../index.html"><img class="stk" src="../../../assets-ebook/collage/oeil-bleu.png" alt=""><span>Psyclopédia</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button>
+    <div class="desk-tools">
+      <button class="tool nav-notify-btn" type="button" data-notify-open="" aria-label="Rappels et pensées du jour">
+        <img class="stk" src="../../../assets-ebook/collage/soleil.png" alt=""><span class="long nav-notify-label">Rappels</span>
         <span class="nav-notify-badge" hidden>0</span>
       </button>
-      <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
-        <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      <button class="tool" type="button" data-search-open="" aria-label="Rechercher">
+        <img class="stk" src="../../../assets-ebook/collage/loupe.png" alt=""><span class="long">Rechercher</span>
       </button>
+      <a class="tool" id="nav-compte" href="../compte.html" aria-label="Compte étudiant">
+        <span class="nav-compte-mark" aria-hidden="true"><img class="stk" src="../../../assets-ebook/collage/tete.png" alt=""></span>
+        <span class="nav-compte-label long">Compte</span>
+      </a>
     </div>
-  </nav>
-</div>
+  </div>
+  <nav class="sheet" id="sheet"><div class="nav-group"><p>Lire</p><a href="../../../index.html"><img class="stk" src="../../../assets-ebook/collage/oeil-bleu.png" alt="">Accueil</a><a href="../index.html"><img class="stk" src="../../../assets-ebook/collage/cerveau-petit.png" alt="">Catégories</a><a href="../decouverte.html"><img class="stk" src="../../../assets-ebook/collage/iris.png" alt="">Découverte</a><a href="../references/index.html"><img class="stk" src="../../../assets-ebook/collage/livres.png" alt="">Références</a><a href="../bibliotheque.html"><img class="stk" src="../../../assets-ebook/collage/livre.png" alt="">Bibliothèque</a></div><div class="nav-group"><p>Étudier</p><a href="../emploi-du-temps.html"><img class="stk" src="../../../assets-ebook/collage/horloge.png" alt="">Cours</a><a href="../apprendre.html" class="is-on"><img class="stk" src="../../../assets-ebook/collage/stylo.png" alt="">Apprendre</a><a href="../cahier.html"><img class="stk" src="../../../assets-ebook/collage/machine.png" alt="">Cahier</a><a href="../quiz/index.html"><img class="stk" src="../../../assets-ebook/collage/trophee.png" alt="">Quiz</a><a href="../methodes.html"><img class="stk" src="../../../assets-ebook/collage/loupe.png" alt="">Méthodes</a></div><div class="nav-group"><p>Autour</p><a href="../pratique.html"><img class="stk" src="../../../assets-ebook/collage/mains.png" alt="">Pratique</a><a href="../aide.html"><img class="stk" src="../../../assets-ebook/collage/coeur.png" alt="">Aide</a><a href="../compte.html"><img class="stk" src="../../../assets-ebook/collage/tete.png" alt="">Compte</a><a href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener"><img class="stk" src="../../../assets-ebook/collage/voix.png" alt="">Discord</a><a href="../rappels.html"><img class="stk" src="../../../assets-ebook/collage/soleil.png" alt="">Rappels</a></div></nav>
+</header>
 
 <div class="page-header">
   <p class="breadcrumb"><a href="../../../index.html">Accueil</a> → <a href="../auto-evaluations.html">Auto-évaluations</a> → Les cinq grands facteurs</p>
   <div class="page-hero">
-    <div class="page-hero-icon" style="background:var(--vert-light)">🧭</div>
+    <div class="page-hero-icon"><img class="stk" src="../../../assets-ebook/collage/iris.png" alt=""></div>
     <div>
       <h1>Les cinq grands facteurs</h1>
       <p class="subtitle">Le modèle de personnalité le mieux validé, illustré sur vous-même en 25 affirmations.</p>
     </div>
   </div>
-  <div class="meta-row"><span class="meta-chip">⏱️ 5 minutes</span><span class="meta-chip">❓ 25 affirmations</span><span class="meta-chip">📊 5 dimensions</span></div>
+  <div class="meta-row"><span class="meta-chip">⏱️ 5 minutes</span><span class="meta-chip"><img class="stk" src="../../../assets-ebook/collage/parole.png" alt=""> 25 affirmations</span><span class="meta-chip"><img class="stk" src="../../../assets-ebook/collage/loupe.png" alt=""> 5 dimensions</span></div>
 </div>
 <div class="section" style="max-width:820px;margin:0 auto">
   <div class="aide-bloc"><p>Depuis les années 1980, l'analyse statistique de milliers de descriptions de personnalité fait émerger cinq dimensions relativement indépendantes, retrouvées dans de très nombreuses langues. Ce ne sont pas des types : ce sont des axes continus sur lesquels chacun se situe quelque part, le plus souvent près du milieu.</p><p>Vous remarquerez que certains items sont formulés à l'envers. C'est volontaire : un questionnaire dont tous les items vont dans le même sens mesure autant la tendance à acquiescer que le trait lui-même.</p>
@@ -84,7 +84,7 @@
 
   <div class="cta-row" style="margin-top:1.6rem">
     <a class="btn btn-secondary" href="../auto-evaluations.html">← Toutes les auto-évaluations</a>
-    <a class="btn btn-secondary" href="../references/tests.html">📊 Les vrais tests psychométriques</a>
+    <a class="btn btn-secondary" href="../references/tests.html"><img class="stk" src="../../../assets-ebook/collage/loupe.png" alt=""> Les vrais tests psychométriques</a>
   </div>
 </div>
 
@@ -131,9 +131,20 @@
   <code>06-pdf-domaine-public/</code> avec mention de leur source (Gallica, Internet Archive,
   Project Gutenberg, Les Classiques des sciences sociales, Darwin Online).
   Illustrations : Wikimedia Commons (domaine public).</p>
-  <p style="margin-top:0.75rem;font-size:0.78rem">⚠️ Contenu pédagogique de vulgarisation : il ne remplace
+  <p style="margin-top:0.75rem;font-size:0.78rem"><img class="stk" src="../../../assets-ebook/collage/oeil.png" alt=""> Contenu pédagogique de vulgarisation : il ne remplace
   ni un diagnostic, ni un avis médical, ni un suivi psychologique professionnel.</p>
 </footer>
+<script>
+(function () {
+  var btn = document.querySelector(".menu-btn");
+  var sheet = document.getElementById("sheet");
+  if (!btn || !sheet) return;
+  btn.addEventListener("click", function () {
+    var open = sheet.classList.toggle("is-open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
 <script src="../../../assets-ebook/js/app.js"></script>
 <script src="../../../assets-ebook/js/ui-v2.js"></script>
 <script src="../../../assets-ebook/js/search.js"></script>

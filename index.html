@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Psyclopédia — L'encyclopédie vivante de la psychologie</title>
-<meta name="description" content="Psyclopédia : encyclopédie illustrée et interactive de la psychologie en français. 27 catégories, 1649 fiches consultables, 73 théories, 13 livres du domaine public lisibles en ligne, 31 quiz notés, laboratoire jouable et révision espacée.">
-<meta property="og:title" content="Psyclopédia — L'encyclopédie vivante de la psychologie">
-<meta property="og:description" content="Psyclopédia : encyclopédie illustrée et interactive de la psychologie en français. 27 catégories, 1649 fiches consultables, 73 théories, 13 livres du domaine public lisibles en ligne, 31 quiz notés, laboratoire jouable et révision espacée.">
+<title>Autour — Psyclopédia</title>
+<meta name="description" content="Psyclopédia : encyclopédie illustrée de la psychologie en français. 27 catégories, 271 chapitres, 13 livres du domaine public, 31 quiz notés.">
+<meta property="og:title" content="Autour — Psyclopédia">
+<meta property="og:description" content="Psyclopédia : encyclopédie illustrée de la psychologie en français. 27 catégories, 271 chapitres, 13 livres du domaine public, 31 quiz notés.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="assets-ebook/favicon.svg">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#50A67E">
+<meta name="theme-color" content="#1c1915">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Psyclopédia">
 <link rel="apple-touch-icon" href="assets-ebook/icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,620&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets-ebook/css/style.css">
 <link rel="stylesheet" href="assets-ebook/css/v2.css">
 <link rel="stylesheet" href="assets-ebook/css/v3.css">
@@ -26,497 +26,61 @@
 <link rel="stylesheet" href="assets-ebook/css/lycee.css">
 <link rel="stylesheet" href="assets-ebook/css/assistant.css">
 <link rel="stylesheet" href="assets-ebook/css/compte.css">
+<link rel="stylesheet" href="assets-ebook/css/collage.css">
 
 </head>
 <body data-root="">
-<div class="topbar">
-  <nav class="nav-pill">
-    <a class="brand" href="index.html"><span class="brand-mark"></span>Psyclopédia</a>
-    <ul class="nav-links"><a href="index.html" class="active">Accueil</a><a href="livres-psychologie/07-ebook-final/index.html">Catégories</a><a href="livres-psychologie/07-ebook-final/decouverte.html">Découverte</a><a href="livres-psychologie/07-ebook-final/references/index.html">Références</a><a href="livres-psychologie/07-ebook-final/methodes.html">Méthodes</a><a href="livres-psychologie/07-ebook-final/pratique.html">Pratique</a><a href="livres-psychologie/07-ebook-final/bibliotheque.html">Bibliothèque</a><a href="livres-psychologie/07-ebook-final/quiz/index.html">Quiz</a><a href="livres-psychologie/07-ebook-final/apprendre.html">Apprendre</a><a href="livres-psychologie/07-ebook-final/emploi-du-temps.html">Cours</a><a href="livres-psychologie/07-ebook-final/cahier.html">Cahier</a><a href="livres-psychologie/07-ebook-final/aide.html">Aide</a></ul>
-    <div class="nav-side">
-      <a class="nav-compte-btn" id="nav-compte" href="livres-psychologie/07-ebook-final/compte.html" aria-label="Compte étudiant">
-        <span class="nav-compte-mark" aria-hidden="true">👤</span><span class="nav-compte-label">Compte</span>
-      </a>
-      <a class="nav-discord-btn" href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener" aria-label="Rejoindre le serveur Discord">
-        <span aria-hidden="true">💬</span><span class="nav-discord-label">Discord</span>
-      </a>
-      <button class="nav-notify-btn" type="button" data-notify-open="" aria-label="Rappels et pensées du jour">
-        <span aria-hidden="true">🔔</span><span class="nav-notify-label">Rappels</span>
+<header class="desk">
+  <div class="desk-bar">
+    <a class="mark" href="index.html"><img class="stk" src="assets-ebook/collage/oeil-bleu.png" alt=""><span>Psyclopédia</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button>
+    <div class="desk-tools">
+      <button class="tool nav-notify-btn" type="button" data-notify-open="" aria-label="Rappels et pensées du jour">
+        <img class="stk" src="assets-ebook/collage/soleil.png" alt=""><span class="long nav-notify-label">Rappels</span>
         <span class="nav-notify-badge" hidden>0</span>
       </button>
-      <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
-        <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      <button class="tool" type="button" data-search-open="" aria-label="Rechercher">
+        <img class="stk" src="assets-ebook/collage/loupe.png" alt=""><span class="long">Rechercher</span>
       </button>
-    </div>
-  </nav>
-</div>
-
-<div class="wrap" style="margin-top:1rem">
-  <div style="text-align:center;padding:2.5rem 1rem 1rem">
-    <p class="section-eyebrow">L'encyclopédie vivante et illustrée de la psychologie</p>
-    <h1 style="font-family:var(--serif);font-weight:700;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.1;max-width:820px;margin:0 auto 1rem">
-      Comprendre l'esprit humain, <span style="color:var(--vert)">une notion</span> à la fois
-    </h1>
-    <p style="color:var(--gris);max-width:680px;margin:0 auto 1.75rem;font-size:1.05rem">
-      27 domaines, 271 chapitres, 1649 fiches consultables, 73 théories,
-      37 cas cliniques, 20 débats, 13 livres du domaine public lisibles en ligne,
-      7 expériences jouables et 247 questions corrigées — tout, entièrement en français.
-    </p>
-    <div class="cta-row" style="justify-content:center">
-      <a class="btn btn-primary" href="livres-psychologie/07-ebook-final/parcours.html">🧭 Commencer un parcours</a>
-      <a class="btn btn-primary" href="livres-psychologie/07-ebook-final/cahier.html">📝 Cahier</a>
-      <a class="btn btn-secondary" href="livres-psychologie/07-ebook-final/emploi-du-temps.html">🎓 Emploi du temps</a>
-      <a class="btn btn-secondary" href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener">💬 Rejoindre le Discord</a>
-      <a class="btn btn-secondary" href="livres-psychologie/07-ebook-final/compte.html">👤 Compte étudiant</a>
-      <button class="btn btn-secondary" data-search-open="">🔍 Rechercher (Ctrl + K)</button>
+      <a class="tool" id="nav-compte" href="livres-psychologie/07-ebook-final/compte.html" aria-label="Compte étudiant">
+        <span class="nav-compte-mark" aria-hidden="true"><img class="stk" src="assets-ebook/collage/tete.png" alt=""></span>
+        <span class="nav-compte-label long">Compte</span>
+      </a>
     </div>
   </div>
-</div>
+  <nav class="sheet" id="sheet"><div class="nav-group"><p>Lire</p><a href="index.html" class="is-on"><img class="stk" src="assets-ebook/collage/oeil-bleu.png" alt="">Accueil</a><a href="livres-psychologie/07-ebook-final/index.html"><img class="stk" src="assets-ebook/collage/cerveau-petit.png" alt="">Catégories</a><a href="livres-psychologie/07-ebook-final/decouverte.html"><img class="stk" src="assets-ebook/collage/iris.png" alt="">Découverte</a><a href="livres-psychologie/07-ebook-final/references/index.html"><img class="stk" src="assets-ebook/collage/livres.png" alt="">Références</a><a href="livres-psychologie/07-ebook-final/bibliotheque.html"><img class="stk" src="assets-ebook/collage/livre.png" alt="">Bibliothèque</a></div><div class="nav-group"><p>Étudier</p><a href="livres-psychologie/07-ebook-final/emploi-du-temps.html"><img class="stk" src="assets-ebook/collage/horloge.png" alt="">Cours</a><a href="livres-psychologie/07-ebook-final/apprendre.html"><img class="stk" src="assets-ebook/collage/stylo.png" alt="">Apprendre</a><a href="livres-psychologie/07-ebook-final/cahier.html"><img class="stk" src="assets-ebook/collage/machine.png" alt="">Cahier</a><a href="livres-psychologie/07-ebook-final/quiz/index.html"><img class="stk" src="assets-ebook/collage/trophee.png" alt="">Quiz</a><a href="livres-psychologie/07-ebook-final/methodes.html"><img class="stk" src="assets-ebook/collage/loupe.png" alt="">Méthodes</a></div><div class="nav-group"><p>Autour</p><a href="livres-psychologie/07-ebook-final/pratique.html"><img class="stk" src="assets-ebook/collage/mains.png" alt="">Pratique</a><a href="livres-psychologie/07-ebook-final/aide.html"><img class="stk" src="assets-ebook/collage/coeur.png" alt="">Aide</a><a href="livres-psychologie/07-ebook-final/compte.html"><img class="stk" src="assets-ebook/collage/tete.png" alt="">Compte</a><a href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener"><img class="stk" src="assets-ebook/collage/voix.png" alt="">Discord</a><a href="livres-psychologie/07-ebook-final/rappels.html"><img class="stk" src="assets-ebook/collage/soleil.png" alt="">Rappels</a></div></nav>
+</header>
 
-<div class="hero-card">
-  <div class="hero-top">
-    <div class="hero-stat">
-      <div class="hero-stat-row">
-        <div class="hero-icon vert">📖</div>
-        <div><div class="hero-stat-num" data-visited-count>0</div>
-        <div class="hero-stat-label">Catégories explorées / <span data-cat-total>26</span></div></div>
-      </div>
-      <div class="hero-stat-row">
-        <div class="hero-icon or">🎯</div>
-        <div><div class="hero-stat-num" data-quiz-count>0</div>
-        <div class="hero-stat-label">Quiz complétés / <span data-quiz-total>26</span></div></div>
-      </div>
-    </div>
-    <div>
-      <div class="hero-center-label">Ton score de maîtrise global</div>
-      <div class="hero-balance" data-mastery-pct>0%</div>
-      <div class="hero-pill-change">Chaque fiche lue et chaque quiz réussi font monter ce score 🚀</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-row">
-        <div class="hero-icon vert">🏆</div>
-        <div><div class="hero-stat-num" data-best-quiz-pct>—</div><div class="hero-stat-label">Meilleur score de quiz</div></div>
-      </div>
-      <div class="hero-stat-row">
-        <div class="hero-icon or">📚</div>
-        <div><div class="hero-stat-num">13</div><div class="hero-stat-label">Livres complets inclus</div></div>
-      </div>
+<main class="wrap">
+<section class="hero">
+  <div>
+    <p class="kicker">Encyclopédie de psychologie</p>
+    <h1>Lire l'esprit sans se perdre dans les tiroirs.</h1>
+    <p class="lede">27 domaines, 271 chapitres, 231 flashcards,
+    426 fiches de référence, 13 livres et 247 questions corrigées.
+    Le collage montre le sujet. Le texte reste au premier plan.</p>
+    <div class="actions">
+      <a class="btn-main" href="livres-psychologie/07-ebook-final/index.html"><img src="assets-ebook/collage/cerveau-petit.png" alt="">Voir les catégories</a>
+      <a class="btn-ghost" href="livres-psychologie/07-ebook-final/parcours.html"><img src="assets-ebook/collage/livre.png" alt="">Commencer un parcours</a>
+      <a class="btn-ghost" href="livres-psychologie/07-ebook-final/cahier.html"><img src="assets-ebook/collage/machine.png" alt="">Ouvrir le cahier</a>
     </div>
   </div>
-  <div class="hero-sparkline" id="hero-sparkline"><i data-spark-key="01-fondamentaux" style="height:18px"></i><i data-spark-key="02-histoire" style="height:25px"></i><i data-spark-key="03-cognitive" style="height:32px"></i><i data-spark-key="04-sociale" style="height:39px"></i><i data-spark-key="05-developpement" style="height:46px"></i><i data-spark-key="06-personnalite" style="height:19px"></i><i data-spark-key="07-emotions" style="height:26px"></i><i data-spark-key="08-neurosciences" style="height:33px"></i><i data-spark-key="09-psychopathologie" style="height:40px"></i><i data-spark-key="10-therapies" style="height:47px"></i><i data-spark-key="11-positive" style="height:20px"></i><i data-spark-key="12-travail" style="height:27px"></i><i data-spark-key="13-education" style="height:34px"></i><i data-spark-key="14-sante" style="height:41px"></i><i data-spark-key="15-legale" style="height:48px"></i><i data-spark-key="16-comparee" style="height:21px"></i><i data-spark-key="17-interculturelle" style="height:28px"></i><i data-spark-key="18-langage" style="height:35px"></i><i data-spark-key="19-psychometrie" style="height:42px"></i><i data-spark-key="20-sport" style="height:49px"></i><i data-spark-key="21-consommation" style="height:22px"></i><i data-spark-key="22-numerique" style="height:29px"></i><i data-spark-key="23-evolutionniste" style="height:36px"></i><i data-spark-key="24-vieillissement" style="height:43px"></i><i data-spark-key="25-environnementale" style="height:50px"></i><i data-spark-key="26-politique" style="height:23px"></i><i data-spark-key="27-science-psychologique" style="height:30px"></i></div>
-</div>
-
-<div class="pensee-band" data-pensee-home>
-  <figure class="geo-plate cream">
-    <img src="assets-ebook/plates/hero/plate_frontispice_site.png" alt="Planche de représentation">
-    <figcaption><span class="geo-fig">Fig. A.</span><strong>Planche du jour</strong>
-    <em>Une pensée se charge ici selon la date.</em></figcaption>
-  </figure>
-  <div class="pensee-copy">
-    <p class="section-eyebrow">Planche du jour</p>
-    <blockquote>Une citation, un rappel de cours ou une question qui fait réfléchir — chaque jour une gravure différente.</blockquote>
-    <cite>Psyclopédia</cite>
-    <div class="cta-row">
-      <a class="btn btn-secondary" href="livres-psychologie/07-ebook-final/rappels.html">Ouvrir les rappels</a>
-    </div>
+  <div class="stage" aria-hidden="true">
+    <img class="s-eye" src="assets-ebook/collage/oeil.png" alt="">
+    <img class="s-heart" src="assets-ebook/collage/coeur.png" alt="">
+    <img class="s-brain" src="assets-ebook/collage/cerveau.png" alt="">
+    <img class="s-sun" src="assets-ebook/collage/soleil.png" alt="">
+    <img class="s-moon" src="assets-ebook/collage/lune.png" alt="">
   </div>
-</div>
-
-<div class="section" style="padding-top:0">
-  <div class="stat-strip">
-    <div class="stat-cell"><div class="val">27</div><div class="lbl">catégories complètes</div></div>
-    <div class="stat-cell"><div class="val">271</div><div class="lbl">chapitres rédigés</div></div>
-    <div class="stat-cell"><div class="val">439</div><div class="lbl">notions au dictionnaire</div></div>
-    <div class="stat-cell"><div class="val">73</div><div class="lbl">théories et modèles</div></div>
-    <div class="stat-cell"><div class="val">14</div><div class="lbl">courants de pensée</div></div>
-    <div class="stat-cell"><div class="val">50</div><div class="lbl">idées reçues démontées</div></div>
-    <div class="stat-cell"><div class="val">50</div><div class="lbl">questions fréquentes</div></div>
-    <div class="stat-cell"><div class="val">90</div><div class="lbl">expériences détaillées</div></div>
-    <div class="stat-cell"><div class="val">87</div><div class="lbl">grandes figures</div></div>
-    <div class="stat-cell"><div class="val">42</div><div class="lbl">troubles expliqués</div></div>
-    <div class="stat-cell"><div class="val">61</div><div class="lbl">biais cognitifs</div></div>
-    <div class="stat-cell"><div class="val">32</div><div class="lbl">tests psychométriques</div></div>
-    <div class="stat-cell"><div class="val">37</div><div class="lbl">cas cliniques</div></div>
-    <div class="stat-cell"><div class="val">20</div><div class="lbl">débats argumentés</div></div>
-    <div class="stat-cell"><div class="val">50</div><div class="lbl">notions de méthode</div></div>
-    <div class="stat-cell"><div class="val">41</div><div class="lbl">fiches pratiques</div></div>
-    <div class="stat-cell"><div class="val">20</div><div class="lbl">métiers décrits</div></div>
-    <div class="stat-cell"><div class="val">158</div><div class="lbl">termes anglais traduits</div></div>
-    <div class="stat-cell"><div class="val">114</div><div class="lbl">dates de chronologie</div></div>
-    <div class="stat-cell"><div class="val">231</div><div class="lbl">flashcards de révision</div></div>
-    <div class="stat-cell"><div class="val">247</div><div class="lbl">questions corrigées</div></div>
-    <div class="stat-cell"><div class="val">13</div><div class="lbl">ouvrages en ligne</div></div>
-  </div>
-</div>
-
-<div class="section" style="padding-top:0">
-  <div class="section-head">
-    <p class="section-eyebrow">Les fondations</p>
-    <h2 class="section-title">Par où entrer dans le site</h2>
-    <p class="section-desc">Psyclopédia n'est pas seulement une suite d'articles : c'est un environnement
-    d'apprentissage avec une recherche globale, une bibliothèque lisible en ligne, une base de références
-    filtrable, des parcours balisés et des quiz notés.</p>
-  </div>
-  <div class="hub-grid">
-    <a class="hub-card" href="livres-psychologie/07-ebook-final/index.html"><span class="hub-ico">📂</span><h3>Les catégories</h3>
-      <p>Des fiches longues et illustrées, avec sommaire, chiffres clés, idées reçues et flashcards.</p>
-      <span class="hub-n">27 domaines</span></a>
-    <a class="hub-card or" href="livres-psychologie/07-ebook-final/references/index.html"><span class="hub-ico">🗂️</span><h3>La base de références</h3>
-      <p>Tout ce qu'on cherche vite : expériences, auteurs, troubles, biais, tests, chronologie.</p>
-      <span class="hub-n">426 fiches</span></a>
-    <a class="hub-card rose" href="livres-psychologie/07-ebook-final/lecteur.html"><span class="hub-ico">📖</span><h3>Le lecteur de livres</h3>
-      <p>Lire les originaux page par page, avec reconnaissance du texte scanné et français modernisé.</p>
-      <span class="hub-n">13 ouvrages</span></a>
-    <a class="hub-card gris" href="livres-psychologie/07-ebook-final/parcours.html"><span class="hub-ico">🧭</span><h3>Les parcours guidés</h3>
-      <p>Débutant, introspection, clinique, révision d'examen, travail, sujets avancés.</p>
-      <span class="hub-n">6 itinéraires</span></a>
-    <a class="hub-card" href="livres-psychologie/07-ebook-final/quiz/index.html"><span class="hub-ico">🎮</span><h3>Les quiz notés</h3>
-      <p>Un quiz par domaine, corrigé et expliqué question par question, noté sur 20.</p>
-      <span class="hub-n">31 quiz</span></a>
-    <a class="hub-card or" href="livres-psychologie/07-ebook-final/dictionnaire.html"><span class="hub-ico">📖</span><h3>Le dictionnaire</h3>
-      <p>Chaque notion définie en une phrase claire, reliée à la catégorie qui l'approfondit.</p>
-      <span class="hub-n">439 entrées</span></a>
-    <a class="hub-card" href="livres-psychologie/07-ebook-final/emploi-du-temps.html"><span class="hub-ico">🎓</span><h3>Les cours de 50 minutes</h3>
-      <p>Cursus annuel, calendrier, compte à rebours, replays YouTube francophones et fiches en direct.</p>
-      <span class="hub-n">60 séances</span></a>
-    <a class="hub-card or" href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener"><span class="hub-ico">💬</span><h3>Le serveur Discord</h3>
-      <p>Prolonger le site : annonces de séance, forums thématiques, fiches et entraide bienveillante.</p>
-      <span class="hub-n">Rejoindre</span></a>
-    <a class="hub-card" href="livres-psychologie/07-ebook-final/decouverte.html"><span class="hub-ico">🔭</span><h3>La zone de découverte</h3>
-      <p>Planches d'expériences, vraies images du cerveau, projets ouverts et cave des mythes — avec les sources.</p>
-      <span class="hub-n">Galerie · planches</span></a>
-    <a class="hub-card or" href="livres-psychologie/07-ebook-final/metiers.html"><span class="hub-ico">🎓</span><h3>Métiers et études</h3>
-      <p>Du lycée à la licence : spécialités, quatre branches, titre de psychologue — dans le même site.</p>
-      <span class="hub-n">Parcours</span></a>
-    <a class="hub-card" href="livres-psychologie/07-ebook-final/assistant.html"><span class="hub-ico">🤖</span><h3>L'assistant du site</h3>
-      <p>Réponses complètes et sourcées : une question, les pages qui y répondent, sans invention.</p>
-      <span class="hub-n">Ctrl + J</span></a>
-    <a class="hub-card or" href="livres-psychologie/07-ebook-final/compte.html"><span class="hub-ico">👤</span><h3>Compte étudiant</h3>
-      <p>E-mail et mot de passe, ou Google. Cours suivis, notes de séance et scores de quiz enregistrés.</p>
-      <span class="hub-n">Connexion</span></a>
-  </div>
-</div>
-
-<div class="section" style="padding-top:0">
-  <div class="section-head">
-    <p class="section-eyebrow">513 fiches supplémentaires</p>
-    <h2 class="section-title">Les 25 salles de la bibliothèque</h2>
-    <p class="section-desc">Au-delà des catégories, le site ouvre des espaces spécialisés : les écoles de
-    pensée et les cas qui les ont construites, les idées reçues démontées, les controverses non tranchées,
-    la méthode scientifique elle-même, les applications quotidiennes, les métiers, un laboratoire jouable,
-    des auto-évaluations, un système de révision, et de quoi trouver de l'aide quand on en a besoin.</p>
-  </div>
-  <div class="hub-grid"><a class="hub-card or" href="livres-psychologie/07-ebook-final/references/courants.html"><span class="hub-ico">🏛️</span><h3>Les grands courants</h3><p>L'histoire de la discipline lue comme une conversation : chaque école naît d'une objection faite à la précédente.</p><span class="hub-n">14 écoles</span></a><a class="hub-card rose" href="livres-psychologie/07-ebook-final/references/mythes.html"><span class="hub-ico">🧹</span><h3>Idées reçues et neuromythes</h3><p>Ce que disent réellement les données, d'où vient la croyance, et la part de vérité qu'elle déforme presque toujours.</p><span class="hub-n">50 idées</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/faq.html"><span class="hub-ico">❓</span><h3>Questions fréquentes</h3><p>Les questions que tout le monde se pose, avec des réponses qui précisent aussi ce qu'on ignore encore.</p><span class="hub-n">50 réponses</span></a><a class="hub-card gris" href="livres-psychologie/07-ebook-final/auto-evaluations.html"><span class="hub-ico">📋</span><h3>Auto-évaluations</h3><p>Cinq questionnaires écrits pour le site, qui font comprendre de l'intérieur comment se construit une mesure en psychologie.</p><span class="hub-n">5 questionnaires</span></a><a class="hub-card rose" href="livres-psychologie/07-ebook-final/aide.html"><span class="hub-ico">🤝</span><h3>Aide et ressources</h3><p>Où s'adresser quand on ne va pas bien : urgences, lignes d'écoute, parcours de soin, remboursement, ressources en accès libre.</p><span class="hub-n">France · Belgique · Suisse · Canada</span></a><a class="hub-card" href="livres-psychologie/07-ebook-final/references/theories.html"><span class="hub-ico">🧩</span><h3>Théories et modèles</h3><p>Le cœur conceptuel de la discipline : ce que chaque modèle affirme, comment il fonctionne, à quoi il sert et là où il échoue.</p><span class="hub-n">73 fiches</span></a><a class="hub-card rose" href="livres-psychologie/07-ebook-final/references/cas.html"><span class="hub-ico">🗃️</span><h3>Cas cliniques célèbres</h3><p>Les patients singuliers qui ont fait basculer la théorie, de la barre à mine de Phineas Gage à l'amnésie de H.M.</p><span class="hub-n">37 histoires</span></a><a class="hub-card or" href="livres-psychologie/07-ebook-final/references/debats.html"><span class="hub-ico">⚖️</span><h3>Débats et controverses</h3><p>Chaque camp présenté au meilleur de ses arguments, puis l'état réel des données disponibles.</p><span class="hub-n">20 dossiers</span></a><a class="hub-card gris" href="livres-psychologie/07-ebook-final/methodes.html"><span class="hub-ico">🔬</span><h3>Méthodes et statistiques</h3><p>Comment on prouve quelque chose en psychologie : plans d'expérience, p-value, taille d'effet, biais, éthique et crise de la réplication.</p><span class="hub-n">12 chapitres · 50 notions</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/pratique.html"><span class="hub-ico">🧰</span><h3>Psychologie appliquée</h3><p>Ce que la recherche permet vraiment de faire dans la vie quotidienne, en protocoles pas à pas.</p><span class="hub-n">41 fiches</span></a><a class="hub-card or" href="livres-psychologie/07-ebook-final/metiers.html"><span class="hub-ico">💼</span><h3>Métiers et études</h3><p>Vingt métiers décrits de l'intérieur — mission, formation, quotidien, réalités du terrain — et les quatre étapes du cursus français.</p><span class="hub-n">20 métiers</span></a><a class="hub-card rose" href="livres-psychologie/07-ebook-final/laboratoire.html"><span class="hub-ico">🧪</span><h3>Le laboratoire</h3><p>Des expériences classiques rejouées directement dans le navigateur, avec tes propres résultats chiffrés et leur explication.</p><span class="hub-n">7 expériences</span></a><a class="hub-card" href="livres-psychologie/07-ebook-final/revision.html"><span class="hub-ico">🔁</span><h3>Révision espacée</h3><p>Toutes les notions du site transformées en cartes, représentées au moment où tu es sur le point de les oublier.</p><span class="hub-n">1 000 cartes</span></a><a class="hub-card gris" href="livres-psychologie/07-ebook-final/lexique.html"><span class="hub-ico">🌍</span><h3>Lexique anglais-français</h3><p>Le vocabulaire des articles scientifiques, avec les faux amis qui piègent les lecteurs francophones.</p><span class="hub-n">158 termes</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/fiches/index.html"><span class="hub-ico">🗂️</span><h3>Fiches imprimables</h3><p>L'essentiel de chaque domaine condensé sur une page, mis en forme pour l'impression et la révision hors écran.</p><span class="hub-n">27 fiches</span></a><a class="hub-card or" href="livres-psychologie/07-ebook-final/plan.html"><span class="hub-ico">🗺️</span><h3>Plan du site et index A-Z</h3><p>Toutes les pages du site et un index alphabétique de chaque notion, expérience, auteur et trouble.</p><span class="hub-n">800+ entrées</span></a><a class="hub-card rose" href="livres-psychologie/07-ebook-final/lecteur.html"><span class="hub-ico">📖</span><h3>Le lecteur de livres</h3><p>Les ouvrages originaux lus page par page, avec reconnaissance du texte scanné et modernisation du français ancien.</p><span class="hub-n">13 ouvrages</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/emploi-du-temps.html"><span class="hub-ico">🎓</span><h3>Emploi du temps & cours</h3><p>Un cursus annuel de cours magistraux et de TD de 50 minutes, avec compte à rebours, replays francophones et ressources synchronisées.</p><span class="hub-n">60 séances · 2 semestres</span></a><a class="hub-card or" href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener"><span class="hub-ico">💬</span><h3>Communauté Discord</h3><p>Annonces de cours, forums par champ, fiches et entraide. Ce n'est pas un soin : en détresse, ouvrez d'abord la page Aide.</p><span class="hub-n">Rejoindre</span></a><a class="hub-card or" href="livres-psychologie/07-ebook-final/rappels.html"><span class="hub-ico">🔔</span><h3>Rappels & planches</h3><p>Citations et questions dans la journée, rappels avant chaque cours de 50 minutes, et un cabinet de planches de psychologie géométrique.</p><span class="hub-n">Pensées · gravures</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/decouverte.html"><span class="hub-ico">🔭</span><h3>Zone de découverte</h3><p>Planches d'expériences sur le cerveau, galerie d'images libres, techniques, projets ouverts (Connectome, OpenNeuro, Allen, BigBrain) et cave des mythes.</p><span class="hub-n">Images · sources</span></a><a class="hub-card or" href="livres-psychologie/07-ebook-final/metiers.html"><span class="hub-ico">🎓</span><h3>Métiers et études</h3><p>Du lycée à la licence, le titre de psychologue, et les quatre branches de L1 reliées aux fiches du site.</p><span class="hub-n">Parcours</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/assistant.html"><span class="hub-ico">🤖</span><h3>Assistant</h3><p>Une question, une réponse complète tirée uniquement des pages du site, avec les sources.</p><span class="hub-n">Ctrl + J</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/l1-psychologie.html"><span class="hub-ico">🎓</span><h3>Psychologie de licence</h3><p>Démarche scientifique, clinique, développement du nourrisson à la vie entière, et les lectures cognitives (Tolman, Cherry, Tulving, Sparrow).</p><span class="hub-n">Méthode · lectures</span></a><a class="hub-card or" href="livres-psychologie/07-ebook-final/compte.html"><span class="hub-ico">👤</span><h3>Compte étudiant</h3><p>Connexion e-mail/mot de passe ou Google. Progression, notes, scores et photo conservés sur le serveur.</p><span class="hub-n">Compte · serveur</span></a></div>
-</div>
-
-<div class="dash-grid">
-  <div class="panel">
-    <div class="panel-head"><h3>⚡ Accès rapide</h3><a href="livres-psychologie/07-ebook-final/index.html">Tout voir</a></div>
-    <div class="quick-row"><a class="quick-avatar" style="background:var(--vert)" href="livres-psychologie/07-ebook-final/categories/03-cognitive.html" title="Cognitive">💭</a><a class="quick-avatar" style="background:var(--or)" href="livres-psychologie/07-ebook-final/categories/04-sociale.html" title="Sociale">👥</a><a class="quick-avatar" style="background:var(--rose)" href="livres-psychologie/07-ebook-final/categories/09-psychopathologie.html" title="Psychopathologie">🩺</a><a class="quick-avatar" style="background:var(--gris)" href="livres-psychologie/07-ebook-final/categories/08-neurosciences.html" title="Neurosciences">🧠</a><a class="quick-avatar" style="background:var(--vert)" href="livres-psychologie/07-ebook-final/categories/27-science-psychologique.html" title="Science psycho.">🔬</a><a class="quick-avatar" style="background:var(--rose)" href="livres-psychologie/07-ebook-final/categories/07-emotions.html" title="Émotions">❤️</a><a class="quick-avatar" style="background:var(--or)" href="livres-psychologie/07-ebook-final/categories/22-numerique.html" title="Numérique">📱</a><a class="quick-avatar add" href="livres-psychologie/07-ebook-final/index.html" title="Tout voir">+</a></div>
-
-    <div class="panel-head"><h3>🧭 Par où commencer ?</h3></div>
-    <div class="path-steps" style="padding:0">
-      <a class="path-step" href="livres-psychologie/07-ebook-final/parcours.html#decouverte"><span class="path-step-n">1</span>
-        <span class="path-step-title">Je pars de zéro</span><span class="path-step-kind">≈ 2 h</span></a>
-      <a class="path-step" href="livres-psychologie/07-ebook-final/parcours.html#mieux-se-comprendre"><span class="path-step-n">2</span>
-        <span class="path-step-title">Mieux me comprendre</span><span class="path-step-kind">≈ 3 h</span></a>
-      <a class="path-step" href="livres-psychologie/07-ebook-final/parcours.html#clinique"><span class="path-step-n">3</span>
-        <span class="path-step-title">Comprendre la souffrance psychique</span><span class="path-step-kind">≈ 3 h 30</span></a>
-      <a class="path-step" href="livres-psychologie/07-ebook-final/parcours.html#etudiant"><span class="path-step-n">4</span>
-        <span class="path-step-title">Réviser pour un examen</span><span class="path-step-kind">≈ 6 h</span></a>
-    </div>
-
-    <div class="reader-card">
-      <div class="reader-card-top"><span>CARTE D'APPRENANT</span><span class="reader-card-badge">PSYCLOPÉDIA</span></div>
-      <div class="reader-card-score">🧠 Prêt à apprendre</div>
-      <div class="reader-card-actions">
-        <a class="rc-btn" href="livres-psychologie/07-ebook-final/categories/01-fondamentaux.html" title="Commencer">▶</a>
-        <a class="rc-btn" href="#" id="btn-random-cat" data-cats="01-fondamentaux,02-histoire,03-cognitive,04-sociale,05-developpement,06-personnalite,07-emotions,08-neurosciences,09-psychopathologie,10-therapies,11-positive,12-travail,13-education,14-sante,15-legale,16-comparee,17-interculturelle,18-langage,19-psychometrie,20-sport,21-consommation,22-numerique,23-evolutionniste,24-vieillissement,25-environnementale,26-politique,27-science-psychologique" title="Catégorie au hasard">🎲</a>
-        <a class="rc-btn" href="livres-psychologie/07-ebook-final/quiz/index.html" title="Quiz">🎮</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="panel">
-    <div class="panel-head"><h3>🆕 Nouveautés de cette version</h3></div>
-    <ul class="tx-list"><li class="tx-item"><div class="tx-icon">🏛️</div><div class="tx-info"><div class="tx-name">14 grands courants</div><div class="tx-date">Pourquoi chaque école est née contre la précédente</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🧹</div><div class="tx-info"><div class="tx-name">50 idées reçues démontées</div><div class="tx-date">Les 10 % du cerveau, les styles d'apprentissage, l'effet Mozart…</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">❓</div><div class="tx-info"><div class="tx-name">50 questions fréquentes</div><div class="tx-date">Des réponses qui disent aussi ce qu'on ignore encore</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🤝</div><div class="tx-info"><div class="tx-name">Aide et ressources</div><div class="tx-date">Numéros d'urgence, parcours de soin, remboursement, où consulter</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">📋</div><div class="tx-info"><div class="tx-name">5 auto-évaluations</div><div class="tx-date">Comprendre la psychométrie en la pratiquant sur soi</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🧩</div><div class="tx-info"><div class="tx-name">73 théories et modèles</div><div class="tx-date">L'idée, le mécanisme, les usages et les limites</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🗃️</div><div class="tx-info"><div class="tx-name">37 cas cliniques historiques</div><div class="tx-date">Phineas Gage, H.M., Genie, Anna O., les jumeaux séparés…</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">⚖️</div><div class="tx-info"><div class="tx-name">20 débats argumentés</div><div class="tx-date">Inné/acquis, psychanalyse, écrans, libre arbitre, QI…</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🔬</div><div class="tx-info"><div class="tx-name">Méthodes et statistiques</div><div class="tx-date">12 chapitres et 50 notions pour lire une étude</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🧰</div><div class="tx-info"><div class="tx-name">41 fiches pratiques</div><div class="tx-date">Apprendre, dormir, décider, communiquer, gérer le stress</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">💼</div><div class="tx-info"><div class="tx-name">20 métiers et parcours d'études</div><div class="tx-date">Clinicien, neuropsychologue, ergonome, UX, psychiatre…</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🧪</div><div class="tx-info"><div class="tx-name">Laboratoire : 7 expériences jouables</div><div class="tx-date">Stroop, empan, temps de réaction, Müller-Lyer, ancrage</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🔁</div><div class="tx-info"><div class="tx-name">Révision espacée</div><div class="tx-date">Un algorithme te représente chaque notion au bon moment</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🎓</div><div class="tx-info"><div class="tx-name">Cours magistraux de 50 min</div><div class="tx-date">Cursus annuel, calendrier, replays YouTube francophones et fiches en direct</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">💬</div><div class="tx-info"><div class="tx-name">Serveur Discord</div><div class="tx-date">Cours, fiches, forums thématiques et entraide — le site reste la source</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🔔</div><div class="tx-info"><div class="tx-name">Rappels et planches</div><div class="tx-date">Pensées du jour, notifications de cours, cabinet de gravures géométriques</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🔭</div><div class="tx-info"><div class="tx-name">Zone de découverte</div><div class="tx-date">Planches d'expériences, vraies images du cerveau, projets ouverts, cave des mythes</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🧭</div><div class="tx-info"><div class="tx-name">Quatre branches de la psychologie</div><div class="tx-date">Clinique, sociale, développement, cognitive — le socle de toute licence</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🤖</div><div class="tx-info"><div class="tx-name">Assistant du site</div><div class="tx-date">Questions en français, réponses sourcées dans tout le corpus</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">🎓</div><div class="tx-info"><div class="tx-name">Psychologie de licence</div><div class="tx-date">Méthode, clinique, développement et lectures cognitives</div></div><span class="tx-amount plus">Nouveau</span></li><li class="tx-item"><div class="tx-icon">👤</div><div class="tx-info"><div class="tx-name">Compte étudiant</div><div class="tx-date">E-mail ou Google, notes de cours et scores enregistrés</div></div><span class="tx-amount plus">Nouveau</span></li></ul>
-
-    <div class="panel-head"><h3>📚 Dans la bibliothèque</h3><a href="livres-psychologie/07-ebook-final/bibliotheque.html">Tout voir</a></div>
-    <ul class="tx-list"><li class="tx-item"><div class="tx-icon">🩺</div>
-          <div class="tx-info"><div class="tx-name"><a href="livres-psychologie/07-ebook-final/lecteur.html?livre=../06-pdf-domaine-public/psychopathologie/janet-les-nevroses-1909.pdf" style="text-decoration:none">Les névroses</a></div>
-          <div class="tx-date">Pierre Janet · Psychopathologie</div></div>
-          <span class="tx-amount plus">Lire</span></li><li class="tx-item"><div class="tx-icon">🧠</div>
-          <div class="tx-info"><div class="tx-name"><a href="livres-psychologie/07-ebook-final/lecteur.html?livre=../06-pdf-domaine-public/psychopathologie/charcot-lecons-systeme-nerveux-1884.pdf" style="text-decoration:none">Leçons sur les maladies du système nerveux</a></div>
-          <div class="tx-date">Jean-Martin Charcot · Neurosciences</div></div>
-          <span class="tx-amount plus">Lire</span></li><li class="tx-item"><div class="tx-icon">🛋️</div>
-          <div class="tx-info"><div class="tx-name"><a href="livres-psychologie/06-pdf-domaine-public/psychologie-clinique/freud-interpretation-reves-1900.html" style="text-decoration:none">L'interprétation des rêves</a></div>
-          <div class="tx-date">Sigmund Freud · Thérapies</div></div>
-          <span class="tx-amount plus">Lire</span></li><li class="tx-item"><div class="tx-icon">🎓</div>
-          <div class="tx-info"><div class="tx-name"><a href="livres-psychologie/06-pdf-domaine-public/psychologie-generale/le-bon-psychologie-education.html" style="text-decoration:none">Psychologie de l'éducation</a></div>
-          <div class="tx-date">Gustave Le Bon · Éducation</div></div>
-          <span class="tx-amount plus">Lire</span></li><li class="tx-item"><div class="tx-icon">⚖️</div>
-          <div class="tx-info"><div class="tx-name"><a href="livres-psychologie/07-ebook-final/lecteur.html?livre=../06-pdf-domaine-public/psychologie-legale/lombroso-homme-criminel-1887.pdf" style="text-decoration:none">L'homme criminel</a></div>
-          <div class="tx-date">Cesare Lombroso · Légale</div></div>
-          <span class="tx-amount plus">Lire</span></li><li class="tx-item"><div class="tx-icon">🐾</div>
-          <div class="tx-info"><div class="tx-name"><a href="livres-psychologie/07-ebook-final/lecteur.html?livre=../06-pdf-domaine-public/psychologie-comparative/darwin-expression-emotions-1877.pdf" style="text-decoration:none">L'expression des émotions chez l'homme et les animaux</a></div>
-          <div class="tx-date">Charles Darwin · Comparée / Émotions</div></div>
-          <span class="tx-amount plus">Lire</span></li></ul>
-  </div>
-
-  <div class="panel">
-    <div class="panel-head"><h3>🗂️ Base de références</h3><a href="livres-psychologie/07-ebook-final/references/index.html">Explorer</a></div>
-    <ul class="tx-list">
-      <li class="tx-item"><div class="tx-icon">🔬</div><div class="tx-info"><div class="tx-name"><a href="livres-psychologie/07-ebook-final/references/experiences.html" style="text-decoration:none">Expériences célèbres</a></div><div class="tx-date">Protocole, résultat, critiques</div></div><span class="tx-amount plus">90</span></li>
-      <li class="tx-item"><div class="tx-icon">👤</div><div class="tx-info"><div class="tx-name"><a href="livres-psychologie/07-ebook-final/references/auteurs.html" style="text-decoration:none">Grandes figures</a></div><div class="tx-date">Biographies et apports</div></div><span class="tx-amount plus">87</span></li>
-      <li class="tx-item"><div class="tx-icon">🩺</div><div class="tx-info"><div class="tx-name"><a href="livres-psychologie/07-ebook-final/references/troubles.html" style="text-decoration:none">Troubles psychiques</a></div><div class="tx-date">Signes et prises en charge</div></div><span class="tx-amount plus">42</span></li>
-      <li class="tx-item"><div class="tx-icon">🌀</div><div class="tx-info"><div class="tx-name"><a href="livres-psychologie/07-ebook-final/references/biais.html" style="text-decoration:none">Biais cognitifs</a></div><div class="tx-date">Définition, exemple, parade</div></div><span class="tx-amount plus">61</span></li>
-      <li class="tx-item"><div class="tx-icon">📊</div><div class="tx-info"><div class="tx-name"><a href="livres-psychologie/07-ebook-final/references/tests.html" style="text-decoration:none">Tests psychométriques</a></div><div class="tx-date">Mesure, passation, limites</div></div><span class="tx-amount plus">32</span></li>
-      <li class="tx-item"><div class="tx-icon">🗓️</div><div class="tx-info"><div class="tx-name"><a href="livres-psychologie/07-ebook-final/references/chronologie.html" style="text-decoration:none">Chronologie</a></div><div class="tx-date">Six grandes périodes</div></div><span class="tx-amount plus">114</span></li>
-    </ul>
-
-    <div class="mastery-box">
-      <div class="mastery-head"><span style="font-size:0.85rem;color:var(--gris)">Niveau de maîtrise</span>
-      <span class="mastery-badge" data-mastery-badge>Débutant</span></div>
-      <div class="mastery-track"><div class="mastery-marker" data-mastery-marker style="left:0%"></div></div>
-      <div class="mastery-pct" data-mastery-pct>0%</div>
-    </div>
-  </div>
-</div>
-
-<div class="section" id="categories">
-  <div class="section-head">
-    <p class="section-eyebrow">27 domaines complets</p>
-    <h2 class="section-title">Toutes les catégories de la psychologie</h2>
-    <p class="section-desc">Des fondamentaux méthodologiques à la psychologie politique, en passant par les
-    neurosciences, la clinique, le sport, le numérique et l'environnement : une couverture complète, pensée
-    pour tous les niveaux.</p>
-  </div>
-  <div class="cat-grid"><a href="livres-psychologie/07-ebook-final/categories/01-fondamentaux.html" class="cat-card" data-cat-id="01-fondamentaux">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--vert-light)">🧩</div>
-          <h3>01 · Fondamentaux & Méthodes</h3>
-          <p>Qu'est-ce que la psychologie et comment la étudie-t-on ?</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="01-fondamentaux"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/02-histoire.html" class="cat-card" data-cat-id="02-histoire">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--gris-light)">📜</div>
-          <h3>02 · Histoire & Grands Courants</h3>
-          <p>De la philosophie antique à la science moderne de l'esprit</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="02-histoire"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/03-cognitive.html" class="cat-card" data-cat-id="03-cognitive">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--vert-light)">💭</div>
-          <h3>03 · Psychologie Cognitive</h3>
-          <p>Comment le cerveau perçoit, mémorise et raisonne</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="03-cognitive"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/04-sociale.html" class="cat-card" data-cat-id="04-sociale">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--or-light)">👥</div>
-          <h3>04 · Psychologie Sociale</h3>
-          <p>Comment le groupe transforme la pensée et l'action</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="04-sociale"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/05-developpement.html" class="cat-card" data-cat-id="05-developpement">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--vert-light)">🌱</div>
-          <h3>05 · Psychologie du Développement</h3>
-          <p>De la petite enfance au grand âge : une vie de transformations</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="05-developpement"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/06-personnalite.html" class="cat-card" data-cat-id="06-personnalite">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--rose-light)">🎭</div>
-          <h3>06 · Personnalité & Différences individuelles</h3>
-          <p>Ce qui nous rend uniques : traits, intelligence, volonté</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="06-personnalite"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/07-emotions.html" class="cat-card" data-cat-id="07-emotions">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--rose-light)">❤️</div>
-          <h3>07 · Émotions & Motivation</h3>
-          <p>Ce qui nous fait ressentir, désirer et agir</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="07-emotions"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/08-neurosciences.html" class="cat-card" data-cat-id="08-neurosciences">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--vert-light)">🧠</div>
-          <h3>08 · Neurosciences & Psychologie biologique</h3>
-          <p>Le cerveau : 86 milliards de neurones au service de l'esprit</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="08-neurosciences"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/09-psychopathologie.html" class="cat-card" data-cat-id="09-psychopathologie">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--rose-light)">🩺</div>
-          <h3>09 · Psychopathologie & Troubles mentaux</h3>
-          <p>Comprendre la souffrance psychique sans stigmatiser</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="09-psychopathologie"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/10-therapies.html" class="cat-card" data-cat-id="10-therapies">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--or-light)">🛋️</div>
-          <h3>10 · Thérapies & Interventions</h3>
-          <p>Les grandes approches pour soigner l'esprit</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="10-therapies"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/11-positive.html" class="cat-card" data-cat-id="11-positive">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--or-light)">🌤️</div>
-          <h3>11 · Psychologie Positive & Bien-être</h3>
-          <p>La science du bien vivre, pas seulement de la maladie</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="11-positive"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/12-travail.html" class="cat-card" data-cat-id="12-travail">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--gris-light)">💼</div>
-          <h3>12 · Psychologie du Travail & des Organisations</h3>
-          <p>Motivation, leadership et bien-être en entreprise</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="12-travail"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/13-education.html" class="cat-card" data-cat-id="13-education">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--vert-light)">🎓</div>
-          <h3>13 · Psychologie de l'Éducation & de l'Apprentissage</h3>
-          <p>Comment on apprend vraiment (et comment mieux enseigner)</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="13-education"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/14-sante.html" class="cat-card" data-cat-id="14-sante">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--rose-light)">🏥</div>
-          <h3>14 · Psychologie de la Santé</h3>
-          <p>Le corps et l'esprit face à la maladie et au stress</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="14-sante"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/15-legale.html" class="cat-card" data-cat-id="15-legale">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--gris-light)">⚖️</div>
-          <h3>15 · Psychologie Légale & Criminologie</h3>
-          <p>Comprendre le crime, le témoignage et l'expertise judiciaire</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="15-legale"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/16-comparee.html" class="cat-card" data-cat-id="16-comparee">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--or-light)">🐾</div>
-          <h3>16 · Psychologie Comparée & Éthologie</h3>
-          <p>Ce que les animaux nous apprennent sur l'esprit</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="16-comparee"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/17-interculturelle.html" class="cat-card" data-cat-id="17-interculturelle">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--or-light)">🌍</div>
-          <h3>17 · Psychologie Interculturelle</h3>
-          <p>Ce qui est universel, ce qui est culturel — et pourquoi la distinction compte</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="17-interculturelle"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/18-langage.html" class="cat-card" data-cat-id="18-langage">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--vert-light)">🗣️</div>
-          <h3>18 · Psycholinguistique & Langage</h3>
-          <p>Comment nous acquérons, produisons et comprenons la parole</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="18-langage"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/19-psychometrie.html" class="cat-card" data-cat-id="19-psychometrie">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--gris-light)">📏</div>
-          <h3>19 · Psychométrie & Mesure</h3>
-          <p>Mesurer l'invisible : intelligence, personnalité, aptitudes</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="19-psychometrie"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/20-sport.html" class="cat-card" data-cat-id="20-sport">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--or-light)">🏃</div>
-          <h3>20 · Psychologie du Sport & Performance</h3>
-          <p>Préparation mentale, motivation, gestion de la pression</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="20-sport"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/21-consommation.html" class="cat-card" data-cat-id="21-consommation">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--rose-light)">🛒</div>
-          <h3>21 · Psychologie de la Consommation</h3>
-          <p>Comment on décide d'acheter — et comment on nous y aide</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="21-consommation"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/22-numerique.html" class="cat-card" data-cat-id="22-numerique">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--vert-light)">📱</div>
-          <h3>22 · Psychologie du Numérique</h3>
-          <p>Écrans, réseaux sociaux, attention et santé mentale</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="22-numerique"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/23-evolutionniste.html" class="cat-card" data-cat-id="23-evolutionniste">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--or-light)">🧬</div>
-          <h3>23 · Psychologie Évolutionniste</h3>
-          <p>Pourquoi notre esprit a la forme qu'il a</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="23-evolutionniste"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/24-vieillissement.html" class="cat-card" data-cat-id="24-vieillissement">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--gris-light)">🌿</div>
-          <h3>24 · Vieillissement & Gérontopsychologie</h3>
-          <p>Ce qui décline, ce qui se maintient, ce qui progresse</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="24-vieillissement"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/25-environnementale.html" class="cat-card" data-cat-id="25-environnementale">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--vert-light)">🌱</div>
-          <h3>25 · Psychologie Environnementale</h3>
-          <p>Nos lieux de vie, la nature et l'éco-anxiété</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="25-environnementale"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/26-politique.html" class="cat-card" data-cat-id="26-politique">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--rose-light)">🗳️</div>
-          <h3>26 · Psychologie Politique & Croyances</h3>
-          <p>Idéologies, polarisation, complotisme et esprit critique</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="26-politique"></div></div>
-        </a><a href="livres-psychologie/07-ebook-final/categories/27-science-psychologique.html" class="cat-card" data-cat-id="27-science-psychologique">
-          <span class="cat-check">✅</span>
-          <div class="cat-card-icon" style="background:var(--vert-light)">🔬</div>
-          <h3>27 · Science psychologique</h3>
-          <p>Tests sur le cerveau, techniques, ce qui était caché, et ce qu'on peut réellement en faire</p>
-          <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="27-science-psychologique"></div></div>
-        </a></div>
-  <div class="cta-row">
-    <a class="btn btn-secondary" href="livres-psychologie/07-ebook-final/dictionnaire.html">📖 Dictionnaire A-Z (439 notions)</a>
-    <a class="btn btn-secondary" href="livres-psychologie/07-ebook-final/references/index.html">🗂️ Base de références</a>
-  </div>
-</div>
-
-<div class="section">
-  <div class="section-head">
-    <p class="section-eyebrow">31 quiz · 247 questions</p>
-    <h2 class="section-title">🎮 Teste tes connaissances</h2>
-    <p class="section-desc">Chaque quiz est noté sur 20, avec un corrigé complet et l'explication du raisonnement
-    pour chaque question — y compris celles que tu as réussies.</p>
-  </div>
-  <div class="grid-3"><a href="livres-psychologie/07-ebook-final/quiz/quiz.html?id=fondamentaux-histoire" class="quiz-card" data-quiz-id="fondamentaux-histoire">
-          <div class="quiz-card-top"><span class="quiz-icon">📜</span>
-          <span class="quiz-best" style="display:none">Meilleur score</span></div>
-          <h3>Fondamentaux & Histoire</h3><p>Des origines philosophiques aux grandes écoles de pensée.</p>
-          <div class="quiz-meta"><span>❓ 8 questions</span><span>📊 Facile</span><span>📝 /20</span></div>
-        </a><a href="livres-psychologie/07-ebook-final/quiz/quiz.html?id=cognitive" class="quiz-card" data-quiz-id="cognitive">
-          <div class="quiz-card-top"><span class="quiz-icon">💭</span>
-          <span class="quiz-best" style="display:none">Meilleur score</span></div>
-          <h3>Psychologie Cognitive</h3><p>Perception, mémoire, attention et biais de raisonnement.</p>
-          <div class="quiz-meta"><span>❓ 7 questions</span><span>📊 Moyen</span><span>📝 /20</span></div>
-        </a><a href="livres-psychologie/07-ebook-final/quiz/quiz.html?id=sociale" class="quiz-card" data-quiz-id="sociale">
-          <div class="quiz-card-top"><span class="quiz-icon">👥</span>
-          <span class="quiz-best" style="display:none">Meilleur score</span></div>
-          <h3>Psychologie Sociale</h3><p>Conformité, obéissance, foules et influence de groupe.</p>
-          <div class="quiz-meta"><span>❓ 6 questions</span><span>📊 Moyen</span><span>📝 /20</span></div>
-        </a><a href="livres-psychologie/07-ebook-final/quiz/quiz.html?id=examen-final" class="quiz-card" data-quiz-id="examen-final">
-          <div class="quiz-card-top"><span class="quiz-icon">🎓</span>
-          <span class="quiz-best" style="display:none">Meilleur score</span></div>
-          <h3>Examen final — toutes catégories</h3><p>20 questions transversales pour valider l'ensemble du parcours.</p>
-          <div class="quiz-meta"><span>❓ 20 questions</span><span>📊 Difficile</span><span>📝 /20</span></div>
-        </a></div>
-  <div class="cta-row"><a class="btn btn-secondary" href="livres-psychologie/07-ebook-final/quiz/index.html">Voir les 31 quiz</a></div>
-</div>
-
-<div class="section">
-  <div class="section-head">
-    <p class="section-eyebrow">Apprentissage</p>
-    <h2 class="section-title">🧠 Conçu pour que ça reste</h2>
-    <p class="section-desc">Rappel actif, répétition espacée, entrelacement, élaboration et double codage : les
-    cinq techniques les mieux établies de la science cognitive sont intégrées à la structure même du site.</p>
-  </div>
-  <div class="vark-grid">
-    <div class="vark-card" style="border-top-color:var(--vert)"><span class="emoji">🔄</span><h3>Rappel actif</h3>
-      <p>231 flashcards et 247 questions pour te tester plutôt que relire.</p></div>
-    <div class="vark-card" style="border-top-color:var(--or)"><span class="emoji">📅</span><h3>Répétition espacée</h3>
-      <p>Un millier de cartes te sont représentées juste avant l'oubli, selon tes propres réponses.</p></div>
-    <div class="vark-card" style="border-top-color:var(--rose)"><span class="emoji">🔀</span><h3>Entrelacement</h3>
-      <p>Les parcours alternent fiches, références, livres et quiz plutôt que d'enchaîner le même format.</p></div>
-    <div class="vark-card" style="border-top-color:var(--gris)"><span class="emoji">🖼️</span><h3>Double codage</h3>
-      <p>Portraits, schémas et chiffres clés doublent le texte par une voie visuelle.</p></div>
-    <div class="vark-card" style="border-top-color:var(--vert)"><span class="emoji">🧪</span><h3>Apprentissage par l'expérience</h3>
-      <p>Le laboratoire te fait vivre l'effet Stroop ou l'illusion de Müller-Lyer avant de l'expliquer.</p></div>
-  </div>
-  <div class="cta-row">
-    <a class="btn btn-primary" href="livres-psychologie/07-ebook-final/revision.html">🔁 Lancer une session de révision</a>
-    <a class="btn btn-secondary" href="livres-psychologie/07-ebook-final/laboratoire.html">🧪 Entrer dans le laboratoire</a>
-    <a class="btn btn-secondary" href="livres-psychologie/07-ebook-final/auto-evaluations.html">📋 Les auto-évaluations</a>
-    <a class="btn btn-secondary" href="livres-psychologie/07-ebook-final/apprendre.html">📚 Le guide des méthodes</a>
-  </div>
-</div>
+</section>
+<div class="doors"><a class="door" href="livres-psychologie/07-ebook-final/parcours.html"><img src="assets-ebook/collage/livre.png" alt=""><strong>Parcours</strong><span>Un itinéraire, pas toute la bibliothèque d'un coup.</span></a><a class="door" href="livres-psychologie/07-ebook-final/index.html"><img src="assets-ebook/collage/cerveau-petit.png" alt=""><strong>Catégories</strong><span>Les 27 domaines, rangés par questions.</span></a><a class="door" href="livres-psychologie/07-ebook-final/emploi-du-temps.html"><img src="assets-ebook/collage/horloge.png" alt=""><strong>Cours</strong><span>Le calendrier et les séances.</span></a><a class="door" href="livres-psychologie/07-ebook-final/cahier.html"><img src="assets-ebook/collage/machine.png" alt=""><strong>Cahier</strong><span>Écrire, dicter, garder une note.</span></a></div>
+<div class="block"><img src="assets-ebook/collage/lien.png" alt=""><div><h2>Domaines proches</h2><p>Six portes, pas vingt-sept d'un coup.</p></div></div>
+<div class="cats"><a class="cat" href="livres-psychologie/07-ebook-final/categories/03-cognitive.html"><img src="assets-ebook/collage/memoire.png" alt=""><div><strong>Cognitive</strong></div></a><a class="cat" href="livres-psychologie/07-ebook-final/categories/04-sociale.html"><img src="assets-ebook/collage/lien.png" alt=""><div><strong>Sociale</strong></div></a><a class="cat" href="livres-psychologie/07-ebook-final/categories/08-neurosciences.html"><img src="assets-ebook/collage/cerveau-petit.png" alt=""><div><strong>Neurosciences</strong></div></a><a class="cat" href="livres-psychologie/07-ebook-final/categories/09-psychopathologie.html"><img src="assets-ebook/collage/pince.png" alt=""><div><strong>Clinique</strong></div></a><a class="cat" href="livres-psychologie/07-ebook-final/categories/07-emotions.html"><img src="assets-ebook/collage/coeur.png" alt=""><div><strong>Émotions</strong></div></a><a class="cat" href="livres-psychologie/07-ebook-final/categories/27-science-psychologique.html"><img src="assets-ebook/collage/oeil.png" alt=""><div><strong>Science</strong></div></a></div>
+<div class="block"><img src="assets-ebook/collage/livres.png" alt=""><div><h2>Le cabinet</h2><p>Autour des chapitres : histoire, doutes, expériences, livres.</p></div></div>
+<div class="cabinet"><a href="livres-psychologie/07-ebook-final/references/courants.html"><img src="assets-ebook/collage/time.png" alt=""><div><strong>Courants</strong><br><small>Chaque école naît d'une objection.</small></div></a><a href="livres-psychologie/07-ebook-final/references/mythes.html"><img src="assets-ebook/collage/oeil.png" alt=""><div><strong>Idées reçues</strong><br><small>Ce que les données disent vraiment.</small></div></a><a href="livres-psychologie/07-ebook-final/faq.html"><img src="assets-ebook/collage/parole.png" alt=""><div><strong>Questions</strong><br><small>Des réponses qui disent aussi l'inconnu.</small></div></a><a href="livres-psychologie/07-ebook-final/laboratoire.html"><img src="assets-ebook/collage/camera.png" alt=""><div><strong>Laboratoire</strong><br><small>Expériences à faire dans le navigateur.</small></div></a><a href="livres-psychologie/07-ebook-final/bibliotheque.html"><img src="assets-ebook/collage/livres.png" alt=""><div><strong>Bibliothèque</strong><br><small>Livres du domaine public.</small></div></a><a href="livres-psychologie/07-ebook-final/aide.html"><img src="assets-ebook/collage/mains.png" alt=""><div><strong>Aide</strong><br><small>Où s'adresser, sans se substituer à un soin.</small></div></a></div>
+<div class="block"><img src="assets-ebook/collage/horloge.png" alt=""><div><h2>Les autres salles</h2><p>Recherche, cours, compte, quiz et le reste du site.</p></div></div>
+<div class="hub-grid"><a class="hub-card or" href="livres-psychologie/07-ebook-final/references/courants.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/time.png" alt=""></span><h3>Les grands courants</h3><p>L'histoire de la discipline lue comme une conversation : chaque école naît d'une objection faite à la précédente.</p><span class="hub-n">14 écoles</span></a><a class="hub-card rose" href="livres-psychologie/07-ebook-final/references/mythes.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/oeil.png" alt=""></span><h3>Idées reçues et neuromythes</h3><p>Ce que disent réellement les données, d'où vient la croyance, et la part de vérité qu'elle déforme presque toujours.</p><span class="hub-n">50 idées</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/faq.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/parole.png" alt=""></span><h3>Questions fréquentes</h3><p>Les questions que tout le monde se pose, avec des réponses qui précisent aussi ce qu'on ignore encore.</p><span class="hub-n">50 réponses</span></a><a class="hub-card gris" href="livres-psychologie/07-ebook-final/auto-evaluations.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/stylo.png" alt=""></span><h3>Auto-évaluations</h3><p>Cinq questionnaires écrits pour le site, qui font comprendre de l'intérieur comment se construit une mesure en psychologie.</p><span class="hub-n">5 questionnaires</span></a><a class="hub-card rose" href="livres-psychologie/07-ebook-final/aide.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/mains.png" alt=""></span><h3>Aide et ressources</h3><p>Où s'adresser quand on ne va pas bien : urgences, lignes d'écoute, parcours de soin, remboursement, ressources en accès libre.</p><span class="hub-n">France · Belgique · Suisse · Canada</span></a><a class="hub-card" href="livres-psychologie/07-ebook-final/references/theories.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/loupe.png" alt=""></span><h3>Théories et modèles</h3><p>Le cœur conceptuel de la discipline : ce que chaque modèle affirme, comment il fonctionne, à quoi il sert et là où il échoue.</p><span class="hub-n">73 fiches</span></a><a class="hub-card rose" href="livres-psychologie/07-ebook-final/references/cas.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/livres.png" alt=""></span><h3>Cas cliniques célèbres</h3><p>Les patients singuliers qui ont fait basculer la théorie, de la barre à mine de Phineas Gage à l'amnésie de H.M.</p><span class="hub-n">37 histoires</span></a><a class="hub-card or" href="livres-psychologie/07-ebook-final/references/debats.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/globe.png" alt=""></span><h3>Débats et controverses</h3><p>Chaque camp présenté au meilleur de ses arguments, puis l'état réel des données disponibles.</p><span class="hub-n">20 dossiers</span></a><a class="hub-card gris" href="livres-psychologie/07-ebook-final/methodes.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/loupe.png" alt=""></span><h3>Méthodes et statistiques</h3><p>Comment on prouve quelque chose en psychologie : plans d'expérience, p-value, taille d'effet, biais, éthique et crise de la réplication.</p><span class="hub-n">12 chapitres · 50 notions</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/pratique.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/mains.png" alt=""></span><h3>Psychologie appliquée</h3><p>Ce que la recherche permet vraiment de faire dans la vie quotidienne, en protocoles pas à pas.</p><span class="hub-n">41 fiches</span></a><a class="hub-card or" href="livres-psychologie/07-ebook-final/metiers.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/ordi.png" alt=""></span><h3>Métiers et études</h3><p>Vingt métiers décrits de l'intérieur — mission, formation, quotidien, réalités du terrain — et les quatre étapes du cursus français.</p><span class="hub-n">20 métiers</span></a><a class="hub-card rose" href="livres-psychologie/07-ebook-final/laboratoire.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/camera.png" alt=""></span><h3>Le laboratoire</h3><p>Des expériences classiques rejouées directement dans le navigateur, avec tes propres résultats chiffrés et leur explication.</p><span class="hub-n">7 expériences</span></a><a class="hub-card" href="livres-psychologie/07-ebook-final/revision.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/horloge.png" alt=""></span><h3>Révision espacée</h3><p>Toutes les notions du site transformées en cartes, représentées au moment où tu es sur le point de les oublier.</p><span class="hub-n">1 000 cartes</span></a><a class="hub-card gris" href="livres-psychologie/07-ebook-final/lexique.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/globe.png" alt=""></span><h3>Lexique anglais-français</h3><p>Le vocabulaire des articles scientifiques, avec les faux amis qui piègent les lecteurs francophones.</p><span class="hub-n">158 termes</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/fiches/index.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/livres.png" alt=""></span><h3>Fiches imprimables</h3><p>L'essentiel de chaque domaine condensé sur une page, mis en forme pour l'impression et la révision hors écran.</p><span class="hub-n">27 fiches</span></a><a class="hub-card or" href="livres-psychologie/07-ebook-final/plan.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/globe.png" alt=""></span><h3>Plan du site et index A-Z</h3><p>Toutes les pages du site et un index alphabétique de chaque notion, expérience, auteur et trouble.</p><span class="hub-n">800+ entrées</span></a><a class="hub-card rose" href="livres-psychologie/07-ebook-final/lecteur.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/livre.png" alt=""></span><h3>Le lecteur de livres</h3><p>Les ouvrages originaux lus page par page, avec reconnaissance du texte scanné et modernisation du français ancien.</p><span class="hub-n">13 ouvrages</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/emploi-du-temps.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/stylo.png" alt=""></span><h3>Emploi du temps & cours</h3><p>Un cursus annuel de cours magistraux et de TD de 50 minutes, avec compte à rebours, replays francophones et ressources synchronisées.</p><span class="hub-n">60 séances · 2 semestres</span></a><a class="hub-card or" href="https://discord.gg/sX3TAqH4pD" target="_blank" rel="noopener"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/voix.png" alt=""></span><h3>Communauté Discord</h3><p>Annonces de cours, forums par champ, fiches et entraide. Ce n'est pas un soin : en détresse, ouvrez d'abord la page Aide.</p><span class="hub-n">Rejoindre</span></a><a class="hub-card or" href="livres-psychologie/07-ebook-final/rappels.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/soleil.png" alt=""></span><h3>Rappels & planches</h3><p>Citations et questions dans la journée, rappels avant chaque cours de 50 minutes, et un cabinet de planches de psychologie géométrique.</p><span class="hub-n">Pensées · gravures</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/decouverte.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/iris.png" alt=""></span><h3>Zone de découverte</h3><p>Planches d'expériences sur le cerveau, galerie d'images libres, techniques, projets ouverts (Connectome, OpenNeuro, Allen, BigBrain) et cave des mythes.</p><span class="hub-n">Images · sources</span></a><a class="hub-card or" href="livres-psychologie/07-ebook-final/metiers.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/stylo.png" alt=""></span><h3>Métiers et études</h3><p>Du lycée à la licence, le titre de psychologue, et les quatre branches de L1 reliées aux fiches du site.</p><span class="hub-n">Parcours</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/assistant.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/machine.png" alt=""></span><h3>Assistant</h3><p>Une question, une réponse complète tirée uniquement des pages du site, avec les sources.</p><span class="hub-n">Ctrl + J</span></a><a class="hub-card vert" href="livres-psychologie/07-ebook-final/l1-psychologie.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/stylo.png" alt=""></span><h3>Psychologie de licence</h3><p>Démarche scientifique, clinique, développement du nourrisson à la vie entière, et les lectures cognitives (Tolman, Cherry, Tulving, Sparrow).</p><span class="hub-n">Méthode · lectures</span></a><a class="hub-card or" href="livres-psychologie/07-ebook-final/compte.html"><span class="hub-ico"><img class="stk" src="assets-ebook/collage/tete.png" alt=""></span><h3>Compte étudiant</h3><p>Connexion e-mail/mot de passe ou Google. Progression, notes, scores et photo conservés sur le serveur.</p><span class="hub-n">Compte · serveur</span></a></div>
+</main>
 
 <footer>
   <div class="foot-links">
@@ -561,9 +125,20 @@
   <code>06-pdf-domaine-public/</code> avec mention de leur source (Gallica, Internet Archive,
   Project Gutenberg, Les Classiques des sciences sociales, Darwin Online).
   Illustrations : Wikimedia Commons (domaine public).</p>
-  <p style="margin-top:0.75rem;font-size:0.78rem">⚠️ Contenu pédagogique de vulgarisation : il ne remplace
+  <p style="margin-top:0.75rem;font-size:0.78rem"><img class="stk" src="assets-ebook/collage/oeil.png" alt=""> Contenu pédagogique de vulgarisation : il ne remplace
   ni un diagnostic, ni un avis médical, ni un suivi psychologique professionnel.</p>
 </footer>
+<script>
+(function () {
+  var btn = document.querySelector(".menu-btn");
+  var sheet = document.getElementById("sheet");
+  if (!btn || !sheet) return;
+  btn.addEventListener("click", function () {
+    var open = sheet.classList.toggle("is-open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
 <script src="assets-ebook/js/app.js"></script>
 <script src="assets-ebook/js/ui-v2.js"></script>
 <script src="assets-ebook/js/search.js"></script>

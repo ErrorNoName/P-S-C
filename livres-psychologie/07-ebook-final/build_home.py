@@ -206,295 +206,87 @@ def _nouveautes():
     )
 
 
+
 def render_home():
     n_sections = sum(len(c["sections"]) for c in CATEGORIES)
     n_flash = sum(len(c.get("flashcards", [])) for c in CATEGORIES)
     n_questions = sum(len(q["questions"]) for q in QUIZZES)
     n_refs = len(EXPERIENCES) + len(AUTEURS) + len(TROUBLES) + len(BIAIS) + len(TESTS) + len(CHRONOLOGIE_TRIEE)
-    n_savoirs = (len(THEORIES) + len(CAS) + len(DEBATS) + len(METHODES_NOTIONS)
-                 + len(LEXIQUE_EN) + len(PRATIQUES) + len(METIERS)
-                 + len(COURANTS) + len(MYTHES) + len(FAQ))
-    n_fiches = n_refs + n_savoirs + len(DICTIONNAIRE) + n_sections
 
-    raccourcis = "".join(
-        f'<a class="quick-avatar" style="background:var(--{color})" href="{EB}categories/{cid}.html" title="{label}">{ico}</a>'
-        for cid, color, ico, label in RACCOURCIS
-    ) + f'<a class="quick-avatar add" href="{EB}index.html" title="Tout voir">+</a>'
+    def pic(name):
+        return f'<img src="assets-ebook/collage/{name}" alt="">'
 
+    doors = [
+        (f"{EB}parcours.html", "livre.png", "Parcours", "Un itinéraire, pas toute la bibliothèque d'un coup."),
+        (f"{EB}index.html", "cerveau-petit.png", "Catégories", f"Les {len(CATEGORIES)} domaines, rangés par questions."),
+        (f"{EB}emploi-du-temps.html", "horloge.png", "Cours", "Le calendrier et les séances."),
+        (f"{EB}cahier.html", "machine.png", "Cahier", "Écrire, dicter, garder une note."),
+    ]
+    door_html = "".join(
+        f'<a class="door" href="{h}">{pic(i)}<strong>{t}</strong><span>{d}</span></a>'
+        for h, i, t, d in doors
+    )
+    shorts = [
+        ("03-cognitive", "memoire.png", "Cognitive"),
+        ("04-sociale", "lien.png", "Sociale"),
+        ("08-neurosciences", "cerveau-petit.png", "Neurosciences"),
+        ("09-psychopathologie", "pince.png", "Clinique"),
+        ("07-emotions", "coeur.png", "Émotions"),
+        ("27-science-psychologique", "oeil.png", "Science"),
+    ]
+    short_html = "".join(
+        f'<a class="cat" href="{EB}categories/{slug}.html">{pic(img)}<div><strong>{label}</strong></div></a>'
+        for slug, img, label in shorts
+    )
+    tools = [
+        (f"{EB}references/courants.html", "time.png", "Courants", "Chaque école naît d'une objection."),
+        (f"{EB}references/mythes.html", "oeil.png", "Idées reçues", "Ce que les données disent vraiment."),
+        (f"{EB}faq.html", "parole.png", "Questions", "Des réponses qui disent aussi l'inconnu."),
+        (f"{EB}laboratoire.html", "camera.png", "Laboratoire", "Expériences à faire dans le navigateur."),
+        (f"{EB}bibliotheque.html", "livres.png", "Bibliothèque", "Livres du domaine public."),
+        (f"{EB}aide.html", "mains.png", "Aide", "Où s'adresser, sans se substituer à un soin."),
+    ]
+    tool_html = "".join(
+        f'<a href="{h}">{pic(i)}<div><strong>{t}</strong><br><small>{d}</small></div></a>'
+        for h, i, t, d in tools
+    )
     body = f"""
-<div class="wrap" style="margin-top:1rem">
-  <div style="text-align:center;padding:2.5rem 1rem 1rem">
-    <p class="section-eyebrow">L'encyclopédie vivante et illustrée de la psychologie</p>
-    <h1 style="font-family:var(--serif);font-weight:700;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.1;max-width:820px;margin:0 auto 1rem">
-      Comprendre l'esprit humain, <span style="color:var(--vert)">une notion</span> à la fois
-    </h1>
-    <p style="color:var(--gris);max-width:680px;margin:0 auto 1.75rem;font-size:1.05rem">
-      {len(CATEGORIES)} domaines, {n_sections} chapitres, {n_fiches} fiches consultables, {len(THEORIES)} théories,
-      {len(CAS)} cas cliniques, {len(DEBATS)} débats, {len(BOOKS)} livres du domaine public lisibles en ligne,
-      {len(EXPERIENCES_LAB)} expériences jouables et {n_questions} questions corrigées — tout, entièrement en français.
-    </p>
-    <div class="cta-row" style="justify-content:center">
-      <a class="btn btn-primary" href="{EB}parcours.html">🧭 Commencer un parcours</a>
-      <a class="btn btn-primary" href="{EB}cahier.html">📝 Cahier</a>
-      <a class="btn btn-secondary" href="{EB}emploi-du-temps.html">🎓 Emploi du temps</a>
-      <a class="btn btn-secondary" href="{DISCORD_INVITE}" target="_blank" rel="noopener">💬 Rejoindre le Discord</a>
-      <a class="btn btn-secondary" href="{EB}compte.html">👤 Compte étudiant</a>
-      <button class="btn btn-secondary" data-search-open="">🔍 Rechercher (Ctrl + K)</button>
+<main class="wrap">
+<section class="hero">
+  <div>
+    <p class="kicker">Encyclopédie de psychologie</p>
+    <h1>Lire l'esprit sans se perdre dans les tiroirs.</h1>
+    <p class="lede">{len(CATEGORIES)} domaines, {n_sections} chapitres, {n_flash} flashcards,
+    {n_refs} fiches de référence, {len(BOOKS)} livres et {n_questions} questions corrigées.
+    Le collage montre le sujet. Le texte reste au premier plan.</p>
+    <div class="actions">
+      <a class="btn-main" href="{EB}index.html">{pic("cerveau-petit.png")}Voir les catégories</a>
+      <a class="btn-ghost" href="{EB}parcours.html">{pic("livre.png")}Commencer un parcours</a>
+      <a class="btn-ghost" href="{EB}cahier.html">{pic("machine.png")}Ouvrir le cahier</a>
     </div>
   </div>
-</div>
-
-<div class="hero-card">
-  <div class="hero-top">
-    <div class="hero-stat">
-      <div class="hero-stat-row">
-        <div class="hero-icon vert">📖</div>
-        <div><div class="hero-stat-num" data-visited-count>0</div>
-        <div class="hero-stat-label">Catégories explorées / <span data-cat-total>26</span></div></div>
-      </div>
-      <div class="hero-stat-row">
-        <div class="hero-icon or">🎯</div>
-        <div><div class="hero-stat-num" data-quiz-count>0</div>
-        <div class="hero-stat-label">Quiz complétés / <span data-quiz-total>26</span></div></div>
-      </div>
-    </div>
-    <div>
-      <div class="hero-center-label">Ton score de maîtrise global</div>
-      <div class="hero-balance" data-mastery-pct>0%</div>
-      <div class="hero-pill-change">Chaque fiche lue et chaque quiz réussi font monter ce score 🚀</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-row">
-        <div class="hero-icon vert">🏆</div>
-        <div><div class="hero-stat-num" data-best-quiz-pct>—</div><div class="hero-stat-label">Meilleur score de quiz</div></div>
-      </div>
-      <div class="hero-stat-row">
-        <div class="hero-icon or">📚</div>
-        <div><div class="hero-stat-num">{len(BOOKS)}</div><div class="hero-stat-label">Livres complets inclus</div></div>
-      </div>
-    </div>
+  <div class="stage" aria-hidden="true">
+    <img class="s-eye" src="assets-ebook/collage/oeil.png" alt="">
+    <img class="s-heart" src="assets-ebook/collage/coeur.png" alt="">
+    <img class="s-brain" src="assets-ebook/collage/cerveau.png" alt="">
+    <img class="s-sun" src="assets-ebook/collage/soleil.png" alt="">
+    <img class="s-moon" src="assets-ebook/collage/lune.png" alt="">
   </div>
-  <div class="hero-sparkline" id="hero-sparkline">{_sparkline()}</div>
-</div>
-
-<div class="pensee-band" data-pensee-home>
-  <figure class="geo-plate cream">
-    <img src="assets-ebook/plates/hero/plate_frontispice_site.png" alt="Planche de représentation">
-    <figcaption><span class="geo-fig">Fig. A.</span><strong>Planche du jour</strong>
-    <em>Une pensée se charge ici selon la date.</em></figcaption>
-  </figure>
-  <div class="pensee-copy">
-    <p class="section-eyebrow">Planche du jour</p>
-    <blockquote>Une citation, un rappel de cours ou une question qui fait réfléchir — chaque jour une gravure différente.</blockquote>
-    <cite>Psyclopédia</cite>
-    <div class="cta-row">
-      <a class="btn btn-secondary" href="{EB}rappels.html">Ouvrir les rappels</a>
-    </div>
-  </div>
-</div>
-
-<div class="section" style="padding-top:0">
-  <div class="stat-strip">
-    <div class="stat-cell"><div class="val">{len(CATEGORIES)}</div><div class="lbl">catégories complètes</div></div>
-    <div class="stat-cell"><div class="val">{n_sections}</div><div class="lbl">chapitres rédigés</div></div>
-    <div class="stat-cell"><div class="val">{len(DICTIONNAIRE)}</div><div class="lbl">notions au dictionnaire</div></div>
-    <div class="stat-cell"><div class="val">{len(THEORIES)}</div><div class="lbl">théories et modèles</div></div>
-    <div class="stat-cell"><div class="val">{len(COURANTS)}</div><div class="lbl">courants de pensée</div></div>
-    <div class="stat-cell"><div class="val">{len(MYTHES)}</div><div class="lbl">idées reçues démontées</div></div>
-    <div class="stat-cell"><div class="val">{len(FAQ)}</div><div class="lbl">questions fréquentes</div></div>
-    <div class="stat-cell"><div class="val">{len(EXPERIENCES)}</div><div class="lbl">expériences détaillées</div></div>
-    <div class="stat-cell"><div class="val">{len(AUTEURS)}</div><div class="lbl">grandes figures</div></div>
-    <div class="stat-cell"><div class="val">{len(TROUBLES)}</div><div class="lbl">troubles expliqués</div></div>
-    <div class="stat-cell"><div class="val">{len(BIAIS)}</div><div class="lbl">biais cognitifs</div></div>
-    <div class="stat-cell"><div class="val">{len(TESTS)}</div><div class="lbl">tests psychométriques</div></div>
-    <div class="stat-cell"><div class="val">{len(CAS)}</div><div class="lbl">cas cliniques</div></div>
-    <div class="stat-cell"><div class="val">{len(DEBATS)}</div><div class="lbl">débats argumentés</div></div>
-    <div class="stat-cell"><div class="val">{len(METHODES_NOTIONS)}</div><div class="lbl">notions de méthode</div></div>
-    <div class="stat-cell"><div class="val">{len(PRATIQUES)}</div><div class="lbl">fiches pratiques</div></div>
-    <div class="stat-cell"><div class="val">{len(METIERS)}</div><div class="lbl">métiers décrits</div></div>
-    <div class="stat-cell"><div class="val">{len(LEXIQUE_EN)}</div><div class="lbl">termes anglais traduits</div></div>
-    <div class="stat-cell"><div class="val">{len(CHRONOLOGIE_TRIEE)}</div><div class="lbl">dates de chronologie</div></div>
-    <div class="stat-cell"><div class="val">{n_flash}</div><div class="lbl">flashcards de révision</div></div>
-    <div class="stat-cell"><div class="val">{n_questions}</div><div class="lbl">questions corrigées</div></div>
-    <div class="stat-cell"><div class="val">{len(BOOKS)}</div><div class="lbl">ouvrages en ligne</div></div>
-  </div>
-</div>
-
-<div class="section" style="padding-top:0">
-  <div class="section-head">
-    <p class="section-eyebrow">Les fondations</p>
-    <h2 class="section-title">Par où entrer dans le site</h2>
-    <p class="section-desc">Psyclopédia n'est pas seulement une suite d'articles : c'est un environnement
-    d'apprentissage avec une recherche globale, une bibliothèque lisible en ligne, une base de références
-    filtrable, des parcours balisés et des quiz notés.</p>
-  </div>
-  <div class="hub-grid">
-    <a class="hub-card" href="{EB}index.html"><span class="hub-ico">📂</span><h3>Les catégories</h3>
-      <p>Des fiches longues et illustrées, avec sommaire, chiffres clés, idées reçues et flashcards.</p>
-      <span class="hub-n">{len(CATEGORIES)} domaines</span></a>
-    <a class="hub-card or" href="{EB}references/index.html"><span class="hub-ico">🗂️</span><h3>La base de références</h3>
-      <p>Tout ce qu'on cherche vite : expériences, auteurs, troubles, biais, tests, chronologie.</p>
-      <span class="hub-n">{n_refs} fiches</span></a>
-    <a class="hub-card rose" href="{EB}lecteur.html"><span class="hub-ico">📖</span><h3>Le lecteur de livres</h3>
-      <p>Lire les originaux page par page, avec reconnaissance du texte scanné et français modernisé.</p>
-      <span class="hub-n">{len(BOOKS)} ouvrages</span></a>
-    <a class="hub-card gris" href="{EB}parcours.html"><span class="hub-ico">🧭</span><h3>Les parcours guidés</h3>
-      <p>Débutant, introspection, clinique, révision d'examen, travail, sujets avancés.</p>
-      <span class="hub-n">6 itinéraires</span></a>
-    <a class="hub-card" href="{EB}quiz/index.html"><span class="hub-ico">🎮</span><h3>Les quiz notés</h3>
-      <p>Un quiz par domaine, corrigé et expliqué question par question, noté sur 20.</p>
-      <span class="hub-n">{len(QUIZZES)} quiz</span></a>
-    <a class="hub-card or" href="{EB}dictionnaire.html"><span class="hub-ico">📖</span><h3>Le dictionnaire</h3>
-      <p>Chaque notion définie en une phrase claire, reliée à la catégorie qui l'approfondit.</p>
-      <span class="hub-n">{len(DICTIONNAIRE)} entrées</span></a>
-    <a class="hub-card" href="{EB}emploi-du-temps.html"><span class="hub-ico">🎓</span><h3>Les cours de 50 minutes</h3>
-      <p>Cursus annuel, calendrier, compte à rebours, replays YouTube francophones et fiches en direct.</p>
-      <span class="hub-n">60 séances</span></a>
-    <a class="hub-card or" href="{DISCORD_INVITE}" target="_blank" rel="noopener"><span class="hub-ico">💬</span><h3>Le serveur Discord</h3>
-      <p>Prolonger le site : annonces de séance, forums thématiques, fiches et entraide bienveillante.</p>
-      <span class="hub-n">Rejoindre</span></a>
-    <a class="hub-card" href="{EB}decouverte.html"><span class="hub-ico">🔭</span><h3>La zone de découverte</h3>
-      <p>Planches d'expériences, vraies images du cerveau, projets ouverts et cave des mythes — avec les sources.</p>
-      <span class="hub-n">Galerie · planches</span></a>
-    <a class="hub-card or" href="{EB}metiers.html"><span class="hub-ico">🎓</span><h3>Métiers et études</h3>
-      <p>Du lycée à la licence : spécialités, quatre branches, titre de psychologue — dans le même site.</p>
-      <span class="hub-n">Parcours</span></a>
-    <a class="hub-card" href="{EB}assistant.html"><span class="hub-ico">🤖</span><h3>L'assistant du site</h3>
-      <p>Réponses complètes et sourcées : une question, les pages qui y répondent, sans invention.</p>
-      <span class="hub-n">Ctrl + J</span></a>
-    <a class="hub-card or" href="{EB}compte.html"><span class="hub-ico">👤</span><h3>Compte étudiant</h3>
-      <p>E-mail et mot de passe, ou Google. Cours suivis, notes de séance et scores de quiz enregistrés.</p>
-      <span class="hub-n">Connexion</span></a>
-  </div>
-</div>
-
-<div class="section" style="padding-top:0">
-  <div class="section-head">
-    <p class="section-eyebrow">{n_savoirs} fiches supplémentaires</p>
-    <h2 class="section-title">Les {len(OUTILS_V3)} salles de la bibliothèque</h2>
-    <p class="section-desc">Au-delà des catégories, le site ouvre des espaces spécialisés : les écoles de
-    pensée et les cas qui les ont construites, les idées reçues démontées, les controverses non tranchées,
-    la méthode scientifique elle-même, les applications quotidiennes, les métiers, un laboratoire jouable,
-    des auto-évaluations, un système de révision, et de quoi trouver de l'aide quand on en a besoin.</p>
-  </div>
-  <div class="hub-grid">{_outils_cards()}</div>
-</div>
-
-<div class="dash-grid">
-  <div class="panel">
-    <div class="panel-head"><h3>⚡ Accès rapide</h3><a href="{EB}index.html">Tout voir</a></div>
-    <div class="quick-row">{raccourcis}</div>
-
-    <div class="panel-head"><h3>🧭 Par où commencer ?</h3></div>
-    <div class="path-steps" style="padding:0">
-      <a class="path-step" href="{EB}parcours.html#decouverte"><span class="path-step-n">1</span>
-        <span class="path-step-title">Je pars de zéro</span><span class="path-step-kind">≈ 2 h</span></a>
-      <a class="path-step" href="{EB}parcours.html#mieux-se-comprendre"><span class="path-step-n">2</span>
-        <span class="path-step-title">Mieux me comprendre</span><span class="path-step-kind">≈ 3 h</span></a>
-      <a class="path-step" href="{EB}parcours.html#clinique"><span class="path-step-n">3</span>
-        <span class="path-step-title">Comprendre la souffrance psychique</span><span class="path-step-kind">≈ 3 h 30</span></a>
-      <a class="path-step" href="{EB}parcours.html#etudiant"><span class="path-step-n">4</span>
-        <span class="path-step-title">Réviser pour un examen</span><span class="path-step-kind">≈ 6 h</span></a>
-    </div>
-
-    <div class="reader-card">
-      <div class="reader-card-top"><span>CARTE D'APPRENANT</span><span class="reader-card-badge">PSYCLOPÉDIA</span></div>
-      <div class="reader-card-score">🧠 Prêt à apprendre</div>
-      <div class="reader-card-actions">
-        <a class="rc-btn" href="{EB}categories/01-fondamentaux.html" title="Commencer">▶</a>
-        <a class="rc-btn" href="#" id="btn-random-cat" data-cats="{','.join(c['id'] for c in CATEGORIES)}" title="Catégorie au hasard">🎲</a>
-        <a class="rc-btn" href="{EB}quiz/index.html" title="Quiz">🎮</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="panel">
-    <div class="panel-head"><h3>🆕 Nouveautés de cette version</h3></div>
-    <ul class="tx-list">{_nouveautes()}</ul>
-
-    <div class="panel-head"><h3>📚 Dans la bibliothèque</h3><a href="{EB}bibliotheque.html">Tout voir</a></div>
-    <ul class="tx-list">{_books_list()}</ul>
-  </div>
-
-  <div class="panel">
-    <div class="panel-head"><h3>🗂️ Base de références</h3><a href="{EB}references/index.html">Explorer</a></div>
-    <ul class="tx-list">
-      <li class="tx-item"><div class="tx-icon">🔬</div><div class="tx-info"><div class="tx-name"><a href="{EB}references/experiences.html" style="text-decoration:none">Expériences célèbres</a></div><div class="tx-date">Protocole, résultat, critiques</div></div><span class="tx-amount plus">{len(EXPERIENCES)}</span></li>
-      <li class="tx-item"><div class="tx-icon">👤</div><div class="tx-info"><div class="tx-name"><a href="{EB}references/auteurs.html" style="text-decoration:none">Grandes figures</a></div><div class="tx-date">Biographies et apports</div></div><span class="tx-amount plus">{len(AUTEURS)}</span></li>
-      <li class="tx-item"><div class="tx-icon">🩺</div><div class="tx-info"><div class="tx-name"><a href="{EB}references/troubles.html" style="text-decoration:none">Troubles psychiques</a></div><div class="tx-date">Signes et prises en charge</div></div><span class="tx-amount plus">{len(TROUBLES)}</span></li>
-      <li class="tx-item"><div class="tx-icon">🌀</div><div class="tx-info"><div class="tx-name"><a href="{EB}references/biais.html" style="text-decoration:none">Biais cognitifs</a></div><div class="tx-date">Définition, exemple, parade</div></div><span class="tx-amount plus">{len(BIAIS)}</span></li>
-      <li class="tx-item"><div class="tx-icon">📊</div><div class="tx-info"><div class="tx-name"><a href="{EB}references/tests.html" style="text-decoration:none">Tests psychométriques</a></div><div class="tx-date">Mesure, passation, limites</div></div><span class="tx-amount plus">{len(TESTS)}</span></li>
-      <li class="tx-item"><div class="tx-icon">🗓️</div><div class="tx-info"><div class="tx-name"><a href="{EB}references/chronologie.html" style="text-decoration:none">Chronologie</a></div><div class="tx-date">Six grandes périodes</div></div><span class="tx-amount plus">{len(CHRONOLOGIE_TRIEE)}</span></li>
-    </ul>
-
-    <div class="mastery-box">
-      <div class="mastery-head"><span style="font-size:0.85rem;color:var(--gris)">Niveau de maîtrise</span>
-      <span class="mastery-badge" data-mastery-badge>Débutant</span></div>
-      <div class="mastery-track"><div class="mastery-marker" data-mastery-marker style="left:0%"></div></div>
-      <div class="mastery-pct" data-mastery-pct>0%</div>
-    </div>
-  </div>
-</div>
-
-<div class="section" id="categories">
-  <div class="section-head">
-    <p class="section-eyebrow">{len(CATEGORIES)} domaines complets</p>
-    <h2 class="section-title">Toutes les catégories de la psychologie</h2>
-    <p class="section-desc">Des fondamentaux méthodologiques à la psychologie politique, en passant par les
-    neurosciences, la clinique, le sport, le numérique et l'environnement : une couverture complète, pensée
-    pour tous les niveaux.</p>
-  </div>
-  <div class="cat-grid">{_cat_cards()}</div>
-  <div class="cta-row">
-    <a class="btn btn-secondary" href="{EB}dictionnaire.html">📖 Dictionnaire A-Z ({len(DICTIONNAIRE)} notions)</a>
-    <a class="btn btn-secondary" href="{EB}references/index.html">🗂️ Base de références</a>
-  </div>
-</div>
-
-<div class="section">
-  <div class="section-head">
-    <p class="section-eyebrow">{len(QUIZZES)} quiz · {n_questions} questions</p>
-    <h2 class="section-title">🎮 Teste tes connaissances</h2>
-    <p class="section-desc">Chaque quiz est noté sur 20, avec un corrigé complet et l'explication du raisonnement
-    pour chaque question — y compris celles que tu as réussies.</p>
-  </div>
-  <div class="grid-3">{_quiz_preview()}</div>
-  <div class="cta-row"><a class="btn btn-secondary" href="{EB}quiz/index.html">Voir les {len(QUIZZES)} quiz</a></div>
-</div>
-
-<div class="section">
-  <div class="section-head">
-    <p class="section-eyebrow">Apprentissage</p>
-    <h2 class="section-title">🧠 Conçu pour que ça reste</h2>
-    <p class="section-desc">Rappel actif, répétition espacée, entrelacement, élaboration et double codage : les
-    cinq techniques les mieux établies de la science cognitive sont intégrées à la structure même du site.</p>
-  </div>
-  <div class="vark-grid">
-    <div class="vark-card" style="border-top-color:var(--vert)"><span class="emoji">🔄</span><h3>Rappel actif</h3>
-      <p>{n_flash} flashcards et {n_questions} questions pour te tester plutôt que relire.</p></div>
-    <div class="vark-card" style="border-top-color:var(--or)"><span class="emoji">📅</span><h3>Répétition espacée</h3>
-      <p>Un millier de cartes te sont représentées juste avant l'oubli, selon tes propres réponses.</p></div>
-    <div class="vark-card" style="border-top-color:var(--rose)"><span class="emoji">🔀</span><h3>Entrelacement</h3>
-      <p>Les parcours alternent fiches, références, livres et quiz plutôt que d'enchaîner le même format.</p></div>
-    <div class="vark-card" style="border-top-color:var(--gris)"><span class="emoji">🖼️</span><h3>Double codage</h3>
-      <p>Portraits, schémas et chiffres clés doublent le texte par une voie visuelle.</p></div>
-    <div class="vark-card" style="border-top-color:var(--vert)"><span class="emoji">🧪</span><h3>Apprentissage par l'expérience</h3>
-      <p>Le laboratoire te fait vivre l'effet Stroop ou l'illusion de Müller-Lyer avant de l'expliquer.</p></div>
-  </div>
-  <div class="cta-row">
-    <a class="btn btn-primary" href="{EB}revision.html">🔁 Lancer une session de révision</a>
-    <a class="btn btn-secondary" href="{EB}laboratoire.html">🧪 Entrer dans le laboratoire</a>
-    <a class="btn btn-secondary" href="{EB}auto-evaluations.html">📋 Les auto-évaluations</a>
-    <a class="btn btn-secondary" href="{EB}apprendre.html">📚 Le guide des méthodes</a>
-  </div>
-</div>
+</section>
+<div class="doors">{door_html}</div>
+<div class="block">{pic("lien.png")}<div><h2>Domaines proches</h2><p>Six portes, pas vingt-sept d'un coup.</p></div></div>
+<div class="cats">{short_html}</div>
+<div class="block">{pic("livres.png")}<div><h2>Le cabinet</h2><p>Autour des chapitres : histoire, doutes, expériences, livres.</p></div></div>
+<div class="cabinet">{tool_html}</div>
+<div class="block">{pic("horloge.png")}<div><h2>Les autres salles</h2><p>Recherche, cours, compte, quiz et le reste du site.</p></div></div>
+<div class="hub-grid">{_outils_cards()}</div>
+</main>
 """
     html = page_shell(
         "Psyclopédia — L'encyclopédie vivante de la psychologie", body, depth=-2, active="Accueil",
-        description=(f"Psyclopédia : encyclopédie illustrée et interactive de la psychologie en français. "
-                     f"{len(CATEGORIES)} catégories, {n_fiches} fiches consultables, {len(THEORIES)} théories, "
-                     f"{len(BOOKS)} livres du domaine public lisibles en ligne, {len(QUIZZES)} quiz notés, "
-                     f"laboratoire jouable et révision espacée."),
+        description=(f"Psyclopédia : encyclopédie illustrée de la psychologie en français. "
+                     f"{len(CATEGORIES)} catégories, {n_sections} chapitres, {len(BOOKS)} livres du domaine public, "
+                     f"{len(QUIZZES)} quiz notés."),
     )
     with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)

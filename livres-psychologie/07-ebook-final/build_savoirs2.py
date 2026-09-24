@@ -314,7 +314,7 @@ def render_aide():
 </div>
 """
     _write("aide.html", page_shell(
-        "Aide et ressources", body, depth=0, active="Apprendre",
+        "Aide et ressources", body, depth=0, active="Aide",
         description="Où trouver de l'aide psychologique : numéros d'urgence et d'écoute en France, Belgique, Suisse et Canada, parcours de soin, remboursement et ressources en accès libre."))
 
 

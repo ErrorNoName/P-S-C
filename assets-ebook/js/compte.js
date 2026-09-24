@@ -755,7 +755,16 @@
       el.appendChild(img);
       return;
     }
-    el.textContent = user ? initials(user.name) : "👤";
+    if (!user) {
+      el.textContent = "";
+      var img = document.createElement("img");
+      img.src = (document.body.getAttribute("data-root") || "") + "assets-ebook/collage/tete.png";
+      img.alt = "";
+      img.className = "stk";
+      el.appendChild(img);
+      return;
+    }
+    el.textContent = initials(user.name);
   }
 
   function paintNav() {

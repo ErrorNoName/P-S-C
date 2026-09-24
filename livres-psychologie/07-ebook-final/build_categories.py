@@ -3,7 +3,7 @@
 
 import os
 
-from shell import page_shell, page_header, slugify, strip_html
+from shell import CAT_STICKERS, page_shell, page_header, slugify, sticker_img, strip_html
 from content import (
     CATEGORIES, DICTIONNAIRE, QUIZ_FOR_CATEGORY, CATEGORY_TITLE,
     EXPERIENCES, AUTEURS,
@@ -217,7 +217,7 @@ def render_category(cat, idx):
     header = page_header(
         depth=1,
         breadcrumb=[("Accueil", "../../../index.html"), ("Catégories", "../index.html"), (cat["title"], None)],
-        icon=cat["icon"], color=cat["color"], title=cat["title"], subtitle=cat["subtitle"],
+        icon=CAT_STICKERS.get(cat["id"], cat["icon"]), color=cat["color"], title=cat["title"], subtitle=cat["subtitle"],
         chips=[
             f"⏱ {cat['read_time']} de lecture",
             f"📂 Catégorie {cat['num']}/{TOTAL}",
@@ -280,46 +280,36 @@ def render_category(cat, idx):
 
 def render_categories_index():
     groups = [
-        ("Socles de la discipline", "Les bases indispensables : méthode, histoire, cognition, société.", CATEGORIES[0:4]),
-        ("L'individu et son développement", "Comment on devient soi : développement, personnalité, émotions, cerveau.", CATEGORIES[4:8]),
-        ("Souffrance psychique et soin", "Comprendre les troubles et les prises en charge qui fonctionnent.", CATEGORIES[8:10]),
-        ("Psychologie appliquée au quotidien", "Bien-être, travail, éducation, santé, justice, animal.", CATEGORIES[10:16]),
-        ("Frontières et champs émergents", "Culture, langage, mesure, sport, consommation, numérique, évolution, âge, environnement, politique.", CATEGORIES[16:]),
+        ("Socles de la discipline", "loupe.png", "Méthode, histoire, pensée, groupe.", CATEGORIES[0:4]),
+        ("La personne", "cerveau.png", "Développement, personnalité, émotions, cerveau.", CATEGORIES[4:8]),
+        ("Souffrance et soin", "pince.png", "Comprendre sans stigmatiser.", CATEGORIES[8:10]),
+        ("La vie quotidienne", "soleil.png", "Bien-être, travail, école, santé, justice, animal.", CATEGORIES[10:16]),
+        ("Frontières", "papillon.png", "Culture, langage, mesure, écrans, âge, politique.", CATEGORIES[16:]),
     ]
 
     sections_html = ""
-    for label, desc, cats in groups:
+    for label, img, desc, cats in groups:
         cards = "".join(
-            f"""<a href="categories/{c['id']}.html" class="cat-card" data-cat-id="{c['id']}">
-              <span class="cat-check">✅</span>
-              <div class="cat-card-icon" style="background:var(--{c['color']}-light)">{c['icon']}</div>
-              <h3>{c['num']} · {c['title']}</h3>
-              <p>{c['subtitle']}</p>
-              <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="{c['id']}"></div></div>
+            f"""<a href="categories/{c['id']}.html" class="cat" data-cat-id="{c['id']}">
+              {sticker_img(CAT_STICKERS.get(c['id'], 'loupe.png'), 0)}
+              <div><strong>{c['num']} · {c['title']}</strong><span>{c['subtitle']}</span>
+              <div class="cat-progress-track"><div class="cat-progress-fill" data-cat-key="{c['id']}"></div></div></div>
             </a>"""
             for c in cats
         )
         sections_html += f"""
-<div class="section-head" style="margin-top:2.5rem">
-  <p class="section-eyebrow">{len(cats)} fiches</p>
-  <h2 class="section-title" style="font-size:1.5rem">{label}</h2>
-  <p class="section-desc">{desc}</p>
-</div>
-<div class="cat-grid">{cards}</div>"""
+<div class="block">{sticker_img(img, 0)}<div><h2>{label}</h2><p>{desc}</p></div></div>
+<div class="cats">{cards}</div>"""
 
     n_sections = sum(len(c["sections"]) for c in CATEGORIES)
     n_flash = sum(len(c.get("flashcards", [])) for c in CATEGORIES)
 
     body = f"""
-<div class="section">
-  <div class="section-head">
-    <p class="section-eyebrow">{TOTAL} domaines · {n_sections} chapitres · {n_flash} flashcards</p>
-    <h1 class="section-title">Toutes les catégories de la psychologie</h1>
-    <p class="section-desc">Explore librement, dans l'ordre que tu préfères. Chaque fiche est illustrée, comporte
-    un sommaire, des chiffres clés, une rubrique « idées reçues », des expériences fondatrices, des livres du
-    domaine public lisibles en ligne, des flashcards et un quiz noté. Si tu préfères un itinéraire balisé,
-    suis plutôt un <a href="parcours.html" style="color:var(--vert)">parcours guidé</a>.</p>
-  </div>
+<main class="wrap">
+  <p class="kicker">{TOTAL} domaines · {n_sections} chapitres · {n_flash} flashcards</p>
+  <h1>Les catégories, par questions.</h1>
+  <p class="lede">Chaque fiche a un sommaire, des chiffres, des idées reçues, des livres du domaine public,
+  des flashcards et un quiz. Pour un itinéraire balisé, suis un <a href="parcours.html">parcours guidé</a>.</p>
   <div class="cta-row" style="margin-bottom:0">
     <button class="btn btn-primary" data-search-open="">🔍 Rechercher dans tout le site</button>
     <a class="btn btn-secondary" href="parcours.html">🧭 Parcours guidés</a>
@@ -339,9 +329,9 @@ def render_categories_index():
     <a class="hub-card rose" href="lecteur.html"><span class="hub-ico">📕</span><h3>Lecteur de livres</h3>
       <p>Lire les ouvrages originaux page par page, texte extrait et modernisé.</p><span class="hub-n">13 ouvrages</span></a>
     <a class="hub-card gris" href="quiz/index.html"><span class="hub-ico">🎮</span><h3>Quiz notés</h3>
-      <p>Un quiz par domaine, corrigé et expliqué, noté sur 20.</p><span class="hub-n">26 quiz</span></a>
+      <p>Un quiz par domaine, corrigé et expliqué, noté sur 20.</p><span class="hub-n">26 quiz</span>    </a>
   </div>
-</div>
+</main>
 """
     html = page_shell("Catégories", body, depth=0, active="Catégories",
                       description=f"Les {TOTAL} catégories de la psychologie expliquées en français : {n_sections} chapitres illustrés, flashcards et quiz.")

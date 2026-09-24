@@ -438,7 +438,7 @@ def render_rappels_page(plates):
 </div>
 """
     _write("rappels.html", page_shell(
-        "Rappels & planches", body, depth=0, active="Cours",
+        "Rappels & planches", body, depth=0, active="Rappels",
         description=(
             "Rappels de cours, pensées du jour et cabinet de planches de psychologie "
             "géométrique — citations, notifications et illustrations des séances."

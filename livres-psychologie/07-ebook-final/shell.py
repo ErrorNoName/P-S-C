@@ -14,21 +14,95 @@ import unicodedata
 # Invitation permanente vers le serveur communautaire (salon 👋-bienvenue).
 DISCORD_INVITE = "https://discord.gg/sX3TAqH4pD"
 
-# Éléments de la barre de navigation : (libellé, chemin relatif à 07-ebook-final/)
-NAV_ITEMS = [
-    ("Accueil", "@root:index.html"),
-    ("Catégories", "index.html"),
-    ("Découverte", "decouverte.html"),
-    ("Références", "references/index.html"),
-    ("Méthodes", "methodes.html"),
-    ("Pratique", "pratique.html"),
-    ("Bibliothèque", "bibliotheque.html"),
-    ("Quiz", "quiz/index.html"),
-    ("Apprendre", "apprendre.html"),
-    ("Cours", "emploi-du-temps.html"),
-    ("Cahier", "cahier.html"),
-    ("Aide", "aide.html"),
+# Menu en trois groupes : (libellé, chemin, sticker). @root: racine, @ext: lien externe.
+NAV_GROUPS = [
+    ("Lire", [
+        ("Accueil", "@root:index.html", "oeil-bleu.png"),
+        ("Catégories", "index.html", "cerveau-petit.png"),
+        ("Découverte", "decouverte.html", "iris.png"),
+        ("Références", "references/index.html", "livres.png"),
+        ("Bibliothèque", "bibliotheque.html", "livre.png"),
+    ]),
+    ("Étudier", [
+        ("Cours", "emploi-du-temps.html", "horloge.png"),
+        ("Apprendre", "apprendre.html", "stylo.png"),
+        ("Cahier", "cahier.html", "machine.png"),
+        ("Quiz", "quiz/index.html", "trophee.png"),
+        ("Méthodes", "methodes.html", "loupe.png"),
+    ]),
+    ("Autour", [
+        ("Pratique", "pratique.html", "mains.png"),
+        ("Aide", "aide.html", "coeur.png"),
+        ("Compte", "compte.html", "tete.png"),
+        ("Discord", "@ext:" + DISCORD_INVITE, "voix.png"),
+        ("Rappels", "rappels.html", "soleil.png"),
+    ]),
 ]
+
+# Ancien appelant : liste plate (libellé, chemin).
+NAV_ITEMS = [(label, target) for _title, links in NAV_GROUPS for label, target, _img in links]
+
+# Sticker par identifiant de catégorie (évite les collisions d'emoji).
+CAT_STICKERS = {
+    "01-fondamentaux": "loupe.png",
+    "02-histoire": "time.png",
+    "03-cognitive": "memoire.png",
+    "04-sociale": "lien.png",
+    "05-developpement": "croissance.png",
+    "06-personnalite": "tete.png",
+    "07-emotions": "coeur.png",
+    "08-neurosciences": "cerveau-petit.png",
+    "09-psychopathologie": "pince.png",
+    "10-therapies": "mains.png",
+    "11-positive": "soleil.png",
+    "12-travail": "ordi.png",
+    "13-education": "stylo.png",
+    "14-sante": "coeur-rouge.png",
+    "15-legale": "globe.png",
+    "16-comparee": "colibri.png",
+    "17-interculturelle": "globe.png",
+    "18-langage": "parole.png",
+    "19-psychometrie": "loupe.png",
+    "20-sport": "trophee.png",
+    "21-consommation": "livre.png",
+    "22-numerique": "ecran.png",
+    "23-evolutionniste": "papillon.png",
+    "24-vieillissement": "lune.png",
+    "25-environnementale": "colibri.png",
+    "26-politique": "voix.png",
+    "27-science-psychologique": "oeil.png",
+}
+
+EMOJI_STICKERS = {
+    "🧑\u200d🎨": "stylo.png",
+    "🎓": "stylo.png", "🗂️": "livres.png", "🔬": "loupe.png", "📖": "livre.png",
+    "👤": "tete.png", "🩺": "pince.png", "⚖️": "globe.png", "🧭": "iris.png",
+    "📊": "loupe.png", "🎮": "trophee.png", "📚": "livres.png", "🧠": "cerveau-petit.png",
+    "🔍": "loupe.png", "❓": "parole.png", "🧪": "camera.png", "🤖": "machine.png",
+    "📝": "stylo.png", "⚠️": "oeil.png", "🖼️": "camera.png", "👥": "lien.png",
+    "🌱": "croissance.png", "🧩": "loupe.png", "📂": "livres.png", "📜": "time.png",
+    "💼": "ordi.png", "🔤": "parole.png", "🔁": "horloge.png", "💭": "memoire.png",
+    "🌍": "globe.png", "🌀": "oeil.png", "🔭": "iris.png", "💬": "voix.png",
+    "📕": "livre.png", "🖨️": "machine.png", "📅": "horloge.png", "🗃️": "livres.png",
+    "🏛️": "time.png", "🧹": "oeil.png", "🔔": "soleil.png", "🌐": "globe.png",
+    "🎯": "trophee.png", "📋": "stylo.png", "🗓️": "horloge.png", "⚡": "soleil.png",
+    "🧰": "mains.png", "🔄": "horloge.png", "📼": "horloge.png", "📏": "loupe.png",
+    "📱": "ecran.png", "🃏": "oeil.png", "🔗": "lien.png", "🛋️": "mains.png",
+    "❤️": "coeur.png", "🤝": "mains.png", "💡": "soleil.png", "🎬": "camera.png",
+    "🗣️": "parole.png", "🏃": "trophee.png", "🛒": "livre.png", "🧬": "papillon.png",
+    "🌿": "lune.png", "🗳️": "voix.png", "🎭": "tete.png", "🐾": "colibri.png",
+    "🔎": "loupe.png", "👁️": "oeil.png", "✍️": "stylo.png", "🌤️": "soleil.png",
+    "🏥": "coeur-rouge.png", "🕰️": "horloge.png", "👂": "parole.png", "📥": "livre.png",
+    "✨": "soleil.png", "🔀": "lien.png", "🗺️": "globe.png", "🛠️": "mains.png",
+    "🧯": "coeur.png", "🟢": "soleil.png", "💾": "machine.png", "📄": "livre.png",
+    "🎤": "voix.png", "🎒": "livre.png", "🏷️": "loupe.png", "🛡️": "globe.png",
+    "☎️": "voix.png", "🎨": "papillon.png", "🔢": "loupe.png", "➡️": "lien.png",
+    "⚓": "time.png", "🪞": "oeil.png", "📍": "globe.png", "🤸": "trophee.png",
+    "🚫": "oeil.png", "📘": "livre.png", "🧫": "camera.png", "📦": "livres.png",
+    "🕯️": "lune.png", "🔒": "tete.png", "🚀": "papillon.png", "🏆": "trophee.png",
+    "🎲": "trophee.png", "🆕": "soleil.png", "🏠": "oeil-bleu.png", "👋": "mains.png",
+    "🌙": "lune.png", "🌊": "colibri.png",
+}
 
 # Chemins relatifs à 07-ebook-final/ vers les ressources partagées du dépôt.
 IMG_DIR = "../05-larousse-illustre-complet/illustrations/wikimedia"
@@ -58,6 +132,30 @@ def asset(depth, path):
     return repo_root(depth) + "assets-ebook/" + path
 
 
+def sticker_img(filename, depth, alt=""):
+    """Image du pack, dimensionnée par la classe .stk."""
+    src = asset(depth, "collage/" + filename)
+    return f'<img class="stk" src="{src}" alt="{html.escape(alt)}">'
+
+
+def dress(fragment, depth):
+    """Remplace les emoji d'interface par le sticker le plus proche."""
+    if not fragment:
+        return fragment
+    for emo in sorted(EMOJI_STICKERS, key=len, reverse=True):
+        if emo in fragment:
+            fragment = fragment.replace(emo, sticker_img(EMOJI_STICKERS[emo], depth))
+    return fragment
+
+
+def _nav_href(depth, target):
+    if target.startswith("@ext:"):
+        return target[5:], ' target="_blank" rel="noopener"'
+    if target.startswith("@root:"):
+        return repo_root(depth) + target[6:], ""
+    return ebook(depth, target), ""
+
+
 def media(depth, path):
     """Lien vers une illustration ou un PDF rangé hors de 07-ebook-final/."""
     return ("../" * depth) + path
@@ -65,18 +163,14 @@ def media(depth, path):
 
 def page_shell(title, body, depth=0, active="", description="", extra_head="",
                extra_scripts="", body_attrs="", wide=False):
-    links_html = ""
-    for label, target in NAV_ITEMS:
-        extra_attr = ""
-        if target.startswith("@ext:"):
-            href = target[5:]
-            extra_attr = ' target="_blank" rel="noopener"'
-        elif target.startswith("@root:"):
-            href = repo_root(depth) + target[6:]
-        else:
-            href = ebook(depth, target)
-        cls = ' class="active"' if label == active else ""
-        links_html += f'<a href="{href}"{cls}{extra_attr}>{label}</a>'
+    groups_html = ""
+    for title, links in NAV_GROUPS:
+        bits = ""
+        for label, target, img in links:
+            href, extra_attr = _nav_href(depth, target)
+            cls = ' class="is-on"' if label == active else ""
+            bits += f'<a href="{href}"{cls}{extra_attr}>{sticker_img(img, depth)}{label}</a>'
+        groups_html += f'<div class="nav-group"><p>{title}</p>{bits}</div>'
 
     desc = description or ("Psyclopédia : l'encyclopédie vivante et illustrée de la psychologie, "
                            "en français — 27 catégories, références, bibliothèque et quiz notés.")
@@ -94,14 +188,14 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="{asset(depth, 'favicon.svg')}">
 <link rel="manifest" href="{repo_root(depth)}manifest.webmanifest">
-<meta name="theme-color" content="#50A67E">
+<meta name="theme-color" content="#1c1915">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Psyclopédia">
 <link rel="apple-touch-icon" href="{repo_root(depth)}assets-ebook/icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,620&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{asset(depth, 'css/style.css')}">
 <link rel="stylesheet" href="{asset(depth, 'css/v2.css')}">
 <link rel="stylesheet" href="{asset(depth, 'css/v3.css')}">
@@ -110,31 +204,31 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
 <link rel="stylesheet" href="{asset(depth, 'css/lycee.css')}">
 <link rel="stylesheet" href="{asset(depth, 'css/assistant.css')}">
 <link rel="stylesheet" href="{asset(depth, 'css/compte.css')}">
+<link rel="stylesheet" href="{asset(depth, 'css/collage.css')}">
 {extra_head}
 </head>
 <body data-root="{repo_root(depth)}"{(' ' + body_attrs) if body_attrs else ''}>
-<div class="topbar">
-  <nav class="nav-pill">
-    <a class="brand" href="{repo_root(depth)}index.html"><span class="brand-mark"></span>Psyclopédia</a>
-    <ul class="nav-links">{links_html}</ul>
-    <div class="nav-side">
-      <a class="nav-compte-btn" id="nav-compte" href="{ebook(depth, 'compte.html')}" aria-label="Compte étudiant">
-        <span class="nav-compte-mark" aria-hidden="true">👤</span><span class="nav-compte-label">Compte</span>
-      </a>
-      <a class="nav-discord-btn" href="{DISCORD_INVITE}" target="_blank" rel="noopener" aria-label="Rejoindre le serveur Discord">
-        <span aria-hidden="true">💬</span><span class="nav-discord-label">Discord</span>
-      </a>
-      <button class="nav-notify-btn" type="button" data-notify-open="" aria-label="Rappels et pensées du jour">
-        <span aria-hidden="true">🔔</span><span class="nav-notify-label">Rappels</span>
+<header class="desk">
+  <div class="desk-bar">
+    <a class="mark" href="{repo_root(depth)}index.html">{sticker_img("oeil-bleu.png", depth)}<span>Psyclopédia</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button>
+    <div class="desk-tools">
+      <button class="tool nav-notify-btn" type="button" data-notify-open="" aria-label="Rappels et pensées du jour">
+        {sticker_img("soleil.png", depth)}<span class="long nav-notify-label">Rappels</span>
         <span class="nav-notify-badge" hidden>0</span>
       </button>
-      <button class="nav-search-btn" data-search-open="" aria-label="Rechercher">
-        <span>🔍</span><span>Rechercher</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      <button class="tool" type="button" data-search-open="" aria-label="Rechercher">
+        {sticker_img("loupe.png", depth)}<span class="long">Rechercher</span>
       </button>
+      <a class="tool" id="nav-compte" href="{ebook(depth, 'compte.html')}" aria-label="Compte étudiant">
+        <span class="nav-compte-mark" aria-hidden="true">{sticker_img("tete.png", depth)}</span>
+        <span class="nav-compte-label long">Compte</span>
+      </a>
     </div>
-  </nav>
-</div>
-{body}
+  </div>
+  <nav class="sheet" id="sheet">{groups_html}</nav>
+</header>
+{dress(body, depth)}
 <footer>
   <div class="foot-links">
     <a href="{repo_root(depth)}index.html">Accueil</a>
@@ -178,9 +272,20 @@ def page_shell(title, body, depth=0, active="", description="", extra_head="",
   <code>06-pdf-domaine-public/</code> avec mention de leur source (Gallica, Internet Archive,
   Project Gutenberg, Les Classiques des sciences sociales, Darwin Online).
   Illustrations : Wikimedia Commons (domaine public).</p>
-  <p style="margin-top:0.75rem;font-size:0.78rem">⚠️ Contenu pédagogique de vulgarisation : il ne remplace
+  <p style="margin-top:0.75rem;font-size:0.78rem">{sticker_img("oeil.png", depth)} Contenu pédagogique de vulgarisation : il ne remplace
   ni un diagnostic, ni un avis médical, ni un suivi psychologique professionnel.</p>
 </footer>
+<script>
+(function () {{
+  var btn = document.querySelector(".menu-btn");
+  var sheet = document.getElementById("sheet");
+  if (!btn || !sheet) return;
+  btn.addEventListener("click", function () {{
+    var open = sheet.classList.toggle("is-open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  }});
+}})();
+</script>
 <script src="{asset(depth, 'js/app.js')}"></script>
 <script src="{asset(depth, 'js/ui-v2.js')}"></script>
 <script src="{asset(depth, 'js/search.js')}"></script>
@@ -201,11 +306,19 @@ def page_header(depth, breadcrumb, icon, color, title, subtitle, chips=()):
     )
     chips_html = "".join(f'<span class="meta-chip">{c}</span>' for c in chips)
     chips_block = f'<div class="meta-row">{chips_html}</div>' if chips_html else ""
+    if icon in CAT_STICKERS:
+        mark = sticker_img(CAT_STICKERS[icon], depth)
+    elif isinstance(icon, str) and icon.endswith(".png"):
+        mark = sticker_img(icon, depth)
+    elif icon in EMOJI_STICKERS:
+        mark = sticker_img(EMOJI_STICKERS[icon], depth)
+    else:
+        mark = html.escape(icon or "")
     return f"""
 <div class="page-header">
   <p class="breadcrumb">{crumb}</p>
   <div class="page-hero">
-    <div class="page-hero-icon" style="background:var(--{color}-light)">{icon}</div>
+    <div class="page-hero-icon">{mark}</div>
     <div>
       <h1>{title}</h1>
       <p class="subtitle">{subtitle}</p>
