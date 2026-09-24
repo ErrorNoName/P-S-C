@@ -681,8 +681,8 @@
   function driveErrorText(err) {
     var code = String(err && (err.message || err.error) || err || "");
     if (code.indexOf("access_denied") !== -1 || code.indexOf("403") !== -1 || code.indexOf("accessNotConfigured") !== -1) {
-      if (code.indexOf("accessNotConfigured") !== -1 || code.indexOf("has not been used") !== -1) {
-        return "L'API Google Drive n'est pas activée sur le projet. Active-la dans la console Google, puis réessaie. Le texte reste sur cet appareil.";
+      if (code.indexOf("accessNotConfigured") !== -1 || code.indexOf("has not been used") !== -1 || code.indexOf("SERVICE_DISABLED") !== -1) {
+        return "DRIVE_OFF";
       }
       return "Google bloque le lien (erreur 403 : l'application est encore en test). " +
         "Ajoute ce Gmail comme utilisateur test, ou publie l'application dans l'écran de consentement. " +
@@ -698,7 +698,19 @@
     var el = $("cahier-drive-msg");
     if (!el) { setSync(text); return; }
     el.hidden = !text;
-    el.textContent = text || "";
+    el.textContent = "";
+    if (!text) return;
+    if (text === "DRIVE_OFF") {
+      el.appendChild(document.createTextNode("L'API Google Drive est éteinte sur le projet. Ouvre ce lien, clique sur Activer, attends une minute, puis réessaie. Pour que chaque visiteur puisse lier son document, publie aussi l'application dans l'écran de consentement. Le texte reste sur cet appareil. "));
+      var a = document.createElement("a");
+      a.href = "https://console.developers.google.com/apis/api/drive.googleapis.com/overview?project=340597672237";
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = "Activer l'API Google Drive";
+      el.appendChild(a);
+      return;
+    }
+    el.textContent = text;
   }
 
   function pullDrive() {

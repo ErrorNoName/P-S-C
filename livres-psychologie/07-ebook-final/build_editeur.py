@@ -143,11 +143,11 @@ def render():
   <aside id="cahier-suggest" class="cahier-suggest" hidden></aside>
 </div>
 """
-    css = asset(0, "css/editeur.css") + "?v=float6"
+    css = asset(0, "css/editeur.css") + "?v=float7"
     scripts = (
-        f'<script src="{asset(0, "js/lame.min.js")}?v=float6"></script>\n'
-        f'<script src="{asset(0, "js/editeur-format.js")}?v=float6"></script>\n'
-        f'<script src="{asset(0, "js/editeur.js")}?v=float6"></script>'
+        f'<script src="{asset(0, "js/lame.min.js")}?v=float7"></script>\n'
+        f'<script src="{asset(0, "js/editeur-format.js")}?v=float7"></script>\n'
+        f'<script src="{asset(0, "js/editeur.js")}?v=float7"></script>'
     )
     html = page_shell(
         "Cahier",
