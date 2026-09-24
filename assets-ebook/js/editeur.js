@@ -1088,37 +1088,47 @@
     pop.textContent = "";
   }
 
-  function openFloat(id, title, node) {
+  function openFloat(id, title, node, opts) {
     var win = document.getElementById(id);
     if (!win) {
       win = document.createElement("section");
       win.id = id;
       win.className = "float-win";
-      win.innerHTML = '<div class="float-head"><strong></strong>'
+      win.innerHTML = '<button type="button" class="float-grab" data-act="grab" aria-label="Déplacer"></button>'
+        + '<div class="float-head"><strong></strong>'
         + '<button type="button" data-act="pin">Pin</button>'
         + '<button type="button" data-act="size">Réduire</button>'
         + '<button type="button" data-act="close">Fermer</button></div>'
         + '<div class="float-body"></div>';
       document.body.appendChild(win);
       var head = win.querySelector(".float-head");
+      var grab = win.querySelector(".float-grab");
       var drag = null;
-      head.addEventListener("pointerdown", function (e) {
-        if (win.classList.contains("is-pin") || e.target.closest("button")) return;
-        if (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) return;
+      function beginDrag(e) {
+        if (win.classList.contains("is-pin") || (e.target.closest && e.target.closest("button:not(.float-grab)"))) return;
+        var coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+        if (coarse && e.currentTarget !== grab) return;
         var box = win.getBoundingClientRect();
         win.style.left = box.left + "px";
         win.style.top = box.top + "px";
+        win.style.right = "auto";
+        win.style.width = box.width + "px";
         drag = { x: e.clientX, y: e.clientY, l: box.left, t: box.top };
-        if (head.setPointerCapture) head.setPointerCapture(e.pointerId);
-      });
-      head.addEventListener("pointermove", function (e) {
+        if (e.currentTarget.setPointerCapture) e.currentTarget.setPointerCapture(e.pointerId);
+      }
+      head.addEventListener("pointerdown", beginDrag);
+      grab.addEventListener("pointerdown", beginDrag);
+      function moveDrag(e) {
         if (!drag || win.classList.contains("is-pin")) return;
         var maxL = Math.max(8, window.innerWidth - win.offsetWidth - 8);
         var maxT = Math.max(8, window.innerHeight - 48);
         win.style.left = Math.min(maxL, Math.max(8, drag.l + e.clientX - drag.x)) + "px";
         win.style.top = Math.min(maxT, Math.max(8, drag.t + e.clientY - drag.y)) + "px";
-      });
+      }
+      head.addEventListener("pointermove", moveDrag);
+      grab.addEventListener("pointermove", moveDrag);
       head.addEventListener("pointerup", function () { drag = null; });
+      grab.addEventListener("pointerup", function () { drag = null; });
       win.addEventListener("click", function (e) {
         var btn = e.target.closest && e.target.closest("[data-act]");
         if (!btn || !win.contains(btn)) return;
@@ -1144,43 +1154,106 @@
       body.appendChild(node);
     }
     win.hidden = false;
+    win.classList.toggle("is-bare", !!(opts && opts.bare));
     win.style.zIndex = "360";
     return win;
   }
 
-  function openStarMenu(star) {
-    var url = star.getAttribute("data-url") || "";
-    var title = star.getAttribute("data-title") || "Fiche";
-    var desc = star.getAttribute("data-desc") || "";
-    var box = document.createElement("div");
+  function openFiche(title, desc, url) {
+    var panel = document.createElement("article");
+    panel.className = "fiche-card";
+    var kicker = document.createElement("p");
+    kicker.className = "fiche-kicker";
+    kicker.textContent = "Psychopédia";
+    var heading = document.createElement("h3");
+    heading.textContent = title || "Fiche";
+    var lead = document.createElement("p");
+    lead.className = "fiche-desc";
+    lead.textContent = desc || "";
+    var more = document.createElement("div");
+    more.className = "fiche-excerpt";
+    more.textContent = "Chargement de la page…";
+    panel.appendChild(kicker);
+    panel.appendChild(heading);
+    if (desc) panel.appendChild(lead);
+    panel.appendChild(more);
+    if (url) {
+      var open = document.createElement("a");
+      open.className = "fiche-open";
+      open.href = rootPrefix() + url;
+      open.target = "_blank";
+      open.rel = "noopener";
+      open.textContent = "Ouvrir la page";
+      panel.appendChild(open);
+    }
+    var pop = document.getElementById("psy-pop");
+    if (pop) pop.hidden = true;
+    openFloat("float-fiche", title || "Fiche", panel, { bare: true });
+    if (!url) { more.textContent = desc || ""; return; }
+    fetch(rootPrefix() + url).then(function (res) { return res.text(); }).then(function (html) {
+      var doc = new DOMParser().parseFromString(html, "text/html");
+      var main = doc.querySelector(".content") || doc.querySelector("main") || doc.body;
+      var bits = main.querySelectorAll("h2, h3, p, li");
+      more.textContent = "";
+      var count = 0;
+      var i;
+      for (i = 0; i < bits.length && count < 4; i++) {
+        var line = (bits[i].innerText || "").replace(/\s+/g, " ").trim();
+        if (line.length < 48) continue;
+        var p = document.createElement("p");
+        p.textContent = line.slice(0, 340);
+        more.appendChild(p);
+        count += 1;
+      }
+      if (!count) more.textContent = (main.innerText || "").replace(/\s+/g, " ").trim().slice(0, 700);
+    }).catch(function () { more.textContent = "La page ne s'ouvre pas ici."; });
+  }
+
+  function openLinkPop(link) {
+    var url = link.getAttribute("data-url") || "";
+    var title = link.getAttribute("data-title") || "Fiche";
+    var desc = link.getAttribute("data-desc") || "";
+    var pop = document.getElementById("psy-pop");
+    if (!pop) {
+      pop = document.createElement("div");
+      pop.id = "psy-pop";
+      pop.className = "psy-pop";
+      document.body.appendChild(pop);
+    }
+    pop.textContent = "";
+    var label = document.createElement("p");
+    label.className = "psy-pop-title";
+    label.textContent = title;
+    var row = document.createElement("div");
+    row.className = "psy-pop-actions";
     var page = document.createElement("button");
     page.type = "button";
+    page.className = "psy-act";
     page.textContent = "Ouvrir la page";
     page.addEventListener("click", function () {
       if (url) window.open(rootPrefix() + url, "_blank", "noopener");
+      pop.hidden = true;
     });
     var here = document.createElement("button");
     here.type = "button";
+    here.className = "psy-act psy-act-here";
     here.textContent = "Voir ici";
-    here.addEventListener("click", function () {
-      var panel = document.createElement("div");
-      var h = document.createElement("p");
-      h.textContent = desc || "Extrait de la fiche.";
-      var more = document.createElement("p");
-      more.textContent = "Chargement de la page…";
-      panel.appendChild(h);
-      panel.appendChild(more);
-      openFloat("float-fiche", title, panel);
-      if (!url) { more.textContent = ""; return; }
-      fetch(rootPrefix() + url).then(function (res) { return res.text(); }).then(function (html) {
-        var doc = new DOMParser().parseFromString(html, "text/html");
-        var main = doc.querySelector(".content") || doc.querySelector("main") || doc.body;
-        more.textContent = (main.innerText || "").replace(/\s+/g, " ").trim().slice(0, 900);
-      }).catch(function () { more.textContent = "La page ne s'ouvre pas ici."; });
-    });
-    box.appendChild(page);
-    box.appendChild(here);
-    openFloat("float-star", title, box);
+    here.addEventListener("click", function () { openFiche(title, desc, url); });
+    row.appendChild(page);
+    row.appendChild(here);
+    pop.appendChild(label);
+    pop.appendChild(row);
+    pop.hidden = false;
+    var rect = link.getBoundingClientRect();
+    var width = Math.min(240, window.innerWidth - 16);
+    var left = Math.max(8, Math.min(rect.left, window.innerWidth - width - 8));
+    pop.style.width = width + "px";
+    pop.style.left = left + "px";
+    pop.style.top = (rect.bottom + 8) + "px";
+    var height = pop.offsetHeight;
+    if (rect.bottom + 8 + height > window.innerHeight - 8) {
+      pop.style.top = Math.max(8, rect.top - height - 8) + "px";
+    }
   }
 
   function textPos(root, node, offset) {
@@ -1294,19 +1367,15 @@
         if (!found || from < 0) break;
         var span = document.createElement("span");
         span.className = "psy-link";
+        span.contentEditable = "false";
         span.textContent = node.nodeValue.slice(from, to);
-        var star = document.createElement("button");
-        star.type = "button";
-        star.className = "psy-star";
-        star.textContent = "*";
-        star.setAttribute("data-url", found.entry.u || "");
-        star.setAttribute("data-title", found.entry.t || "");
-        star.setAttribute("data-desc", found.entry.d || "");
+        span.setAttribute("data-url", found.entry.u || "");
+        span.setAttribute("data-title", found.entry.t || "");
+        span.setAttribute("data-desc", found.entry.d || "");
         var after = document.createTextNode(node.nodeValue.slice(to));
         node.nodeValue = node.nodeValue.slice(0, from);
         parent.insertBefore(span, node.nextSibling);
-        parent.insertBefore(star, span.nextSibling);
-        parent.insertBefore(after, star.nextSibling);
+        parent.insertBefore(after, span.nextSibling);
         node = after;
       }
     });
@@ -1320,7 +1389,7 @@
     area.className = "note-read";
     area.textContent = "Transcription…";
     panel.appendChild(area);
-    openFloat("float-note", "Note orale", panel);
+    openFloat("float-note", "Note orale", panel, { bare: true });
     var publish = function (text, failed) {
       var clean = (text || "").trim();
       if (!clean) {
@@ -2030,12 +2099,22 @@
         if (!speechMode) decorateLinks(body);
       }, 400);
     });
+    document.addEventListener("pointerdown", function (e) {
+      var pop = document.getElementById("psy-pop");
+      var inLink = e.target.closest && e.target.closest(".psy-link");
+      if (pop && !pop.hidden && !pop.contains(e.target) && !inLink) pop.hidden = true;
+      document.querySelectorAll(".float-win.is-bare").forEach(function (w) {
+        if (w.hidden || w.contains(e.target) || inLink) return;
+        if (e.target.closest && e.target.closest("#psy-pop")) return;
+        w.hidden = true;
+      });
+    });
     document.addEventListener("click", function (e) {
-      var star = e.target.closest && e.target.closest(".psy-star");
-      if (!star) return;
+      var link = e.target.closest && e.target.closest(".psy-link");
+      if (!link) return;
       e.preventDefault();
       e.stopPropagation();
-      openStarMenu(star);
+      openLinkPop(link);
     });
     body.addEventListener("keyup", function () { rememberRange(); placeMic(); });
     body.addEventListener("mouseup", function () { rememberRange(); placeMic(); });
