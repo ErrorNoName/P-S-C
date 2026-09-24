@@ -410,6 +410,10 @@
       var end = chunk.indexOf("</w:p>");
       if (end < 0) continue;
       var para = chunk.slice(0, end);
+      var tag = "p";
+      var pStyle = /<w:pStyle w:val="([^"]+)"/.exec(para);
+      if (pStyle && /heading/i.test(pStyle[1])) tag = "h2";
+      if (/<w:numPr>/.test(para)) tag = "li";
       var align = "";
       var jc = /<w:jc w:val="([^"]+)"/.exec(para);
       if (jc && jc[1] && jc[1] !== "left") {
@@ -433,13 +437,14 @@
         if (/<w:strike\/>/.test(run)) piece = "<s>" + piece + "</s>";
         var sz = /<w:sz w:val="(\d+)"/.exec(run);
         if (sz) {
-          var px = Math.round(Number(sz[1]) / 1.5);
-          piece = '<span style="font-size:' + px + 'px">' + piece + "</span>";
+          var half = Number(sz[1]);
+          var fontSize = half >= 40 ? "6" : half >= 32 ? "5" : half >= 26 ? "4" : "2";
+          piece = '<font size="' + fontSize + '">' + piece + "</font>";
         }
         if (/<w:highlight /.test(run)) piece = "<mark>" + piece + "</mark>";
         inner += piece;
       }
-      html.push("<p" + align + ">" + (inner || "<br>") + "</p>");
+      html.push("<" + tag + align + ">" + (inner || "<br>") + "</" + tag + ">");
     }
     return html.join("");
   }

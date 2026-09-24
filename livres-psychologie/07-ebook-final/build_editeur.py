@@ -11,25 +11,46 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 def render():
     body = """
 <div class="cahier" id="cahier-app">
-  <div class="cahier-work" id="cahier-work">
+  <section class="cahier-home" id="cahier-home">
+    <header class="cahier-home-head">
+      <div>
+        <p class="cahier-kicker">Cahiers</p>
+        <h1>Toutes les notes</h1>
+        <p class="cahier-lead">Choisis une note, ou importe un document. Rien ne s'ouvre tout seul.</p>
+      </div>
+      <div class="cahier-home-actions">
+        <button type="button" class="btn btn-primary" id="cahier-new">Nouvelle note</button>
+        <button type="button" class="btn btn-secondary" id="cahier-import">Importer .docx</button>
+        <button type="button" class="btn btn-secondary" id="cahier-gdoc">Google Doc</button>
+        <button type="button" class="btn btn-secondary" id="cahier-drive">Relier Drive</button>
+        <input type="file" id="cahier-file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+      </div>
+    </header>
+    <form class="gdoc-box" id="gdoc-box" hidden>
+      <label>Lien du Google Doc
+        <input id="gdoc-url" type="url" placeholder="https://docs.google.com/document/d/…" autocomplete="off">
+      </label>
+      <button type="submit" class="btn btn-primary" id="gdoc-go">Afficher dans le cahier</button>
+      <p class="cahier-lead">Le document est lu puis affiché ici. S'il refuse, dans Google Docs : Fichier, Télécharger, Microsoft Word, puis Importer .docx.</p>
+    </form>
+    <p id="cahier-drive-msg" class="cahier-msg" hidden></p>
+    <p class="cahier-sync" id="cahier-sync">Enregistré sur cet appareil. Google Drive est facultatif.</p>
+    <div class="cahier-grid" id="cahier-grid"></div>
+  </section>
+  <div class="cahier-work" id="cahier-work" hidden>
     <aside class="cahier-side" id="cahier-side">
       <div class="cahier-side-head">
         <strong>Tes cahiers</strong>
         <button type="button" class="cahier-textbtn" id="cahier-side-close">Fermer</button>
       </div>
       <div class="cahier-side-actions">
-        <button type="button" class="btn btn-primary" id="cahier-new">Nouveau</button>
-        <button type="button" class="btn btn-secondary" id="cahier-import">Importer .docx</button>
-        <button type="button" class="btn btn-secondary" id="cahier-drive">Google Drive</button>
-        <input type="file" id="cahier-file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+        <button type="button" class="btn btn-secondary" id="cahier-all">Toutes les notes</button>
       </div>
       <ul class="cahier-list" id="cahier-list"></ul>
-      <p class="cahier-sync" id="cahier-sync">Enregistré sur cet appareil. Google Drive est facultatif.</p>
-      <p id="cahier-drive-msg" class="cahier-msg" hidden></p>
     </aside>
     <div class="cahier-editor">
       <div class="cahier-mobilebar">
-        <button type="button" class="btn btn-secondary" id="cahier-side-open">Cahiers</button>
+        <button type="button" class="btn btn-secondary" id="cahier-side-open">Toutes les notes</button>
         <span id="cahier-sync-mobile"></span>
       </div>
       <div class="cahier-toolbar" role="toolbar" aria-label="Mise en forme">
@@ -122,11 +143,11 @@ def render():
   <aside id="cahier-suggest" class="cahier-suggest" hidden></aside>
 </div>
 """
-    css = asset(0, "css/editeur.css") + "?v=float5"
+    css = asset(0, "css/editeur.css") + "?v=float6"
     scripts = (
-        f'<script src="{asset(0, "js/lame.min.js")}?v=float5"></script>\n'
-        f'<script src="{asset(0, "js/editeur-format.js")}?v=float5"></script>\n'
-        f'<script src="{asset(0, "js/editeur.js")}?v=float5"></script>'
+        f'<script src="{asset(0, "js/lame.min.js")}?v=float6"></script>\n'
+        f'<script src="{asset(0, "js/editeur-format.js")}?v=float6"></script>\n'
+        f'<script src="{asset(0, "js/editeur.js")}?v=float6"></script>'
     )
     html = page_shell(
         "Cahier",

@@ -277,6 +277,115 @@
     return blocks.join("") || "<p><br></p>";
   }
 
+  function plainExcerpt(html) {
+    var wrap = document.createElement("div");
+    wrap.innerHTML = String(html || "");
+    return (wrap.textContent || "").replace(/\s+/g, " ").trim();
+  }
+
+  function showLibrary() {
+    if (active && $("cahier-work") && !$("cahier-work").hidden) snapshot();
+    $("cahier-work").hidden = true;
+    $("cahier-home").hidden = false;
+    var side = $("cahier-side");
+    if (side) side.classList.remove("is-open");
+    renderGrid();
+  }
+
+  function showEditor() {
+    $("cahier-home").hidden = true;
+    $("cahier-work").hidden = false;
+  }
+
+  function renderGrid() {
+    var grid = $("cahier-grid");
+    if (!grid) return;
+    grid.textContent = "";
+    var rows = docs.slice().sort(function (a, b) { return String(b.updatedAt).localeCompare(String(a.updatedAt)); });
+    if (!rows.length) {
+      var empty = document.createElement("div");
+      empty.className = "cahier-empty";
+      empty.textContent = "Aucune note pour l'instant. Crée une note, ou importe un .docx ou un Google Doc.";
+      grid.appendChild(empty);
+      return;
+    }
+    rows.forEach(function (doc) {
+      var card = document.createElement("article");
+      card.className = "cahier-card";
+      var title = document.createElement("h2");
+      title.textContent = doc.title || "Sans titre";
+      var meta = document.createElement("p");
+      meta.className = "meta";
+      var when = doc.updatedAt ? new Date(doc.updatedAt).toLocaleString("fr-FR") : "";
+      meta.textContent = when + (doc.driveId ? " · Drive" : " · Sur cet appareil");
+      var excerpt = document.createElement("p");
+      excerpt.className = "excerpt";
+      var text = plainExcerpt(doc.html);
+      excerpt.textContent = text ? text.slice(0, 140) : "Note vide";
+      var actions = document.createElement("div");
+      actions.className = "cahier-card-actions";
+      function act(label, fn, danger) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = label;
+        if (danger) btn.className = "is-danger";
+        btn.addEventListener("click", fn);
+        actions.appendChild(btn);
+      }
+      act("Ouvrir", function () { openDoc(doc.id); });
+      act("Renommer", function () {
+        var input = document.createElement("input");
+        input.className = "cahier-rename";
+        input.value = doc.title || "";
+        input.maxLength = 140;
+        title.replaceWith(input);
+        input.focus();
+        var saveName = function () {
+          doc.title = input.value.trim();
+          doc.updatedAt = new Date().toISOString();
+          persistLocal();
+          if (token) pushDrive().catch(function () {});
+          renderGrid();
+          renderList();
+        };
+        input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); saveName(); } });
+        input.addEventListener("blur", saveName);
+      });
+      act("Dupliquer", function () {
+        docs.unshift({
+          id: hex(8),
+          title: (doc.title || "Sans titre") + " — copie",
+          html: doc.html,
+          audios: doc.audios || {},
+          updatedAt: new Date().toISOString(),
+          driveId: ""
+        });
+        persistLocal();
+        renderGrid();
+      });
+      act("Supprimer", function () {
+        if (!window.confirm("Supprimer « " + (doc.title || "Sans titre") + " » ?")) return;
+        docs = docs.filter(function (item) { return item.id !== doc.id; });
+        if (active && active.id === doc.id) active = null;
+        if (doc.driveId && token) {
+          driveFetch(DRIVE + "/files/" + encodeURIComponent(doc.driveId), {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ trashed: true })
+          }).catch(function () {});
+        }
+        persistLocal();
+        renderGrid();
+        renderList();
+      }, true);
+      card.appendChild(title);
+      card.appendChild(meta);
+      card.appendChild(excerpt);
+      card.appendChild(actions);
+      grid.appendChild(card);
+    });
+  }
+
   function renderList() {
     var ul = $("cahier-list");
     ul.textContent = "";
@@ -409,11 +518,13 @@
         doc.html = data.html || doc.html;
         doc.audios = data.audios || doc.audios;
         doc.title = data.title || doc.title;
+        showEditor();
         fillEditor(doc);
         persistLocal();
-      }).catch(function () { fillEditor(doc); });
+      }).catch(function () { showEditor(); fillEditor(doc); });
       return;
     }
+    showEditor();
     fillEditor(doc);
   }
 
@@ -427,6 +538,7 @@
       driveId: ""
     };
     docs.unshift(doc);
+    showEditor();
     fillEditor(doc);
     persistLocal();
     $("cahier-title").focus();
@@ -483,7 +595,19 @@
     var headers = options.headers || {};
     headers.Authorization = "Bearer " + token;
     options.headers = headers;
-    return fetch(url, options);
+    return fetch(url, options).then(function (res) {
+      if (res.ok) return res;
+      return res.text().then(function (text) {
+        var reason = "";
+        try {
+          var data = JSON.parse(text);
+          reason = (data.error && (data.error.message || data.error.status)) || "";
+        } catch (e) { reason = String(text || "").slice(0, 180); }
+        var err = new Error("drive " + res.status + " " + reason);
+        err.status = res.status;
+        throw err;
+      });
+    });
   }
 
   function fileName(doc) {
@@ -541,7 +665,6 @@
         body: body
       }).then(function (res) {
         if (res.status === 401) { token = ""; throw new Error("session"); }
-        if (!res.ok) throw new Error("drive");
         return res.json();
       }).then(function (data) {
         if (data.id) active.driveId = data.id;
@@ -557,14 +680,18 @@
 
   function driveErrorText(err) {
     var code = String(err && (err.message || err.error) || err || "");
-    if (code.indexOf("access_denied") !== -1 || code.indexOf("403") !== -1) {
+    if (code.indexOf("access_denied") !== -1 || code.indexOf("403") !== -1 || code.indexOf("accessNotConfigured") !== -1) {
+      if (code.indexOf("accessNotConfigured") !== -1 || code.indexOf("has not been used") !== -1) {
+        return "L'API Google Drive n'est pas activée sur le projet. Active-la dans la console Google, puis réessaie. Le texte reste sur cet appareil.";
+      }
       return "Google bloque le lien (erreur 403 : l'application est encore en test). " +
-        "Le cahier reste sur cet appareil. Dans Google Cloud, écran de consentement OAuth : " +
-        "ajoute ce Gmail comme utilisateur test, ou publie l'application. " +
-        "Le site ne peut pas lever ce blocage tout seul.";
+        "Ajoute ce Gmail comme utilisateur test, ou publie l'application dans l'écran de consentement. " +
+        "Le texte reste sur cet appareil.";
     }
     if (code.indexOf("popup") !== -1) return "Fenêtre Google fermée. Le cahier reste sur cet appareil.";
-    return "Drive n'a pas autorisé le cahier. Le texte reste enregistré sur cet appareil.";
+    if (code.indexOf("404") !== -1) return "Ce Google Doc n'est pas accessible avec le lien actuel. Télécharge-le en .docx, puis importe le fichier.";
+    if (code.indexOf("invalid_scope") !== -1) return "Le projet Google n'autorise pas encore Drive. Ajoute le droit drive.file à l'écran de consentement.";
+    return "Drive a répondu : " + code.replace(/^drive\s+/, "") + ". Le texte reste enregistré sur cet appareil.";
   }
 
   function showDriveMsg(text) {
@@ -582,10 +709,7 @@
     return ensureToken(false).then(function () {
       var q = "trashed=false and appProperties has { key='psy' and value='cahier' }";
       return driveFetch(DRIVE + "/files?spaces=drive&fields=files(id,name,appProperties,modifiedTime)&q=" + encodeURIComponent(q));
-    }).then(function (res) {
-      if (!res || !res.ok) throw new Error("liste");
-      return res.json();
-    }).then(function (data) {
+    }).then(function (res) { return res.json(); }).then(function (data) {
       (data.files || []).forEach(function (file) {
         var id = file.appProperties && file.appProperties.doc;
         var known = null;
@@ -603,9 +727,8 @@
       });
       persistLocal();
       renderList();
+      renderGrid();
       setSync("Relié à Google Drive");
-    }).catch(function () {
-      setSync("Pas encore relié à Drive");
     });
   }
 
@@ -617,8 +740,52 @@
       setSync("Enregistré sur cet appareil, et dans Google Drive");
       showDriveMsg("");
     }).catch(function (err) {
-      token = "";
+      var code = String(err && err.message || "");
+      if (code.indexOf("access_denied") !== -1 || code.indexOf("popup") !== -1) token = "";
       setSync("Enregistré sur cet appareil");
+      showDriveMsg(driveErrorText(err));
+    });
+  }
+
+  function googleDocId(url) {
+    var text = String(url || "");
+    var m = /\/document\/d\/([a-zA-Z0-9_-]+)/.exec(text) || /[?&]id=([a-zA-Z0-9_-]+)/.exec(text) || /^([a-zA-Z0-9_-]{20,})$/.exec(text.trim());
+    return m ? m[1] : "";
+  }
+
+  function importGoogleDoc(url) {
+    var id = googleDocId(url);
+    if (!id) {
+      showDriveMsg("Colle le lien complet du Google Doc.");
+      return;
+    }
+    showDriveMsg("");
+    ensureToken(true).then(function () {
+      return driveFetch(DRIVE + "/files/" + encodeURIComponent(id) + "/export?mimeType=" + encodeURIComponent("application/vnd.openxmlformats-officedocument.wordprocessingml.document"));
+    }).then(function (res) { return res.arrayBuffer(); }).then(function (buf) {
+      var inflate = function (slice) {
+        if (typeof DecompressionStream === "undefined") return Promise.reject(new Error("inflate"));
+        var stream = new Blob([slice]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+        return new Response(stream).arrayBuffer().then(function (out) { return new Uint8Array(out); });
+      };
+      return FMT.docxToHtml(new Uint8Array(buf), inflate);
+    }).then(function (html) {
+      var doc = {
+        id: hex(8),
+        title: "Google Doc",
+        html: html || "<p><br></p>",
+        audios: {},
+        updatedAt: new Date().toISOString(),
+        driveId: ""
+      };
+      docs.unshift(doc);
+      persistLocal();
+      var box = $("gdoc-box");
+      if (box) box.hidden = true;
+      showEditor();
+      fillEditor(doc);
+      toast("Google Doc affiché dans le cahier");
+    }).catch(function (err) {
       showDriveMsg(driveErrorText(err));
     });
   }
@@ -1686,6 +1853,7 @@
         driveId: ""
       };
       docs.unshift(doc);
+      showEditor();
       fillEditor(doc);
       persistLocal();
       scheduleSave();
@@ -1708,7 +1876,7 @@
       }).catch(function () {});
     }
     persistLocal();
-    if (!docs.length) newDoc();
+    if (!docs.length) showLibrary();
     else fillEditor(docs[0]);
   }
 
@@ -2198,14 +2366,26 @@
     var driveBtn = $("cahier-drive");
     if (driveBtn) driveBtn.addEventListener("click", askDrive);
     $("cahier-delete").addEventListener("click", removeDoc);
-    $("cahier-new").addEventListener("click", function () { newDoc(); $("cahier-side").classList.remove("is-open"); });
+    $("cahier-new").addEventListener("click", function () { newDoc(); });
+    var allBtn = $("cahier-all");
+    if (allBtn) allBtn.addEventListener("click", showLibrary);
+    var gdocBtn = $("cahier-gdoc");
+    if (gdocBtn) gdocBtn.addEventListener("click", function () {
+      var box = $("gdoc-box");
+      if (box) box.hidden = !box.hidden;
+    });
+    var gdocForm = $("gdoc-box");
+    if (gdocForm) gdocForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      importGoogleDoc($("gdoc-url").value);
+    });
     $("cahier-import").addEventListener("click", function () { $("cahier-file").click(); });
     $("cahier-file").addEventListener("change", function () {
       var file = $("cahier-file").files && $("cahier-file").files[0];
       $("cahier-file").value = "";
       if (file) importDocx(file);
     });
-    $("cahier-side-open").addEventListener("click", function () { $("cahier-side").classList.add("is-open"); });
+    $("cahier-side-open").addEventListener("click", showLibrary);
     $("cahier-side-close").addEventListener("click", function () { $("cahier-side").classList.remove("is-open"); });
     var sync = $("cahier-sync");
     sync.style.cursor = "pointer";
@@ -2230,8 +2410,7 @@
     if (gate) gate.hidden = true;
     $("cahier-work").hidden = false;
     loadLocal();
-    if (!docs.length) newDoc();
-    else fillEditor(docs[0]);
+    showLibrary();
     if (!rootEl.getAttribute("data-bound")) {
       rootEl.setAttribute("data-bound", "1");
       bindEditor();
