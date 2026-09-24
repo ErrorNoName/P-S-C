@@ -26,6 +26,11 @@
   var dictateOn = false;
   var speechMode = "";
   var noteHold = false;
+  var reelPhase = "idle";
+  var reelMode = "vocal";
+  var reel = null;
+  var reelTranscript = "";
+  var reelViewId = "";
   var listenRec = null;
   var speechState = null;
   var speechRunning = false;
@@ -107,9 +112,11 @@
   function audioDb() {
     return new Promise(function (resolve, reject) {
       if (!window.indexedDB) { reject(new Error("idb")); return; }
-      var req = indexedDB.open("psyclopedia-cahier-audio", 1);
+      var req = indexedDB.open("psyclopedia-cahier-audio", 2);
       req.onupgradeneeded = function () {
-        if (!req.result.objectStoreNames.contains("clips")) req.result.createObjectStore("clips");
+        var db = req.result;
+        if (!db.objectStoreNames.contains("clips")) db.createObjectStore("clips");
+        if (!db.objectStoreNames.contains("seances")) db.createObjectStore("seances");
       };
       req.onsuccess = function () { resolve(req.result); };
       req.onerror = function () { reject(req.error || new Error("idb")); };
@@ -809,7 +816,7 @@
   }
 
   function closeMic() {
-    if (recording || desiredSpeech()) return;
+    if (recording || desiredSpeech() || reelPhase === "run" || reelPhase === "pause") return;
     if (!micStream) return;
     try { micStream.getTracks().forEach(function (track) { track.stop(); }); } catch (e) { /* ignore */ }
     micStream = null;
@@ -859,17 +866,23 @@
   }
 
   function desiredSpeech() {
+    if (reelPhase === "run" || reelPhase === "arm") return "reel";
     if (recording || noteHold) return "note";
     if (dictateOn) return "dictate";
     if (listenOn) return "listen";
     return "";
   }
 
-  function startSpeech(mode) {
+  function startSpeech(mode, keep) {
+    var kept = keep && speechState ? speechState : null;
     stopSpeech();
     if (!mode) { showLive(""); return; }
     var rec = speechRecognizer();
     if (!rec) {
+      if (mode === "reel") {
+        toast("Le son est enregistré. La transcription demande Chrome, Edge ou Safari.");
+        return;
+      }
       if (mode !== "note") toast("La dictée fonctionne dans Chrome, Edge ou Safari.");
       if (mode === "dictate") {
         dictateOn = false;
@@ -883,11 +896,16 @@
       return;
     }
     speechMode = mode;
-    speechState = FMT.speechState();
+    speechState = kept || FMT.speechState();
     speechShort = 0;
     rec.onresult = function (ev) {
       if (speechMode !== mode || !speechState) return;
       var step = FMT.applySpeechEvent(speechState, ev, Date.now());
+      if (mode === "reel") {
+        reelTranscript = speechState.log || speechState.tail || "";
+        paintReelLive();
+        return;
+      }
       if (step.added && mode === "dictate") insertPlainText(step.added + " ");
       if (mode === "note" && recording) recording.said = speechState.log || speechState.tail;
       if (step.added) considerUtterance(speechState.tail);
@@ -916,7 +934,7 @@
       if (lasted > 0 && lasted < 400) speechShort += 1;
       else speechShort = 0;
       if (speechMode !== mode || desiredSpeech() !== mode) return;
-      if (failed === "audio-capture" && mode === "note" && recording) {
+      if (failed === "audio-capture" && (mode === "reel" || (mode === "note" && recording))) {
         clearSpeechTimer();
         speechTimer = setTimeout(function () { kickSpeech(rec, mode); }, 700);
         return;
@@ -980,6 +998,7 @@
   }
 
   function startRecording() {
+    if (reelBlocks()) return;
     if (recording) { stopRecording(); return; }
     if (noteHold) { noteHold = false; stopSpeech(); return; }
     rememberRange();
@@ -1226,7 +1245,14 @@
       .catch(function () { lexicon = FMT.buildLexicon([]); });
   }
 
+  function reelBlocks() {
+    if (reelPhase !== "run" && reelPhase !== "pause") return false;
+    toast("Enregistrement constant en cours. Note orale, dictée et écoute sont en pause.");
+    return true;
+  }
+
   function toggleListen() {
+    if (reelBlocks()) return;
     listenOn = !listenOn;
     $("cahier-listen").setAttribute("aria-pressed", listenOn ? "true" : "false");
     if (!listenOn && speechMode === "listen") stopSpeech();
@@ -1234,6 +1260,7 @@
   }
 
   function toggleDictate() {
+    if (reelBlocks()) return;
     dictateOn = !dictateOn;
     var btn = $("cahier-dictate");
     if (btn) btn.setAttribute("aria-pressed", dictateOn ? "true" : "false");
@@ -1339,6 +1366,362 @@
     else fillEditor(docs[0]);
   }
 
+  var REEL_AUDIO = {
+    vocal: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+    normal: { echoCancellation: true, noiseSuppression: false, autoGainControl: true },
+    room: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
+  };
+  var REEL_MAX = 7200;
+
+  function reelClock() {
+    if (!reel) return 0;
+    var extra = reelPhase === "run" ? Date.now() - reel.tick : 0;
+    return (reel.elapsed + extra) / 1000;
+  }
+
+  function paintReelTime() {
+    var el = $("rec-time");
+    if (!el) return;
+    var total = Math.floor(reelClock());
+    var h = String(Math.floor(total / 3600)).padStart(2, "0");
+    var m = String(Math.floor(total / 60) % 60).padStart(2, "0");
+    var s = String(total % 60).padStart(2, "0");
+    el.textContent = h + ":" + m + ":" + s;
+  }
+
+  function paintReelLive() {
+    var el = $("rec-live");
+    if (!el) return;
+    var text = (reelTranscript || "").trim();
+    el.hidden = !text;
+    el.textContent = text ? text.slice(-280) : "";
+  }
+
+  function paintReelLock() {
+    var on = reelPhase === "run" || reelPhase === "pause" || reelPhase === "arm";
+    var app = $("cahier-app");
+    if (app) app.classList.toggle("is-reel", on);
+    ["cahier-dictate", "cahier-listen"].forEach(function (id) {
+      var btn = $(id);
+      if (btn) btn.disabled = on;
+    });
+    var go = $("rec-go");
+    var pause = $("rec-pause");
+    var stop = $("rec-stop");
+    if (go) {
+      go.setAttribute("aria-pressed", reelPhase === "run" ? "true" : "false");
+      go.textContent = reelPhase === "pause" ? "Reprendre" : (reelPhase === "run" ? "En cours" : "Lancer");
+    }
+    if (pause) pause.disabled = reelPhase !== "run";
+    if (stop) stop.disabled = reelPhase === "idle";
+    document.querySelectorAll(".rec-modes button").forEach(function (btn) {
+      btn.disabled = on;
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-reel") === reelMode ? "true" : "false");
+    });
+    var warn = $("rec-warn");
+    if (warn) {
+      warn.textContent = on
+        ? "Séance en cours. La note orale, la dictée et l'écoute sont grisées jusqu'à l'arrêt."
+        : "Pendant la séance, la note orale, la dictée et l'écoute sont indisponibles.";
+    }
+  }
+
+  function seanceStore(mode) {
+    return audioDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction("seances", mode);
+        var store = tx.objectStore("seances");
+        resolve({ store: store, tx: tx });
+      });
+    });
+  }
+
+  function listSeances() {
+    var box = $("rec-cache");
+    if (!box) return;
+    audioDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction("seances", "readonly");
+        var req = tx.objectStore("seances").getAll();
+        req.onsuccess = function () { resolve(req.result || []); };
+        req.onerror = function () { reject(req.error); };
+      });
+    }).then(function (rows) {
+      rows.sort(function (a, b) { return (b.created || 0) - (a.created || 0); });
+      box.textContent = "";
+      if (!rows.length) {
+        var empty = document.createElement("li");
+        empty.className = "rec-empty";
+        empty.textContent = "Aucune séance en cache.";
+        box.appendChild(empty);
+        return;
+      }
+      rows.forEach(function (row) {
+        var li = document.createElement("li");
+        var label = document.createElement("strong");
+        var when = new Date(row.created || Date.now());
+        label.textContent = when.toLocaleString("fr-FR", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })
+          + " · " + FMT.formatSec(row.duration || 0);
+        li.appendChild(label);
+        ["Écouter", "Transcription", "TXT", "MP3", "Supprimer"].forEach(function (name) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.textContent = name;
+          btn.addEventListener("click", function () { onSeance(name, row.id); });
+          li.appendChild(btn);
+        });
+        box.appendChild(li);
+      });
+    }).catch(function () {
+      box.textContent = "";
+    });
+  }
+
+  function loadSeance(id) {
+    return audioDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var req = db.transaction("seances", "readonly").objectStore("seances").get(id);
+        req.onsuccess = function () { resolve(req.result || null); };
+        req.onerror = function () { reject(req.error); };
+      });
+    });
+  }
+
+  function saveSeance(row) {
+    return audioDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction("seances", "readwrite");
+        tx.objectStore("seances").put(row, row.id);
+        tx.oncomplete = function () { resolve(row); };
+        tx.onerror = function () { reject(tx.error); };
+      });
+    });
+  }
+
+  function downloadBytes(bytes, name, type) {
+    var blob = new Blob([bytes], { type: type });
+    var link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = name;
+    link.click();
+    setTimeout(function () { URL.revokeObjectURL(link.href); }, 4000);
+  }
+
+  function samplesToMp3(samples, rate) {
+    if (!window.lamejs || !lamejs.Mp3Encoder) throw new Error("mp3");
+    var enc = new lamejs.Mp3Encoder(1, rate, 96);
+    var pcm = new Int16Array(samples.length);
+    var i;
+    for (i = 0; i < samples.length; i++) {
+      var s = samples[i];
+      if (s > 1) s = 1;
+      if (s < -1) s = -1;
+      pcm[i] = s < 0 ? Math.round(s * 32768) : Math.round(s * 32767);
+    }
+    var parts = [];
+    var block = 1152;
+    for (i = 0; i < pcm.length; i += block) {
+      var buf = enc.encodeBuffer(pcm.subarray(i, Math.min(i + block, pcm.length)));
+      if (buf && buf.length) parts.push(buf);
+    }
+    var end = enc.flush();
+    if (end && end.length) parts.push(end);
+    return new Blob(parts, { type: "audio/mpeg" });
+  }
+
+  function openSeanceView(row) {
+    reelViewId = row.id;
+    var view = $("rec-view");
+    $("rec-view-title").textContent = "Séance du " + new Date(row.created).toLocaleString("fr-FR");
+    $("rec-script").textContent = (row.transcript || "").trim() || "Aucun mot transcrit pour cette séance.";
+    var player = $("rec-player");
+    if (player._url) URL.revokeObjectURL(player._url);
+    var url = URL.createObjectURL(new Blob([row.wav], { type: "audio/wav" }));
+    player._url = url;
+    player.src = url;
+    view.hidden = false;
+  }
+
+  function onSeance(action, id) {
+    if (action === "Supprimer") {
+      audioDb().then(function (db) {
+        return new Promise(function (resolve) {
+          var tx = db.transaction("seances", "readwrite");
+          tx.objectStore("seances").delete(id);
+          tx.oncomplete = function () { resolve(); };
+        });
+      }).then(listSeances);
+      return;
+    }
+    loadSeance(id).then(function (row) {
+      if (!row) return;
+      var stamp = new Date(row.created || Date.now()).toISOString().slice(0, 16).replace(/[:T]/g, "-");
+      if (action === "Écouter" || action === "Transcription") openSeanceView(row);
+      if (action === "TXT") {
+        downloadBytes(row.transcript || "", "psyclopedia-" + stamp + ".txt", "text/plain;charset=utf-8");
+      }
+      if (action === "MP3") {
+        try {
+          var pcm = FMT.wavPcm(row.wav);
+          var blob = samplesToMp3(pcm.samples, pcm.rate || VOICE_RATE);
+          var link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "psyclopedia-" + stamp + ".mp3";
+          link.click();
+        } catch (e) {
+          toast("MP3 indisponible, le WAV de la séance reste lisible.");
+          downloadBytes(row.wav, "psyclopedia-" + stamp + ".wav", "audio/wav");
+        }
+      }
+    });
+  }
+
+  function stopReelGraph() {
+    if (!reel) return;
+    try { reel.processor.onaudioprocess = null; } catch (e0) { /* ignore */ }
+    try { reel.processor.disconnect(); } catch (e1) { /* ignore */ }
+    try { reel.source.disconnect(); } catch (e2) { /* ignore */ }
+    try { reel.mute.disconnect(); } catch (e3) { /* ignore */ }
+    try { reel.stream.getTracks().forEach(function (track) { track.stop(); }); } catch (e4) { /* ignore */ }
+    try { reel.ctx.close(); } catch (e5) { /* ignore */ }
+    clearInterval(reel.timer);
+  }
+
+  function finishReel() {
+    if (!reel) {
+      reelPhase = "idle";
+      stopSpeech();
+      paintReelLock();
+      return;
+    }
+    if (reelPhase === "run") reel.elapsed += Date.now() - reel.tick;
+    var chunks = reel.chunks.slice();
+    var said = (speechState && (speechState.log || speechState.tail)) || reelTranscript || "";
+    stopReelGraph();
+    reel = null;
+    reelPhase = "idle";
+    stopSpeech();
+    paintReelLock();
+    paintReelLive();
+    var raw = concatFloats(chunks);
+    var prepared = FMT.prepareVoice(raw);
+    if (prepared.length < VOICE_RATE / 4) {
+      toast("Séance trop courte pour être gardée.");
+      return;
+    }
+    var wav = FMT.encodeWav(prepared, VOICE_RATE);
+    var row = {
+      id: hex(8),
+      created: Date.now(),
+      duration: prepared.length / VOICE_RATE,
+      transcript: String(said || "").trim(),
+      wav: wav
+    };
+    reelTranscript = "";
+    paintReelLive();
+    saveSeance(row).then(function () {
+      toast("Séance gardée dans le cache.");
+      listSeances();
+      openSeanceView(row);
+    }).catch(function () {
+      toast("Le cache du navigateur a refusé la séance.");
+    });
+  }
+
+  function pauseReel() {
+    if (reelPhase !== "run" || !reel) return;
+    reel.elapsed += Date.now() - reel.tick;
+    reelPhase = "pause";
+    if (speechState && speechState.log) reelTranscript = speechState.log;
+    stopSpeech();
+    paintReelLock();
+    paintReelTime();
+  }
+
+  function resumeReel() {
+    if (reelPhase !== "pause" || !reel) return;
+    reel.tick = Date.now();
+    reelPhase = "run";
+    paintReelLock();
+    startSpeech("reel", true);
+  }
+
+  function beginReel() {
+    if (reelPhase === "pause") { resumeReel(); return; }
+    if (reelPhase === "run") return;
+    if (recording) stopRecording();
+    if (dictateOn) { dictateOn = false; var d = $("cahier-dictate"); if (d) d.setAttribute("aria-pressed", "false"); }
+    if (listenOn) { listenOn = false; $("cahier-listen").setAttribute("aria-pressed", "false"); }
+    reelPhase = "arm";
+    paintReelLock();
+    startSpeech("reel");
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!navigator.mediaDevices || !Ctx) {
+      reelPhase = "idle";
+      stopSpeech();
+      paintReelLock();
+      toast("Ce navigateur ne peut pas enregistrer le micro.");
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({ audio: REEL_AUDIO[reelMode] || REEL_AUDIO.vocal }).then(function (stream) {
+      if (reelPhase !== "arm") {
+        stream.getTracks().forEach(function (track) { track.stop(); });
+        return;
+      }
+      var ctx = new Ctx();
+      var ready = ctx.resume ? ctx.resume() : Promise.resolve();
+      return ready.then(function () {
+        var source = ctx.createMediaStreamSource(stream);
+        var processor = ctx.createScriptProcessor(4096, 1, 1);
+        var mute = ctx.createGain();
+        mute.gain.value = 0;
+        var chunks = [];
+        processor.onaudioprocess = function (ev) {
+          if (reelPhase !== "run" || !reel) return;
+          var buf = ev.inputBuffer;
+          var frames = buf.length;
+          var mixed = new Float32Array(frames);
+          var channels = buf.numberOfChannels || 1;
+          var ch, i, peak = 0;
+          for (ch = 0; ch < channels; ch++) {
+            var data = buf.getChannelData(ch);
+            for (i = 0; i < frames; i++) mixed[i] += data[i];
+          }
+          if (channels > 1) {
+            for (i = 0; i < frames; i++) mixed[i] /= channels;
+          }
+          for (i = 0; i < frames; i++) {
+            var a = mixed[i] < 0 ? -mixed[i] : mixed[i];
+            if (a > peak) peak = a;
+          }
+          var level = $("rec-level");
+          if (level) level.style.height = Math.max(8, Math.min(88, Math.round(peak * 180))) + "px";
+          chunks.push(FMT.resampleLinear(mixed, ctx.sampleRate || 48000, VOICE_RATE));
+        };
+        source.connect(processor);
+        processor.connect(mute);
+        mute.connect(ctx.destination);
+        reel = {
+          ctx: ctx, source: source, processor: processor, mute: mute, stream: stream,
+          chunks: chunks, elapsed: 0, tick: Date.now(),
+          timer: setInterval(function () {
+            paintReelTime();
+            if (reelClock() >= REEL_MAX) finishReel();
+          }, 250)
+        };
+        reelPhase = "run";
+        reelTranscript = "";
+        paintReelLock();
+        paintReelTime();
+      });
+    }).catch(function () {
+      reelPhase = "idle";
+      stopSpeech();
+      paintReelLock();
+      toast("Micro refusé pour l'enregistrement constant.");
+    });
+  }
+
   function bindEditor() {
     var body = $("cahier-body");
     document.execCommand("defaultParagraphSeparator", false, "p");
@@ -1392,6 +1775,20 @@
     });
     $("cahier-size").addEventListener("change", function () { applySize($("cahier-size").value); });
     $("cahier-export").addEventListener("click", downloadDocx);
+    $("rec-go").addEventListener("click", beginReel);
+    $("rec-pause").addEventListener("click", pauseReel);
+    $("rec-stop").addEventListener("click", finishReel);
+    $("rec-close").addEventListener("click", function () { $("rec-view").hidden = true; });
+    $("rec-txt").addEventListener("click", function () { if (reelViewId) onSeance("TXT", reelViewId); });
+    $("rec-mp3").addEventListener("click", function () { if (reelViewId) onSeance("MP3", reelViewId); });
+    document.querySelectorAll(".rec-modes button").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (reelPhase !== "idle") return;
+        reelMode = btn.getAttribute("data-reel") || "vocal";
+        paintReelLock();
+      });
+    });
+    listSeances();
     $("cahier-listen").addEventListener("click", toggleListen);
     var dictateBtn = $("cahier-dictate");
     if (dictateBtn) dictateBtn.addEventListener("click", toggleDictate);
@@ -1439,6 +1836,7 @@
     setSync("Enregistré sur cet appareil. Google Drive est facultatif.");
     loadLexicon();
     hydrateClips();
+    listSeances();
   }
 
   function boot() {

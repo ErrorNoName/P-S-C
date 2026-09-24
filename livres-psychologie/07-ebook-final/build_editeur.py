@@ -76,6 +76,40 @@ def render():
         <span id="cahier-words">0 mot</span>
         <span id="cahier-save">Brouillon</span>
       </div>
+      <section class="rec-const" id="rec-const" aria-label="Enregistrement constant">
+        <p class="rec-kicker">Enregistreur</p>
+        <h2>Enregistrement constant</h2>
+        <p class="rec-warn" id="rec-warn">Pendant la séance, la note orale, la dictée et l'écoute sont indisponibles.</p>
+        <div class="rec-well">
+          <div class="rec-meter" aria-hidden="true"><i id="rec-level"></i></div>
+          <p class="rec-time" id="rec-time">00:00:00</p>
+          <button type="button" class="rec-go" id="rec-go" aria-pressed="false">Lancer</button>
+          <div class="rec-actions">
+            <button type="button" id="rec-pause" disabled>Pause</button>
+            <button type="button" id="rec-stop" disabled>Stop</button>
+          </div>
+          <div class="rec-modes" role="radiogroup" aria-label="Clarté du micro">
+            <button type="button" data-reel="vocal" aria-pressed="true">Au point vocal</button>
+            <button type="button" data-reel="normal" aria-pressed="false">Normal</button>
+            <button type="button" data-reel="room" aria-pressed="false">Environnement</button>
+          </div>
+        </div>
+        <p class="rec-live" id="rec-live" hidden></p>
+        <h3>Séances en cache</h3>
+        <ul class="rec-cache" id="rec-cache"></ul>
+        <div class="rec-view" id="rec-view" hidden>
+          <div class="rec-view-card">
+            <p class="rec-kicker" id="rec-view-title">Transcription</p>
+            <audio id="rec-player" controls preload="none"></audio>
+            <pre id="rec-script"></pre>
+            <div class="rec-actions">
+              <button type="button" id="rec-txt">Télécharger TXT</button>
+              <button type="button" id="rec-mp3">Télécharger MP3</button>
+              <button type="button" id="rec-close">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
   <button type="button" id="cahier-mic" class="cahier-mic" hidden aria-label="Enregistrer une note orale sous le curseur">
@@ -88,6 +122,7 @@ def render():
 """
     css = asset(0, "css/editeur.css")
     scripts = (
+        f'<script src="{asset(0, "js/lame.min.js")}"></script>\n'
         f'<script src="{asset(0, "js/editeur-format.js")}"></script>\n'
         f'<script src="{asset(0, "js/editeur.js")}"></script>'
     )
