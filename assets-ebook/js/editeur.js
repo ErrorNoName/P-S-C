@@ -902,7 +902,9 @@
       if (speechMode !== mode || !speechState) return;
       var step = FMT.applySpeechEvent(speechState, ev, Date.now());
       if (mode === "reel") {
-        reelTranscript = speechState.log || speechState.tail || "";
+        var heard = speechState.log || "";
+        if (step.live) heard = (heard + " " + step.live).trim();
+        reelTranscript = heard.trim();
         paintReelLive();
         return;
       }
@@ -1367,7 +1369,7 @@
   }
 
   var REEL_AUDIO = {
-    vocal: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+    vocal: { echoCancellation: true, noiseSuppression: false, autoGainControl: true },
     normal: { echoCancellation: true, noiseSuppression: false, autoGainControl: true },
     room: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
   };
@@ -1393,8 +1395,8 @@
     var el = $("rec-live");
     if (!el) return;
     var text = (reelTranscript || "").trim();
-    el.hidden = !text;
-    el.textContent = text ? text.slice(-280) : "";
+    el.hidden = false;
+    el.textContent = text ? text.slice(-320) : "La transcription s'écrit ici pendant la séance.";
   }
 
   function paintReelLock() {
@@ -1405,6 +1407,11 @@
       var btn = $(id);
       if (btn) btn.disabled = on;
     });
+    var opener = $("rec-open");
+    if (opener) {
+      opener.textContent = on ? "Enregistrement…" : "Enregistrer";
+      opener.classList.toggle("is-on", on);
+    }
     var go = $("rec-go");
     var pause = $("rec-pause");
     var stop = $("rec-stop");
@@ -1648,7 +1655,9 @@
 
   function beginReel() {
     if (reelPhase === "pause") { resumeReel(); return; }
-    if (reelPhase === "run") return;
+    if (reelPhase === "run" || reelPhase === "arm") return;
+    reelTranscript = "";
+    paintReelLive();
     if (recording) stopRecording();
     if (dictateOn) { dictateOn = false; var d = $("cahier-dictate"); if (d) d.setAttribute("aria-pressed", "false"); }
     if (listenOn) { listenOn = false; $("cahier-listen").setAttribute("aria-pressed", "false"); }
@@ -1710,9 +1719,9 @@
           }, 250)
         };
         reelPhase = "run";
-        reelTranscript = "";
         paintReelLock();
         paintReelTime();
+        if (speechMode !== "reel") startSpeech("reel", true);
       });
     }).catch(function () {
       reelPhase = "idle";
@@ -1775,6 +1784,8 @@
     });
     $("cahier-size").addEventListener("change", function () { applySize($("cahier-size").value); });
     $("cahier-export").addEventListener("click", downloadDocx);
+    $("rec-open").addEventListener("click", function () { $("rec-const").hidden = false; });
+    $("rec-dismiss").addEventListener("click", function () { $("rec-const").hidden = true; });
     $("rec-go").addEventListener("click", beginReel);
     $("rec-pause").addEventListener("click", pauseReel);
     $("rec-stop").addEventListener("click", finishReel);
