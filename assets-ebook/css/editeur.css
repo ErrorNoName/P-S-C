@@ -332,27 +332,56 @@
 }
 #rec-open.is-on { color: #9b2c2c; font-weight: 700; }
 
-.rec-layer {
+.rec-layer { display: none; }
+.rec-card, .rec-view-card { color: #1c1915; }
+.float-win {
   position: fixed;
-  inset: 0;
-  z-index: 280;
+  z-index: 340;
+  top: 14vh;
+  left: 8vw;
+  width: min(380px, calc(100vw - 16px));
+  max-height: min(70vh, 560px);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  background: rgba(28, 22, 18, 0.4);
-}
-.rec-layer[hidden] { display: none; }
-.rec-card, .rec-view-card {
-  width: min(420px, 100%);
-  max-height: min(78vh, 640px);
-  overflow: auto;
+  flex-direction: column;
   background: #fffaf3;
   color: #1c1915;
   border: 1px solid #e4d8c8;
-  border-radius: 18px;
-  padding: 0.85rem 0.9rem 1rem;
-  box-shadow: 0 18px 40px rgba(48, 32, 16, 0.16);
+  border-radius: 16px;
+  box-shadow: 0 16px 36px rgba(48, 32, 16, 0.18);
+}
+.float-win.is-pin { box-shadow: 0 0 0 2px #6a355c, 0 16px 36px rgba(48, 32, 16, 0.18); }
+.float-win.is-small { width: min(240px, calc(100vw - 16px)); max-height: 46vh; }
+.float-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.55rem;
+  cursor: grab;
+  user-select: none;
+}
+.float-head strong { flex: 1; font-family: var(--serif, Fraunces, serif); font-size: 1rem; }
+.float-head button {
+  border: 1px solid #e4d8c8;
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.float-body { overflow: auto; padding: 0 0.7rem 0.75rem; }
+.float-body button { margin: 0.25rem 0.25rem 0 0; }
+.note-read { white-space: pre-wrap; line-height: 1.45; }
+.psy-link { text-decoration: underline; text-decoration-color: #6a355c; text-underline-offset: 2px; }
+.psy-star {
+  border: 0;
+  background: transparent;
+  color: #6a355c;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 0.12rem;
+  font-size: 0.95rem;
+  line-height: 1;
 }
 .rec-head { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; }
 .rec-kicker {

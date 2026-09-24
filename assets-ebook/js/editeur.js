@@ -909,7 +909,11 @@
         return;
       }
       if (step.added && mode === "dictate") insertPlainText(step.added + " ");
-      if (mode === "note" && recording) recording.said = speechState.log || speechState.tail;
+      if (mode === "note" && recording) {
+        var noteHeard = speechState.log || "";
+        if (step.live) noteHeard = (noteHeard + " " + step.live).trim();
+        recording.said = noteHeard.trim();
+      }
       if (step.added) considerUtterance(speechState.tail);
       else if (step.live && step.live.length > 10) considerUtterance(step.live);
       showLive(mode === "listen" ? step.preview : step.live);
@@ -1073,6 +1077,189 @@
     pop.textContent = "";
   }
 
+  function openFloat(id, title, node) {
+    var win = document.getElementById(id);
+    if (!win) {
+      win = document.createElement("section");
+      win.id = id;
+      win.className = "float-win";
+      win.innerHTML = '<div class="float-head"><strong></strong>'
+        + '<button type="button" data-act="pin">Pin</button>'
+        + '<button type="button" data-act="size">Réduire</button>'
+        + '<button type="button" data-act="close">Fermer</button></div>'
+        + '<div class="float-body"></div>';
+      document.body.appendChild(win);
+      var head = win.querySelector(".float-head");
+      var drag = null;
+      head.addEventListener("pointerdown", function (e) {
+        if (e.target.closest("button")) return;
+        drag = { x: e.clientX, y: e.clientY, l: win.offsetLeft, t: win.offsetTop };
+        head.setPointerCapture(e.pointerId);
+      });
+      head.addEventListener("pointermove", function (e) {
+        if (!drag) return;
+        win.style.left = Math.max(8, drag.l + e.clientX - drag.x) + "px";
+        win.style.top = Math.max(8, drag.t + e.clientY - drag.y) + "px";
+      });
+      head.addEventListener("pointerup", function () { drag = null; });
+      win.addEventListener("click", function (e) {
+        var act = e.target.getAttribute && e.target.getAttribute("data-act");
+        if (act === "close") win.hidden = true;
+        if (act === "pin") win.classList.toggle("is-pin");
+        if (act === "size") win.classList.toggle("is-small");
+      });
+    }
+    win.querySelector(".float-head strong").textContent = title;
+    var body = win.querySelector(".float-body");
+    if (node && node.parentNode !== body) {
+      if (id !== "float-rec") body.textContent = "";
+      body.appendChild(node);
+    }
+    win.hidden = false;
+    win.style.zIndex = "360";
+    return win;
+  }
+
+  function openStarMenu(star) {
+    var url = star.getAttribute("data-url") || "";
+    var title = star.getAttribute("data-title") || "Fiche";
+    var desc = star.getAttribute("data-desc") || "";
+    var box = document.createElement("div");
+    var page = document.createElement("button");
+    page.type = "button";
+    page.textContent = "Ouvrir la page";
+    page.addEventListener("click", function () {
+      if (url) window.open(rootPrefix() + url, "_blank", "noopener");
+    });
+    var here = document.createElement("button");
+    here.type = "button";
+    here.textContent = "Voir ici";
+    here.addEventListener("click", function () {
+      var panel = document.createElement("div");
+      var h = document.createElement("p");
+      h.textContent = desc || "Extrait de la fiche.";
+      var more = document.createElement("p");
+      more.textContent = "Chargement de la page…";
+      panel.appendChild(h);
+      panel.appendChild(more);
+      openFloat("float-fiche", title, panel);
+      if (!url) { more.textContent = ""; return; }
+      fetch(rootPrefix() + url).then(function (res) { return res.text(); }).then(function (html) {
+        var doc = new DOMParser().parseFromString(html, "text/html");
+        var main = doc.querySelector(".content") || doc.querySelector("main") || doc.body;
+        more.textContent = (main.innerText || "").replace(/\s+/g, " ").trim().slice(0, 900);
+      }).catch(function () { more.textContent = "La page ne s'ouvre pas ici."; });
+    });
+    box.appendChild(page);
+    box.appendChild(here);
+    openFloat("float-star", title, box);
+  }
+
+  function decorateLinks(root) {
+    if (!lexicon || !root) return;
+    var rows = lexicon.phrases || [];
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    var nodes = [];
+    var guard = 0;
+    while (walker.nextNode() && guard++ < 400) nodes.push(walker.currentNode);
+    var caret = window.getSelection && window.getSelection().anchorNode;
+    nodes.forEach(function (node) {
+      if (!node.nodeValue || node.nodeValue.trim().length < 4) return;
+      if (node === caret || (caret && node.contains && node.contains(caret))) return;
+      var parent = node.parentElement;
+      if (!parent || parent.closest(".psy-link, .voix-bulle, .float-head, button")) return;
+      var lower = node.nodeValue.toLowerCase();
+      var found = null;
+      var at = -1;
+      var i;
+      for (i = 0; i < rows.length && i < 250; i++) {
+        var label = rows[i].entry && rows[i].entry.t;
+        if (!label || label.length < 6) continue;
+        var pos = lower.indexOf(label.toLowerCase());
+        if (pos < 0) continue;
+        if (!found || label.length > found.entry.t.length) { found = rows[i]; at = pos; }
+      }
+      if (!found) return;
+      var label = found.entry.t;
+      var span = document.createElement("span");
+      span.className = "psy-link";
+      span.textContent = node.nodeValue.slice(at, at + label.length);
+      var star = document.createElement("button");
+      star.type = "button";
+      star.className = "psy-star";
+      star.textContent = "*";
+      star.setAttribute("data-url", found.entry.u || "");
+      star.setAttribute("data-title", label);
+      star.setAttribute("data-desc", found.entry.d || "");
+      var after = document.createTextNode(node.nodeValue.slice(at + label.length));
+      var before = node.nodeValue.slice(0, at);
+      node.nodeValue = before;
+      parent.insertBefore(span, node.nextSibling);
+      parent.insertBefore(star, span.nextSibling);
+      parent.insertBefore(after, star.nextSibling);
+    });
+  }
+
+  function showNoteText(id, meta) {
+    var panel = document.createElement("div");
+    panel.className = "voix-transcript";
+    var area = document.createElement("div");
+    area.className = "note-read";
+    area.textContent = "Transcription…";
+    panel.appendChild(area);
+    openFloat("float-note", "Note orale", panel);
+    var publish = function (text, failed) {
+      var clean = (text || "").trim();
+      if (!clean) {
+        area.textContent = failed
+          ? "Incompréhensible : aucun mot n'a été reconnu."
+          : "Aucun mot reconnu pendant l'enregistrement.";
+        return;
+      }
+      area.textContent = clean;
+      if (audios[id]) audios[id].transcript = clean;
+      if (meta) meta.transcript = clean;
+      decorateLinks(panel);
+    };
+    var known = ((audios[id] && audios[id].transcript) || (meta && meta.transcript) || "").trim();
+    if (known) { publish(known, false); return; }
+    var Ctor = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Ctor || !meta || !meta.b64) { publish("", true); return; }
+    ensureClip(id).then(function (full) {
+      var source = full && full.b64 ? full : meta;
+      if (!source || !source.b64) { publish("", true); return; }
+      var mime = String(source.mime || "audio/wav").split(";")[0] || "audio/wav";
+      var url = URL.createObjectURL(new Blob([bytesFromB64(source.b64)], { type: mime }));
+      var audio = new Audio(url);
+      var rec = new Ctor();
+      rec.lang = "fr-FR";
+      rec.continuous = true;
+      rec.interimResults = true;
+      var state = FMT.speechState();
+      var heard = "";
+      rec.onresult = function (ev) {
+        var step = FMT.applySpeechEvent(state, ev, Date.now());
+        heard = state.log || "";
+        if (step.live) heard = (heard + " " + step.live).trim();
+        if (heard) area.textContent = heard;
+      };
+      var done = false;
+      var finish = function () {
+        if (done) return;
+        done = true;
+        try { rec.stop(); } catch (e) { /* ignore */ }
+        try { audio.pause(); } catch (e2) { /* ignore */ }
+        URL.revokeObjectURL(url);
+        publish(heard, !String(heard || "").trim());
+      };
+      rec.onerror = function () { finish(); };
+      audio.onended = function () { setTimeout(finish, 600); };
+      setTimeout(finish, Math.min(70000, ((source.duration || 10) + 3) * 1000));
+      try { rec.start(); } catch (e3) { publish("", true); return; }
+      audio.play().catch(function () { finish(); });
+    });
+  }
+
   function openPop(capsule) {
     var pop = $("cahier-pop");
     var id = capsule.getAttribute("data-voix");
@@ -1086,34 +1273,7 @@
     stt.textContent = "Mettre en texte";
     play.addEventListener("click", function () { togglePlay(capsule, play); });
     stt.addEventListener("click", function () {
-      var text = ((audios[id] && audios[id].transcript) || meta.transcript || "").trim();
-      var old = pop.querySelector(".voix-transcript");
-      if (old) old.remove();
-      var box = document.createElement("div");
-      box.className = "voix-transcript";
-      var area = document.createElement("textarea");
-      area.readOnly = true;
-      area.value = text || "Aucun mot reconnu pendant l'enregistrement.";
-      var copy = document.createElement("button");
-      copy.type = "button";
-      copy.textContent = "Copier";
-      copy.addEventListener("click", function () {
-        area.focus();
-        area.select();
-        var done = function () { toast("Texte copié."); };
-        if (navigator.clipboard && navigator.clipboard.writeText && text) {
-          navigator.clipboard.writeText(text).then(done).catch(function () {
-            try { document.execCommand("copy"); done(); } catch (e) { /* sélection visible */ }
-          });
-        } else {
-          try { document.execCommand("copy"); if (text) done(); } catch (e2) { /* sélection visible */ }
-        }
-      });
-      box.appendChild(area);
-      box.appendChild(copy);
-      pop.appendChild(box);
-      area.focus();
-      area.select();
+      ensureClip(id).then(function (full) { showNoteText(id, full || meta); });
     });
     pop.appendChild(play);
     pop.appendChild(stt);
@@ -1540,7 +1700,10 @@
     reelViewId = row.id;
     var view = $("rec-view");
     $("rec-view-title").textContent = "Séance du " + new Date(row.created).toLocaleString("fr-FR");
-    $("rec-script").textContent = (row.transcript || "").trim() || "Aucun mot transcrit pour cette séance.";
+    $("rec-script").textContent = (row.transcript || "").trim() || "Incompréhensible : aucun mot n'a été reconnu.";
+    decorateLinks($("rec-script"));
+    var view = $("rec-view");
+    if (view) openFloat("float-text", "Transcription", view);
     var player = $("rec-player");
     if (player._url) URL.revokeObjectURL(player._url);
     var url = URL.createObjectURL(new Blob([row.wav], { type: "audio/wav" }));
@@ -1735,7 +1898,19 @@
     var body = $("cahier-body");
     document.execCommand("defaultParagraphSeparator", false, "p");
     $("cahier-title").addEventListener("input", scheduleSave);
-    body.addEventListener("input", function () { scheduleSave(); placeMic(); });
+    body.addEventListener("input", function () {
+      scheduleSave();
+      placeMic();
+      clearTimeout(body._markTimer);
+      body._markTimer = setTimeout(function () { if (!speechMode) decorateLinks(body); }, 1200);
+    });
+    document.addEventListener("click", function (e) {
+      var star = e.target.closest && e.target.closest(".psy-star");
+      if (!star) return;
+      e.preventDefault();
+      e.stopPropagation();
+      openStarMenu(star);
+    });
     body.addEventListener("keyup", function () { rememberRange(); placeMic(); });
     body.addEventListener("mouseup", function () { rememberRange(); placeMic(); });
     body.addEventListener("focus", placeMic);
@@ -1784,8 +1959,15 @@
     });
     $("cahier-size").addEventListener("change", function () { applySize($("cahier-size").value); });
     $("cahier-export").addEventListener("click", downloadDocx);
-    $("rec-open").addEventListener("click", function () { $("rec-const").hidden = false; });
-    $("rec-dismiss").addEventListener("click", function () { $("rec-const").hidden = true; });
+    $("rec-open").addEventListener("click", function () {
+      var card = document.querySelector("#rec-const .rec-card");
+      if (!card) return;
+      openFloat("float-rec", "Enregistreur", card);
+    });
+    $("rec-dismiss").addEventListener("click", function () {
+      var win = document.getElementById("float-rec");
+      if (win) win.hidden = true;
+    });
     $("rec-go").addEventListener("click", beginReel);
     $("rec-pause").addEventListener("click", pauseReel);
     $("rec-stop").addEventListener("click", finishReel);
