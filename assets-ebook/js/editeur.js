@@ -27,6 +27,7 @@
   var speechMode = "";
   var noteHold = false;
   var reelPhase = "idle";
+  var reelMicCool = false;
   var reelMode = "vocal";
   var reel = null;
   var reelTranscript = "";
@@ -390,6 +391,7 @@
     audios = doc.audios || {};
     $("cahier-title").value = doc.title || "";
     $("cahier-body").innerHTML = hydrate(doc.html);
+    setTimeout(function () { decorateLinks($("cahier-body")); }, 300);
     countWords();
     renderList();
     setSave(doc.driveId ? "Dans Drive" : "Brouillon");
@@ -925,6 +927,7 @@
       speechRunning = true;
       speechStartedAt = Date.now();
       speechError = "";
+      if (mode === "reel" && !reelMicCool) setTimeout(attachReelMic, 600);
     };
     rec.onerror = function (ev) {
       speechError = (ev && ev.error) || "";
@@ -940,7 +943,15 @@
       if (lasted > 0 && lasted < 400) speechShort += 1;
       else speechShort = 0;
       if (speechMode !== mode || desiredSpeech() !== mode) return;
-      if (failed === "audio-capture" && (mode === "reel" || (mode === "note" && recording))) {
+      if (failed === "audio-capture" && mode === "reel") {
+        reelMicCool = true;
+        releaseReelMic();
+        clearSpeechTimer();
+        speechShort = 0;
+        speechTimer = setTimeout(function () { kickSpeech(rec, mode); }, 200);
+        return;
+      }
+      if (failed === "audio-capture" && mode === "note" && recording) {
         clearSpeechTimer();
         speechTimer = setTimeout(function () { kickSpeech(rec, mode); }, 700);
         return;
@@ -1092,20 +1103,37 @@
       var head = win.querySelector(".float-head");
       var drag = null;
       head.addEventListener("pointerdown", function (e) {
-        if (e.target.closest("button")) return;
-        drag = { x: e.clientX, y: e.clientY, l: win.offsetLeft, t: win.offsetTop };
-        head.setPointerCapture(e.pointerId);
+        if (win.classList.contains("is-pin") || e.target.closest("button")) return;
+        if (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) return;
+        var box = win.getBoundingClientRect();
+        win.style.left = box.left + "px";
+        win.style.top = box.top + "px";
+        drag = { x: e.clientX, y: e.clientY, l: box.left, t: box.top };
+        if (head.setPointerCapture) head.setPointerCapture(e.pointerId);
       });
       head.addEventListener("pointermove", function (e) {
-        if (!drag) return;
-        win.style.left = Math.max(8, drag.l + e.clientX - drag.x) + "px";
-        win.style.top = Math.max(8, drag.t + e.clientY - drag.y) + "px";
+        if (!drag || win.classList.contains("is-pin")) return;
+        var maxL = Math.max(8, window.innerWidth - win.offsetWidth - 8);
+        var maxT = Math.max(8, window.innerHeight - 48);
+        win.style.left = Math.min(maxL, Math.max(8, drag.l + e.clientX - drag.x)) + "px";
+        win.style.top = Math.min(maxT, Math.max(8, drag.t + e.clientY - drag.y)) + "px";
       });
       head.addEventListener("pointerup", function () { drag = null; });
       win.addEventListener("click", function (e) {
-        var act = e.target.getAttribute && e.target.getAttribute("data-act");
-        if (act === "close") win.hidden = true;
-        if (act === "pin") win.classList.toggle("is-pin");
+        var btn = e.target.closest && e.target.closest("[data-act]");
+        if (!btn || !win.contains(btn)) return;
+        var act = btn.getAttribute("data-act");
+        if (act === "close") {
+          if (win.classList.contains("is-pin")) {
+            toast("Dépingle la fenêtre pour la fermer.");
+            return;
+          }
+          win.hidden = true;
+        }
+        if (act === "pin") {
+          var pinned = win.classList.toggle("is-pin");
+          btn.textContent = pinned ? "Épinglé" : "Pin";
+        }
         if (act === "size") win.classList.toggle("is-small");
       });
     }
@@ -1155,49 +1183,134 @@
     openFloat("float-star", title, box);
   }
 
+  function textPos(root, node, offset) {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    var count = 0;
+    var current;
+    while ((current = walker.nextNode())) {
+      if (current.parentElement && current.parentElement.closest(".psy-star")) continue;
+      if (current === node) return count + offset;
+      count += current.nodeValue.length;
+    }
+    return count;
+  }
+
+  function placePos(root, pos) {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    var current;
+    var left = pos;
+    while ((current = walker.nextNode())) {
+      if (current.parentElement && current.parentElement.closest(".psy-star")) continue;
+      if (left <= current.nodeValue.length) {
+        var range = document.createRange();
+        var sel = window.getSelection();
+        range.setStart(current, Math.max(0, left));
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        return;
+      }
+      left -= current.nodeValue.length;
+    }
+  }
+
+  function foldSpan(raw) {
+    var folded = "";
+    var map = [];
+    var i;
+    var pendingSpace = false;
+    for (i = 0; i < raw.length; i++) {
+      var piece = FMT.fold(raw.charAt(i)).replace(/[^a-z0-9]+/g, "");
+      if (!piece) { pendingSpace = folded.length > 0; continue; }
+      if (pendingSpace) { folded += " "; map.push(i); pendingSpace = false; }
+      var k;
+      for (k = 0; k < piece.length; k++) { folded += piece.charAt(k); map.push(i); }
+    }
+    return { text: folded, map: map };
+  }
+
+  function unwrapMarks(root) {
+    root.querySelectorAll(".psy-star").forEach(function (star) { star.remove(); });
+    root.querySelectorAll(".psy-link").forEach(function (span) {
+      span.replaceWith(document.createTextNode(span.textContent || ""));
+    });
+    root.normalize();
+  }
+
   function decorateLinks(root) {
-    if (!lexicon || !root) return;
+    if (!lexicon || !root || speechMode) return;
+    var sel = window.getSelection();
+    var mark = null;
+    if (sel && sel.rangeCount && root.contains(sel.anchorNode)) {
+      mark = textPos(root, sel.anchorNode, sel.anchorOffset);
+    }
+    unwrapMarks(root);
     var rows = lexicon.phrases || [];
+    var words = lexicon.words || {};
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     var nodes = [];
     var guard = 0;
-    while (walker.nextNode() && guard++ < 400) nodes.push(walker.currentNode);
-    var caret = window.getSelection && window.getSelection().anchorNode;
-    nodes.forEach(function (node) {
-      if (!node.nodeValue || node.nodeValue.trim().length < 4) return;
-      if (node === caret || (caret && node.contains && node.contains(caret))) return;
-      var parent = node.parentElement;
-      if (!parent || parent.closest(".psy-link, .voix-bulle, .float-head, button")) return;
-      var lower = node.nodeValue.toLowerCase();
-      var found = null;
-      var at = -1;
-      var i;
-      for (i = 0; i < rows.length && i < 250; i++) {
-        var label = rows[i].entry && rows[i].entry.t;
-        if (!label || label.length < 6) continue;
-        var pos = lower.indexOf(label.toLowerCase());
-        if (pos < 0) continue;
-        if (!found || label.length > found.entry.t.length) { found = rows[i]; at = pos; }
+    while (walker.nextNode() && guard++ < 800) nodes.push(walker.currentNode);
+    nodes.forEach(function (startNode) {
+      var node = startNode;
+      var spins = 0;
+      while (node && node.nodeValue && spins++ < 24) {
+        var parent = node.parentElement;
+        if (!parent || parent.closest(".psy-link, .voix-bulle, .float-head, button")) break;
+        var shaped = foldSpan(node.nodeValue);
+        var found = null;
+        var from = -1;
+        var to = -1;
+        var bestAt = 1e9;
+        var i;
+        for (i = 0; i < rows.length; i++) {
+          var phrase = rows[i].phrase;
+          if (!phrase || phrase.length < 4) continue;
+          var at = (" " + shaped.text + " ").indexOf(" " + phrase + " ");
+          if (at < 0 || at > bestAt) continue;
+          if (at === bestAt && found && phrase.length <= found.phrase.length) continue;
+          var start = shaped.map[at];
+          var end = shaped.map[at + phrase.length - 1];
+          if (start == null || end == null) continue;
+          found = rows[i];
+          from = start;
+          to = end + 1;
+          bestAt = at;
+        }
+        var parts = shaped.text.split(" ");
+        var cursor = 0;
+        for (i = 0; i < parts.length; i++) {
+          var word = parts[i];
+          var entry = word.length >= 5 ? words[word] : null;
+          var wAt = entry ? shaped.text.indexOf(word, cursor) : -1;
+          if (entry && wAt >= 0 && wAt < bestAt) {
+            found = { phrase: word, entry: entry };
+            from = shaped.map[wAt];
+            to = shaped.map[wAt + word.length - 1] + 1;
+            bestAt = wAt;
+          }
+          cursor += word.length + 1;
+        }
+        if (!found || from < 0) break;
+        var span = document.createElement("span");
+        span.className = "psy-link";
+        span.textContent = node.nodeValue.slice(from, to);
+        var star = document.createElement("button");
+        star.type = "button";
+        star.className = "psy-star";
+        star.textContent = "*";
+        star.setAttribute("data-url", found.entry.u || "");
+        star.setAttribute("data-title", found.entry.t || "");
+        star.setAttribute("data-desc", found.entry.d || "");
+        var after = document.createTextNode(node.nodeValue.slice(to));
+        node.nodeValue = node.nodeValue.slice(0, from);
+        parent.insertBefore(span, node.nextSibling);
+        parent.insertBefore(star, span.nextSibling);
+        parent.insertBefore(after, star.nextSibling);
+        node = after;
       }
-      if (!found) return;
-      var label = found.entry.t;
-      var span = document.createElement("span");
-      span.className = "psy-link";
-      span.textContent = node.nodeValue.slice(at, at + label.length);
-      var star = document.createElement("button");
-      star.type = "button";
-      star.className = "psy-star";
-      star.textContent = "*";
-      star.setAttribute("data-url", found.entry.u || "");
-      star.setAttribute("data-title", label);
-      star.setAttribute("data-desc", found.entry.d || "");
-      var after = document.createTextNode(node.nodeValue.slice(at + label.length));
-      var before = node.nodeValue.slice(0, at);
-      node.nodeValue = before;
-      parent.insertBefore(span, node.nextSibling);
-      parent.insertBefore(star, span.nextSibling);
-      parent.insertBefore(after, star.nextSibling);
     });
+    if (mark != null) placePos(root, mark);
   }
 
   function showNoteText(id, meta) {
@@ -1404,7 +1517,8 @@
     return fetch(rootPrefix() + "livres-psychologie/07-ebook-final/search-index.json")
       .then(function (res) { return res.json(); })
       .then(function (entries) { lexicon = FMT.buildLexicon(entries); })
-      .catch(function () { lexicon = FMT.buildLexicon([]); });
+      .catch(function () { lexicon = FMT.buildLexicon([]); })
+      .then(function () { decorateLinks($("cahier-body")); });
   }
 
   function reelBlocks() {
@@ -1775,7 +1889,7 @@
     paintReelLive();
     var raw = concatFloats(chunks);
     var prepared = FMT.prepareVoice(raw);
-    if (prepared.length < VOICE_RATE / 4) {
+    if (prepared.length < VOICE_RATE / 4 && !String(said || "").trim()) {
       toast("Séance trop courte pour être gardée.");
       return;
     }
@@ -1824,19 +1938,37 @@
     if (recording) stopRecording();
     if (dictateOn) { dictateOn = false; var d = $("cahier-dictate"); if (d) d.setAttribute("aria-pressed", "false"); }
     if (listenOn) { listenOn = false; $("cahier-listen").setAttribute("aria-pressed", "false"); }
-    reelPhase = "arm";
+    reel = {
+      chunks: [], elapsed: 0, tick: Date.now(), stream: null,
+      timer: setInterval(function () {
+        paintReelTime();
+        if (reelClock() >= REEL_MAX) finishReel();
+      }, 250)
+    };
+    reelPhase = "run";
     paintReelLock();
     startSpeech("reel");
+  }
+
+  function releaseReelMic() {
+    if (!reel || !reel.stream) return;
+    try { reel.processor.onaudioprocess = null; } catch (e0) { /* ignore */ }
+    try { reel.processor.disconnect(); } catch (e1) { /* ignore */ }
+    try { reel.source.disconnect(); } catch (e2) { /* ignore */ }
+    try { reel.mute.disconnect(); } catch (e3) { /* ignore */ }
+    try { reel.stream.getTracks().forEach(function (track) { track.stop(); }); } catch (e4) { /* ignore */ }
+    try { if (reel.ctx) reel.ctx.close(); } catch (e5) { /* ignore */ }
+    reel.stream = null;
+    reel.ctx = null;
+  }
+
+  function attachReelMic() {
+    if (!reel || reel.stream || (reelPhase !== "run" && reelPhase !== "arm")) return;
+    if (!navigator.mediaDevices) return;
     var Ctx = window.AudioContext || window.webkitAudioContext;
-    if (!navigator.mediaDevices || !Ctx) {
-      reelPhase = "idle";
-      stopSpeech();
-      paintReelLock();
-      toast("Ce navigateur ne peut pas enregistrer le micro.");
-      return;
-    }
+    if (!Ctx) return;
     navigator.mediaDevices.getUserMedia({ audio: REEL_AUDIO[reelMode] || REEL_AUDIO.vocal }).then(function (stream) {
-      if (reelPhase !== "arm") {
+      if (!reel || reel.stream || (reelPhase !== "run" && reelPhase !== "arm")) {
         stream.getTracks().forEach(function (track) { track.stop(); });
         return;
       }
@@ -1847,7 +1979,7 @@
         var processor = ctx.createScriptProcessor(4096, 1, 1);
         var mute = ctx.createGain();
         mute.gain.value = 0;
-        var chunks = [];
+        var chunks = reel.chunks;
         processor.onaudioprocess = function (ev) {
           if (reelPhase !== "run" || !reel) return;
           var buf = ev.inputBuffer;
@@ -1873,24 +2005,16 @@
         source.connect(processor);
         processor.connect(mute);
         mute.connect(ctx.destination);
-        reel = {
-          ctx: ctx, source: source, processor: processor, mute: mute, stream: stream,
-          chunks: chunks, elapsed: 0, tick: Date.now(),
-          timer: setInterval(function () {
-            paintReelTime();
-            if (reelClock() >= REEL_MAX) finishReel();
-          }, 250)
-        };
-        reelPhase = "run";
+        reel.ctx = ctx;
+        reel.source = source;
+        reel.processor = processor;
+        reel.mute = mute;
+        reel.stream = stream;
         paintReelLock();
         paintReelTime();
-        if (speechMode !== "reel") startSpeech("reel", true);
       });
     }).catch(function () {
-      reelPhase = "idle";
-      stopSpeech();
-      paintReelLock();
-      toast("Micro refusé pour l'enregistrement constant.");
+      toast("Le fichier son attend : la transcription garde le micro, comme la dictée.");
     });
   }
 
@@ -1902,7 +2026,9 @@
       scheduleSave();
       placeMic();
       clearTimeout(body._markTimer);
-      body._markTimer = setTimeout(function () { if (!speechMode) decorateLinks(body); }, 1200);
+      body._markTimer = setTimeout(function () {
+        if (!speechMode) decorateLinks(body);
+      }, 400);
     });
     document.addEventListener("click", function (e) {
       var star = e.target.closest && e.target.closest(".psy-star");
@@ -1966,6 +2092,10 @@
     });
     $("rec-dismiss").addEventListener("click", function () {
       var win = document.getElementById("float-rec");
+      if (win && win.classList.contains("is-pin")) {
+        toast("Dépingle la fenêtre pour la fermer.");
+        return;
+      }
       if (win) win.hidden = true;
     });
     $("rec-go").addEventListener("click", beginReel);

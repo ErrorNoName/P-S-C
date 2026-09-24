@@ -341,26 +341,43 @@
   left: 8vw;
   width: min(380px, calc(100vw - 16px));
   max-height: min(70vh, 560px);
+  min-width: 200px;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  resize: both;
   background: #fffaf3;
   color: #1c1915;
   border: 1px solid #e4d8c8;
   border-radius: 16px;
   box-shadow: 0 16px 36px rgba(48, 32, 16, 0.18);
 }
-.float-win.is-pin { box-shadow: 0 0 0 2px #6a355c, 0 16px 36px rgba(48, 32, 16, 0.18); }
-.float-win.is-small { width: min(240px, calc(100vw - 16px)); max-height: 46vh; }
+.float-win[hidden] { display: none !important; }
+.float-win.is-pin { box-shadow: 0 0 0 2px #6a355c, 0 16px 36px rgba(48, 32, 16, 0.18); resize: none; }
+.float-win.is-small { width: min(280px, calc(100vw - 12px)); max-height: 52vh; }
 .float-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.45rem 0.55rem;
+  gap: 0.3rem;
+  padding: 0.4rem 0.5rem;
   cursor: grab;
   user-select: none;
+  touch-action: none;
 }
-.float-head strong { flex: 1; font-family: var(--serif, Fraunces, serif); font-size: 1rem; }
+.float-win.is-pin .float-head { cursor: default; touch-action: auto; }
+.float-head strong {
+  flex: 1 1 8rem;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--serif, Fraunces, serif);
+  font-size: 1rem;
+}
 .float-head button {
+  flex: 0 0 auto;
   border: 1px solid #e4d8c8;
   background: #fff;
   border-radius: 999px;
@@ -369,7 +386,12 @@
   font-size: 0.78rem;
   cursor: pointer;
 }
-.float-body { overflow: auto; padding: 0 0.7rem 0.75rem; }
+.float-body { overflow: auto; padding: 0 0.7rem 0.75rem; min-width: 0; max-width: 100%; }
+.float-win.is-small { min-width: 0; }
+@media (pointer: coarse) {
+  .float-win { resize: none; left: 8px; right: 8px; width: auto; }
+  .float-head strong { flex-basis: 100%; }
+}
 .float-body button { margin: 0.25rem 0.25rem 0 0; }
 .note-read { white-space: pre-wrap; line-height: 1.45; }
 .psy-link { text-decoration: underline; text-decoration-color: #6a355c; text-underline-offset: 2px; }
