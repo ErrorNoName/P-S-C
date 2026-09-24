@@ -97,7 +97,8 @@
         html: doc.html || "",
         audios: aud,
         updatedAt: doc.updatedAt || "",
-        driveId: doc.driveId || ""
+        driveId: doc.driveId || "",
+        docxId: doc.docxId || ""
       };
     });
   }
@@ -640,37 +641,59 @@
       });
   }
 
+  function docxBytes(doc) {
+    var parts = FMT.docxParts(doc.title, doc.html, doc.audios);
+    if (typeof CompressionStream === "undefined") return Promise.resolve(FMT.zipStore(parts));
+    var chain = Promise.resolve();
+    parts.forEach(function (part) {
+      chain = chain.then(function () {
+        var stream = new Blob([part.data]).stream().pipeThrough(new CompressionStream("deflate-raw"));
+        return new Response(stream).arrayBuffer().then(function (buf) {
+          part.stored = new Uint8Array(buf);
+          part.method = 8;
+        });
+      });
+    });
+    return chain.then(function () { return FMT.zipStore(parts); });
+  }
+
   function pushDrive() {
     if (!active || isLocalTest() || !token) return Promise.resolve();
     return ensureToken(false).then(function () {
       return ensureFolder();
     }).then(function () {
-      var boundary = "psy" + hex(6);
+      return docxBytes(active);
+    }).then(function (bytes) {
+      var boundary = "psy" + hex(8);
+      var name = (active.title || "Sans titre").replace(/[\\/:*?"<>|]/g, " ").trim().slice(0, 80) || "Sans titre";
       var meta = {
-        name: fileName(active),
-        mimeType: "application/json",
-        appProperties: { psy: "cahier", doc: active.id }
+        name: name + ".docx",
+        mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       };
-      if (!active.driveId) meta.parents = [folderId];
-      var payload = JSON.stringify(publicDoc(active));
-      var body = "--" + boundary + "\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n" +
-        JSON.stringify(meta) + "\r\n--" + boundary + "\r\nContent-Type: application/json\r\n\r\n" +
-        payload + "\r\n--" + boundary + "--";
-      var url = active.driveId
-        ? UPLOAD + "/files/" + encodeURIComponent(active.driveId) + "?uploadType=multipart&fields=id"
-        : UPLOAD + "/files?uploadType=multipart&fields=id";
+      if (!active.docxId) meta.parents = [folderId];
+      var enc = new TextEncoder();
+      var head = enc.encode("--" + boundary + "\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n" + JSON.stringify(meta) + "\r\n--" + boundary + "\r\nContent-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document\r\n\r\n");
+      var tail = enc.encode("\r\n--" + boundary + "--");
+      var body = new Uint8Array(head.length + bytes.length + tail.length);
+      body.set(head, 0);
+      body.set(bytes, head.length);
+      body.set(tail, head.length + bytes.length);
+      var url = active.docxId
+        ? UPLOAD + "/files/" + encodeURIComponent(active.docxId) + "?uploadType=multipart&fields=id,name"
+        : UPLOAD + "/files?uploadType=multipart&fields=id,name";
       return driveFetch(url, {
-        method: active.driveId ? "PATCH" : "POST",
+        method: active.docxId ? "PATCH" : "POST",
         headers: { "Content-Type": "multipart/related; boundary=" + boundary },
         body: body
-      }).then(function (res) {
-        if (res.status === 401) { token = ""; throw new Error("session"); }
-        return res.json();
-      }).then(function (data) {
-        if (data.id) active.driveId = data.id;
+      }).then(function (res) { return res.json(); }).then(function (data) {
+        if (data.id) {
+          active.docxId = data.id;
+          active.driveId = data.id;
+        }
         persistLocal();
-        setSync("Relié à Google Drive");
+        setSync("« " + (data.name || name + ".docx") + " » est dans Drive, dossier Psyclopédia — cahiers.");
         renderList();
+        if ($("cahier-grid")) renderGrid();
       });
     }).catch(function (err) {
       if (!token) setSync("Enregistré sur cet appareil");
@@ -747,9 +770,20 @@
   function askDrive() {
     showDriveMsg("");
     ensureToken(true).then(pullDrive).then(function () {
-      return pushDrive();
+      if (!docs.length) {
+        showDriveMsg("Aucune note à déposer. Crée ou importe une note, puis enregistre-la dans Drive.");
+        return null;
+      }
+      var chain = Promise.resolve();
+      docs.forEach(function (doc) {
+        chain = chain.then(function () {
+          active = doc;
+          return pushDrive();
+        });
+      });
+      return chain;
     }).then(function () {
-      setSync("Enregistré sur cet appareil, et dans Google Drive");
+      setSync("Le .docx est dans Google Drive, dossier Psyclopédia — cahiers.");
       showDriveMsg("");
     }).catch(function (err) {
       var code = String(err && err.message || "");
@@ -1847,7 +1881,7 @@
   }
 
   function importDocx(file) {
-    file.arrayBuffer().then(function (buf) {
+    return file.arrayBuffer().then(function (buf) {
       var bytes = new Uint8Array(buf);
       var inflate = function (slice) {
         if (typeof DecompressionStream === "undefined") return Promise.reject(new Error("inflate"));
@@ -1865,13 +1899,109 @@
         driveId: ""
       };
       docs.unshift(doc);
-      showEditor();
-      fillEditor(doc);
       persistLocal();
-      scheduleSave();
-      toast("Document importé");
-    }).catch(function () {
-      toast("Ce .docx n'a pas pu être lu.");
+      return doc;
+    });
+  }
+
+  function importLocalFiles(list) {
+    var files = Array.prototype.slice.call(list || []);
+    if (!files.length) return;
+    var chain = Promise.resolve();
+    var done = 0;
+    files.forEach(function (file) {
+      chain = chain.then(function () {
+        return importDocx(file).then(function () { done += 1; }).catch(function () {
+          toast(file.name + " n'a pas pu être lu.");
+        });
+      });
+    });
+    chain.then(function () {
+      var box = $("import-box");
+      if (box) box.hidden = true;
+      showLibrary();
+      if (done) toast(done + (done > 1 ? " documents importés" : " document importé"));
+    });
+  }
+
+  function bytesToDoc(name, buf) {
+    var inflate = function (slice) {
+      if (typeof DecompressionStream === "undefined") return Promise.reject(new Error("inflate"));
+      var stream = new Blob([slice]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+      return new Response(stream).arrayBuffer().then(function (out) { return new Uint8Array(out); });
+    };
+    return FMT.docxToHtml(new Uint8Array(buf), inflate).then(function (html) {
+      var doc = {
+        id: hex(8),
+        title: String(name || "Document").replace(/\.docx$/i, ""),
+        html: html || "<p><br></p>",
+        audios: {},
+        updatedAt: new Date().toISOString(),
+        driveId: "",
+        docxId: ""
+      };
+      docs.unshift(doc);
+      persistLocal();
+    });
+  }
+
+  function listDriveChoices() {
+    var box = $("import-drive-list");
+    var go = $("import-drive-go");
+    showDriveMsg("");
+    ensureToken(true).then(function () {
+      var q = "trashed=false and (mimeType='application/vnd.openxmlformats-officedocument.wordprocessingml.document' or mimeType='application/vnd.google-apps.document')";
+      return driveFetch(DRIVE + "/files?pageSize=40&orderBy=modifiedTime desc&fields=files(id,name,mimeType)&q=" + encodeURIComponent(q));
+    }).then(function (res) { return res.json(); }).then(function (data) {
+      var files = data.files || [];
+      box.textContent = "";
+      box.hidden = false;
+      if (!files.length) {
+        box.textContent = "Aucun .docx ni Google Doc visible pour cette connexion. Choisis Cet appareil, le sélecteur peut aussi ouvrir Drive.";
+        go.hidden = true;
+        return;
+      }
+      files.forEach(function (file) {
+        var label = document.createElement("label");
+        var input = document.createElement("input");
+        input.type = "checkbox";
+        input.value = file.id;
+        input.setAttribute("data-name", file.name || "Document");
+        input.setAttribute("data-mime", file.mimeType || "");
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(file.name || "Document"));
+        box.appendChild(label);
+      });
+      go.hidden = false;
+    }).catch(function (err) {
+      showDriveMsg(driveErrorText(err));
+    });
+  }
+
+  function importDriveSelection() {
+    var inputs = document.querySelectorAll("#import-drive-list input:checked");
+    if (!inputs.length) { toast("Coche au moins un document."); return; }
+    var chain = Promise.resolve();
+    var done = 0;
+    Array.prototype.forEach.call(inputs, function (input) {
+      chain = chain.then(function () {
+        var id = input.value;
+        var mime = input.getAttribute("data-mime") || "";
+        var name = input.getAttribute("data-name") || "Document";
+        var url = mime.indexOf("google-apps.document") !== -1
+          ? DRIVE + "/files/" + encodeURIComponent(id) + "/export?mimeType=" + encodeURIComponent("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+          : DRIVE + "/files/" + encodeURIComponent(id) + "?alt=media";
+        return driveFetch(url).then(function (res) { return res.arrayBuffer(); }).then(function (buf) {
+          return bytesToDoc(name, buf);
+        }).then(function () { done += 1; });
+      });
+    });
+    chain.then(function () {
+      $("import-box").hidden = true;
+      showLibrary();
+      toast(done + (done > 1 ? " documents importés depuis Drive" : " document importé depuis Drive"));
+    }).catch(function (err) {
+      showDriveMsg(driveErrorText(err));
     });
   }
 
@@ -2381,21 +2511,25 @@
     $("cahier-new").addEventListener("click", function () { newDoc(); });
     var allBtn = $("cahier-all");
     if (allBtn) allBtn.addEventListener("click", showLibrary);
-    var gdocBtn = $("cahier-gdoc");
-    if (gdocBtn) gdocBtn.addEventListener("click", function () {
-      var box = $("gdoc-box");
+    $("cahier-import").addEventListener("click", function () {
+      var box = $("import-box");
       if (box) box.hidden = !box.hidden;
     });
-    var gdocForm = $("gdoc-box");
-    if (gdocForm) gdocForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      importGoogleDoc($("gdoc-url").value);
+    var localBtn = $("import-local");
+    if (localBtn) localBtn.addEventListener("click", function () { $("cahier-file").click(); });
+    var drivePick = $("import-drive");
+    if (drivePick) drivePick.addEventListener("click", listDriveChoices);
+    var driveGo = $("import-drive-go");
+    if (driveGo) driveGo.addEventListener("click", importDriveSelection);
+    var saveDrive = $("cahier-save-drive");
+    if (saveDrive) saveDrive.addEventListener("click", function () {
+      snapshot();
+      askDrive();
     });
-    $("cahier-import").addEventListener("click", function () { $("cahier-file").click(); });
     $("cahier-file").addEventListener("change", function () {
-      var file = $("cahier-file").files && $("cahier-file").files[0];
+      var files = $("cahier-file").files;
       $("cahier-file").value = "";
-      if (file) importDocx(file);
+      if (files && files.length) importLocalFiles(files);
     });
     $("cahier-side-open").addEventListener("click", showLibrary);
     $("cahier-side-close").addEventListener("click", function () { $("cahier-side").classList.remove("is-open"); });

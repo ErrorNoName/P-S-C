@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="../../assets-ebook/css/assistant.css">
 <link rel="stylesheet" href="../../assets-ebook/css/compte.css">
 <link rel="stylesheet" href="../../assets-ebook/css/collage.css">
-<link rel="stylesheet" href="../../assets-ebook/css/editeur.css?v=float7">
+<link rel="stylesheet" href="../../assets-ebook/css/editeur.css?v=float8">
 </head>
 <body data-root="../../" data-compte-page="cahier">
 <header class="desk">
@@ -61,19 +61,20 @@
       </div>
       <div class="cahier-home-actions">
         <button type="button" class="btn btn-primary" id="cahier-new">Nouvelle note</button>
-        <button type="button" class="btn btn-secondary" id="cahier-import">Importer .docx</button>
-        <button type="button" class="btn btn-secondary" id="cahier-gdoc">Google Doc</button>
-        <button type="button" class="btn btn-secondary" id="cahier-drive">Relier Drive</button>
-        <input type="file" id="cahier-file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+        <button type="button" class="btn btn-secondary" id="cahier-import">Importer</button>
+        <button type="button" class="btn btn-secondary" id="cahier-drive">Enregistrer dans Drive</button>
+        <input type="file" id="cahier-file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple hidden>
       </div>
     </header>
-    <form class="gdoc-box" id="gdoc-box" hidden>
-      <label>Lien du Google Doc
-        <input id="gdoc-url" type="url" placeholder="https://docs.google.com/document/d/…" autocomplete="off">
-      </label>
-      <button type="submit" class="btn btn-primary" id="gdoc-go">Afficher dans le cahier</button>
-      <p class="cahier-lead">Le document est lu puis affiché ici. S'il refuse, dans Google Docs : Fichier, Télécharger, Microsoft Word, puis Importer .docx.</p>
-    </form>
+    <div class="gdoc-box" id="import-box" hidden>
+      <p class="cahier-lead">D'où viennent les documents ?</p>
+      <div class="cahier-home-actions">
+        <button type="button" class="btn btn-primary" id="import-local">Cet appareil</button>
+        <button type="button" class="btn btn-secondary" id="import-drive">Google Drive</button>
+      </div>
+      <div id="import-drive-list" class="import-list" hidden></div>
+      <button type="button" class="btn btn-primary" id="import-drive-go" hidden>Importer la sélection</button>
+    </div>
     <p id="cahier-drive-msg" class="cahier-msg" hidden></p>
     <p class="cahier-sync" id="cahier-sync">Enregistré sur cet appareil. Google Drive est facultatif.</p>
     <div class="cahier-grid" id="cahier-grid"></div>
@@ -120,6 +121,7 @@
         <button type="button" data-cmd="undo" title="Annuler">Annuler</button>
         <button type="button" data-cmd="redo" title="Rétablir">Rétablir</button>
         <button type="button" id="cahier-export" title="Télécharger un .docx">.docx</button>
+        <button type="button" id="cahier-save-drive" title="Enregistrer cette note en .docx dans Google Drive">Dans Drive</button>
         <button type="button" id="rec-open" title="Ouvrir l'enregistrement constant">Enregistrer</button>
         <button type="button" id="cahier-dictate" aria-pressed="false" title="Écrit dans le cahier, en direct, ce qui est dit">Dicter</button>
         <button type="button" id="cahier-listen" aria-pressed="false" title="Écoute continue : propose une fiche Psyclopédia quand un terme est reconnu">Écoute</button>
@@ -249,8 +251,8 @@
 <script src="../../assets-ebook/js/assistant.js"></script>
 <script src="../../assets-ebook/js/compte-config.js"></script>
 <script src="../../assets-ebook/js/compte.js"></script>
-<script src="../../assets-ebook/js/lame.min.js?v=float7"></script>
-<script src="../../assets-ebook/js/editeur-format.js?v=float7"></script>
-<script src="../../assets-ebook/js/editeur.js?v=float7"></script>
+<script src="../../assets-ebook/js/lame.min.js?v=float8"></script>
+<script src="../../assets-ebook/js/editeur-format.js?v=float8"></script>
+<script src="../../assets-ebook/js/editeur.js?v=float8"></script>
 </body>
 </html>
