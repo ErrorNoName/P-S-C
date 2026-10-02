@@ -411,6 +411,7 @@ PARCOURS = [
         "meta": ["≈ 5 h", "8 étapes", "Lycée · licence"],
         "steps": [
             ("lycee.html", "Du lycée à la licence : carte et liste", "Études"),
+            ("l1-lyon2.html", "L1 SDE + Psycho Lyon 2 (MCCC)", "Université"),
             ("branches/index.html", "Comparer les quatre branches", "L1"),
             ("branches/cognitive.html", "Cognitive : mémoire, attention, labs", "Branche"),
             ("branches/sociale.html", "Sociale : influence et groupes", "Branche"),

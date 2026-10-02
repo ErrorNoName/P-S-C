@@ -163,18 +163,19 @@ def media(depth, path):
 
 def page_shell(title, body, depth=0, active="", description="", extra_head="",
                extra_scripts="", body_attrs="", wide=False):
+    page_title = title
     groups_html = ""
-    for title, links in NAV_GROUPS:
+    for group_label, links in NAV_GROUPS:
         bits = ""
         for label, target, img in links:
             href, extra_attr = _nav_href(depth, target)
             cls = ' class="is-on"' if label == active else ""
             bits += f'<a href="{href}"{cls}{extra_attr}>{sticker_img(img, depth)}{label}</a>'
-        groups_html += f'<div class="nav-group"><p>{title}</p>{bits}</div>'
+        groups_html += f'<div class="nav-group"><p>{group_label}</p>{bits}</div>'
 
     desc = description or ("Psyclopédia : l'encyclopédie vivante et illustrée de la psychologie, "
                            "en français — 27 catégories, références, bibliothèque et quiz notés.")
-    full_title = title if "Psyclopédia" in title else f"{title} — Psyclopédia"
+    full_title = page_title if "Psyclopédia" in page_title else f"{page_title} — Psyclopédia"
 
     return f"""<!DOCTYPE html>
 <html lang="fr">

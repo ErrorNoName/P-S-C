@@ -24,6 +24,7 @@ import build_savoirs2
 import build_sitemap
 import build_l1
 import build_lycee
+import build_l1_lyon2
 import build_assistant
 import build_editeur
 from build_index import write_index
@@ -51,6 +52,7 @@ def main():
     n_cards, cards_kb, n_index = build_outils.render_all()
     build_pages.render_all()
     n_lycee = build_lycee.render_all()
+    n_l1_lyon2 = build_l1_lyon2.render_all()
     n_ai, ai_kb = build_assistant.render_all()
     n_gal, n_xp = build_decouverte.render_decouverte()
     n_cours = build_cours.render_all()
@@ -87,7 +89,7 @@ def main():
     print(f"   • Compte étudiant : {n_compte} pages (connexion, espace)")
     print(f"   • Dossier L1 psychologie : {n_l1} page")
     print(f"   • Rappels : {n_pensees} pensées, {n_plates} planches ({n_svg} gravures SVG)")
-    print(f"   • Études + 4 branches : {n_lycee} pages")
+    print(f"   • Études + 4 branches : {n_lycee} pages ; L1 Lyon 2 : {n_l1_lyon2} page")
     print(f"   • Assistant : corpus {n_ai} extraits ({ai_kb:.0f} Ko)")
     print(f"   • Découverte : {n_gal} images, {n_xp} planches d'expériences")
     print(f"   • sitemap.xml : {n_pages} pages référencées, robots.txt écrit")

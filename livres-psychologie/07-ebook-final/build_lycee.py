@@ -177,6 +177,7 @@ def render_hub():
 
   <div class="cta-row">
     <a class="btn btn-primary" href="assistant.html">🤖 Demander à l'assistant</a>
+    <a class="btn btn-secondary" href="l1-lyon2.html">🏛️ L1 SDE + Psycho Lyon 2</a>
     <a class="btn btn-secondary" href="quiz/quiz.html?id=lycee-orientation">🎮 Quiz lycée</a>
     <a class="btn btn-secondary" href="metiers.html">💼 Métiers et titre</a>
     <a class="btn btn-secondary" href="emploi-du-temps.html">🎓 Cours de 50 min</a>
